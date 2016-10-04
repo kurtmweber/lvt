@@ -1,6 +1,7 @@
 #ifndef _LVT_H
 #define _LVT_H
 
+#include <stdbool.h>
 #include "level.h"
 #include "pcg_basic.h"
 
@@ -46,6 +47,10 @@ void digTunnels(level level, centerPoint *centerPoints);
 unsigned int findNearestNeighbor(unsigned int i, centerPoint *centerPoints);
 void setLevelTerrain(level level, unsigned int i, unsigned int j, terrain terrain);
 terrain getLevelTerrain(level level, unsigned int i, unsigned int j);
+void placeDoors(level level);
+coord2D *findDoorEligible(level level);
+coord2D *enumerateFloors(level level);
+bool isDoorEligible(level level, coord2D coords);
 #endif
 
 #ifndef _LEVELDISP_C

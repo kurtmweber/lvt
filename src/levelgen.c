@@ -15,6 +15,16 @@ const unsigned int roomCoverageCeiling = 5000;
 const unsigned int straightness = 850;	// likelihood (out of 1000) that the next space dug out for a tunnel
 					// will be towards the target
 
+const unsigned int dimMapX = 100;	// map dimensions
+const unsigned int dimMapY = 100;
+const unsigned int minRoomX = 2;	// max and min sizes of a room
+const unsigned int minRoomY = 2;
+const unsigned int maxRoomX = 10;
+const unsigned int maxRoomY = 10;
+
+const unsigned int doorLikelihood = 500;	// likelihood (out of 100) that a door-eligible floor will
+						// become a door
+
 const unsigned int numLevels = 1;
 
 rng levelGenRNG;
@@ -27,7 +37,10 @@ void initializeLevelGen(){
 
 level generateLevel(){
   
-  unsigned int coverageGoal = 0;
+  unsigned int coverageGoal = 0;	// goal for # of spaces to be covered by floor
+					// we don't shoot for this exactly; instead, we test the #
+					// of floors after generating and placing each room, and once
+					// the # of floors meets or exceeds this value, we're done
   
   level level;
   
@@ -38,15 +51,287 @@ level generateLevel(){
   level = initLevel();
   
   digLevel(level, coverageGoal);
+  placeDoors(level);
   
   return level;
 }
 
-unsigned int currentCoverage(level level){
+coord2D *findDoorEligible(level level){
+  coord2D *doorEligible = 0;
+  coord2D *floors = 0;
+  unsigned int i = 0;
+  unsigned int numEligible = 0;
+  
+  floors = enumerateFloors(level);
+  
+  while(floors[i].x){	// since index 0 is impenetrable rock...yeah, you get the idea
+    if (isDoorEligible(level, floors[i])){
+      numEligible++;
+      doorEligible = realloc(doorEligible, (numEligible + 1) * sizeof(coord2D));
+      doorEligible[numEligible - 1].x = floors[i].x;
+      doorEligible[numEligible - 1].y = floors[i].y;
+      doorEligible[numEligible].x = 0;
+      doorEligible[numEligible].y = 0;
+    }
+    i++;
+  }
+  
+  free(floors);
+  
+  return doorEligible;  
+}
+
+bool isDoorEligible(level level, coord2D coords){
+  // this is going to be complicated
+  // basically, we want any of the following situations:
+  // X.X     #.#     X##     ##X     
+  // #o#     #o#     .o.     .o.
+  // #.#     X.X     X##     ##X
+  // where:
+  // o is the point we're looking at
+  // . is an adjacent point that MUST be a floor
+  // # is an adjacent point that MUST be a wall
+  // X is an adjacent point that MAY be EITHER a wall or a floor, but AT LEAST one point indicated
+  //   with this symbol MUST be a floor
+  // hold on to your hats, it'll be a wild ride
+  
+  unsigned int i = 0, j = 0;
+  unsigned int numTrue = 0;
+  
+  terrain neighborMap[3][3];
+  bool mapMatch[3][3];
+  
+  neighborMap[0][0] = getLevelTerrain(level, coords.x - 1, coords.y - 1);
+  neighborMap[0][1] = getLevelTerrain(level, coords.x - 1, coords.y);
+  neighborMap[0][2] = getLevelTerrain(level, coords.x - 1, coords.y + 1);
+  neighborMap[1][0] = getLevelTerrain(level, coords.x, coords.y - 1);
+  neighborMap[1][1] = getLevelTerrain(level, coords.x, coords.y);
+  neighborMap[1][2] = getLevelTerrain(level, coords.x, coords.y + 1);
+  neighborMap[2][0] = getLevelTerrain(level, coords.x + 1, coords.y - 1);
+  neighborMap[2][1] = getLevelTerrain(level, coords.x + 1, coords.y);
+  neighborMap[2][2] = getLevelTerrain(level, coords.x + 1, coords.y + 1);
+
+  // first option
+  numTrue = 0;
+  
+  for (i = 0; i < 3; i++){
+    for (j = 0; j < 3; j++){
+      mapMatch[i][j] = false;
+    }
+  }
+  
+  mapMatch[1][1] = true;
+  
+  if ((neighborMap[0][0] == FLOOR) || (neighborMap[2][0] == FLOOR)){
+    mapMatch[0][0] = true;
+    mapMatch[2][0] = true;
+  }
+  
+  if ((neighborMap[1][0] == FLOOR) && (neighborMap[1][2] == FLOOR)){
+    mapMatch[1][0] = true;
+    mapMatch[1][2] = true;
+  }
+  
+  if ((neighborMap[0][1] == WALL) && (neighborMap[2][1] == WALL)){
+    mapMatch[0][1] = true;
+    mapMatch[2][1] = true;
+  }
+  
+  if ((neighborMap[0][2] == WALL) && (neighborMap[2][2] == WALL)){
+    mapMatch[0][2] = true;
+    mapMatch[2][2] = true;
+  }
+  
+  for (i = 0; i < 3; i++){
+    for (j = 0; j < 3; j++){
+      if (mapMatch[i][j] == true){
+	numTrue++;
+      }
+    }
+  }
+    
+    if (numTrue == 9){
+      return true;
+    }
+    
+  // second option
+  numTrue = 0;
+  
+  for (i = 0; i < 3; i++){
+    for (j = 0; j < 3; j++){
+      mapMatch[i][j] = false;
+    }
+  }
+  
+  mapMatch[1][1] = true;
+  
+  if ((neighborMap[0][2] == FLOOR) || (neighborMap[2][2] == FLOOR)){
+    mapMatch[0][2] = true;
+    mapMatch[2][2] = true;
+  }
+  
+  if ((neighborMap[1][0] == FLOOR) && (neighborMap[1][2] == FLOOR)){
+    mapMatch[1][0] = true;
+    mapMatch[1][2] = true;
+  }
+  
+  if ((neighborMap[0][1] == WALL) && (neighborMap[2][1] == WALL)){
+    mapMatch[0][1] = true;
+    mapMatch[2][1] = true;
+  }
+  
+  if ((neighborMap[0][0] == WALL) && (neighborMap[2][0] == WALL)){
+    mapMatch[0][0] = true;
+    mapMatch[2][0] = true;
+  }
+  
+  for (i = 0; i < 3; i++){
+    for (j = 0; j < 3; j++){
+      if (mapMatch[i][j] == true){
+	numTrue++;
+      }
+    }
+  }
+    
+    if (numTrue == 9){
+      return true;
+    }
+    
+  // third option
+  numTrue = 0;
+  
+  for (i = 0; i < 3; i++){
+    for (j = 0; j < 3; j++){
+      mapMatch[i][j] = false;
+    }
+  }
+  
+  mapMatch[1][1] = true;
+  
+  if ((neighborMap[0][0] == FLOOR) || (neighborMap[0][2] == FLOOR)){
+    mapMatch[0][0] = true;
+    mapMatch[0][2] = true;
+  }
+  
+  if ((neighborMap[0][1] == FLOOR) && (neighborMap[2][1] == FLOOR)){
+    mapMatch[0][1] = true;
+    mapMatch[2][1] = true;
+  }
+  
+  if ((neighborMap[1][0] == WALL) && (neighborMap[1][2] == WALL)){
+    mapMatch[1][0] = true;
+    mapMatch[1][2] = true;
+  }
+  
+  if ((neighborMap[2][0] == WALL) && (neighborMap[2][2] == WALL)){
+    mapMatch[2][0] = true;
+    mapMatch[2][2] = true;
+  }
+  
+  for (i = 0; i < 3; i++){
+    for (j = 0; j < 3; j++){
+      if (mapMatch[i][j] == true){
+	numTrue++;
+      }
+    }
+  }
+    
+    if (numTrue == 9){
+      return true;
+    }
+
+  // fourth option
+  numTrue = 0;
+  
+  for (i = 0; i < 3; i++){
+    for (j = 0; j < 3; j++){
+      mapMatch[i][j] = false;
+    }
+  }
+  
+  mapMatch[1][1] = true;
+  
+  if ((neighborMap[2][0] == FLOOR) || (neighborMap[2][2] == FLOOR)){
+    mapMatch[2][0] = true;
+    mapMatch[2][2] = true;
+  }
+  
+  if ((neighborMap[0][1] == FLOOR) && (neighborMap[2][1] == FLOOR)){
+    mapMatch[0][1] = true;
+    mapMatch[2][1] = true;
+  }
+  
+  if ((neighborMap[1][0] == WALL) && (neighborMap[1][2] == WALL)){
+    mapMatch[1][0] = true;
+    mapMatch[1][2] = true;
+  }
+  
+  if ((neighborMap[0][0] == WALL) && (neighborMap[0][2] == WALL)){
+    mapMatch[0][0] = true;
+    mapMatch[0][2] = true;
+  }
+  
+  for (i = 0; i < 3; i++){
+    for (j = 0; j < 3; j++){
+      if (mapMatch[i][j] == true){
+	numTrue++;
+      }
+    }
+  }
+    
+    if (numTrue == 9){
+      return true;
+    }
+  
+  // and if we haven't returned true yet, then there was a match for none of the possibilities
+  return false;
+  
+  // this function is why code folding was invented
+  // it's ugly, I know
+}
+
+coord2D *enumerateFloors(level level){
+  coord2D *floors = 0;
+  unsigned int i = 0, j = 0;
+  unsigned int numFloors = 0;
+  
+  for (i = 1; i < dimMapX; i++){
+    for (j = 1; j < dimMapY; j++){
+      if (getLevelTerrain(level, i, j) == FLOOR){
+	numFloors++;
+	floors = realloc(floors, (numFloors + 1) * sizeof(coord2D));
+	floors[numFloors - 1].x = i;
+	floors[numFloors - 1].y = j;
+	floors[numFloors].x = 0;
+	floors[numFloors].y = 0;
+      }
+    }
+  }
+  
+  return floors;
+}
+
+void placeDoors(level level){
+  coord2D *doorEligible = 0;
+  unsigned int i = 0;
+  
+  doorEligible = findDoorEligible(level);
+  
+  while (doorEligible[i].x){
+    if (uniformRandomRangeInt(&levelGenRNG, 1, 1000) < doorLikelihood){
+      setLevelTerrain(level, doorEligible[i].x, doorEligible[i].y, DOOR);
+      i++;
+    }
+  }
+  
+  return;
+}
+
+unsigned int numberFloors(level level){
   unsigned int i = 0, j = 0, coverage = 0;
   
-  for (i = 0; i < 100; i++){
-    for (j = 0; j < 100; j++){
+  for (i = 0; i < dimMapX; i++){
+    for (j = 0; j < dimMapY; j++){
       if (getLevelTerrain(level, i, j) == FLOOR){
 	coverage++;
       }
@@ -62,16 +347,21 @@ void digLevel(level level, unsigned int coverageGoal){
   
   centerPoint *centerPoints = 0;
   
-  while (currentCoverage(level) < coverageGoal){
+  // since it's possible for (very likely that) rooms will overlap, and we don't care if they do, we
+  // can't just add the size of the room to a running total; instead, we have to recount the # of floors
+  // across the whole level every time we add a room
+  // this is probably hugely inefficient, but for reasonably-sized maps on modern equipment no one will
+  // notice, or at least I haven't in my tests
+  while (numberFloors(level) < coverageGoal){
     // grow the array of centerPoints by 1
     numRooms++; // leave room for the null pointer at the end to signify the end of the list
     centerPoints = realloc(centerPoints, (numRooms + 1) * sizeof(centerPoint));
     
     // we generate the room size first, so we know how far down or over it can be located
-    a = uniformRandomRangeInt(&levelGenRNG, 2, 10);
-    b = uniformRandomRangeInt(&levelGenRNG, 2, 10);
-    x = uniformRandomRangeInt(&levelGenRNG, 1, 98 - (a - 1));
-    y = uniformRandomRangeInt(&levelGenRNG, 1, 98 - (b - 1));
+    a = uniformRandomRangeInt(&levelGenRNG, minRoomX, maxRoomX);
+    b = uniformRandomRangeInt(&levelGenRNG, minRoomY, maxRoomY);
+    x = uniformRandomRangeInt(&levelGenRNG, 1, (dimMapX - minRoomX) - (a - 1));
+    y = uniformRandomRangeInt(&levelGenRNG, 1, (dimMapY - minRoomY) - (b - 1));
     
     centerPoints[numRooms - 1].x = ((a / 2) + x); // zero-based array indexing sucks sometimes
     centerPoints[numRooms - 1].y = ((b / 2) + y);
@@ -88,6 +378,8 @@ void digLevel(level level, unsigned int coverageGoal){
   }
   
   digTunnels(level, centerPoints);
+  
+  free(centerPoints);
   
   return;
 }
@@ -144,7 +436,7 @@ void digTunnels(level level, centerPoint *centerPoints){
       }
       
       // want to make sure we don't dig into permanent rock; if we do, try again
-      if ((newX != 0) && (newX != 99) && (newY != 0) && (newY != 99)){
+      if ((newX != 0) && (newX != dimMapX - 1) && (newY != 0) && (newY != dimMapY - 1)){
 	setLevelTerrain(level, newX, newY, FLOOR);
 	curX = newX;
 	curY = newY;
@@ -199,20 +491,20 @@ level initLevel(){
   
   // should be the only place where the internals of level as an array of mapSpaces should matter
   
-  level = (mapSpace **)calloc(100, sizeof(mapSpace *));
+  level = (mapSpace **)calloc(dimMapX, sizeof(mapSpace *));
   if (!level){
     perror("lvt: ");
   }
   
-  for (i = 0; i < 100; i++){
-    level[i] = (mapSpace *)calloc(100, sizeof(mapSpace));
+  for (i = 0; i < dimMapX; i++){
+    level[i] = (mapSpace *)calloc(dimMapY, sizeof(mapSpace));
     if (!level){
       perror("lvt: ");
     }
   }
   
-   for (i = 0; i < 100; i++){
-    for (j = 0; j < 100; j++){
+   for (i = 0; i < dimMapX; i++){
+    for (j = 0; j < dimMapY; j++){
       setLevelTerrain(level, i, j, WALL);
     }
   }

@@ -16,6 +16,9 @@ void displayLevel(level level){
 	case FLOOR:
 	  putchar('.');
 	  break;
+	case DOOR:
+	  putchar('+');
+	  break;
 	default:
 	  break;
       }

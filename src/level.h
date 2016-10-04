@@ -3,7 +3,8 @@
 
 typedef enum terrain{
   WALL,
-  FLOOR
+  FLOOR,
+  DOOR
 } terrain;
 
 typedef struct mapSpace{
