@@ -22,8 +22,9 @@ const unsigned int minRoomY = 2;
 const unsigned int maxRoomX = 10;
 const unsigned int maxRoomY = 10;
 
-const unsigned int doorLikelihood = 500;	// likelihood (out of 100) that a door-eligible floor will
+const unsigned int doorLikelihood = 500;	// likelihood (out of 1000) that a door-eligible floor will
 						// become a door
+const unsigned int hiddenDoorLikelihood = 500;	// likelihood (out of 1000) that a door will be hidden
 
 const unsigned int numLevels = 1;
 
@@ -347,7 +348,11 @@ void placeDoors(level level){
   
   while (doorEligible[i].x){
     if (uniformRandomRangeInt(&levelGenRNG, 1, 1000) < doorLikelihood){
-      setMapSpaceTerrain(level, doorEligible[i].x, doorEligible[i].y, DOOR);
+      if (uniformRandomRangeInt(&levelGenRNG, 1, 1000) < hiddenDoorLikelihood){
+	setMapSpaceTerrain(level, doorEligible[i].x, doorEligible[i].y, HIDDENDOOR);
+      } else {
+	setMapSpaceTerrain(level, doorEligible[i].x, doorEligible[i].y, DOOR);
+      }
       i++;
     }
   }

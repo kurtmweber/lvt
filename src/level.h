@@ -5,8 +5,11 @@ typedef enum terrain{
   WALL,
   FLOOR,
   DOOR,
+  HIDDENDOOR,
   UPSTAIR,
   DOWNSTAIR,
+  DOWNTON,
+  ABBEY,
   THRONE
 } terrain;
 

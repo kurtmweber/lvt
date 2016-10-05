@@ -24,6 +24,12 @@ void displayLevel(level level){
 	  break;
 	case DOWNSTAIR:
 	  putchar('>');
+	case HIDDENDOOR:
+#ifdef DEBUG
+	  putchar('?');
+#else
+	  putchar('#');
+#endif
 	  break;
 	default:
 	  break;
