@@ -288,6 +288,7 @@ bool isDoorEligible(level level, coord2D coords){
   
   // this function is why code folding was invented
   // it's ugly, I know
+  // sorry about that
 }
 
 coord2D *enumerateFloors(level level){
@@ -473,16 +474,6 @@ unsigned int findNearestNeighbor(unsigned int i, centerPoint *centerPoints){
   }
   
   return nearestNeighbor;
-}
-
-void setLevelTerrain(level level, unsigned int i, unsigned int j, terrain terrain){
-  level[i][j].terrain = terrain;
-  
-  return;
-}
-
-terrain getLevelTerrain(level level, unsigned int i, unsigned int j){
-  return level[i][j].terrain;
 }
 
 level initLevel(){

@@ -31,8 +31,6 @@ extern const double pi;
 #ifndef _LEVELGEN_C
 level generateLevel();
 void initializeLevelGen();
-void setLevelTerrain(level level, unsigned int i, unsigned int j, terrain terrain);
-terrain getLevelTerrain(level level, unsigned int i, unsigned int j);
 #else
 typedef struct centerPoint{
   unsigned int x;
@@ -45,12 +43,16 @@ void digLevel(level level, unsigned int coverageGoal);
 unsigned int currentCoverage(level level);
 void digTunnels(level level, centerPoint *centerPoints);
 unsigned int findNearestNeighbor(unsigned int i, centerPoint *centerPoints);
-void setLevelTerrain(level level, unsigned int i, unsigned int j, terrain terrain);
-terrain getLevelTerrain(level level, unsigned int i, unsigned int j);
 void placeDoors(level level);
 coord2D *findDoorEligible(level level);
 coord2D *enumerateFloors(level level);
 bool isDoorEligible(level level, coord2D coords);
+#endif
+
+#ifndef _MAP_C
+void setLevelTerrain(level level, unsigned int i, unsigned int j, terrain terrain);
+terrain getLevelTerrain(level level, unsigned int i, unsigned int j);
+#else
 #endif
 
 #ifndef _LEVELDISP_C

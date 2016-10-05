@@ -4,11 +4,15 @@
 typedef enum terrain{
   WALL,
   FLOOR,
-  DOOR
+  DOOR,
+  UPSTAIR,
+  DOWNSTAIR,
+  THRONE
 } terrain;
 
 typedef struct mapSpace{
   terrain terrain;
+  bool explored;
 } mapSpace;
 
 typedef mapSpace **level;
