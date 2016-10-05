@@ -9,7 +9,7 @@ void displayLevel(level level){
   
   for (i = 0; i < 100; i++){
     for (j = 0; j < 100; j++){
-      switch(getLevelTerrain(level, i, j)){
+      switch(getMapSpaceTerrain(level, i, j)){
 	case WALL:
 	  putchar('#');
 	  break;
@@ -18,6 +18,12 @@ void displayLevel(level level){
 	  break;
 	case DOOR:
 	  putchar('+');
+	  break;
+	case UPSTAIR:
+	  putchar('<');
+	  break;
+	case DOWNSTAIR:
+	  putchar('>');
 	  break;
 	default:
 	  break;

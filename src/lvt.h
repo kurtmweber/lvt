@@ -47,11 +47,14 @@ void placeDoors(level level);
 coord2D *findDoorEligible(level level);
 coord2D *enumerateFloors(level level);
 bool isDoorEligible(level level, coord2D coords);
+void placeStairs(level level);
 #endif
 
 #ifndef _MAP_C
-void setLevelTerrain(level level, unsigned int i, unsigned int j, terrain terrain);
-terrain getLevelTerrain(level level, unsigned int i, unsigned int j);
+void setMapSpaceTerrain(level level, unsigned int i, unsigned int j, terrain terrain);
+terrain getMapSpaceTerrain(level level, unsigned int i, unsigned int j);
+bool getMapSpaceExploredState(level level, unsigned int i, unsigned int j);
+void setMapSpaceExploredState(level level, unsigned int i, unsigned int j, bool state);
 #else
 #endif
 

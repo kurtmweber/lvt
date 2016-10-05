@@ -1,0 +1,3 @@
+for version 0.1
+  * code refactoring (kmw, 2016-10-04)
+  * set map spaces unexplored on generation, place stairways (kmw, 2016-10-04)

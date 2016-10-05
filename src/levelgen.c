@@ -52,8 +52,35 @@ level generateLevel(){
   
   digLevel(level, coverageGoal);
   placeDoors(level);
+  placeStairs(level);
   
   return level;
+}
+
+void placeStairs(level level){
+  coord2D *floors;
+  unsigned int i = 0;
+  unsigned int j = 0;
+  unsigned int k = 0;
+  
+  floors = enumerateFloors(level);
+  
+  while(floors[i].x){
+    i++;
+  }
+  
+  j = uniformRandomRangeInt(&levelGenRNG, 0, i - 1);
+  setMapSpaceTerrain(level, floors[j].x, floors[j].y, UPSTAIR);
+  
+  do {
+    k = uniformRandomRangeInt(&levelGenRNG, 0, i - 1);
+  } while (k == j);	// just want to make sure we're not putting the downstair on the same space as
+			// the upstair
+  setMapSpaceTerrain(level, floors[k].x, floors[k].y, DOWNSTAIR);
+  
+  free(floors);
+  
+  return;
 }
 
 coord2D *findDoorEligible(level level){
@@ -101,15 +128,15 @@ bool isDoorEligible(level level, coord2D coords){
   terrain neighborMap[3][3];
   bool mapMatch[3][3];
   
-  neighborMap[0][0] = getLevelTerrain(level, coords.x - 1, coords.y - 1);
-  neighborMap[0][1] = getLevelTerrain(level, coords.x - 1, coords.y);
-  neighborMap[0][2] = getLevelTerrain(level, coords.x - 1, coords.y + 1);
-  neighborMap[1][0] = getLevelTerrain(level, coords.x, coords.y - 1);
-  neighborMap[1][1] = getLevelTerrain(level, coords.x, coords.y);
-  neighborMap[1][2] = getLevelTerrain(level, coords.x, coords.y + 1);
-  neighborMap[2][0] = getLevelTerrain(level, coords.x + 1, coords.y - 1);
-  neighborMap[2][1] = getLevelTerrain(level, coords.x + 1, coords.y);
-  neighborMap[2][2] = getLevelTerrain(level, coords.x + 1, coords.y + 1);
+  neighborMap[0][0] = getMapSpaceTerrain(level, coords.x - 1, coords.y - 1);
+  neighborMap[0][1] = getMapSpaceTerrain(level, coords.x - 1, coords.y);
+  neighborMap[0][2] = getMapSpaceTerrain(level, coords.x - 1, coords.y + 1);
+  neighborMap[1][0] = getMapSpaceTerrain(level, coords.x, coords.y - 1);
+  neighborMap[1][1] = getMapSpaceTerrain(level, coords.x, coords.y);
+  neighborMap[1][2] = getMapSpaceTerrain(level, coords.x, coords.y + 1);
+  neighborMap[2][0] = getMapSpaceTerrain(level, coords.x + 1, coords.y - 1);
+  neighborMap[2][1] = getMapSpaceTerrain(level, coords.x + 1, coords.y);
+  neighborMap[2][2] = getMapSpaceTerrain(level, coords.x + 1, coords.y + 1);
 
   // first option
   numTrue = 0;
@@ -298,7 +325,7 @@ coord2D *enumerateFloors(level level){
   
   for (i = 1; i < dimMapX; i++){
     for (j = 1; j < dimMapY; j++){
-      if (getLevelTerrain(level, i, j) == FLOOR){
+      if (getMapSpaceTerrain(level, i, j) == FLOOR){
 	numFloors++;
 	floors = realloc(floors, (numFloors + 1) * sizeof(coord2D));
 	floors[numFloors - 1].x = i;
@@ -320,10 +347,12 @@ void placeDoors(level level){
   
   while (doorEligible[i].x){
     if (uniformRandomRangeInt(&levelGenRNG, 1, 1000) < doorLikelihood){
-      setLevelTerrain(level, doorEligible[i].x, doorEligible[i].y, DOOR);
+      setMapSpaceTerrain(level, doorEligible[i].x, doorEligible[i].y, DOOR);
       i++;
     }
   }
+  
+  free(doorEligible);
   
   return;
 }
@@ -333,7 +362,7 @@ unsigned int numberFloors(level level){
   
   for (i = 0; i < dimMapX; i++){
     for (j = 0; j < dimMapY; j++){
-      if (getLevelTerrain(level, i, j) == FLOOR){
+      if (getMapSpaceTerrain(level, i, j) == FLOOR){
 	coverage++;
       }
     }
@@ -373,7 +402,7 @@ void digLevel(level level, unsigned int coverageGoal){
     
     for (i = x; i < x + a; i++){
       for (j = y; j < y + b; j++){
-	setLevelTerrain(level, i, j, FLOOR);
+	setMapSpaceTerrain(level, i, j, FLOOR);
       }
     }
   }
@@ -438,7 +467,7 @@ void digTunnels(level level, centerPoint *centerPoints){
       
       // want to make sure we don't dig into permanent rock; if we do, try again
       if ((newX != 0) && (newX != dimMapX - 1) && (newY != 0) && (newY != dimMapY - 1)){
-	setLevelTerrain(level, newX, newY, FLOOR);
+	setMapSpaceTerrain(level, newX, newY, FLOOR);
 	curX = newX;
 	curY = newY;
       }
@@ -496,7 +525,8 @@ level initLevel(){
   
    for (i = 0; i < dimMapX; i++){
     for (j = 0; j < dimMapY; j++){
-      setLevelTerrain(level, i, j, WALL);
+      setMapSpaceTerrain(level, i, j, WALL);
+      setMapSpaceExploredState(level, i, j, false);
     }
   }
   

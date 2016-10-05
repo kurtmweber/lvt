@@ -3,12 +3,22 @@
 #include "lvt.h"
 #include "level.h"
 
-void setLevelTerrain(level level, unsigned int i, unsigned int j, terrain terrain){
+void setMapSpaceTerrain(level level, unsigned int i, unsigned int j, terrain terrain){
   level[i][j].terrain = terrain;
   
   return;
 }
 
-terrain getLevelTerrain(level level, unsigned int i, unsigned int j){
+terrain getMapSpaceTerrain(level level, unsigned int i, unsigned int j){
   return level[i][j].terrain;
+}
+
+void setMapSpaceExploredState(level level, unsigned int i, unsigned int j, bool state){
+  level[i][j].explored = state;
+  
+  return;
+}
+
+bool getMapSpaceExploredState(level level, unsigned int i, unsigned int j){
+  return level[i][j].explored;
 }
