@@ -19,5 +19,6 @@ typedef struct mapSpace{
 } mapSpace;
 
 typedef mapSpace **level;
+typedef level *map;
 
 #endif

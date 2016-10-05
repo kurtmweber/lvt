@@ -7,12 +7,12 @@
 const double pi = 3.141592;
 
 int main(int argc, char *argv[]){
-  mapSpace **level;
+  map map;
   
   initializeLevelGen();
   
-  level = generateLevel();
-  displayLevel(level);
+  map = generateMap();
+  displayLevel(map[0]);
 
   return 0;
   }

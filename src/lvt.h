@@ -29,7 +29,7 @@ extern const double pi;
 #endif
 
 #ifndef _LEVELGEN_C
-level generateLevel();
+map generateMap();
 void initializeLevelGen();
 #else
 typedef struct centerPoint{
@@ -39,6 +39,7 @@ typedef struct centerPoint{
 } centerPoint;
 
 level initLevel();
+level generateLevel();
 void digLevel(level level, unsigned int coverageGoal);
 unsigned int currentCoverage(level level);
 void digTunnels(level level, centerPoint *centerPoints);

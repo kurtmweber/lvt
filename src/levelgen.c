@@ -36,6 +36,19 @@ void initializeLevelGen(){
   return;
 }
 
+map generateMap(){
+  map map;
+  int i = 0;
+  
+  map = calloc(100, sizeof(level *));
+  
+  for (i = 0; i < 100; i++){
+    map[i] = generateLevel();
+  }
+  
+  return map;
+}
+
 level generateLevel(){
   
   unsigned int coverageGoal = 0;	// goal for # of spaces to be covered by floor
