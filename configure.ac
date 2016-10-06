@@ -15,6 +15,7 @@ AC_PROG_CC
 
 # Checks for libraries.
 AC_CHECK_LIB([m], [sqrt], , AC_MSG_ERROR([no libm found]))
+AC_CHECK_LIB([ncurses], [initscr], , AC_MSG_ERROR([ncurses not found]))
 
 # Checks for header files.
 AC_CHECK_HEADERS([stdlib.h])
@@ -22,6 +23,7 @@ AC_CHECK_HEADERS([math.h])
 AC_CHECK_HEADERS([time.h])
 AC_CHECK_HEADERS([stdio.h])
 AC_CHECK_HEADERS([stdbool.h])
+AC_CHECK_HEADERS([ncurses.h])
 
 # Checks for typedefs, structures, and compiler characteristics.
 

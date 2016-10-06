@@ -102,7 +102,8 @@ CONFIG_CLEAN_VPATH_FILES =
 am__installdirs = "$(DESTDIR)$(bindir)"
 PROGRAMS = $(bin_PROGRAMS)
 am_lvt_OBJECTS = leveldisp.$(OBJEXT) levelgen.$(OBJEXT) main.$(OBJEXT) \
-	pcg_basic.$(OBJEXT) random.$(OBJEXT) map.$(OBJEXT)
+	pcg_basic.$(OBJEXT) random.$(OBJEXT) map.$(OBJEXT) \
+	screen.$(OBJEXT) chargen.$(OBJEXT)
 lvt_OBJECTS = $(am_lvt_OBJECTS)
 lvt_LDADD = $(LDADD)
 AM_V_P = $(am__v_P_@AM_V@)
@@ -250,8 +251,8 @@ target_alias = @target_alias@
 top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-lvt_SOURCES = leveldisp.c levelgen.c main.c pcg_basic.c random.c map.c
-noinst_HEADERS = lvt.h level.h pcg_basic.h
+lvt_SOURCES = leveldisp.c levelgen.c main.c pcg_basic.c random.c map.c screen.c chargen.c
+noinst_HEADERS = lvt.h level.h pcg_basic.h creature.h
 all: all-am
 
 .SUFFIXES:
@@ -338,12 +339,14 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/chargen.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/leveldisp.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/levelgen.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/main.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/map.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/pcg_basic.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/random.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/screen.Po@am__quote@
 
 .c.o:
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(COMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<

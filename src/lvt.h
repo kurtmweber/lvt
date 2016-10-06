@@ -4,6 +4,7 @@
 #include <stdbool.h>
 #include "level.h"
 #include "pcg_basic.h"
+#include "creature.h"
 
 typedef pcg32_random_t rng;
 
@@ -23,9 +24,13 @@ typedef struct coord3D{
   unsigned int level;
 } coord3D;
 
-#ifndef _MAIN_C
-extern const double pi;
+#ifndef _CHARGEN_C
+void initializeCharacter();
 #else
+#endif
+
+#ifndef _LEVELDISP_C
+void displayLevel(level level);
 #endif
 
 #ifndef _LEVELGEN_C
@@ -51,16 +56,18 @@ bool isDoorEligible(level level, coord2D coords);
 void placeStairs(level level);
 #endif
 
+#ifndef _MAIN_C
+extern const double pi;
+extern creature player;
+#else
+#endif
+
 #ifndef _MAP_C
 void setMapSpaceTerrain(level level, unsigned int i, unsigned int j, terrain terrain);
 terrain getMapSpaceTerrain(level level, unsigned int i, unsigned int j);
 bool getMapSpaceExploredState(level level, unsigned int i, unsigned int j);
 void setMapSpaceExploredState(level level, unsigned int i, unsigned int j, bool state);
 #else
-#endif
-
-#ifndef _LEVELDISP_C
-void displayLevel(level level);
 #endif
 
 #ifndef _RANDOM_C
@@ -72,6 +79,12 @@ unsigned int uniformRandomRangeInt(rng *rng, unsigned int lower, unsigned int up
 unsigned int boundedRand(rng *rng, unsigned int bound);
 double randomDouble(rng *rng);
 coin coinFlip(rng *rng);
+#endif
+
+#ifndef _SCREEN_C
+void initializeNcurses();
+void destroyNcurses();
+#else
 #endif
 
 #endif
