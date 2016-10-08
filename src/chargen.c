@@ -15,7 +15,9 @@ void initializeCharacter(){
 
   // we'll worry about how to handle backspaces and shit later
   while((c = getch()) != '\n'){
-    if ((c >= 32) && (c <= 126)){
+    if (i == 17){
+      beep();
+    } else if ((c >= 32) && (c <= 126)){
       i++;
       charName = realloc(charName, i * sizeof(char));
       charName[i - 2] = c;
@@ -25,7 +27,9 @@ void initializeCharacter(){
     }
   }
   
-  player.name = charName;
+  setCreatureName(&player, charName);
+  setIsPlayer(&player);
+  changeDispChar(&player, '@');
   
   return;
 }

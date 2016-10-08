@@ -545,6 +545,7 @@ level initLevel(){
     for (j = 0; j < dimMapY; j++){
       setMapSpaceTerrain(level, i, j, WALL);
       setMapSpaceExploredState(level, i, j, false);
+      initializeMapSpaceContents(level, i, j);
     }
   }
   

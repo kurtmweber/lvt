@@ -1,5 +1,6 @@
 for version 0.1
-  * now generates entire map of 100 levels (kmw, 2016-10-04)
+  * begin character generation code--just sets name for now (kmw, 2016-10-05)
+  * now generates entire map of 100 levels (kmw, 2016-10-05)
   * fix bug that was putting an extra character on downstairs (kmw, 2016-10-04)
   * make certain doors hidden during level generation (kmw, 2016-10-04)
   * set map spaces unexplored on generation, place stairways (kmw, 2016-10-04)
