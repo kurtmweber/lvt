@@ -1,4 +1,6 @@
 for version 0.1
+  * movement around the map is now possible (kmw, 2016-10-07)
+  * place character in initial location, set up gamescreen, and display initial map (kmw, 2016-10-07)
   * begin character generation code--just sets name for now (kmw, 2016-10-05)
   * now generates entire map of 100 levels (kmw, 2016-10-05)
   * fix bug that was putting an extra character on downstairs (kmw, 2016-10-04)

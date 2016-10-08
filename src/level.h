@@ -5,6 +5,7 @@
 
 typedef enum terrain{
   WALL,
+  PERMANENTROCK,
   FLOOR,
   DOOR,
   HIDDENDOOR,

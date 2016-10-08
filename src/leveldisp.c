@@ -24,6 +24,7 @@ char *generateLevelRepresentation(level level, unsigned int line){
       } else {
 	  switch (getMapSpaceTerrain(level, x, line)){
 	    case WALL:
+	    case PERMANENTROCK:
 	      mapLine[x] = '#';
 	      break;
 	    case FLOOR:

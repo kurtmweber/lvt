@@ -11,8 +11,8 @@ void setMapSpaceTerrain(level level, unsigned int i, unsigned int j, terrain ter
   return;
 }
 
-terrain getMapSpaceTerrain(level level, unsigned int i, unsigned int j){
-  return level[i][j].terrain;
+terrain getMapSpaceTerrain(level level, unsigned int x, unsigned int y){
+  return level[x][y].terrain;
 }
 
 void setMapSpaceExploredState(level level, unsigned int i, unsigned int j, bool state){
@@ -77,6 +77,12 @@ bool hasCreatureOccupant(level level, unsigned int x, unsigned int y){
 
 void setCreatureOccupant(level level, unsigned int x, unsigned int y, creature *creature){
   level[x][y].creatureOccupant = creature;
+  
+  return;
+}
+
+void clearCreatureOccupant(level level, unsigned int x, unsigned int y){
+  level[x][y].creatureOccupant = 0;
   
   return;
 }

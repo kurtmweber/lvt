@@ -6,6 +6,7 @@
 #include "types.h"
 #include "level.h"
 #include "creature.h"
+#include "move.h"
 
 #define MAX(a, b) (a < b ? b : a)
 #define MIN(a, b) (a > b ? b : a)
@@ -26,11 +27,20 @@ char getCreatureDispChar(creature *creature);
 creature *getCreatureOccupant(level level, unsigned int x, unsigned int y);
 void setCreatureLocation(creature *creature, coord3D location);
 coord3D getCreatureLocation(creature *creature);
+unsigned int getCreatureMapLevel(creature *creature);
 #else
 #endif
 
 #ifndef _GAME_C
 void startGame(map map);
+#else
+void gameLoop(map map);
+bool doQuit();
+void processKey(unsigned int c, map map);
+#endif
+
+#ifndef _INPUT_C
+void doMoveKey(unsigned int c, map map);
 #else
 #endif
 
@@ -72,7 +82,7 @@ extern creature player;
 
 #ifndef _MAP_C
 void setMapSpaceTerrain(level level, unsigned int i, unsigned int j, terrain terrain);
-terrain getMapSpaceTerrain(level level, unsigned int i, unsigned int j);
+terrain getMapSpaceTerrain(level level, unsigned int x, unsigned int y);
 bool getMapSpaceExploredState(level level, unsigned int i, unsigned int j);
 void setMapSpaceExploredState(level level, unsigned int i, unsigned int j, bool state);
 coord2D findLevelUpstair(level level);
@@ -82,7 +92,14 @@ bool hasPlantOccupant(level level, unsigned int x, unsigned int y);
 bool hasCreatureOccupant(level level, unsigned int x, unsigned int y);
 void updateRegionExploredState(level level, unsigned int x, unsigned int y, bool state);
 void setCreatureOccupant(level level, unsigned int x, unsigned int y, creature *creature);
+void clearCreatureOccupant(level level, unsigned int x, unsigned int y);
 #else
+#endif
+
+#ifndef _MOVE_C
+moveOutcome moveCreature(creature *creature, moveDirection dir, map map);
+#else
+moveOutcome moveCreature(creature *creature, moveDirection dir, map map);
 #endif
 
 #ifndef _RANDOM_C
@@ -101,11 +118,13 @@ void initializeNcurses();
 void destroyNcurses();
 void initializeGameScreen();
 void displayMsg(char *msg);
+void displayMsgNoWait(char *msg);
 extern WINDOW *msgWin;
 extern WINDOW *statWin;
 extern WINDOW *playArea;
 void writeLinePlayArea(char *mapLine, unsigned int y);
 void refreshPlayArea();
+void clearMsg();
 #else
 coord2D definePlayAreaDisplay();
 #endif

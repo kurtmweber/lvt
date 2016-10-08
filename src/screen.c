@@ -27,7 +27,15 @@ void initializeGameScreen(){
   statWin = newwin(2, MIN(dimMapX, COLS), LINES - 3, 0);
   playArea = newpad(dimMapX, dimMapY);
   scrollok(playArea, false);
+  keypad(stdscr,true);
   refresh();
+  
+  return;
+}
+
+void clearMsg(){
+  werase(msgWin);
+  wrefresh(msgWin);
   
   return;
 }
@@ -38,6 +46,13 @@ void displayMsg(char *msg){
   while (getch() != '\n'){
     beep();
   }
+
+  return;
+}
+
+void displayMsgNoWait(char *msg){
+  wprintw(msgWin, msg);
+  wrefresh(msgWin);
   
   return;
 }

@@ -33,6 +33,10 @@ coord3D getCreatureLocation(creature *creature){
   return creature->location;
 }
 
+unsigned int getCreatureMapLevel(creature *creature){
+  return creature->location.level;
+}
+
 void setCreatureLocation(creature *creature, coord3D location){
   creature->location.x = location.x;
   creature->location.y = location.y;
