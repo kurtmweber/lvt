@@ -1,4 +1,5 @@
 for version 0.1
+  * doors now work (kmw, 2016-10-08)
   * movement around the map is now possible (kmw, 2016-10-07)
   * place character in initial location, set up gamescreen, and display initial map (kmw, 2016-10-07)
   * begin character generation code--just sets name for now (kmw, 2016-10-05)

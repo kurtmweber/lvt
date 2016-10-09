@@ -42,10 +42,13 @@ void clearMsg(){
 
 void displayMsg(char *msg){
   wprintw(msgWin, msg);
+  wprintw(msgWin, " (enter to continue)");
   wrefresh(msgWin);
   while (getch() != '\n'){
     beep();
   }
+  
+  clearMsg();
 
   return;
 }

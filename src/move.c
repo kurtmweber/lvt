@@ -49,7 +49,10 @@ moveOutcome moveCreature(creature *creature, moveDirection dir, map map){
   switch (getMapSpaceTerrain(map[curPos.level], newPos.x, newPos.y)){
     case WALL:
     case PERMANENTROCK:
+    case HIDDENDOOR:
       return MOVE_FAILED_WALL;
+    case DOOR:
+      return MOVE_FAILED_DOOR;
     default:
       break;
   }

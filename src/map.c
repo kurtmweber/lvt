@@ -5,8 +5,8 @@
 
 const unsigned int exploreRadius = 1;
 
-void setMapSpaceTerrain(level level, unsigned int i, unsigned int j, terrain terrain){
-  level[i][j].terrain = terrain;
+void setMapSpaceTerrain(level level, unsigned int x, unsigned int y, terrain terrain){
+  level[x][y].terrain = terrain;
   
   return;
 }

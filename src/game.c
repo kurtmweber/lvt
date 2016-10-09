@@ -57,6 +57,10 @@ void processKey(unsigned int c, map map){
     case KEY_DOWNRIGHT:
       doMoveKey(c, map);
       break;
+    case 'o':
+    case 'c':
+      doOpenDoor(c, map);
+      break;
     default:
       break;
   }

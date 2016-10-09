@@ -5,6 +5,8 @@
 #include "lvt.h"
 #include "level.h"
 
+#define _D_DEBUG
+
 char *generateLevelRepresentation(level level, unsigned int line){
   char *mapLine = 0;
   unsigned int x = 0;
@@ -34,7 +36,11 @@ char *generateLevelRepresentation(level level, unsigned int line){
 	      mapLine[x] = '+';
 	      break;
 	    case HIDDENDOOR:
+#ifndef _D_DEBUG
 	      mapLine[x] = '#';
+#else
+	      mapLine[x] = '?';
+#endif
 	      break;
 	    case OPENDOOR:
 	      mapLine[x] = '\'';

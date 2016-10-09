@@ -41,6 +41,7 @@ void processKey(unsigned int c, map map);
 
 #ifndef _INPUT_C
 void doMoveKey(unsigned int c, map map);
+void doOpenDoor(unsigned int c, map map);
 #else
 #endif
 
@@ -81,7 +82,7 @@ extern creature player;
 #endif
 
 #ifndef _MAP_C
-void setMapSpaceTerrain(level level, unsigned int i, unsigned int j, terrain terrain);
+void setMapSpaceTerrain(level level, unsigned int x, unsigned int y, terrain terrain);
 terrain getMapSpaceTerrain(level level, unsigned int x, unsigned int y);
 bool getMapSpaceExploredState(level level, unsigned int i, unsigned int j);
 void setMapSpaceExploredState(level level, unsigned int i, unsigned int j, bool state);
