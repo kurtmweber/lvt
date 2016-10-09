@@ -1,4 +1,20 @@
-#ifndef _INPUT_C
+/*  This file is part of Lavender Throne.
+ *  Copyright 2016 by Kurt Weber
+ *
+ *  Lavender Throne is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  Lavender Throne is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with Lavender Throne.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 #define _INPUT_C
 
 #include <stdlib.h>
@@ -220,4 +236,45 @@ void doSearchDoors(unsigned int c, map map){
   return;
 }
 
-#endif
+void doStairs(unsigned int c, map map){
+  coord3D newPos;
+  coord3D curPos;
+  coord2D stairPos;
+  
+  curPos = getCreatureLocation(&player);
+  
+  if (c == '<'){
+    if (getMapSpaceTerrain(map[curPos.level], curPos.x, curPos.y) == UPSTAIR){
+      if (curPos.level == 0){
+	displayMsgNoWait(UP_IS_EXIT_MSG);
+	return;
+      }
+      newPos.level = curPos.level - 1;
+      stairPos = findLevelDownstair(map[curPos.level - 1]);
+      newPos.x = stairPos.x;
+      newPos.y = stairPos.y;
+    } else {
+      displayMsgNoWait(CANNOT_UP_HERE_MSG);
+      return;
+    }
+  }
+    
+  if (c == '>'){
+    if (getMapSpaceTerrain(map[curPos.level], curPos.x, curPos.y) == DOWNSTAIR){
+      newPos.level = curPos.level + 1;
+      stairPos = findLevelUpstair(map[curPos.level + 1]);
+      newPos.x = stairPos.x;
+      newPos.y = stairPos.y;
+    } else {
+      displayMsgNoWait(CANNOT_DOWN_HERE_MSG);
+      return;
+    }
+  }
+    
+  clearCreatureOccupant(map[curPos.level], curPos.x, curPos.y);
+  setCreatureOccupant(map[newPos.level], newPos.x, newPos.y, &player);
+  setCreatureLocation(&player, newPos);
+  updateRegionExploredState(map[newPos.level], newPos.x, newPos.y, true);
+    
+  return;
+  }

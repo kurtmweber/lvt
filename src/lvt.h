@@ -1,3 +1,20 @@
+/*  This file is part of Lavender Throne.
+ *  Copyright 2016 by Kurt Weber
+ *
+ *  Lavender Throne is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  Lavender Throne is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with Lavender Throne.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 #ifndef _LVT_H
 #define _LVT_H
 
@@ -43,6 +60,7 @@ void processKey(unsigned int c, map map);
 void doMoveKey(unsigned int c, map map);
 void doOpenDoor(unsigned int c, map map);
 void doSearchDoors(unsigned int c, map map);
+void doStairs(unsigned int c, map map);
 #else
 #endif
 
@@ -64,7 +82,7 @@ typedef struct centerPoint{
 } centerPoint;
 
 level initLevel();
-level generateLevel();
+level generateLevel(unsigned int levelNum);
 void digLevel(level level, unsigned int coverageGoal);
 unsigned int currentCoverage(level level);
 void digTunnels(level level, centerPoint *centerPoints);
@@ -73,7 +91,7 @@ void placeDoors(level level);
 coord2D *findDoorEligible(level level);
 coord2D *enumerateFloors(level level);
 bool isDoorEligible(level level, coord2D coords);
-void placeStairs(level level);
+void placeStairs(level level, unsigned int levelNum);
 #endif
 
 #ifndef _MAIN_C
@@ -131,6 +149,7 @@ void writeLinePlayArea(char *mapLine, unsigned int y);
 void refreshPlayArea();
 void clearMsg();
 void clearPlayArea();
+void updateStatWin();
 #else
 coord2D definePlayAreaDisplay();
 #endif

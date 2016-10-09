@@ -22,8 +22,9 @@ const unsigned int minRoomY = 2;
 const unsigned int maxRoomX = 10;
 const unsigned int maxRoomY = 10;
 
-const unsigned int doorLikelihood = 500;	// likelihood (out of 1000) that a door-eligible floor will
+//const unsigned int doorLikelihood = 500;	// likelihood (out of 1000) that a door-eligible floor will
 						// become a door
+const unsigned int doorLikelihood = 0;
 const unsigned int hiddenDoorLikelihood = 500;	// likelihood (out of 1000) that a door will be hidden
 
 const unsigned int numLevels = 1;
@@ -43,13 +44,13 @@ map generateMap(){
   map = calloc(100, sizeof(level *));
   
   for (i = 0; i < 100; i++){
-    map[i] = generateLevel();
+    map[i] = generateLevel(i);
   }
   
   return map;
 }
 
-level generateLevel(){
+level generateLevel(unsigned int levelNum){
   
   unsigned int coverageGoal = 0;	// goal for # of spaces to be covered by floor
 					// we don't shoot for this exactly; instead, we test the #
@@ -66,12 +67,12 @@ level generateLevel(){
   
   digLevel(level, coverageGoal);
   placeDoors(level);
-  placeStairs(level);
+  placeStairs(level, levelNum);
   
   return level;
 }
 
-void placeStairs(level level){
+void placeStairs(level level, unsigned int levelNum){
   coord2D *floors;
   unsigned int i = 0;
   unsigned int j = 0;
@@ -90,7 +91,10 @@ void placeStairs(level level){
     k = uniformRandomRangeInt(&levelGenRNG, 0, i - 1);
   } while (k == j);	// just want to make sure we're not putting the downstair on the same space as
 			// the upstair
-  setMapSpaceTerrain(level, floors[k].x, floors[k].y, DOWNSTAIR);
+  
+  if (levelNum != 99){
+    setMapSpaceTerrain(level, floors[k].x, floors[k].y, DOWNSTAIR);
+  }
   
   free(floors);
   
@@ -368,8 +372,8 @@ void placeDoors(level level){
       } else {
 	setMapSpaceTerrain(level, doorEligible[i].x, doorEligible[i].y, DOOR);
       }
-      i++;
     }
+    i++;
   }
   
   free(doorEligible);

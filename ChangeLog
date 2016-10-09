@@ -1,4 +1,8 @@
 for version 0.1
+  * release (kmw, 2016-10-09)
+  * added copyright notice on start (kmw, 2016-10-09)
+  * basic information display at bottom of screen (kmw, 2016-10-09)
+  * stairs now work and entire dungeon can now be explored (kmw, 2016-10-08)
   * searching for hidden doors now works (kmw, 2016-10-08)
   * fixed a bug that made it possible to avoid entering a player character name (kmw, 2016-10-08)
   * doors now work (kmw, 2016-10-08)
