@@ -14,7 +14,10 @@ void initializeCharacter(){
   refresh();
 
   // we'll worry about how to handle backspaces and shit later
-  while((c = getch()) != '\n'){
+  while((c = getch())){
+    if ((c == '\n') && (i >= 2)){
+      break;
+    }
     if (i == 17){
       beep();
     } else if ((c >= 32) && (c <= 126)){
