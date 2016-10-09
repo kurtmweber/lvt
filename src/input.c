@@ -1,9 +1,12 @@
 #ifndef _INPUT_C
 #define _INPUT_C
 
+#include <stdlib.h>
 #include "lvt.h"
 #include "move.h"
 #include "messages.h"
+
+const unsigned int maxSearchCountdown = 10;
 
 void doMoveKey(unsigned int c, map map){
   moveDirection dir;
@@ -141,5 +144,80 @@ void doOpenDoor(unsigned int c, map map){
   return;
 }
 
+void doSearchDoors(unsigned int c, map map){
+  static rng searchRng;
+  bool rngInitd = false;
+  coord3D playerLoc;
+  coord3D searchLoc;
+  unsigned int searchLocIndex;
+  unsigned int *searchCountdownPtr;
+  unsigned int searchCountdown;
+  terrain searchSquareTerrain;
+  
+  if (!rngInitd){
+    initializeRNG(&searchRng);
+  }
+  
+  playerLoc = getCreatureLocation(&player);
+  
+  // first we pick a # from 1-8, for each surrounding square
+  // we don't care whether or not it's a square that could have a door (maybe fix that later)
+  // then, we do a random likelihood of whether or not *that* square has a door
+  searchLocIndex = uniformRandomRangeInt(&searchRng, 1, 8);
+  switch (searchLocIndex){
+    case 1:
+      searchLoc.x = playerLoc.x - 1;
+      searchLoc.y = playerLoc.y - 1;
+      break;
+    case 2:
+      searchLoc.x = playerLoc.x;
+      searchLoc.y = playerLoc.y - 1;
+      break;
+    case 3:
+      searchLoc.x = playerLoc.x + 1;
+      searchLoc.y = playerLoc.y - 1;
+      break;
+    case 4:
+      searchLoc.x = playerLoc.x - 1;
+      searchLoc.y = playerLoc.y;
+      break;
+    case 5:
+      searchLoc.x = playerLoc.x + 1;
+      searchLoc.y = playerLoc.y;
+      break;
+    case 6:
+      searchLoc.x = playerLoc.x - 1;
+      searchLoc.y = playerLoc.y + 1;
+      break;
+    case 7:
+      searchLoc.x = playerLoc.x;
+      searchLoc.y = playerLoc.y + 1;
+      break;
+    case 8:
+      searchLoc.x = playerLoc.x + 1;
+      searchLoc.y = playerLoc.y + 1;
+      break;
+    default:	// can't happen
+      return;
+      break;
+  }
+  
+  searchSquareTerrain = getMapSpaceTerrain(map[playerLoc.level], searchLoc.x, searchLoc.y);
+  if (searchSquareTerrain == HIDDENDOOR){
+    searchCountdownPtr = getTerrainData(map[playerLoc.level], searchLoc.x, searchLoc.y, HIDDENDOOR);
+    searchCountdown = *searchCountdownPtr;
+    free(searchCountdownPtr);
+    if (!searchCountdown){
+      searchCountdown = uniformRandomRangeInt(&searchRng, 1, maxSearchCountdown);
+    }
+    searchCountdown--;
+    if (!searchCountdown){
+      setMapSpaceTerrain(map[playerLoc.level], searchLoc.x, searchLoc.y, DOOR);
+    }
+    setTerrainData(map[playerLoc.level], searchLoc.x, searchLoc.y, HIDDENDOOR, (void *)&searchCountdown);
+  }
+  
+  return;
+}
 
 #endif

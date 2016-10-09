@@ -1,5 +1,6 @@
 #define _MAP_C
 
+#include <stdlib.h>
 #include "lvt.h"
 #include "level.h"
 
@@ -21,6 +22,35 @@ void setMapSpaceExploredState(level level, unsigned int i, unsigned int j, bool 
   return;
 }
 
+void setTerrainData(level level, unsigned int x, unsigned int y, terrain terrain, void *data){
+  unsigned int *searchCountdown;
+  
+  switch (terrain){
+    case HIDDENDOOR:
+      searchCountdown = (unsigned int *)data;
+      level[x][y].terrainData.searchCountdown = *searchCountdown;
+      break;
+    default:
+      break;
+  }
+  return;
+}
+
+void *getTerrainData(level level, unsigned int x, unsigned int y, terrain terrain){
+  unsigned int *searchCountdown;
+  
+  switch (terrain){
+    case HIDDENDOOR:
+      searchCountdown = calloc(1, sizeof(level[x][y].terrainData.searchCountdown));
+      *searchCountdown = level[x][y].terrainData.searchCountdown;
+      return (void *)searchCountdown;
+    default:
+      break;
+  }
+  
+  return 0;
+}
+
 bool getMapSpaceExploredState(level level, unsigned int i, unsigned int j){
   return level[i][j].explored;
 }
@@ -32,6 +62,25 @@ coord2D findLevelUpstair(level level){
   for (x = 0; x < dimMapX; x++){
     for (y = 0; y < dimMapY; y++){
       if (getMapSpaceTerrain(level, x, y) == UPSTAIR){
+	coords.x = x;
+	coords.y = y;
+	return coords;
+      }
+    }
+  }
+  
+  coords.x = 0;
+  coords.y = 0;
+  return coords;
+}
+
+coord2D findLevelDownstair(level level){
+  unsigned int x = 0, y = 0;
+  coord2D coords;
+  
+  for (x = 0; x < dimMapX; x++){
+    for (y = 0; y < dimMapY; y++){
+      if (getMapSpaceTerrain(level, x, y) == DOWNSTAIR){
 	coords.x = x;
 	coords.y = y;
 	return coords;

@@ -356,6 +356,7 @@ coord2D *enumerateFloors(level level){
 void placeDoors(level level){
   coord2D *doorEligible = 0;
   unsigned int i = 0;
+  unsigned int searchCountdownInit = 0;
   
   doorEligible = findDoorEligible(level);
   
@@ -363,6 +364,7 @@ void placeDoors(level level){
     if (uniformRandomRangeInt(&levelGenRNG, 1, 1000) < doorLikelihood){
       if (uniformRandomRangeInt(&levelGenRNG, 1, 1000) < hiddenDoorLikelihood){
 	setMapSpaceTerrain(level, doorEligible[i].x, doorEligible[i].y, HIDDENDOOR);
+	setTerrainData(level, doorEligible[i].x, doorEligible[i].y, HIDDENDOOR, (void *)&searchCountdownInit);
       } else {
 	setMapSpaceTerrain(level, doorEligible[i].x, doorEligible[i].y, DOOR);
       }

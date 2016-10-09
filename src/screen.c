@@ -104,6 +104,12 @@ coord2D definePlayAreaDisplay(){
   return coords;
 }
 
+void clearPlayArea(){
+  werase(playArea);
+  
+  return;
+}
+
 void refreshPlayArea(){
   coord2D corner;
   

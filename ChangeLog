@@ -1,4 +1,5 @@
 for version 0.1
+  * searching for hidden doors now works (kmw, 2016-10-08)
   * fixed a bug that made it possible to avoid entering a player character name (kmw, 2016-10-08)
   * doors now work (kmw, 2016-10-08)
   * movement around the map is now possible (kmw, 2016-10-07)

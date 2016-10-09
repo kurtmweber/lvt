@@ -27,6 +27,7 @@ coin coinFlip(rng *rng){
 
 unsigned int uniformRandomRangeInt(rng *rng, unsigned int lower, unsigned int upper){
   // this is an inclusive range (e.g. [lower, upper])
+  // boundedRand() starts at 0, so we have to do some arithmetic to move it into the specified range
   
   return (boundedRand(rng, (upper - lower)) + lower);
 }

@@ -42,6 +42,7 @@ void processKey(unsigned int c, map map);
 #ifndef _INPUT_C
 void doMoveKey(unsigned int c, map map);
 void doOpenDoor(unsigned int c, map map);
+void doSearchDoors(unsigned int c, map map);
 #else
 #endif
 
@@ -94,6 +95,9 @@ bool hasCreatureOccupant(level level, unsigned int x, unsigned int y);
 void updateRegionExploredState(level level, unsigned int x, unsigned int y, bool state);
 void setCreatureOccupant(level level, unsigned int x, unsigned int y, creature *creature);
 void clearCreatureOccupant(level level, unsigned int x, unsigned int y);
+void setTerrainData(level level, unsigned int x, unsigned int y, terrain terrain, void *data);
+void *getTerrainData(level level, unsigned int x, unsigned int y, terrain terrain);
+coord2D findLevelDownstair(level level);
 #else
 #endif
 
@@ -126,6 +130,7 @@ extern WINDOW *playArea;
 void writeLinePlayArea(char *mapLine, unsigned int y);
 void refreshPlayArea();
 void clearMsg();
+void clearPlayArea();
 #else
 coord2D definePlayAreaDisplay();
 #endif

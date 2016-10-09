@@ -61,6 +61,9 @@ void processKey(unsigned int c, map map){
     case 'c':
       doOpenDoor(c, map);
       break;
+    case 's':
+      doSearchDoors(c, map);
+      break;
     default:
       break;
   }

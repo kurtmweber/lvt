@@ -35,6 +35,9 @@ struct mapSpaceContents{
 
 typedef struct mapSpace{
   terrain terrain;
+  union {
+    unsigned int searchCountdown;
+  } terrainData;
   bool explored;
   mapSpaceContents *contents;
   creature *creatureOccupant;
