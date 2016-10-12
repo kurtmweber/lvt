@@ -24,7 +24,7 @@
 
 const unsigned int maxSearchCountdown = 10;
 
-void doMoveKey(unsigned int c, map map){
+void doMoveKey(unsigned int c){
   moveDirection dir;
   
   switch (c){
@@ -54,7 +54,7 @@ void doMoveKey(unsigned int c, map map){
       break;
   }
   
-  switch(moveCreature(&player, dir, map)){
+  switch(moveCreature(&player, dir)){
     case MOVE_FAILED_WALL:
       displayMsgNoWait(MOVE_WALL_MSG);
       break;
@@ -65,14 +65,14 @@ void doMoveKey(unsigned int c, map map){
       displayMsgNoWait(MOVE_DOOR_MSG);
       break;
     case MOVE_SUCCESS:
-      displayLevel(map[getCreatureMapLevel(&player)]);
+      displayLevel(dungeon[getCreatureMapLevel(&player)]);
       break;
   }
   
   return;
 }
 
-void doOpenDoor(unsigned int c, map map){
+void doOpenDoor(unsigned int c){
   unsigned int dir;
   coord3D doorPos;
   coord3D curPos;
@@ -125,7 +125,7 @@ void doOpenDoor(unsigned int c, map map){
       return;
   }
   
-  doorPosTerrain = getMapSpaceTerrain(map[doorPos.level], doorPos.x, doorPos.y);
+  doorPosTerrain = getMapSpaceTerrain(dungeon[doorPos.level], doorPos.x, doorPos.y);
   
   switch (c){
     case 'o':
@@ -138,7 +138,7 @@ void doOpenDoor(unsigned int c, map map){
 	displayMsgNoWait(NO_DOOR_THERE_MSG);
 	return;
       } else {
-	setMapSpaceTerrain(map[doorPos.level], doorPos.x, doorPos.y, OPENDOOR);
+	setMapSpaceTerrain(dungeon[doorPos.level], doorPos.x, doorPos.y, OPENDOOR);
       }
       break;
     case'c':
@@ -151,7 +151,7 @@ void doOpenDoor(unsigned int c, map map){
 	displayMsgNoWait(NO_DOOR_THERE_MSG);
 	return;
       } else {
-	setMapSpaceTerrain(map[doorPos.level], doorPos.x, doorPos.y, DOOR);
+	setMapSpaceTerrain(dungeon[doorPos.level], doorPos.x, doorPos.y, DOOR);
       }
       break;
   }
@@ -218,9 +218,9 @@ void doSearchDoors(unsigned int c, map map){
       break;
   }
   
-  searchSquareTerrain = getMapSpaceTerrain(map[playerLoc.level], searchLoc.x, searchLoc.y);
+  searchSquareTerrain = getMapSpaceTerrain(dungeon[playerLoc.level], searchLoc.x, searchLoc.y);
   if (searchSquareTerrain == HIDDENDOOR){
-    searchCountdownPtr = getTerrainData(map[playerLoc.level], searchLoc.x, searchLoc.y, HIDDENDOOR);
+    searchCountdownPtr = getTerrainData(dungeon[playerLoc.level], searchLoc.x, searchLoc.y, HIDDENDOOR);
     searchCountdown = *searchCountdownPtr;
     free(searchCountdownPtr);
     if (!searchCountdown){
@@ -228,9 +228,9 @@ void doSearchDoors(unsigned int c, map map){
     }
     searchCountdown--;
     if (!searchCountdown){
-      setMapSpaceTerrain(map[playerLoc.level], searchLoc.x, searchLoc.y, DOOR);
+      setMapSpaceTerrain(dungeon[playerLoc.level], searchLoc.x, searchLoc.y, DOOR);
     }
-    setTerrainData(map[playerLoc.level], searchLoc.x, searchLoc.y, HIDDENDOOR, (void *)&searchCountdown);
+    setTerrainData(dungeon[playerLoc.level], searchLoc.x, searchLoc.y, HIDDENDOOR, (void *)&searchCountdown);
   }
   
   return;
@@ -244,13 +244,13 @@ void doStairs(unsigned int c, map map){
   curPos = getCreatureLocation(&player);
   
   if (c == '<'){
-    if (getMapSpaceTerrain(map[curPos.level], curPos.x, curPos.y) == UPSTAIR){
+    if (getMapSpaceTerrain(dungeon[curPos.level], curPos.x, curPos.y) == UPSTAIR){
       if (curPos.level == 0){
 	displayMsgNoWait(UP_IS_EXIT_MSG);
 	return;
       }
       newPos.level = curPos.level - 1;
-      stairPos = findLevelDownstair(map[curPos.level - 1]);
+      stairPos = findLevelDownstair(dungeon[curPos.level - 1]);
       newPos.x = stairPos.x;
       newPos.y = stairPos.y;
     } else {
@@ -260,9 +260,9 @@ void doStairs(unsigned int c, map map){
   }
     
   if (c == '>'){
-    if (getMapSpaceTerrain(map[curPos.level], curPos.x, curPos.y) == DOWNSTAIR){
+    if (getMapSpaceTerrain(dungeon[curPos.level], curPos.x, curPos.y) == DOWNSTAIR){
       newPos.level = curPos.level + 1;
-      stairPos = findLevelUpstair(map[curPos.level + 1]);
+      stairPos = findLevelUpstair(dungeon[curPos.level + 1]);
       newPos.x = stairPos.x;
       newPos.y = stairPos.y;
     } else {
@@ -271,10 +271,10 @@ void doStairs(unsigned int c, map map){
     }
   }
     
-  clearCreatureOccupant(map[curPos.level], curPos.x, curPos.y);
-  setCreatureOccupant(map[newPos.level], newPos.x, newPos.y, &player);
+  clearCreatureOccupant(dungeon[curPos.level], curPos.x, curPos.y);
+  setCreatureOccupant(dungeon[newPos.level], newPos.x, newPos.y, &player);
   setCreatureLocation(&player, newPos);
-  updateRegionExploredState(map[newPos.level], newPos.x, newPos.y, true);
+  updateRegionExploredState(dungeon[newPos.level], newPos.x, newPos.y, true);
     
   return;
   }

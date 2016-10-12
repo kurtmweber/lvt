@@ -49,18 +49,18 @@ unsigned int getCreatureMapLevel(creature *creature);
 #endif
 
 #ifndef _GAME_C
-void startGame(map map);
+void startGame();
 #else
-void gameLoop(map map);
+void gameLoop();
 bool doQuit();
-void processKey(unsigned int c, map map);
+void processKey(unsigned int c);
 #endif
 
 #ifndef _INPUT_C
-void doMoveKey(unsigned int c, map map);
-void doOpenDoor(unsigned int c, map map);
-void doSearchDoors(unsigned int c, map map);
-void doStairs(unsigned int c, map map);
+void doMoveKey(unsigned int c);
+void doOpenDoor(unsigned int c);
+void doSearchDoors(unsigned int c);
+void doStairs(unsigned int c);
 #else
 #endif
 
@@ -97,6 +97,7 @@ void placeStairs(level level, unsigned int levelNum);
 #ifndef _MAIN_C
 extern const double pi;
 extern creature player;
+extern map dungeon;
 #else
 #endif
 
@@ -120,9 +121,9 @@ coord2D findLevelDownstair(level level);
 #endif
 
 #ifndef _MOVE_C
-moveOutcome moveCreature(creature *creature, moveDirection dir, map map);
+moveOutcome moveCreature(creature *creature, moveDirection dir);
 #else
-moveOutcome moveCreature(creature *creature, moveDirection dir, map map);
+moveOutcome moveCreature(creature *creature, moveDirection dir);
 #endif
 
 #ifndef _RANDOM_C

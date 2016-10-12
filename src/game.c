@@ -24,10 +24,10 @@
 #include "creature.h"
 #include "messages.h"
 
-void startGame(map map){
+void startGame(){
   char *welcomeMsg = 0;
   
-  displayLevel(map[0]);
+  displayLevel(dungeon[0]);
   
   welcomeMsg = calloc(MSGLEN(WELCOME_MSG) + strlen(getCreatureName(&player)) + 1 , sizeof(char));
   sprintf(welcomeMsg, WELCOME_MSG, getCreatureName(&player));
@@ -35,7 +35,7 @@ void startGame(map map){
   
   free(welcomeMsg);
   
-  gameLoop(map);
+  gameLoop();
   
   return;
 }
@@ -44,7 +44,7 @@ bool doQuit(){
   return true;
 }
 
-void gameLoop(map map){
+void gameLoop(){
   unsigned int c = '\0';
   
   while(1){
@@ -56,14 +56,14 @@ void gameLoop(map map){
 	break;
       }
     }
-    processKey(c, map);
-    displayLevel(map[getCreatureMapLevel(&player)]);
+    processKey(c);
+    displayLevel(dungeon[getCreatureMapLevel(&player)]);
   }
   
   return;
 }
 
-void processKey(unsigned int c, map map){
+void processKey(unsigned int c){
   switch (c){
     case KEY_UP:
     case KEY_DOWN:
@@ -73,18 +73,18 @@ void processKey(unsigned int c, map map){
     case KEY_UPRIGHT:
     case KEY_DOWNLEFT:
     case KEY_DOWNRIGHT:
-      doMoveKey(c, map);
+      doMoveKey(c);
       break;
     case 'o':
     case 'c':
-      doOpenDoor(c, map);
+      doOpenDoor(c);
       break;
     case 's':
-      doSearchDoors(c, map);
+      doSearchDoors(c);
       break;
     case '<':
     case '>':
-      doStairs(c, map);
+      doStairs(c);
       break;
     default:
       break;

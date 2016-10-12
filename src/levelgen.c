@@ -8,7 +8,7 @@
 #include "level.h"
 
 // some tuning constants
-const unsigned int roomCoverageMu = 3000;
+const unsigned int roomCoverageMu = 1000;
 const unsigned int roomCoverageSigma = 500;
 const unsigned int roomCoverageFloor = 500;
 const unsigned int roomCoverageCeiling = 5000;

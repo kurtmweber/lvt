@@ -26,16 +26,16 @@
 
 const double pi = 3.141592;
 creature player;
+map dungeon;
 
 int main(int argc, char *argv[]){
-  map map;
 
   coord2D initUpstair;
   coord3D initLocation;
   
   initializeLevelGen();
   
-  map = generateMap();
+  dungeon = generateMap();
   
   initializeNcurses();
   
@@ -47,17 +47,17 @@ int main(int argc, char *argv[]){
   initializeCharacter();
   clear();
     
-  initUpstair = findLevelUpstair(map[0]);
+  initUpstair = findLevelUpstair(dungeon[0]);
   initLocation.x = initUpstair.x;
   initLocation.y = initUpstair.y;
   initLocation.level = 0;
   setCreatureLocation(&player, initLocation);
-  setCreatureOccupant(map[initLocation.level], initLocation.x, initLocation.y, &player);
-  updateRegionExploredState(map[initLocation.level], initLocation.x, initLocation.y, true);
+  setCreatureOccupant(dungeon[initLocation.level], initLocation.x, initLocation.y, &player);
+  updateRegionExploredState(dungeon[initLocation.level], initLocation.x, initLocation.y, true);
   
   initializeGameScreen();
   
-  startGame(map);
+  startGame();
   
   destroyNcurses();
 

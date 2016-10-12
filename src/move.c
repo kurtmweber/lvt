@@ -21,7 +21,7 @@
 #include "lvt.h"
 #include "move.h"
 
-moveOutcome moveCreature(creature *creature, moveDirection dir, map map){
+moveOutcome moveCreature(creature *creature, moveDirection dir){
   coord3D curPos;
   coord3D newPos;
   
@@ -62,7 +62,7 @@ moveOutcome moveCreature(creature *creature, moveDirection dir, map map){
       break;
   }
   
-  switch (getMapSpaceTerrain(map[curPos.level], newPos.x, newPos.y)){
+  switch (getMapSpaceTerrain(dungeon[curPos.level], newPos.x, newPos.y)){
     case WALL:
     case PERMANENTROCK:
     case HIDDENDOOR:
@@ -73,16 +73,16 @@ moveOutcome moveCreature(creature *creature, moveDirection dir, map map){
       break;
   }
   
-  if (hasCreatureOccupant(map[curPos.level], newPos.x, newPos.y)){
+  if (hasCreatureOccupant(dungeon[curPos.level], newPos.x, newPos.y)){
     return MOVE_FAILED_CREATURE;
   }
   
   newPos.level = curPos.level;
   
-  clearCreatureOccupant(map[curPos.level], curPos.x, curPos.y);
-  setCreatureOccupant(map[curPos.level], newPos.x, newPos.y, creature);
+  clearCreatureOccupant(dungeon[curPos.level], curPos.x, curPos.y);
+  setCreatureOccupant(dungeon[curPos.level], newPos.x, newPos.y, creature);
   setCreatureLocation(creature, newPos);
-  updateRegionExploredState(map[curPos.level], newPos.x, newPos.y, true);
+  updateRegionExploredState(dungeon[curPos.level], newPos.x, newPos.y, true);
   
   return MOVE_SUCCESS;
 }
