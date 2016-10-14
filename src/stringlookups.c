@@ -15,39 +15,9 @@
  *  along with Lavender Throne.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef _TYPES_H
-#define _TYPES_H
+#define _STRINGLOOKUPS_C
 
-#include "pcg_basic.h"
-
-typedef pcg32_random_t rng;
-
-typedef enum coin{
-  HEADS,
-  TAILS
-} coin;
-
-typedef struct coord2D{
-  unsigned int x;
-  unsigned int y;
-} coord2D;
-
-typedef struct coord3D{
-  unsigned int x;
-  unsigned int y;
-  unsigned int level;
-} coord3D;
-
-typedef enum color{
-  RED,
-  WHITE,
-  BRIGHTWHITE
-} color;
-
-typedef struct gameStatus{
-  unsigned int turnNum;
-  unsigned int speedCounter;
-  unsigned int playerSpeed;
-} gameStatus;
-
-#endif
+#include <stdlib.h>
+#include <string.h>
+#include "lvt.h"
+#include "stringlookups.h"

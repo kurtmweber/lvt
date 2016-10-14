@@ -27,6 +27,8 @@
 void startGame(){
   char *welcomeMsg = 0;
   
+  status.turnNum = 0;
+  
   displayLevel(dungeon[0]);
   
   welcomeMsg = calloc(MSGLEN(WELCOME_MSG) + strlen(getCreatureName(&player)) + 1 , sizeof(char));

@@ -15,39 +15,47 @@
  *  along with Lavender Throne.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef _TYPES_H
-#define _TYPES_H
+#ifndef _STRINGLOOKUPS_H
+#define _STRINGLOOKUPS_H
 
-#include "pcg_basic.h"
+#include "creature.h"
 
-typedef pcg32_random_t rng;
+#ifdef _STRINGLOOKUPS_C
 
-typedef enum coin{
-  HEADS,
-  TAILS
-} coin;
+const char *speciesNames[] = {
+  "human",
+  "halfling",
+  "elf",
+  "dwarf",
+  "bear",
+  "boar",
+  "deer",
+  "orc",
+  "goblin"
+};
 
-typedef struct coord2D{
-  unsigned int x;
-  unsigned int y;
-} coord2D;
+const char *classNames[] = {
+  "poet",
+  "peacemaker",
+  "paladin",
+  "ranger",
+  "warrior",
+  "merchant",
+  "peasant",
+  "scholar",
+  "beggar",
+  "craftsperson",
+  "meshchanin",
+  "noble",
+  "white cleric",
+  "black cleric"
+};
 
-typedef struct coord3D{
-  unsigned int x;
-  unsigned int y;
-  unsigned int level;
-} coord3D;
+#else
 
-typedef enum color{
-  RED,
-  WHITE,
-  BRIGHTWHITE
-} color;
+extern const char *speciesNames[MAXCREATURESPECIES];
+extern const char *classNames[MAXCREATURECLASS];
 
-typedef struct gameStatus{
-  unsigned int turnNum;
-  unsigned int speedCounter;
-  unsigned int playerSpeed;
-} gameStatus;
+#endif
 
 #endif

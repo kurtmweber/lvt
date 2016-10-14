@@ -19,7 +19,9 @@
 
 #include <ncurses.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include "lvt.h"
+#include "stringlookups.h"
 
 WINDOW *msgWin = 0;
 WINDOW *statWin = 0;
@@ -27,8 +29,15 @@ WINDOW *playArea = 0;
 
 void updateStatWin(){
   char dLvl[4];
+  
   wclear(statWin);
   wprintw(statWin, getCreatureName(&player));
+  wprintw(statWin, ", the ");
+  
+  wprintw(statWin, speciesNames[getCreatureSpecies(&player)]);
+  wprintw(statWin, " ");
+  wprintw(statWin, classNames[getCreatureClass(&player)]);
+
   wprintw(statWin, " Dlvl: ");
   sprintf(dLvl, "%i", getCreatureMapLevel(&player) + 1);
   wprintw(statWin, dLvl);

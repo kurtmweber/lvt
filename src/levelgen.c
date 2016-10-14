@@ -24,7 +24,7 @@ const unsigned int maxRoomY = 10;
 
 const unsigned int doorLikelihood = 500;	// likelihood (out of 1000) that a door-eligible floor will
 						// become a door
-const unsigned int hiddenDoorLikelihood = 500;	// likelihood (out of 1000) that a door will be hidden
+const unsigned int hiddenDoorLikelihood = 100;	// likelihood (out of 1000) that a door will be hidden
 
 const unsigned int numLevels = 1;
 

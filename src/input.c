@@ -22,7 +22,7 @@
 #include "move.h"
 #include "messages.h"
 
-const unsigned int maxSearchCountdown = 10;
+const unsigned int maxSearchCountdown = 1;
 
 void doMoveKey(unsigned int c){
   moveDirection dir;
@@ -125,6 +125,8 @@ void doOpenDoor(unsigned int c){
       return;
   }
   
+  doorPos.level = curPos.level;
+  
   doorPosTerrain = getMapSpaceTerrain(dungeon[doorPos.level], doorPos.x, doorPos.y);
   
   switch (c){
@@ -172,6 +174,7 @@ void doSearchDoors(unsigned int c, map map){
   
   if (!rngInitd){
     initializeRNG(&searchRng);
+    rngInitd = true;
   }
   
   playerLoc = getCreatureLocation(&player);

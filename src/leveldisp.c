@@ -32,7 +32,9 @@ char *generateLevelRepresentation(level level, unsigned int line){
   mapLine = calloc(dimMapX + 1, sizeof(char));
   
   for (x = 0; x < dimMapX; x++){
+#ifndef _D_DEBUG
     if (getMapSpaceExploredState(level, x, line)){
+#endif
       // a creature occupant will always appear on top of contents, and contents will always appear on
       // top of a plant occupant, so we only need to worry about the highest level that appears and if
       // it's there, then we don't need to worry about the lower levels for display purposes
@@ -73,9 +75,11 @@ char *generateLevelRepresentation(level level, unsigned int line){
 	      break;
 	  }
       }
+#ifndef _D_DEBUG
     } else {
       mapLine[x] = ' ';
     }
+#endif
   }
   
   mapLine[x + 1] = '\0';

@@ -23,10 +23,12 @@
 #include "lvt.h"
 #include "level.h"
 #include "creature.h"
+#include "types.h"
 
 const double pi = 3.141592;
 creature player;
 map dungeon;
+gameStatus status;
 
 int main(int argc, char *argv[]){
 

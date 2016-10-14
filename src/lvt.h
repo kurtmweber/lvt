@@ -33,6 +33,14 @@
 #ifndef _CHARGEN_C
 void initializeCharacter();
 #else
+char *inputPlayerName();
+creatureSpecies inputPlayerSpecies();
+creatureClass inputPlayerClass();
+#endif
+
+#ifndef _CREATUREINIT_C
+void genOrphanCreatureStats(creature *creature);
+#else
 #endif
 
 #ifndef _CREATUREMGMT_C
@@ -45,6 +53,10 @@ creature *getCreatureOccupant(level level, unsigned int x, unsigned int y);
 void setCreatureLocation(creature *creature, coord3D location);
 coord3D getCreatureLocation(creature *creature);
 unsigned int getCreatureMapLevel(creature *creature);
+void setCreatureSpecies(creature *creature, creatureSpecies species);
+creatureSpecies getCreatureSpecies(creature *creature);
+void setCreatureClass(creature *creature, creatureClass class);
+creatureClass getCreatureClass(creature *creature);
 #else
 #endif
 
@@ -98,6 +110,7 @@ void placeStairs(level level, unsigned int levelNum);
 extern const double pi;
 extern creature player;
 extern map dungeon;
+extern gameStatus status;
 #else
 #endif
 
@@ -153,6 +166,10 @@ void clearPlayArea();
 void updateStatWin();
 #else
 coord2D definePlayAreaDisplay();
+#endif
+
+#ifndef _STRINGLOOKUPS_C
+#else
 #endif
 
 #endif

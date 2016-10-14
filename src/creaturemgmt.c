@@ -26,6 +26,26 @@ void setCreatureName(creature *creature, char *name){
   return;
 }
 
+void setCreatureSpecies(creature *creature, creatureSpecies species){
+  creature->species = species;
+  
+  return;
+}
+
+void setCreatureClass(creature *creature, creatureClass class){
+  creature->class = class;
+  
+  return;
+}
+
+creatureClass getCreatureClass(creature *creature){
+  return creature->class;
+}
+
+creatureSpecies getCreatureSpecies(creature *creature){
+  return creature->species;
+}
+
 char *getCreatureName(creature *creature){
   return creature->name;
 }
