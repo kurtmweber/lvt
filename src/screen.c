@@ -42,6 +42,8 @@ void updateStatWin(){
   wprintw(statWin, " Dlvl: ");
   sprintf(dLvl, "%i", getCreatureMapLevel(&player) + 1);
   wprintw(statWin, dLvl);
+
+  wprintw(statWin, " Turn: %i Speed: %i", status.turnNum, status.playerSpeed);
   wprintw(statWin, "\n");
   
   getCreatureCurStats(&player, &stats);

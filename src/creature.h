@@ -81,6 +81,7 @@ typedef struct speciesActions{
 
 typedef struct speciesInfo{
   int statModifiers[MAXSTATNAME];
+  unsigned int lifePace;
   speciesActions actions;
 } speciesInfo;
 

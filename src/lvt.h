@@ -72,6 +72,7 @@ void startGame();
 void gameLoop();
 bool doQuit();
 void processKey(unsigned int c);
+void updateTurnCounter();
 #endif
 
 #ifndef _INPUT_C

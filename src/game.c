@@ -28,6 +28,8 @@ void startGame(){
   char *welcomeMsg = 0;
   
   status.turnNum = 0;
+  status.playerSpeed = 5;
+  status.speedCounter = 5;
   
   displayLevel(dungeon[0]);
   
@@ -46,6 +48,17 @@ bool doQuit(){
   return true;
 }
 
+void updateTurnCounter(){
+  status.speedCounter--;
+  
+  if (status.speedCounter == 0){
+    status.speedCounter = status.playerSpeed;
+    status.turnNum++;
+  }
+  
+  return;
+}
+
 void gameLoop(){
   unsigned int c = '\0';
   
@@ -59,6 +72,7 @@ void gameLoop(){
       }
     }
     processKey(c);
+    updateTurnCounter();
     displayLevel(dungeon[getCreatureMapLevel(&player)]);
   }
   
