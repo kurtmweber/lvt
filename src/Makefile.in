@@ -105,7 +105,8 @@ am_lvt_OBJECTS = leveldisp.$(OBJEXT) levelgen.$(OBJEXT) main.$(OBJEXT) \
 	pcg_basic.$(OBJEXT) random.$(OBJEXT) map.$(OBJEXT) \
 	screen.$(OBJEXT) chargen.$(OBJEXT) creaturemgmt.$(OBJEXT) \
 	game.$(OBJEXT) move.$(OBJEXT) input.$(OBJEXT) \
-	creatureinit.$(OBJEXT) stringlookups.$(OBJEXT)
+	creatureinit.$(OBJEXT) stringlookups.$(OBJEXT) \
+	speciesinfo.$(OBJEXT) util.$(OBJEXT)
 lvt_OBJECTS = $(am_lvt_OBJECTS)
 lvt_LDADD = $(LDADD)
 AM_V_P = $(am__v_P_@AM_V@)
@@ -254,7 +255,8 @@ top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 lvt_SOURCES = leveldisp.c levelgen.c main.c pcg_basic.c random.c map.c screen.c chargen.c \
-			creaturemgmt.c game.c move.c input.c creatureinit.c stringlookups.c
+			creaturemgmt.c game.c move.c input.c creatureinit.c stringlookups.c speciesinfo.c \
+			util.c
 
 noinst_HEADERS = lvt.h level.h pcg_basic.h creature.h messages.h types.h move.h stringlookups.h
 all: all-am
@@ -356,7 +358,9 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/pcg_basic.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/random.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/screen.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/speciesinfo.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/stringlookups.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/util.Po@am__quote@
 
 .c.o:
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(COMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<

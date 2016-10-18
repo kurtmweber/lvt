@@ -38,6 +38,49 @@ void setCreatureClass(creature *creature, creatureClass class){
   return;
 }
 
+void setCreatureMatured(creature *creature, bool matured){
+  creature->hasMatured = matured;
+  
+  return;
+}
+
+bool getCreatureMatured(creature *creature){
+  return creature->hasMatured;
+}
+
+void setCreatureMaxStats(creature *creature, int stats[6]){
+  creature->maxStats[STRENGTH] = stats[STRENGTH];
+  creature->maxStats[INTELLIGENCE] = stats[INTELLIGENCE];
+  creature->maxStats[WISDOM] = stats[WISDOM];
+  creature->maxStats[CONSTITUTION] = stats[CONSTITUTION];
+  creature->maxStats[CHARISMA] = stats[CHARISMA];
+  creature->maxStats[DEXTERITY] = stats[DEXTERITY];
+  
+  return;
+}
+
+void setCreatureCurStats(creature *creature, int stats[6]){
+  creature->curStats[STRENGTH] = stats[STRENGTH];
+  creature->curStats[INTELLIGENCE] = stats[INTELLIGENCE];
+  creature->curStats[WISDOM] = stats[WISDOM];
+  creature->curStats[CONSTITUTION] = stats[CONSTITUTION];
+  creature->curStats[CHARISMA] = stats[CHARISMA];
+  creature->curStats[DEXTERITY] = stats[DEXTERITY];
+  
+  return;
+}
+
+void getCreatureCurStats(creature *creature, statList *stats){
+  stats->strength = creature->curStats[STRENGTH];
+  stats->intelligence = creature->curStats[INTELLIGENCE];
+  stats->wisdom = creature->curStats[WISDOM];
+  stats->constitution = creature->curStats[CONSTITUTION];
+  stats->charisma = creature->curStats[CHARISMA];
+  stats->dexterity = creature->curStats[DEXTERITY];
+  
+  return;
+}
+
 creatureClass getCreatureClass(creature *creature){
   return creature->class;
 }

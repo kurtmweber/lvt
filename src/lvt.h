@@ -41,6 +41,7 @@ creatureClass inputPlayerClass();
 #ifndef _CREATUREINIT_C
 void genOrphanCreatureStats(creature *creature);
 #else
+void getClassModifiers(creatureClass class, statList *list);
 #endif
 
 #ifndef _CREATUREMGMT_C
@@ -57,6 +58,11 @@ void setCreatureSpecies(creature *creature, creatureSpecies species);
 creatureSpecies getCreatureSpecies(creature *creature);
 void setCreatureClass(creature *creature, creatureClass class);
 creatureClass getCreatureClass(creature *creature);
+void setCreatureMatured(creature *creature, bool matured);
+bool getCreatureMatured(creature *creature);
+void setCreatureMaxStats(creature *creature, int stats[MAXSTATNAME]);
+void getCreatureCurStats(creature *creature, statList *stats);
+void setCreatureCurStats(creature *creature, int stats[MAXSTATNAME]);
 #else
 #endif
 
@@ -168,7 +174,23 @@ void updateStatWin();
 coord2D definePlayAreaDisplay();
 #endif
 
+#ifndef _SPECIESINFO_C
+extern speciesInfo speciesData[MAXCREATURESPECIES];
+void initSpeciesData();
+void getSpeciesModifiers(creatureSpecies species, statList *list);
+#else
+void initSpeciesDataHuman();
+void initSpeciesDataHalfling();
+void initSpeciesDataElf();
+void initSpeciesDataDwarf();
+#endif
+
 #ifndef _STRINGLOOKUPS_C
+#else
+#endif
+
+#ifndef _UTIL_C
+int clampRangeIntSigned(int value, int min, int max);
 #else
 #endif
 

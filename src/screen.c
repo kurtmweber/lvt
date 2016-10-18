@@ -29,6 +29,7 @@ WINDOW *playArea = 0;
 
 void updateStatWin(){
   char dLvl[4];
+  statList stats;
   
   wclear(statWin);
   wprintw(statWin, getCreatureName(&player));
@@ -41,6 +42,16 @@ void updateStatWin(){
   wprintw(statWin, " Dlvl: ");
   sprintf(dLvl, "%i", getCreatureMapLevel(&player) + 1);
   wprintw(statWin, dLvl);
+  wprintw(statWin, "\n");
+  
+  getCreatureCurStats(&player, &stats);
+  
+  wprintw(statWin, "STR: %i ", stats.strength);
+  wprintw(statWin, "INT: %i ", stats.intelligence);
+  wprintw(statWin, "WIS: %i ", stats.wisdom);
+  wprintw(statWin, "CON: %i ", stats.constitution);
+  wprintw(statWin, "CHR: %i ", stats.charisma);
+  wprintw(statWin, "DEX: %i ", stats.dexterity);
   wrefresh(statWin);
   return;
 }

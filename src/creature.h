@@ -21,6 +21,15 @@
 #include <stdbool.h>
 #include "types.h"
 
+typedef struct statList{
+  int strength;
+  int wisdom;
+  int intelligence;
+  int constitution;
+  int charisma;
+  int dexterity;
+} statList;
+
 typedef enum bioSex{
   FEMALE,
   MALE
@@ -57,33 +66,37 @@ typedef enum creatureClass{
   MAXCREATURECLASS
 } creatureClass;
 
+typedef enum creatureStats{
+  STRENGTH,
+  WISDOM,
+  INTELLIGENCE,
+  CONSTITUTION,
+  CHARISMA,
+  DEXTERITY,
+  MAXSTATNAME
+} creatureStats;
+
+typedef struct speciesActions{
+} speciesActions;
+
+typedef struct speciesInfo{
+  int statModifiers[MAXSTATNAME];
+  speciesActions actions;
+} speciesInfo;
+
 typedef struct creature{
   char *name;
   bool isPlayer;
+  bool hasMatured;
   coord3D location;
   creatureSpecies species;
   creatureClass class;
   char dispChar;
   unsigned int curHitPoints;
   unsigned int maxHitPoints;
-  unsigned int effStrength;
-  unsigned int curStrength;
-  unsigned int maxStrength;
-  unsigned int effWisdom;
-  unsigned int curWisdom;
-  unsigned int maxWisdom;
-  unsigned int effIntelligence;
-  unsigned int curIntelligence;
-  unsigned int maxIntelligence;
-  unsigned int effConstitution;
-  unsigned int curConstitution;
-  unsigned int maxConstitution;
-  unsigned int effCharisma;
-  unsigned int curCharisma;
-  unsigned int maxCharisma;
-  unsigned int effDexterity;
-  unsigned int curDexterity;
-  unsigned int maxDexterity;
+  unsigned int effStats[6];
+  unsigned int curStats[6];
+  unsigned int maxStats[6];
   bioSex sex;
 } creature;
 

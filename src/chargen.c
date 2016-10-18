@@ -148,7 +148,8 @@ void initializeCharacter(){
   setCreatureName(&player, charName);
   setCreatureSpecies(&player, species);
   setCreatureClass(&player, class);
-  //genOrphanCreatureStats(&player);
+  setCreatureMatured(&player, false);
+  genOrphanCreatureStats(&player);
   setIsPlayer(&player);
   changeDispChar(&player, '@');
   

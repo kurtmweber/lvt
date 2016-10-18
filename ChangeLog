@@ -1,4 +1,5 @@
 for version 0.2
+  * player stats generated and displayed on screen (kmw, 2016-10-17)
   * species and class can now be set during character generation (kmw, 2016-10-13)
   * fixed bug that made doors inoperable below top dungeon level (kmw, 2016-10-12)
   * fixed bug that was making hidden door searches incredibly ineffective (kmw, 2016-10-12)

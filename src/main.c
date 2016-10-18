@@ -36,6 +36,7 @@ int main(int argc, char *argv[]){
   coord3D initLocation;
   
   initializeLevelGen();
+  initSpeciesData();
   
   dungeon = generateMap();
   
