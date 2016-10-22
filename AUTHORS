@@ -1,1 +1,4 @@
 Kurt M. Weber (kmw) <weberk294@gmail.com>
+
+PCG Random Number Generator (src/pcg_basic.c, src/pcg_basic.h):
+  * Melissa O'Neill <oneill@pcg-random.org>

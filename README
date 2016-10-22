@@ -1,0 +1,5 @@
+Lavender Throne is released under the GNU General Public license, version 3.  See file COPYING for details.
+
+Lavender Throne makes use of the PCG random number generator.  Source code, found in the files
+src/pcg_basic.c and src/pcg_basic.h, is released under the Apache License version 2.0 and was written
+by Melissa O'Neill.  See http://www.apache.org/licenses/LICENSE-2.0 for details.
