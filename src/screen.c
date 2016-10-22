@@ -91,20 +91,20 @@ void clearMsg(){
   return;
 }
 
-void displayMsg(char *msg){
+void displayMsg(char *msg, int a){
+  clearMsg();
   wprintw(msgWin, msg);
   wprintw(msgWin, " (enter to continue)");
   wrefresh(msgWin);
   while (getch() != '\n'){
     beep();
   }
-  
-  clearMsg();
 
   return;
 }
 
-void displayMsgNoWait(char *msg){
+void displayMsgNoWait(char *msg, int a){
+  clearMsg();
   wprintw(msgWin, msg);
   wrefresh(msgWin);
   

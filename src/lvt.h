@@ -150,6 +150,12 @@ coord2D findLevelDownstair(level level);
 #else
 #endif
 
+#ifndef _MESSAGES_C
+void addToMsgQueue(char *msg, bool confirm);
+void procMsgQueue();
+#else
+#endif
+
 #ifndef _MOVE_C
 moveOutcome moveCreature(creature *creature, moveDirection dir);
 #else
@@ -171,8 +177,8 @@ coin coinFlip(rng *rng);
 void initializeNcurses();
 void destroyNcurses();
 void initializeGameScreen();
-void displayMsg(char *msg);
-void displayMsgNoWait(char *msg);
+void displayMsg(char *msg, int a);
+void displayMsgNoWait(char *msg, int a);
 extern WINDOW *msgWin;
 extern WINDOW *statWin;
 extern WINDOW *playArea;

@@ -35,7 +35,7 @@ void startGame(){
   
   welcomeMsg = calloc(MSGLEN(WELCOME_MSG) + strlen(getCreatureName(&player)) + 1 , sizeof(char));
   sprintf(welcomeMsg, WELCOME_MSG, getCreatureName(&player));
-  displayMsg(welcomeMsg);
+  addToMsgQueue(welcomeMsg, true);
   
   free(welcomeMsg);
   
@@ -45,6 +45,7 @@ void startGame(){
 }
 
 bool doQuit(){
+  destroyNcurses();
   exit(EXIT_SUCCESS);
   return true;
 }
@@ -56,7 +57,7 @@ void updateTurnCounter(){
     status.speedCounter = status.playerSpeed;
     status.turnNum++;
     if (!updateCreatureLifeCycle(&player)){
-      displayMsg(DIED_OLD_AGE_MSG);
+      addToMsgQueue(DIED_OLD_AGE_MSG, true);
       doQuit();
     }
   }
@@ -68,6 +69,8 @@ void gameLoop(){
   unsigned int c = '\0';
   
   while(1){
+    clearMsg();
+    procMsgQueue();
     updateStatWin();
     c = getch();
     clearMsg();

@@ -56,13 +56,13 @@ void doMoveKey(unsigned int c){
   
   switch(moveCreature(&player, dir)){
     case MOVE_FAILED_WALL:
-      displayMsgNoWait(MOVE_WALL_MSG);
+      addToMsgQueue(MOVE_WALL_MSG, false);
       break;
     case MOVE_FAILED_CREATURE:
-      displayMsgNoWait(MOVE_CREATURE_MSG);
+      addToMsgQueue(MOVE_CREATURE_MSG, false);
       break;
     case MOVE_FAILED_DOOR:
-      displayMsgNoWait(MOVE_DOOR_MSG);
+      addToMsgQueue(MOVE_DOOR_MSG, false);
       break;
     case MOVE_SUCCESS:
       displayLevel(dungeon[getCreatureMapLevel(&player)]);
@@ -81,7 +81,8 @@ void doOpenDoor(unsigned int c){
   curPos = getCreatureLocation(&player);
   
   
-  displayMsgNoWait(WHICH_DIRECTION_MSG);
+  addToMsgQueue(WHICH_DIRECTION_MSG, false);
+  procMsgQueue();
   
   dir = getch();
   clearMsg();
@@ -121,7 +122,7 @@ void doOpenDoor(unsigned int c){
       break;
     default:
       clearMsg();
-      displayMsgNoWait(NEVER_MIND_MSG);
+      addToMsgQueue(NEVER_MIND_MSG, false);
       return;
   }
   
@@ -132,12 +133,10 @@ void doOpenDoor(unsigned int c){
   switch (c){
     case 'o':
       if (doorPosTerrain == OPENDOOR){
-	clearMsg();
-	displayMsgNoWait(DOOR_ALREADY_OPEN_MSG);
+	addToMsgQueue(DOOR_ALREADY_OPEN_MSG, false);
 	return;
       } else if (doorPosTerrain != DOOR){
-	clearMsg();
-	displayMsgNoWait(NO_DOOR_THERE_MSG);
+	addToMsgQueue(NO_DOOR_THERE_MSG, false);
 	return;
       } else {
 	setMapSpaceTerrain(dungeon[doorPos.level], doorPos.x, doorPos.y, OPENDOOR);
@@ -145,12 +144,10 @@ void doOpenDoor(unsigned int c){
       break;
     case'c':
       if (doorPosTerrain == DOOR){
-	clearMsg();
-	displayMsgNoWait(DOOR_ALREADY_CLOSED_MSG);
+	addToMsgQueue(DOOR_ALREADY_CLOSED_MSG, false);
 	return;
       } else if (doorPosTerrain != OPENDOOR){
-	clearMsg();
-	displayMsgNoWait(NO_DOOR_THERE_MSG);
+	addToMsgQueue(NO_DOOR_THERE_MSG, false);
 	return;
       } else {
 	setMapSpaceTerrain(dungeon[doorPos.level], doorPos.x, doorPos.y, DOOR);
@@ -249,7 +246,7 @@ void doStairs(unsigned int c, map map){
   if (c == '<'){
     if (getMapSpaceTerrain(dungeon[curPos.level], curPos.x, curPos.y) == UPSTAIR){
       if (curPos.level == 0){
-	displayMsgNoWait(UP_IS_EXIT_MSG);
+	addToMsgQueue(UP_IS_EXIT_MSG, false);
 	return;
       }
       newPos.level = curPos.level - 1;
@@ -257,7 +254,7 @@ void doStairs(unsigned int c, map map){
       newPos.x = stairPos.x;
       newPos.y = stairPos.y;
     } else {
-      displayMsgNoWait(CANNOT_UP_HERE_MSG);
+      addToMsgQueue(CANNOT_UP_HERE_MSG, false);
       return;
     }
   }
@@ -269,7 +266,7 @@ void doStairs(unsigned int c, map map){
       newPos.x = stairPos.x;
       newPos.y = stairPos.y;
     } else {
-      displayMsgNoWait(CANNOT_DOWN_HERE_MSG);
+      addToMsgQueue(CANNOT_DOWN_HERE_MSG, false);
       return;
     }
   }

@@ -1,4 +1,5 @@
 for version 0.2
+  * implemented queue system for notification messages (kmw, 2016-10-21)
   * creature lifecycle implemented (kmw, 2016-10-21)
   * added turn counter (kmw, 2016-10-17)
   * player stats generated and displayed on screen (kmw, 2016-10-17)
