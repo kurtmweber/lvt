@@ -1,4 +1,5 @@
 for version 0.2
+  * creature lifecycle implemented (kmw, 2016-10-21)
   * added turn counter (kmw, 2016-10-17)
   * player stats generated and displayed on screen (kmw, 2016-10-17)
   * species and class can now be set during character generation (kmw, 2016-10-13)

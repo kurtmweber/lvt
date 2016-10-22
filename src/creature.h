@@ -88,6 +88,7 @@ typedef struct speciesInfo{
 typedef struct creature{
   char *name;
   bool isPlayer;
+  unsigned int lifePace;
   bool hasMatured;
   coord3D location;
   creatureSpecies species;

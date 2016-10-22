@@ -60,10 +60,20 @@ void setCreatureClass(creature *creature, creatureClass class);
 creatureClass getCreatureClass(creature *creature);
 void setCreatureMatured(creature *creature, bool matured);
 bool getCreatureMatured(creature *creature);
+void getCreatureMaxStats(creature *creature, statList *stats);
 void setCreatureMaxStats(creature *creature, int stats[MAXSTATNAME]);
 void getCreatureCurStats(creature *creature, statList *stats);
 void setCreatureCurStats(creature *creature, int stats[MAXSTATNAME]);
+void setCreatureLifePace(creature *creature, unsigned int lifePace);
+bool updateCreatureLifeCycle(creature *creature);
+bool hasCreatureMatured(creature *creature);
 #else
+bool updateCreatureLifeCycleNotMatured(creature *creature);
+bool updateCreatureLifeCycleMatured(creature *creature);
+void getCreatureMaxStats(creature *creature, statList *stats);
+void setCreatureMaxStats(creature *creature, int stats[MAXSTATNAME]);
+void getCreatureCurStats(creature *creature, statList *stats);
+void setCreatureCurStats(creature *creature, int stats[MAXSTATNAME]);
 #endif
 
 #ifndef _GAME_C
@@ -179,6 +189,7 @@ coord2D definePlayAreaDisplay();
 extern speciesInfo speciesData[MAXCREATURESPECIES];
 void initSpeciesData();
 void getSpeciesModifiers(creatureSpecies species, statList *list);
+unsigned int getSpeciesLifePace(creatureSpecies species);
 #else
 void initSpeciesDataHuman();
 void initSpeciesDataHalfling();

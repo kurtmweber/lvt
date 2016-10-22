@@ -45,6 +45,7 @@ void startGame(){
 }
 
 bool doQuit(){
+  exit(EXIT_SUCCESS);
   return true;
 }
 
@@ -54,6 +55,10 @@ void updateTurnCounter(){
   if (status.speedCounter == 0){
     status.speedCounter = status.playerSpeed;
     status.turnNum++;
+    if (!updateCreatureLifeCycle(&player)){
+      displayMsg(DIED_OLD_AGE_MSG);
+      doQuit();
+    }
   }
   
   return;

@@ -152,6 +152,7 @@ void initializeCharacter(){
   genOrphanCreatureStats(&player);
   setIsPlayer(&player);
   changeDispChar(&player, '@');
+  setCreatureLifePace(&player, getSpeciesLifePace(species));
   
   return;
 }

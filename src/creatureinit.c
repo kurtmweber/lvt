@@ -59,8 +59,8 @@ void genOrphanCreatureStats(creature *creature){
   unsigned int curStats[6];
   statList speciesModifiers;
   statList classModifiers;
-  rng localRng;
-  bool rngInitd = false;
+  static rng localRng;
+  static bool rngInitd = false;
   
   if (!rngInitd){
     initializeRNG(&localRng);

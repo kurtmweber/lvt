@@ -32,5 +32,6 @@
 #define CANNOT_UP_HERE_MSG "You cannot go up here."
 #define CANNOT_DOWN_HERE_MSG "You cannot go down here."
 #define UP_IS_EXIT_MSG "To go up from here is to exit."
+#define DIED_OLD_AGE_MSG "You have died of old age..."
 
 #endif

@@ -33,6 +33,10 @@ void getSpeciesModifiers(creatureSpecies species, statList *list){
   return;
 }
 
+unsigned int getSpeciesLifePace(creatureSpecies species){
+  return speciesData[species].lifePace;
+}
+
 // Stats should sum to +7
 
 void initSpeciesDataBear(){
@@ -98,6 +102,10 @@ void initSpeciesData(){
   initSpeciesDataElf();
   initSpeciesDataDwarf();
   initSpeciesDataBear();
+  
+  for (i = 0; i < MAXCREATURESPECIES; i++){
+    speciesData[i].lifePace = 1000;
+  }
   
   return;
 }

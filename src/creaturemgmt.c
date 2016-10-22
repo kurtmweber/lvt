@@ -48,6 +48,203 @@ bool getCreatureMatured(creature *creature){
   return creature->hasMatured;
 }
 
+void setCreatureLifePace(creature *creature, unsigned int lifePace){
+  creature->lifePace = lifePace;
+  
+  return;
+}
+
+bool hasCreatureMatured(creature *creature){
+  unsigned int i;
+  
+  if (getCreatureMatured(creature)){	// Obviously, the tests below will also pass if current stats
+    return true;			// have started to decline due to aging, so if the matured flag
+  }					// is set, we skip them outright
+  
+  for (i = 0; i < MAXSTATNAME; i++){
+    if (creature->curStats[i] != creature->maxStats[i]){
+      return false;
+    }
+  }
+    
+    return true;
+}
+
+bool updateCreatureLifeCycle(creature *creature){
+  if (!getCreatureMatured(creature) && hasCreatureMatured(creature)){
+    setCreatureMatured(creature, true);
+    return true;
+  }
+  
+  if (!getCreatureMatured(creature)){
+    if (!updateCreatureLifeCycleNotMatured(creature)){
+      setCreatureMatured(creature, true);
+      return true;
+    }
+  } else {
+    if (!updateCreatureLifeCycleMatured(creature)){
+      return false;
+    }
+  }
+}
+
+bool updateCreatureLifeCycleNotMatured(creature *creature){
+  unsigned int i = 0;
+  unsigned int statsNotMature[6];
+  static rng lifeCycleRng;
+  static bool rngInitd = false;
+  statList curStats, maxStats;
+  unsigned int rand;
+  unsigned int stats[6];
+  
+  if (!rngInitd){
+    initializeRNG(&lifeCycleRng);
+    rngInitd = true;
+  }
+  
+  getCreatureMaxStats(creature, &maxStats);
+  getCreatureCurStats(creature, &curStats);
+  
+  if (curStats.strength < maxStats.strength){
+    statsNotMature[i] = STRENGTH;
+    i++;
+  }
+  
+  if (curStats.intelligence < maxStats.intelligence){
+    statsNotMature[i] = INTELLIGENCE;
+    i++;
+  }
+  
+  if (curStats.wisdom < maxStats.wisdom){
+    statsNotMature[i] = WISDOM;
+    i++;
+  }
+  
+  if (curStats.constitution < maxStats.constitution){
+    statsNotMature[i] = CONSTITUTION;
+    i++;
+  }
+  
+  if (curStats.charisma < maxStats.charisma){
+    statsNotMature[i] = CHARISMA;
+    i++;
+  }
+  
+  if (curStats.dexterity < maxStats.dexterity){
+    statsNotMature[i] = DEXTERITY;
+    i++;
+  }
+  
+  if (i == 0){
+    return false;
+  }
+  
+  if (uniformRandomRangeInt(&lifeCycleRng, 1, creature->lifePace) == creature->lifePace){
+    rand = uniformRandomRangeInt(&lifeCycleRng, 1, i);
+    switch (statsNotMature[rand - 1]){
+      case STRENGTH:
+	curStats.strength++;
+	break;
+      case INTELLIGENCE:
+	curStats.intelligence++;
+	break;
+      case WISDOM:
+	curStats.wisdom++;
+	break;
+      case CONSTITUTION:
+	curStats.constitution++;
+	break;
+      case CHARISMA:
+	curStats.charisma++;
+	break;
+      case DEXTERITY:
+	curStats.dexterity++;
+	break;
+      default:
+	break;
+    }
+    
+    stats[STRENGTH] = curStats.strength;
+    stats[INTELLIGENCE] = curStats.intelligence;
+    stats[WISDOM] = curStats.wisdom;
+    stats[CONSTITUTION] = curStats.constitution;
+    stats[CHARISMA] = curStats.charisma;
+    stats[DEXTERITY] = curStats.dexterity;
+    
+    setCreatureCurStats(creature, stats);
+  }
+  
+  return true;
+}
+
+bool updateCreatureLifeCycleMatured(creature *creature){
+  static rng lifeCycleRng;
+  static bool rngInitd = false;
+  statList curStats;
+  unsigned int rand;
+  unsigned int stats[6];
+  
+  if (!rngInitd){
+    initializeRNG(&lifeCycleRng);
+    rngInitd = true;
+  }
+  
+ getCreatureCurStats(creature, &curStats);
+  
+  if (uniformRandomRangeInt(&lifeCycleRng, 1, creature->lifePace) == creature->lifePace){
+    rand = uniformRandomRangeInt(&lifeCycleRng, 1, MAXSTATNAME);
+    switch (rand - 1){
+      case STRENGTH:
+	curStats.strength--;
+	break;
+      case INTELLIGENCE:
+	curStats.intelligence--;
+	break;
+      case WISDOM:
+	curStats.wisdom--;
+	break;
+      case CONSTITUTION:
+	curStats.constitution--;
+	break;
+      case CHARISMA:
+	curStats.charisma--;
+	break;
+      case DEXTERITY:
+	curStats.dexterity--;
+	break;
+      default:
+	break;
+    }
+    
+    stats[STRENGTH] = curStats.strength;
+    stats[INTELLIGENCE] = curStats.intelligence;
+    stats[WISDOM] = curStats.wisdom;
+    stats[CONSTITUTION] = curStats.constitution;
+    stats[CHARISMA] = curStats.charisma;
+    stats[DEXTERITY] = curStats.dexterity;
+    
+    setCreatureCurStats(creature, stats);
+  }
+  
+  if ((stats[STRENGTH] == 0) || (stats[INTELLIGENCE] == 0) || (stats[WISDOM] == 0) || \
+      (stats[CONSTITUTION] == 0) || (stats[CHARISMA] == 0) || (stats[DEXTERITY] == 0)){
+    return false;
+  }
+  
+  return true;
+}
+
+void getCreatureMaxStats(creature *creature, statList *stats){
+  stats->strength = creature->maxStats[STRENGTH];
+  stats->intelligence = creature->maxStats[INTELLIGENCE];
+  stats->wisdom = creature->maxStats[WISDOM];
+  stats->constitution = creature->maxStats[CONSTITUTION];
+  stats->charisma = creature->maxStats[CHARISMA];
+  stats->dexterity = creature->maxStats[DEXTERITY];
+  
+  return;
+}
+
 void setCreatureMaxStats(creature *creature, int stats[6]){
   creature->maxStats[STRENGTH] = stats[STRENGTH];
   creature->maxStats[INTELLIGENCE] = stats[INTELLIGENCE];
