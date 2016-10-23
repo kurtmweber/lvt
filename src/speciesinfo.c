@@ -37,6 +37,10 @@ unsigned int getSpeciesLifePace(creatureSpecies species){
   return speciesData[species].lifePace;
 }
 
+unsigned int getSpeciesBaseHp(creatureSpecies species){
+  return speciesData[species].baseHp;
+}
+
 // Stats should sum to +7
 
 void initSpeciesDataBear(){
@@ -105,6 +109,7 @@ void initSpeciesData(){
   
   for (i = 0; i < MAXCREATURESPECIES; i++){
     speciesData[i].lifePace = 1000;
+    speciesData[i].baseHp = 20;
   }
   
   return;

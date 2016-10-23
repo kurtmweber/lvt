@@ -44,6 +44,7 @@ void updateStatWin(){
   wprintw(statWin, dLvl);
 
   wprintw(statWin, " Turn: %i Speed: %i", status.turnNum, status.playerSpeed);
+  wprintw(statWin, " Lvl/XP: %i/%i", getCreatureLevel(&player), getCreatureXp(&player));
   wprintw(statWin, "\n");
   
   getCreatureCurStats(&player, &stats);
@@ -54,6 +55,7 @@ void updateStatWin(){
   wprintw(statWin, "CON: %i ", stats.constitution);
   wprintw(statWin, "CHR: %i ", stats.charisma);
   wprintw(statWin, "DEX: %i ", stats.dexterity);
+  wprintw(statWin, "HP/Max: %i/%i", getCreatureCurHp(&player), getCreatureMaxHp(&player));
   wrefresh(statWin);
   return;
 }
@@ -63,6 +65,7 @@ void initializeNcurses(){
   clear();
   noecho();
   cbreak();
+  leaveok(playArea, true);
   
   return;
 }
@@ -168,5 +171,17 @@ void refreshPlayArea(){
   
   prefresh(playArea, corner.y, corner.x, 1, 0, LINES - 4, MIN(dimMapX, COLS) - 1);
   
+  return;
+}
+
+void setCursorLoc(){
+  coord3D playerLoc;
+  coord2D corner;
+  
+  playerLoc = getCreatureLocation(&player);
+  corner = definePlayAreaDisplay();
+  
+  move(playerLoc.y - corner.y + 1, playerLoc.x - corner.x);
+  refresh();
   return;
 }

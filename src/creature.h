@@ -83,6 +83,7 @@ typedef struct speciesInfo{
   int statModifiers[MAXSTATNAME];
   unsigned int lifePace;
   speciesActions actions;
+  unsigned int baseHp;
 } speciesInfo;
 
 typedef struct creature{
@@ -96,6 +97,8 @@ typedef struct creature{
   char dispChar;
   unsigned int curHitPoints;
   unsigned int maxHitPoints;
+  unsigned int level;
+  unsigned int experience;
   unsigned int effStats[6];
   unsigned int curStats[6];
   unsigned int maxStats[6];

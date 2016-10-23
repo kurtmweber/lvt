@@ -321,3 +321,43 @@ void setCreatureLocation(creature *creature, coord3D location){
   
   return;
 }
+
+void setCreatureLevel(creature *creature, unsigned int level){
+  creature->level = level;
+  
+  return;
+}
+
+void setCreatureMaxHp(creature *creature, unsigned int maxHp){
+  creature->maxHitPoints = maxHp;
+  
+  return;
+}
+
+void setCreatureCurHp(creature *creature, unsigned int curHp){
+  creature->curHitPoints = curHp;
+  
+  return;
+}
+
+void setCreatureXp(creature *creature, unsigned int Xp){
+  creature->experience = Xp;
+  
+  return;
+}
+
+unsigned int getCreatureLevel(creature *creature){
+  return creature->level;
+}
+
+unsigned int getCreatureXp(creature *creature){
+  return creature->experience;
+}
+
+unsigned int getCreatureCurHp(creature *creature){
+  return creature->curHitPoints;
+}
+
+unsigned int getCreatureMaxHp(creature *creature){
+  return creature->maxHitPoints;
+}

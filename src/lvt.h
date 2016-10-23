@@ -67,6 +67,14 @@ void setCreatureCurStats(creature *creature, int stats[MAXSTATNAME]);
 void setCreatureLifePace(creature *creature, unsigned int lifePace);
 bool updateCreatureLifeCycle(creature *creature);
 bool hasCreatureMatured(creature *creature);
+void setCreatureLevel(creature *creature, unsigned int level);
+void setCreatureMaxHp(creature *creature, unsigned int maxHp);
+void setCreatureCurHp(creature *creature, unsigned int curHp);
+void setCreatureXp(creature *creature, unsigned int Xp);
+unsigned int getCreatureLevel(creature *creature);
+unsigned int getCreatureXp(creature *creature);
+unsigned int getCreatureCurHp(creature *creature);
+unsigned int getCreatureMaxHp(creature *creature);
 #else
 bool updateCreatureLifeCycleNotMatured(creature *creature);
 bool updateCreatureLifeCycleMatured(creature *creature);
@@ -187,6 +195,7 @@ void refreshPlayArea();
 void clearMsg();
 void clearPlayArea();
 void updateStatWin();
+void setCursorLoc();
 #else
 coord2D definePlayAreaDisplay();
 #endif
@@ -196,6 +205,7 @@ extern speciesInfo speciesData[MAXCREATURESPECIES];
 void initSpeciesData();
 void getSpeciesModifiers(creatureSpecies species, statList *list);
 unsigned int getSpeciesLifePace(creatureSpecies species);
+unsigned int getSpeciesBaseHp(creatureSpecies species);
 #else
 void initSpeciesDataHuman();
 void initSpeciesDataHalfling();

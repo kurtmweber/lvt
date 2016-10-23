@@ -45,6 +45,7 @@ void startGame(){
 }
 
 bool doQuit(){
+  procMsgQueue();
   destroyNcurses();
   exit(EXIT_SUCCESS);
   return true;
@@ -72,6 +73,7 @@ void gameLoop(){
     clearMsg();
     procMsgQueue();
     updateStatWin();
+    setCursorLoc();
     c = getch();
     clearMsg();
     if (c == 'Q'){
