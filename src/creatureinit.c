@@ -61,6 +61,7 @@ void genOrphanCreatureStats(creature *creature){
   statList classModifiers;
   static rng localRng;
   static bool rngInitd = false;
+  coin bioSex;
   
   if (!rngInitd){
     initializeRNG(&localRng);
@@ -108,6 +109,18 @@ void genOrphanCreatureStats(creature *creature){
   setCreatureMaxHp(creature, getSpeciesBaseHp(species));
   setCreatureCurHp(creature, getSpeciesBaseHp(species));
   setCreatureXp(creature, 0);
+  
+  bioSex = coinFlip(&localRng);
+  switch (bioSex){
+    case HEADS:
+      setCreatureBioSex(creature, FEMALE);
+      break;
+    case TAILS:
+      setCreatureBioSex(creature, MALE);
+      break;
+    default:	// can't happen
+      break;
+  }
   
   return;
 }

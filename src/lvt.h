@@ -30,12 +30,28 @@
 #define ISODD(a) (a % 2 ? true : false)
 #define ISEVEN(a) (a % 2 ? false : true)
 
+#ifndef _ALLOCATOR_C
+creatureList *allocateCreatureListEntry();
+void freeCreatureListEntry(creatureList *node);
+#else
+#endif
+
 #ifndef _CHARGEN_C
 void initializeCharacter();
 #else
 char *inputPlayerName();
 creatureSpecies inputPlayerSpecies();
 creatureClass inputPlayerClass();
+#endif
+
+#ifndef _CREATUREGEN_C
+creatureList *generateStartingCreatures();
+#else
+bool decidePlaceCreature(coord2D floor, unsigned int level);
+creature *newRandomOrphanCreature(coord2D floor, unsigned int level);
+creatureList *insertNewCreatureNode(creatureList *list, creatureList *node);
+creature *spawnOrphanCreature(creatureSpecies species, creatureClass class);
+void placeNewCreature(creature *creature, coord3D location);
 #endif
 
 #ifndef _CREATUREINIT_C
@@ -75,6 +91,7 @@ unsigned int getCreatureLevel(creature *creature);
 unsigned int getCreatureXp(creature *creature);
 unsigned int getCreatureCurHp(creature *creature);
 unsigned int getCreatureMaxHp(creature *creature);
+void setCreatureBioSex(creature *creature, bioSex sex);
 #else
 bool updateCreatureLifeCycleNotMatured(creature *creature);
 bool updateCreatureLifeCycleMatured(creature *creature);
@@ -111,6 +128,8 @@ map generateMap();
 void initializeLevelGen();
 extern const unsigned int dimMapX;	// map dimensions
 extern const unsigned int dimMapY;
+extern const unsigned int numLevels;
+coord2D *enumerateFloors(level level);
 #else
 typedef struct centerPoint{
   unsigned int x;
@@ -136,6 +155,7 @@ extern const double pi;
 extern creature player;
 extern map dungeon;
 extern gameStatus status;
+extern creatureList *creatures;
 #else
 #endif
 

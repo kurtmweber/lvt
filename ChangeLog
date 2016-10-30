@@ -1,3 +1,8 @@
+for version 0.3
+  * generate characters and display them in static locations on map (kmw, 2016-10-29)
+  * created allocator for creatureList linked list (kmw, 2016-10-28)
+  * assign biological sex on creature generation (kmw, 2016-10-23)
+
 for version 0.2
   * release (kmw, 2016-10-23)
   * display experience, level, and hit points (kmw, 2016-10-22)

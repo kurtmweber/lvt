@@ -51,6 +51,8 @@ void initSpeciesDataBear(){
   speciesData[BEAR].statModifiers[CHARISMA] = 0;
   speciesData[BEAR].statModifiers[DEXTERITY] = 1;
   
+  speciesData[BEAR].dispChar = 'B';
+  
   return;
 }
 
@@ -61,6 +63,8 @@ void initSpeciesDataDwarf(){
   speciesData[DWARF].statModifiers[CONSTITUTION] = 5;
   speciesData[DWARF].statModifiers[CHARISMA] = -3;
   speciesData[DWARF].statModifiers[DEXTERITY] = -5;
+  
+  speciesData[DWARF].dispChar = 'D';
   
   return;
 }
@@ -73,6 +77,8 @@ void initSpeciesDataElf(){
   speciesData[ELF].statModifiers[CHARISMA] = 0;
   speciesData[ELF].statModifiers[DEXTERITY] = 2;
   
+  speciesData[ELF].dispChar = 'E';
+  
   return;
 }
 
@@ -84,6 +90,8 @@ void initSpeciesDataHalfling(){
   speciesData[HALFLING].statModifiers[CHARISMA] = -3;
   speciesData[HALFLING].statModifiers[DEXTERITY] = 5;
   
+  speciesData[HALFLING].dispChar = 'H';
+  
   return;
 }
 
@@ -94,6 +102,8 @@ void initSpeciesDataHuman(){
   speciesData[HUMAN].statModifiers[CONSTITUTION] = -3;
   speciesData[HUMAN].statModifiers[CHARISMA] = 3;
   speciesData[HUMAN].statModifiers[DEXTERITY] = 2;
+  
+  speciesData[HUMAN].dispChar = 'Q';
   
   return;
 }

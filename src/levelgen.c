@@ -26,7 +26,7 @@ const unsigned int doorLikelihood = 500;	// likelihood (out of 1000) that a door
 						// become a door
 const unsigned int hiddenDoorLikelihood = 100;	// likelihood (out of 1000) that a door will be hidden
 
-const unsigned int numLevels = 1;
+const unsigned int numLevels = 100;
 
 rng levelGenRNG;
 
@@ -40,9 +40,9 @@ map generateMap(){
   map map;
   int i = 0;
   
-  map = calloc(100, sizeof(level *));
+  map = calloc(numLevels, sizeof(level *));
   
-  for (i = 0; i < 100; i++){
+  for (i = 0; i < numLevels; i++){
     map[i] = generateLevel(i);
   }
   
@@ -91,7 +91,7 @@ void placeStairs(level level, unsigned int levelNum){
   } while (k == j);	// just want to make sure we're not putting the downstair on the same space as
 			// the upstair
   
-  if (levelNum != 99){
+  if (levelNum != numLevels - 1){
     setMapSpaceTerrain(level, floors[k].x, floors[k].y, DOWNSTAIR);
   }
   

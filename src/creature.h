@@ -41,10 +41,10 @@ typedef enum creatureSpecies{
   ELF,
   DWARF,
   BEAR,
-  BOAR,
-  DEER,
-  ORC,
-  GOBLIN,
+  //BOAR,
+  //DEER,
+  //ORC,
+  //GOBLIN,
   MAXCREATURESPECIES
 } creatureSpecies;
 
@@ -84,6 +84,7 @@ typedef struct speciesInfo{
   unsigned int lifePace;
   speciesActions actions;
   unsigned int baseHp;
+  char dispChar;
 } speciesInfo;
 
 typedef struct creature{
@@ -104,5 +105,11 @@ typedef struct creature{
   unsigned int maxStats[6];
   bioSex sex;
 } creature;
+
+typedef struct creatureList{
+  struct creatureList *prev;
+  struct creatureList *next;
+  creature *creature;
+} creatureList;
 
 #endif

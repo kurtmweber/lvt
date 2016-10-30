@@ -361,3 +361,9 @@ unsigned int getCreatureCurHp(creature *creature){
 unsigned int getCreatureMaxHp(creature *creature){
   return creature->maxHitPoints;
 }
+
+void setCreatureBioSex(creature *creature, bioSex sex){
+  creature->sex = sex;
+  
+  return;
+}
