@@ -17,19 +17,22 @@
 
 #define _LEVELDISP_C
 
+#include <ncurses.h>
+#include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include "lvt.h"
 #include "level.h"
+#include "types.h"
 
 #define _D_DEBUG
 
-char *generateLevelRepresentation(level level, unsigned int line){
-  char *mapLine = 0;
+screenDisplayCell *generateLevelRepresentation(level level, unsigned int line){
+  screenDisplayCell *mapLine = 0;
   unsigned int x = 0;
   char c = 0;
   
-  mapLine = calloc(dimMapX + 1, sizeof(char));
+  mapLine = calloc(dimMapX + 1, sizeof(screenDisplayCell));
   
   for (x = 0; x < dimMapX; x++){
 #ifndef _D_DEBUG
@@ -39,39 +42,50 @@ char *generateLevelRepresentation(level level, unsigned int line){
       // top of a plant occupant, so we only need to worry about the highest level that appears and if
       // it's there, then we don't need to worry about the lower levels for display purposes
       if (hasCreatureOccupant(level, x, line)){
-	mapLine[x] = getCreatureDispChar(getCreatureOccupant(level, x, line));
+	mapLine[x].dispChar = getCreatureDispChar(getCreatureOccupant(level, x, line));
+	mapLine[x].hasAttrs = false;
       } else if (hasContents(level, x, line)){
       } else if (hasPlantOccupant(level, x, line)){
       } else {
 	  switch (getMapSpaceTerrain(level, x, line)){
 	    case WALL:
 	    case PERMANENTROCK:
-	      mapLine[x] = '#';
+	      mapLine[x].dispChar = '#';
+	      mapLine[x].hasAttrs = false;
 	      break;
 	    case FLOOR:
-	      mapLine[x] = '.';
+	      mapLine[x].dispChar = '.';
+	      mapLine[x].hasAttrs = false;
 	      break;
 	    case DOOR:
-	      mapLine[x] = '+';
+	      mapLine[x].dispChar = '+';
+	      mapLine[x].hasAttrs = false;
 	      break;
 	    case HIDDENDOOR:
 #ifndef _D_DEBUG
-	      mapLine[x] = '#';
+	      mapLine[x].dispChar = '#';
 #else
-	      mapLine[x] = '?';
+	      mapLine[x].dispChar = '?';
 #endif
+	      mapLine[x].hasAttrs = false;
 	      break;
 	    case OPENDOOR:
-	      mapLine[x] = '\'';
+	      mapLine[x].dispChar = '\'';
+	      mapLine[x].hasAttrs = false;
 	      break;
 	    case UPSTAIR:
-	      mapLine[x] = '<';
+	      mapLine[x].dispChar = '<';
+	      mapLine[x].hasAttrs = true;
+	      mapLine[x].attrs = A_BOLD;
 	      break;
 	    case DOWNSTAIR:
-	      mapLine[x] = '>';
+	      mapLine[x].dispChar = '>';
+	      mapLine[x].hasAttrs = true;
+	      mapLine[x].attrs = A_BOLD;
 	      break;
 	    default:
-	      mapLine[x] = '?';
+	      mapLine[x].dispChar = '?';
+	      mapLine[x].hasAttrs = false;
 	      break;
 	  }
       }
@@ -82,14 +96,14 @@ char *generateLevelRepresentation(level level, unsigned int line){
 #endif
   }
   
-  mapLine[x + 1] = '\0';
+  mapLine[dimMapX].dispChar = '\0';
   
   return mapLine;
 }
 
 void displayLevel(level level){
   unsigned int y = 0;
-  char *mapLine = 0;
+  screenDisplayCell *mapLine = 0;
   
   for (y = 0; y < dimMapY; y++){
     mapLine = generateLevelRepresentation(level, y);

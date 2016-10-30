@@ -161,7 +161,7 @@ void doOpenDoor(unsigned int c){
 
 void doSearchDoors(unsigned int c, map map){
   static rng searchRng;
-  bool rngInitd = false;
+  static bool rngInitd = false;
   coord3D playerLoc;
   coord3D searchLoc;
   unsigned int searchLocIndex;

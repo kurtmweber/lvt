@@ -20,6 +20,7 @@
 #include <ncurses.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "lvt.h"
 #include "stringlookups.h"
 
@@ -114,8 +115,33 @@ void displayMsgNoWait(char *msg, int a){
   return;
 }
 
-void writeLinePlayArea(char *mapLine, unsigned int y){
-  mvwaddstr(playArea, y, 0, mapLine);
+void writeLinePlayArea(screenDisplayCell *mapLine, unsigned int y){
+  char *dispLine;
+  unsigned int i = 0;
+  unsigned int j = 0;
+  unsigned int x = 0;
+  
+  dispLine = (char *)calloc(dimMapX + 2, sizeof(char));
+  
+  while (mapLine[i].dispChar){
+    if (!mapLine[i].hasAttrs){
+      dispLine[j] = mapLine[i].dispChar;
+      j++;
+    } else {
+      mvwaddstr(playArea, y, x, dispLine);
+      x = i;
+      memset(dispLine, dimMapX + 2, 0);
+      j = 0;
+      mvwaddch(playArea, y, x, (chtype)mapLine[i].dispChar | (chtype)mapLine[i].attrs);
+      x++;
+    }
+    i++;
+  }
+  
+  mvwaddstr(playArea, y, x, dispLine);
+  strcat(dispLine, "\n");
+  
+  free(dispLine);
   
   return;
 }

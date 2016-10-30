@@ -210,7 +210,7 @@ void displayMsgNoWait(char *msg, int a);
 extern WINDOW *msgWin;
 extern WINDOW *statWin;
 extern WINDOW *playArea;
-void writeLinePlayArea(char *mapLine, unsigned int y);
+void writeLinePlayArea(screenDisplayCell *mapLine, unsigned int y);
 void refreshPlayArea();
 void clearMsg();
 void clearPlayArea();

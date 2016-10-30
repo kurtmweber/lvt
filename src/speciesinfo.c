@@ -103,7 +103,7 @@ void initSpeciesDataHuman(){
   speciesData[HUMAN].statModifiers[CHARISMA] = 3;
   speciesData[HUMAN].statModifiers[DEXTERITY] = 2;
   
-  speciesData[HUMAN].dispChar = 'Q';
+  speciesData[HUMAN].dispChar = '@';
   
   return;
 }

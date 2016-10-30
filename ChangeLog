@@ -1,4 +1,6 @@
 for version 0.3
+  * redid screen display system to handle color and attributes (kmw, 2016-10-30)
+  * fixed bug that was making hidden door searches incredibly ineffective (kmw, 2016-10-29)
   * generate characters and display them in static locations on map (kmw, 2016-10-29)
   * created allocator for creatureList linked list (kmw, 2016-10-28)
   * assign biological sex on creature generation (kmw, 2016-10-23)
