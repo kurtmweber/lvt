@@ -62,11 +62,26 @@ creature *spawnOrphanCreature(creatureSpecies species, creatureClass class){
   newCreature = (creature *)calloc(1, sizeof(creature));
   setCreatureSpecies(newCreature, species);
   setCreatureClass(newCreature, class);
+  static rng localRng;
+  static bool rngInitd = false;
+  bioSex sex;
+  unsigned int faction;
+  
+  if (!rngInitd){
+    initializeRNG(&localRng);
+    rngInitd = true;
+  }
   
   genOrphanCreatureStats(newCreature);
   changeDispChar(newCreature, speciesData[species].dispChar);
+  setCreatureColor(newCreature, speciesData[species].color);
+  setCreatureAttribute(newCreature, 0);
   
-  return newCreature;
+  sex = (bioSex)coinFlip(&localRng);
+  faction = uniformRandomRangeInt(&localRng, 1, getNumFactions());
+  
+  setCreatureBioSex(newCreature, sex);
+  setCreatureFaction(newCreature, faction);
   
   return newCreature;
 }

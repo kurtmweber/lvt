@@ -107,7 +107,8 @@ am_lvt_OBJECTS = leveldisp.$(OBJEXT) levelgen.$(OBJEXT) main.$(OBJEXT) \
 	game.$(OBJEXT) move.$(OBJEXT) input.$(OBJEXT) \
 	creatureinit.$(OBJEXT) stringlookups.$(OBJEXT) \
 	speciesinfo.$(OBJEXT) util.$(OBJEXT) messages.$(OBJEXT) \
-	allocator.$(OBJEXT) creaturegen.$(OBJEXT)
+	allocator.$(OBJEXT) creaturegen.$(OBJEXT) colors.$(OBJEXT) \
+	name.$(OBJEXT) faction.$(OBJEXT)
 lvt_OBJECTS = $(am_lvt_OBJECTS)
 lvt_LDADD = $(LDADD)
 AM_V_P = $(am__v_P_@AM_V@)
@@ -257,9 +258,11 @@ top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 lvt_SOURCES = leveldisp.c levelgen.c main.c pcg_basic.c random.c map.c screen.c chargen.c \
 			creaturemgmt.c game.c move.c input.c creatureinit.c stringlookups.c speciesinfo.c \
-			util.c messages.c allocator.c creaturegen.c
+			util.c messages.c allocator.c creaturegen.c colors.c name.c faction.c
 
-noinst_HEADERS = lvt.h level.h pcg_basic.h creature.h messages.h types.h move.h stringlookups.h
+noinst_HEADERS = lvt.h level.h pcg_basic.h creature.h messages.h types.h move.h stringlookups.h \
+			colors.h
+
 all: all-am
 
 .SUFFIXES:
@@ -348,9 +351,11 @@ distclean-compile:
 
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/allocator.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/chargen.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/colors.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/creaturegen.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/creatureinit.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/creaturemgmt.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/faction.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/game.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/input.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/leveldisp.Po@am__quote@
@@ -359,6 +364,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/map.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/messages.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/move.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/name.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/pcg_basic.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/random.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/screen.Po@am__quote@

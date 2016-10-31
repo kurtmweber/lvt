@@ -19,6 +19,7 @@
 #define _CREATURE_H
 
 #include <stdbool.h>
+#include "colors.h"
 #include "types.h"
 
 typedef struct statList{
@@ -85,6 +86,7 @@ typedef struct speciesInfo{
   speciesActions actions;
   unsigned int baseHp;
   char dispChar;
+  colorPairs color;
 } speciesInfo;
 
 typedef struct creature{
@@ -104,6 +106,9 @@ typedef struct creature{
   unsigned int curStats[6];
   unsigned int maxStats[6];
   bioSex sex;
+  colorPairs color;
+  unsigned int attrs;
+  unsigned int faction;
 } creature;
 
 typedef struct creatureList{

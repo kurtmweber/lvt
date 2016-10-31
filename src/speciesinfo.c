@@ -52,6 +52,7 @@ void initSpeciesDataBear(){
   speciesData[BEAR].statModifiers[DEXTERITY] = 1;
   
   speciesData[BEAR].dispChar = 'B';
+  speciesData[BEAR].color = MagentaBlack;
   
   return;
 }
@@ -64,7 +65,8 @@ void initSpeciesDataDwarf(){
   speciesData[DWARF].statModifiers[CHARISMA] = -3;
   speciesData[DWARF].statModifiers[DEXTERITY] = -5;
   
-  speciesData[DWARF].dispChar = 'D';
+  speciesData[DWARF].dispChar = 'h';
+  speciesData[DWARF].color = RedBlack;
   
   return;
 }
@@ -77,7 +79,8 @@ void initSpeciesDataElf(){
   speciesData[ELF].statModifiers[CHARISMA] = 0;
   speciesData[ELF].statModifiers[DEXTERITY] = 2;
   
-  speciesData[ELF].dispChar = 'E';
+  speciesData[ELF].dispChar = '@';
+  speciesData[ELF].color = GreenBlack;
   
   return;
 }
@@ -90,7 +93,8 @@ void initSpeciesDataHalfling(){
   speciesData[HALFLING].statModifiers[CHARISMA] = -3;
   speciesData[HALFLING].statModifiers[DEXTERITY] = 5;
   
-  speciesData[HALFLING].dispChar = 'H';
+  speciesData[HALFLING].dispChar = 'h';
+  speciesData[HALFLING].color = BlueBlack;
   
   return;
 }
@@ -104,6 +108,7 @@ void initSpeciesDataHuman(){
   speciesData[HUMAN].statModifiers[DEXTERITY] = 2;
   
   speciesData[HUMAN].dispChar = '@';
+  speciesData[HUMAN].color = WhiteBlack;
   
   return;
 }

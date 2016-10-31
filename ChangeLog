@@ -1,4 +1,6 @@
 for version 0.3
+  * map display now bolds allied creatures based on faction membership (kmw, 2016-10-30)
+  * creatures now display in color (kmw, 2016-10-30)
   * redid screen display system to handle color and attributes (kmw, 2016-10-30)
   * fixed bug that was making hidden door searches incredibly ineffective (kmw, 2016-10-29)
   * generate characters and display them in static locations on map (kmw, 2016-10-29)

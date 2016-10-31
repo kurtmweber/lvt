@@ -367,3 +367,33 @@ void setCreatureBioSex(creature *creature, bioSex sex){
   
   return;
 }
+
+void setCreatureColor(creature *creature, colorPairs colorPair){
+  creature->color = colorPair;
+  
+  return;
+}
+
+void setCreatureAttribute(creature *creature, unsigned int attribute){
+  creature->attrs = attribute;
+  
+  return;
+}
+
+colorPairs getCreatureColor(creature *creature){
+  return creature->color;
+}
+
+unsigned int getCreatureAttribute(creature *creature){
+  return creature->attrs;
+}
+
+void setCreatureFaction(creature *creature, unsigned int faction){
+  creature->faction = faction;
+  
+  return;
+}
+
+unsigned int getCreatureFaction(creature *creature){
+  return creature->faction;
+}

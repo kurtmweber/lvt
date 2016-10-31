@@ -15,27 +15,14 @@
  *  along with Lavender Throne.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#define _COLORS_C
+#define _FACTION_C
 
-#include <ncurses.h>
-#include <stdlib.h>
-#include "colors.h"
-#include "lvt.h"
+unsigned int numFactions;
 
-void initializeColors(){
-  if (!has_colors()){
-    destroyNcurses();
-    exit(0);
-  }
-  
-  start_color();
-  
-  init_pair(BlackGreen, COLOR_BLACK, COLOR_GREEN);
-  init_pair(WhiteBlack, COLOR_WHITE, COLOR_BLACK);
-  init_pair(BlueBlack, COLOR_BLUE, COLOR_BLACK);
-  init_pair(GreenBlack, COLOR_GREEN, COLOR_BLACK);
-  init_pair(RedBlack, COLOR_RED, COLOR_BLACK);
-  init_pair(MagentaBlack, COLOR_MAGENTA, COLOR_BLACK);
-  
-  return;
+unsigned int getNumFactions(){
+  return numFactions;
+}
+
+void initializeFactions(){
+  numFactions = 2;
 }

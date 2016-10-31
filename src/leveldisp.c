@@ -31,6 +31,7 @@ screenDisplayCell *generateLevelRepresentation(level level, unsigned int line){
   screenDisplayCell *mapLine = 0;
   unsigned int x = 0;
   char c = 0;
+  creature *creatureOccupant;
   
   mapLine = calloc(dimMapX + 1, sizeof(screenDisplayCell));
   
@@ -42,8 +43,13 @@ screenDisplayCell *generateLevelRepresentation(level level, unsigned int line){
       // top of a plant occupant, so we only need to worry about the highest level that appears and if
       // it's there, then we don't need to worry about the lower levels for display purposes
       if (hasCreatureOccupant(level, x, line)){
-	mapLine[x].dispChar = getCreatureDispChar(getCreatureOccupant(level, x, line));
-	mapLine[x].hasAttrs = false;
+	creatureOccupant = getCreatureOccupant(level, x, line);
+	mapLine[x].dispChar = getCreatureDispChar(creatureOccupant);
+	mapLine[x].hasAttrs = true;
+	mapLine[x].attrs = COLOR_PAIR(getCreatureColor(creatureOccupant));
+	if (sameFactions(&player, creatureOccupant)){
+	  mapLine[x].attrs = mapLine[x].attrs | A_BOLD;
+	}
       } else if (hasContents(level, x, line)){
       } else if (hasPlantOccupant(level, x, line)){
       } else {

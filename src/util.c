@@ -17,6 +17,7 @@
 
 #define _UTIL_C
 
+#include <stdbool.h>
 #include "lvt.h"
 
 int clampRangeIntSigned(int value, int min, int max){
@@ -26,5 +27,13 @@ int clampRangeIntSigned(int value, int min, int max){
     return max;
   } else {
     return value;
+  }
+}
+
+bool sameFactions(creature *creature1, creature *creature2){
+  if (getCreatureFaction(creature1) == getCreatureFaction(creature2)){
+    return true;
+  } else {
+    return false;
   }
 }

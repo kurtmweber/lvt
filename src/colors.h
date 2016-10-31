@@ -15,27 +15,16 @@
  *  along with Lavender Throne.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#define _COLORS_C
+#ifndef _COLORS_H
+#define _COLORS_H
 
-#include <ncurses.h>
-#include <stdlib.h>
-#include "colors.h"
-#include "lvt.h"
+typedef enum colorPairs{
+  BlackGreen,
+  WhiteBlack,
+  BlueBlack,
+  GreenBlack,
+  RedBlack,
+  MagentaBlack
+} colorPairs;
 
-void initializeColors(){
-  if (!has_colors()){
-    destroyNcurses();
-    exit(0);
-  }
-  
-  start_color();
-  
-  init_pair(BlackGreen, COLOR_BLACK, COLOR_GREEN);
-  init_pair(WhiteBlack, COLOR_WHITE, COLOR_BLACK);
-  init_pair(BlueBlack, COLOR_BLUE, COLOR_BLACK);
-  init_pair(GreenBlack, COLOR_GREEN, COLOR_BLACK);
-  init_pair(RedBlack, COLOR_RED, COLOR_BLACK);
-  init_pair(MagentaBlack, COLOR_MAGENTA, COLOR_BLACK);
-  
-  return;
-}
+#endif

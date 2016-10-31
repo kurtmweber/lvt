@@ -20,6 +20,7 @@
 #include <ncurses.h>
 #include <stdlib.h>
 #include "lvt.h"
+#include "colors.h"
 #include "creature.h"
 
 char *inputPlayerName(){
@@ -153,6 +154,9 @@ void initializeCharacter(){
   setIsPlayer(&player);
   changeDispChar(&player, '@');
   setCreatureLifePace(&player, getSpeciesLifePace(species));
+  setCreatureColor(&player, BlackGreen);
+  setCreatureAttribute(&player, 0);
+  setCreatureFaction(&player, 1);
   
   return;
 }

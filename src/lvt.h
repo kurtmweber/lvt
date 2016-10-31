@@ -20,6 +20,7 @@
 
 #include <stdbool.h>
 #include <ncurses.h>
+#include "colors.h"
 #include "types.h"
 #include "level.h"
 #include "creature.h"
@@ -42,6 +43,11 @@ void initializeCharacter();
 char *inputPlayerName();
 creatureSpecies inputPlayerSpecies();
 creatureClass inputPlayerClass();
+#endif
+
+#ifndef _COLORS_C
+void initializeColors();
+#else
 #endif
 
 #ifndef _CREATUREGEN_C
@@ -92,6 +98,12 @@ unsigned int getCreatureXp(creature *creature);
 unsigned int getCreatureCurHp(creature *creature);
 unsigned int getCreatureMaxHp(creature *creature);
 void setCreatureBioSex(creature *creature, bioSex sex);
+void setCreatureColor(creature *creature, colorPairs colorPair);
+void setCreatureAttribute(creature *creature, unsigned int attribute);
+colorPairs getCreatureColor(creature *creature);
+unsigned int getCreatureAttribute(creature *creature);
+void setCreatureFaction(creature *creature, unsigned int faction);
+unsigned int getCreatureFaction(creature *creature);
 #else
 bool updateCreatureLifeCycleNotMatured(creature *creature);
 bool updateCreatureLifeCycleMatured(creature *creature);
@@ -99,6 +111,12 @@ void getCreatureMaxStats(creature *creature, statList *stats);
 void setCreatureMaxStats(creature *creature, int stats[MAXSTATNAME]);
 void getCreatureCurStats(creature *creature, statList *stats);
 void setCreatureCurStats(creature *creature, int stats[MAXSTATNAME]);
+#endif
+
+#ifndef _FACTIONS_C
+unsigned int getNumFactions();
+void initializeFactions();
+#else
 #endif
 
 #ifndef _GAME_C
@@ -239,6 +257,7 @@ void initSpeciesDataDwarf();
 
 #ifndef _UTIL_C
 int clampRangeIntSigned(int value, int min, int max);
+bool sameFactions(creature *creature1, creature *creature2);
 #else
 #endif
 

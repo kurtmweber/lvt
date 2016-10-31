@@ -38,6 +38,7 @@ int main(int argc, char *argv[]){
   
   initializeLevelGen();
   initSpeciesData();
+  initializeFactions();
   
   creatures = 0;
   
@@ -45,6 +46,7 @@ int main(int argc, char *argv[]){
   creatures = generateStartingCreatures();
   
   initializeNcurses();
+  initializeColors();
   
   printw("Lavender Throne version "PACKAGE_VERSION".  Copyright 2016 Kurt Weber");
   refresh();
