@@ -1,4 +1,5 @@
 for version 0.3
+  * creature name generation (kmw, 2016-10-30)
   * map display now bolds allied creatures based on faction membership (kmw, 2016-10-30)
   * creatures now display in color (kmw, 2016-10-30)
   * redid screen display system to handle color and attributes (kmw, 2016-10-30)

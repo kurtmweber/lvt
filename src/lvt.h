@@ -208,6 +208,11 @@ moveOutcome moveCreature(creature *creature, moveDirection dir);
 moveOutcome moveCreature(creature *creature, moveDirection dir);
 #endif
 
+#ifndef _NAME_C
+char *generateName();
+#else
+#endif
+
 #ifndef _RANDOM_C
 void initializeRNG(rng *rng);
 coin coinFlip(rng *rng);
@@ -258,6 +263,7 @@ void initSpeciesDataDwarf();
 #ifndef _UTIL_C
 int clampRangeIntSigned(int value, int min, int max);
 bool sameFactions(creature *creature1, creature *creature2);
+unsigned int sumArrayInt(int *array, unsigned int numElements);
 #else
 #endif
 

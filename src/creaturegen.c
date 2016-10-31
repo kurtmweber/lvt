@@ -83,6 +83,8 @@ creature *spawnOrphanCreature(creatureSpecies species, creatureClass class){
   setCreatureBioSex(newCreature, sex);
   setCreatureFaction(newCreature, faction);
   
+  setCreatureName(newCreature, generateName());
+  
   return newCreature;
 }
 

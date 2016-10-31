@@ -37,3 +37,14 @@ bool sameFactions(creature *creature1, creature *creature2){
     return false;
   }
 }
+
+unsigned int sumArrayInt(int *array, unsigned int numElements){
+  unsigned int i = 0;
+  unsigned int sum;
+  
+  for (i = 0; i < numElements; i++){
+    sum += array[i];
+  }
+  
+  return sum;
+}
