@@ -17,6 +17,7 @@
 
 #define _INPUT_C
 
+#include <ncurses.h>
 #include <stdlib.h>
 #include "lvt.h"
 #include "move.h"
@@ -67,6 +68,57 @@ void doMoveKey(unsigned int c){
     case MOVE_SUCCESS:
       displayLevel(dungeon[getCreatureMapLevel(&player)]);
       break;
+  }
+  
+  return;
+}
+
+void doLook(unsigned int c){
+  coord3D mapLoc;
+  coord2D cursorLoc;
+  coord2D corner;
+  unsigned int inputChar;
+  
+  mapLoc = getCreatureLocation(&player);
+  
+  corner = definePlayAreaDisplay();
+  
+  cursorLoc.y = mapLoc.y - corner.y + 1;
+  cursorLoc.x = mapLoc.x - corner.x;
+  
+  addToMsgQueue(SELECT_LOCATION_MSG, false);
+  procMsgQueue();
+  setCursorLoc();
+  
+  while ((inputChar = getch()) != '\n'){
+    switch(inputChar){
+      case KEY_UP:
+	cursorLoc.y--;
+	if (cursorLoc.y == 0){
+	  cursorLoc.y = 1;
+	} else if (mapLoc.y == 0) {
+	  mapLoc.y = 0;
+	} else {
+	  mapLoc.y--;
+	}
+	move(cursorLoc.y, cursorLoc.x);
+	refresh();
+	break;
+      case KEY_DOWN:
+	cursorLoc.y++;
+	if (cursorLoc.y == LINES - 3){
+	  cursorLoc.y = LINES - 4;
+	} else if (mapLoc.y == dimMapX){
+	  mapLoc.y = dimMapX;
+	} else {
+	  mapLoc.y++;
+	}
+	move(cursorLoc.y, cursorLoc.x);
+	refresh();
+	break;
+      default:
+	break;
+    }
   }
   
   return;

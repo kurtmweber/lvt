@@ -181,6 +181,9 @@ coord2D definePlayAreaDisplay(){
     coords.y = location.y - halfHeight;
   }
   
+  coords.y = MIN(coords.y, dimMapY - dispHeight);
+  coords.x = MIN(coords.x, dimMapX - dispWidth);
+  
   return coords;
 }
 

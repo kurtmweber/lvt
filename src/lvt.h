@@ -133,6 +133,7 @@ void doMoveKey(unsigned int c);
 void doOpenDoor(unsigned int c);
 void doSearchDoors(unsigned int c);
 void doStairs(unsigned int c);
+void doLook(unsigned int c);
 #else
 #endif
 
@@ -239,6 +240,7 @@ void clearMsg();
 void clearPlayArea();
 void updateStatWin();
 void setCursorLoc();
+coord2D definePlayAreaDisplay();
 #else
 coord2D definePlayAreaDisplay();
 #endif

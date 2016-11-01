@@ -112,6 +112,9 @@ void processKey(unsigned int c){
     case '>':
       doStairs(c);
       break;
+    case ';':
+      doLook(c);
+      break;
     default:
       break;
   }
