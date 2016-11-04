@@ -34,5 +34,6 @@
 #define UP_IS_EXIT_MSG "To go up from here is to exit."
 #define DIED_OLD_AGE_MSG "You have died of old age..."
 #define SELECT_LOCATION_MSG "Please select a location."
+#define NOTHING_THERE_MSG "I see nothing there"
 
 #endif

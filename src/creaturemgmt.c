@@ -368,6 +368,10 @@ void setCreatureBioSex(creature *creature, bioSex sex){
   return;
 }
 
+bioSex getCreatureBioSex(creature *creature){
+  return creature->sex;
+}
+
 void setCreatureColor(creature *creature, colorPairs colorPair){
   creature->color = colorPair;
   

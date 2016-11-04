@@ -19,9 +19,11 @@
 
 #include <ncurses.h>
 #include <stdlib.h>
+#include <string.h>
 #include "lvt.h"
 #include "move.h"
 #include "messages.h"
+#include "stringlookups.h"
 
 const unsigned int maxSearchCountdown = 1;
 
@@ -78,6 +80,11 @@ void doLook(unsigned int c){
   coord2D cursorLoc;
   coord2D corner;
   unsigned int inputChar;
+  char *infoMsg;
+  creature *infoCreature;
+  char *infoCreatureName;
+  creatureSpecies infoCreatureSpecies;
+  char levelNumText[10];
   
   mapLoc = getCreatureLocation(&player);
   
@@ -108,17 +115,123 @@ void doLook(unsigned int c){
 	cursorLoc.y++;
 	if (cursorLoc.y == LINES - 3){
 	  cursorLoc.y = LINES - 4;
-	} else if (mapLoc.y == dimMapX){
-	  mapLoc.y = dimMapX;
+	} else if (mapLoc.y == dimMapY){
+	  mapLoc.y = dimMapY;
 	} else {
 	  mapLoc.y++;
 	}
 	move(cursorLoc.y, cursorLoc.x);
 	refresh();
 	break;
+      case KEY_LEFT:
+	if (cursorLoc.x != 0){
+	  cursorLoc.x--;
+	}
+	
+	if (mapLoc.x != 0){
+	  mapLoc.x--;
+	}
+	
+	move(cursorLoc.y, cursorLoc.x);
+	refresh();
+	break;
+      case KEY_RIGHT:
+	if ((cursorLoc.x != COLS - 1) && (mapLoc.x != dimMapX - 1)){
+	  cursorLoc.x++;
+	  mapLoc.x++;
+	}
+	
+	move(cursorLoc.y, cursorLoc.x);
+	refresh();
+	break;
+      case KEY_UPLEFT:
+	if ((cursorLoc.y != 1) && (cursorLoc.x != 0) && (mapLoc.y != 0) && (mapLoc.x != 0)){
+	  cursorLoc.y--;
+	  mapLoc.y--;
+	  cursorLoc.x--;
+	  mapLoc.x--;
+	}
+	
+	move(cursorLoc.y, cursorLoc.x);
+	refresh();
+	break;
+      case KEY_UPRIGHT:
+	if ((cursorLoc.y != 1) && (cursorLoc.x != COLS - 1) && (mapLoc.y != 0) && (mapLoc.x != dimMapX - 1)){
+	  cursorLoc.y--;
+	  mapLoc.y--;
+	  cursorLoc.x++;
+	  mapLoc.x++;
+	}
+	
+	move(cursorLoc.y, cursorLoc.x);
+	refresh();
+	break;
+      case KEY_DOWNRIGHT:
+	if ((cursorLoc.y != LINES - 4) && (cursorLoc.x != COLS - 1) && (mapLoc.y != dimMapY - 1) && (mapLoc.x != dimMapX - 1)){
+	  cursorLoc.y++;
+	  mapLoc.y++;
+	  cursorLoc.x++;
+	  mapLoc.x++;
+	}
+	
+	move(cursorLoc.y, cursorLoc.x);
+	refresh();
+	break;
+      case KEY_DOWNLEFT:
+	if ((cursorLoc.y != LINES - 4) && (cursorLoc.x != 0) && (mapLoc.y != dimMapY - 1) && (mapLoc.x != 0)){
+	  cursorLoc.y++;
+	  mapLoc.y++;
+	  cursorLoc.x--;
+	  mapLoc.x--;
+	}
+	
+	move(cursorLoc.y, cursorLoc.x);
+	refresh();
+	break;
       default:
 	break;
     }
+  }
+  
+  if (hasCreatureOccupant(dungeon[mapLoc.level], mapLoc.x, mapLoc.y)){
+    infoCreature = getCreatureOccupant(dungeon[mapLoc.level], mapLoc.x, mapLoc.y);
+    infoMsg = (char *)calloc(9, sizeof(char));
+    strcat(infoMsg, "You see ");
+    infoCreatureName = getCreatureName(infoCreature);
+    infoMsg = realloc(infoMsg, (strlen(infoMsg) + strlen(infoCreatureName) + 1) * sizeof(char));
+    strcat(infoMsg, infoCreatureName);
+    
+    if (sameFactions(&player, infoCreature)){
+      infoMsg = realloc(infoMsg, (strlen(infoMsg) + 13) * sizeof(char));
+      strcat(infoMsg, ", an allied ");
+    } else {
+      infoMsg = realloc(infoMsg, (strlen(infoMsg) + 15) * sizeof(char));
+      strcat(infoMsg, ", an unallied ");
+    }
+    
+    sprintf(levelNumText, "level %i ", getCreatureLevel(infoCreature));
+    infoMsg = realloc(infoMsg, (strlen(infoMsg) + strlen(levelNumText) + 1) * sizeof(char));
+    strcat(infoMsg, levelNumText);
+    
+    if (getCreatureBioSex(infoCreature) == MALE){
+      infoMsg = realloc(infoMsg, (strlen(infoMsg) + 6) * sizeof(char));
+      strcat(infoMsg, "male ");
+    } else {
+      infoMsg = realloc(infoMsg, (strlen(infoMsg) + 8) * sizeof(char));
+      strcat(infoMsg, "female ");
+    }
+    
+    infoCreatureSpecies = getCreatureSpecies(infoCreature);
+    
+    infoMsg = realloc(infoMsg, (strlen(infoMsg) + strlen(speciesNames[infoCreatureSpecies]) + 1) * sizeof(char));
+    strcat(infoMsg, speciesNames[infoCreatureSpecies]);
+    
+    addToMsgQueue(infoMsg, true);
+    procMsgQueue();
+    
+    free(infoMsg);
+  } else {
+    addToMsgQueue(NOTHING_THERE_MSG, false);
   }
   
   return;

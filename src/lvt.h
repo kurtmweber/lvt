@@ -104,6 +104,7 @@ colorPairs getCreatureColor(creature *creature);
 unsigned int getCreatureAttribute(creature *creature);
 void setCreatureFaction(creature *creature, unsigned int faction);
 unsigned int getCreatureFaction(creature *creature);
+bioSex getCreatureBioSex(creature *creature);
 #else
 bool updateCreatureLifeCycleNotMatured(creature *creature);
 bool updateCreatureLifeCycleMatured(creature *creature);
