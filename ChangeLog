@@ -1,4 +1,5 @@
 for version 0.3
+  * release (kmw, 2016-11-03)
   * "look" command implemented and works for creatures (kmw, 2016-11-03)
   * corrected bug that drew beyond pad boundaries when going close to max x or y on map (kmw, 2016-10-31)
   * creature name generation (kmw, 2016-10-30)
