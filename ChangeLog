@@ -1,3 +1,6 @@
+for version 0.4
+  * creatures now move randomly about the dungeon (kmw, 2016-11-05)
+
 for version 0.3
   * release (kmw, 2016-11-03)
   * "look" command implemented and works for creatures (kmw, 2016-11-03)

@@ -105,6 +105,11 @@ unsigned int getCreatureAttribute(creature *creature);
 void setCreatureFaction(creature *creature, unsigned int faction);
 unsigned int getCreatureFaction(creature *creature);
 bioSex getCreatureBioSex(creature *creature);
+void setCreatureSpeed(creature *creature, unsigned int speed);
+unsigned int getCreatureSpeed(creature *creature);
+void incrementCreatureSpeedCounter(creature *creature, unsigned int incrAmount);
+void decrementCreatureSpeedCounter(creature *creature, unsigned int decrAmount);
+unsigned int getCreatureSpeedCounter(creature *creature);
 #else
 bool updateCreatureLifeCycleNotMatured(creature *creature);
 bool updateCreatureLifeCycleMatured(creature *creature);
@@ -112,6 +117,15 @@ void getCreatureMaxStats(creature *creature, statList *stats);
 void setCreatureMaxStats(creature *creature, int stats[MAXSTATNAME]);
 void getCreatureCurStats(creature *creature, statList *stats);
 void setCreatureCurStats(creature *creature, int stats[MAXSTATNAME]);
+#endif
+
+#ifndef _CREATUREMOVE_C
+void moveCreatures();
+#else
+bool hasAction(creature *creature);
+void doMoveCreature(creature *creature);
+void moveCreatureUpStair(creature *creature);
+void moveCreatureDownStair(creature *creature);
 #endif
 
 #ifndef _FACTIONS_C
@@ -267,6 +281,7 @@ void initSpeciesDataDwarf();
 int clampRangeIntSigned(int value, int min, int max);
 bool sameFactions(creature *creature1, creature *creature2);
 unsigned int sumArrayInt(int *array, unsigned int numElements);
+void *randomizeArray(void *array, unsigned int numElements, size_t size);
 #else
 #endif
 

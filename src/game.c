@@ -83,6 +83,7 @@ void gameLoop(){
     }
     processKey(c);
     updateTurnCounter();
+    moveCreatures();
     displayLevel(dungeon[getCreatureMapLevel(&player)]);
   }
   

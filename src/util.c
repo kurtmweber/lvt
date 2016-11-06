@@ -18,6 +18,7 @@
 #define _UTIL_C
 
 #include <stdbool.h>
+#include <string.h>
 #include "lvt.h"
 
 int clampRangeIntSigned(int value, int min, int max){
@@ -40,6 +41,7 @@ bool sameFactions(creature *creature1, creature *creature2){
 
 unsigned int sumArrayInt(int *array, unsigned int numElements){
   unsigned int i = 0;
+  unsigned int a;
   unsigned int sum;
   
   for (i = 0; i < numElements; i++){
@@ -47,4 +49,28 @@ unsigned int sumArrayInt(int *array, unsigned int numElements){
   }
   
   return sum;
+}
+
+void *randomizeArray(void *array, unsigned int numElements, size_t size){
+  unsigned int i;
+  unsigned int a;
+  char tmp[size];
+  char *cArray = array;
+  static rng localRng;
+  static bool rngInitd = false;
+  
+  if (!rngInitd){
+    initializeRNG(&localRng);
+    rngInitd = true;
+  }
+  
+  for (i = 0; i < numElements - 2; i++){
+    a = uniformRandomRangeInt(&localRng, i, numElements - 1);
+    
+    memcpy(tmp, cArray + (size * i), size);
+    memcpy(cArray + (size *i ), cArray + (size * a), size);
+    memcpy(cArray + (size * a), tmp, size);
+  }
+  
+  return array;
 }

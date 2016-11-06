@@ -49,12 +49,13 @@ creatureList *generateStartingCreatures(){
     while (floors[j].x){
       if (decidePlaceCreature(floors[j], i)){
 	node = allocateCreatureListEntry();
+	list = insertNewCreatureNode(list, node);
 	node->creature = newRandomOrphanCreature(floors[j], i);
       }
       j++;
     }
   }
-  return node;
+  return list;
 }
 
 creature *spawnOrphanCreature(creatureSpecies species, creatureClass class){
@@ -84,6 +85,7 @@ creature *spawnOrphanCreature(creatureSpecies species, creatureClass class){
   setCreatureFaction(newCreature, faction);
   
   setCreatureName(newCreature, generateName());
+  setCreatureSpeed(newCreature, speciesData[species].speed);
   
   return newCreature;
 }

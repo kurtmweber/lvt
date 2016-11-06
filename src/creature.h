@@ -87,6 +87,7 @@ typedef struct speciesInfo{
   unsigned int baseHp;
   char dispChar;
   colorPairs color;
+  unsigned int speed;
 } speciesInfo;
 
 typedef struct creature{
@@ -109,6 +110,11 @@ typedef struct creature{
   colorPairs color;
   unsigned int attrs;
   unsigned int faction;
+  struct {
+    unsigned int speed;
+    unsigned int speedCounter;
+    unsigned int lastMove[2];
+  } moveInfo;
 } creature;
 
 typedef struct creatureList{

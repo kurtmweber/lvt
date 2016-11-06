@@ -401,3 +401,29 @@ void setCreatureFaction(creature *creature, unsigned int faction){
 unsigned int getCreatureFaction(creature *creature){
   return creature->faction;
 }
+
+void setCreatureSpeed(creature *creature, unsigned int speed){
+  creature->moveInfo.speed = speed;
+  
+  return;
+}
+
+unsigned int getCreatureSpeed(creature *creature){
+  return creature->moveInfo.speed;
+}
+
+void incrementCreatureSpeedCounter(creature *creature, unsigned int incrAmount){
+  creature->moveInfo.speedCounter += incrAmount;
+  
+  return;
+}
+
+void decrementCreatureSpeedCounter(creature *creature, unsigned int decrAmount){
+  creature->moveInfo.speedCounter -= decrAmount;
+  
+  return;
+}
+
+unsigned int getCreatureSpeedCounter(creature *creature){
+  return creature->moveInfo.speedCounter;
+}

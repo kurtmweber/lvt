@@ -125,6 +125,7 @@ void initSpeciesData(){
   for (i = 0; i < MAXCREATURESPECIES; i++){
     speciesData[i].lifePace = 1000;
     speciesData[i].baseHp = 20;
+    speciesData[i].speed = 5;
   }
   
   return;
