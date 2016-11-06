@@ -1,4 +1,6 @@
 for version 0.4
+  * creatures now tend to move in straight lines (kmw, 2016-11-06)
+  * creatures can now open doors (kmw, 2016-11-06)
   * creatures now move randomly about the dungeon (kmw, 2016-11-05)
 
 for version 0.3

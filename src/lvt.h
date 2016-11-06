@@ -110,6 +110,8 @@ unsigned int getCreatureSpeed(creature *creature);
 void incrementCreatureSpeedCounter(creature *creature, unsigned int incrAmount);
 void decrementCreatureSpeedCounter(creature *creature, unsigned int decrAmount);
 unsigned int getCreatureSpeedCounter(creature *creature);
+unsigned int getCreatureLastMove(creature *creature);
+void setCreatureLastMove(creature *creature, unsigned int move);
 #else
 bool updateCreatureLifeCycleNotMatured(creature *creature);
 bool updateCreatureLifeCycleMatured(creature *creature);
@@ -126,6 +128,7 @@ bool hasAction(creature *creature);
 void doMoveCreature(creature *creature);
 void moveCreatureUpStair(creature *creature);
 void moveCreatureDownStair(creature *creature);
+void changeCreatureLocation(creature *creature, coord3D newPos);
 #endif
 
 #ifndef _FACTIONS_C

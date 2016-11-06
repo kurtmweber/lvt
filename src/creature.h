@@ -88,6 +88,7 @@ typedef struct speciesInfo{
   char dispChar;
   colorPairs color;
   unsigned int speed;
+  bool hasHands;
 } speciesInfo;
 
 typedef struct creature{
@@ -113,7 +114,7 @@ typedef struct creature{
   struct {
     unsigned int speed;
     unsigned int speedCounter;
-    unsigned int lastMove[2];
+    unsigned int lastMove;
   } moveInfo;
 } creature;
 

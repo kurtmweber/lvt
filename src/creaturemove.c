@@ -20,6 +20,9 @@
 #include <stdbool.h>
 #include "lvt.h"
 
+const unsigned int straightMoveChance = 900;	// Likelihood (out of 1000) that a creature will, if
+						// possible, continue moving in a straight line
+
 void moveCreatures(){
   creatureList *curCreatureNode;
   unsigned long long i;
@@ -38,6 +41,18 @@ void moveCreatures(){
   return;
 }
 
+void changeCreatureLocation(creature *creature, coord3D newPos){
+  coord3D curPos;
+  
+  curPos = getCreatureLocation(creature);
+
+  clearCreatureOccupant(dungeon[curPos.level], curPos.x, curPos.y);
+  setCreatureOccupant(dungeon[newPos.level], newPos.x, newPos.y, creature);
+  setCreatureLocation(creature, newPos);
+  
+  return;
+}
+
 void moveCreatureUpStair(creature *creature){
   coord3D newPos;
   coord3D curPos;
@@ -52,9 +67,7 @@ void moveCreatureUpStair(creature *creature){
   newPos.y = stairPos.y;
   
   if (!hasCreatureOccupant(dungeon[newPos.level], stairPos.x, stairPos.y)){
-    clearCreatureOccupant(dungeon[curPos.level], curPos.x, curPos.y);
-    setCreatureOccupant(dungeon[newPos.level], newPos.x, newPos.y, creature);
-    setCreatureLocation(creature, newPos);
+    changeCreatureLocation(creature, newPos);
   }
   
   return;  
@@ -74,9 +87,7 @@ void moveCreatureDownStair(creature *creature){
   newPos.y = stairPos.y;
   
   if (!hasCreatureOccupant(dungeon[newPos.level], stairPos.x, stairPos.y)){
-    clearCreatureOccupant(dungeon[curPos.level], curPos.x, curPos.y);
-    setCreatureOccupant(dungeon[newPos.level], newPos.x, newPos.y, creature);
-    setCreatureLocation(creature, newPos);
+    changeCreatureLocation(creature, newPos);
   }
   
   return;  
@@ -88,6 +99,7 @@ void doMoveCreature(creature *creature){
   static rng localRng;
   static bool rngInitd = false;
   unsigned int location;
+  unsigned int lastMove;
   terrain t;
   
   if (!rngInitd){
@@ -102,14 +114,18 @@ void doMoveCreature(creature *creature){
   if ((t == UPSTAIR) && (curCreatureLoc.level != 0)){
     if (coinFlip(&localRng) == HEADS){
       moveCreatureUpStair(creature);
+      setCreatureLastMove(creature, 4);
       return;
     }
   } else if ((t == DOWNSTAIR) && (curCreatureLoc.level != numLevels - 1)){
     if (coinFlip(&localRng) == TAILS){
       moveCreatureDownStair(creature);
+      setCreatureLastMove(creature, 4);
       return;
     }
   }
+  
+  lastMove = getCreatureLastMove(creature);
   
   {
   moves[0].x = MAX(curCreatureLoc.x - 1, 0);
@@ -148,8 +164,14 @@ void doMoveCreature(creature *creature){
   moves[8].y = MIN(curCreatureLoc.y + 1, dimMapY - 1);
   moves[8].level = curCreatureLoc.level;
   }
-
-  location = uniformRandomRangeInt(&localRng, 1, 9) - 1;
+  
+  if ((uniformRandomRangeInt(&localRng, 1, 1000) <= straightMoveChance) && (lastMove != 4)){
+    // 4 is the "stay put" move in the array above
+    location = lastMove;
+  } else {
+    location = uniformRandomRangeInt(&localRng, 1, 9) - 1;
+    setCreatureLastMove(creature, location);
+  }
   
   switch (getMapSpaceTerrain(dungeon[moves[location].level], moves[location].x, moves[location].y)){
     case FLOOR:
@@ -157,12 +179,18 @@ void doMoveCreature(creature *creature){
     case DOWNSTAIR:
     case OPENDOOR:
       if (!hasCreatureOccupant(dungeon[moves[location].level], moves[location].x, moves[location].y)){
-	clearCreatureOccupant(dungeon[moves[location].level], curCreatureLoc.x, curCreatureLoc.y);
-	setCreatureOccupant(dungeon[moves[location].level], moves[location].x, moves[location].y, creature);
-	setCreatureLocation(creature, moves[location]);
+	changeCreatureLocation(creature, moves[location]);
 	return;
       }
       break;
+    case DOOR:
+      if (speciesData[getCreatureSpecies(creature)].hasHands){
+	setMapSpaceTerrain(dungeon[moves[location].level], moves[location].x, moves[location].y, OPENDOOR);
+      }
+      break;
+    default:
+      setCreatureLastMove(creature, 4);
+      break;	
   }
   
   return;

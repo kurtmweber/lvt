@@ -427,3 +427,13 @@ void decrementCreatureSpeedCounter(creature *creature, unsigned int decrAmount){
 unsigned int getCreatureSpeedCounter(creature *creature){
   return creature->moveInfo.speedCounter;
 }
+
+unsigned int getCreatureLastMove(creature *creature){
+  return creature->moveInfo.lastMove;
+}
+
+void setCreatureLastMove(creature *creature, unsigned int move){
+  creature->moveInfo.lastMove = move;
+  
+  return;
+}
