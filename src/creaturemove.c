@@ -30,13 +30,13 @@ void moveCreatures(){
   
   curCreatureNode = creatures;
   
-  while (curCreatureNode->next){
+  do {
     incrementCreatureSpeedCounter(curCreatureNode->creature, getCreatureSpeed(curCreatureNode->creature));
     while (hasAction(curCreatureNode->creature)){
       doMoveCreature(curCreatureNode->creature);
     }
     curCreatureNode = curCreatureNode->next;
-  }
+  } while (curCreatureNode);
   
   return;
 }
@@ -181,6 +181,8 @@ void doMoveCreature(creature *creature){
       if (!hasCreatureOccupant(dungeon[moves[location].level], moves[location].x, moves[location].y)){
 	changeCreatureLocation(creature, moves[location]);
 	return;
+      } else {
+	setCreatureLastMove(creature, 4);
       }
       break;
     case DOOR:
@@ -190,11 +192,13 @@ void doMoveCreature(creature *creature){
       break;
     default:
       setCreatureLastMove(creature, 4);
+      doMoveCreature(creature);
       break;	
   }
   
   return;
 }
+
 bool hasAction(creature *creature){
   unsigned int creatureSpeedCounter;
   
