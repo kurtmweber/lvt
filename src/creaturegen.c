@@ -88,6 +88,8 @@ creature *spawnOrphanCreature(creatureSpecies species, creatureClass class){
   setCreatureSpeed(newCreature, speciesData[species].speed);
   
   setCreatureLastMove(newCreature, 4);
+  initCreatureArmor(newCreature);
+  initCreatureWeapon(newCreature);
   
   return newCreature;
 }

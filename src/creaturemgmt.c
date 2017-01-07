@@ -437,3 +437,21 @@ void setCreatureLastMove(creature *creature, unsigned int move){
   
   return;
 }
+
+void initCreatureArmor(creature *creature){
+  creature->armor.shirt = NULL;
+  creature->armor.underarmor = NULL;
+  creature->armor.armor = NULL;
+  creature->armor.helmet = NULL;
+  creature->armor.cloak = NULL;
+  creature->armor.gloves = NULL;
+  creature->armor.leggings = NULL;
+  creature->armor.shirt = NULL;
+  creature->armor.shield = NULL;
+  
+  return;
+}
+
+void initCreatureWeapon(creature *creature){
+  creature->weapon = NULL;
+}

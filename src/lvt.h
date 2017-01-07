@@ -112,6 +112,8 @@ void decrementCreatureSpeedCounter(creature *creature, unsigned int decrAmount);
 unsigned int getCreatureSpeedCounter(creature *creature);
 unsigned int getCreatureLastMove(creature *creature);
 void setCreatureLastMove(creature *creature, unsigned int move);
+void initCreatureArmor(creature *creature);
+void initCreatureWeapon(creature *creature);
 #else
 bool updateCreatureLifeCycleNotMatured(creature *creature);
 bool updateCreatureLifeCycleMatured(creature *creature);

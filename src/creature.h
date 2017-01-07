@@ -20,6 +20,7 @@
 
 #include <stdbool.h>
 #include "colors.h"
+#include "item.h"
 #include "types.h"
 
 typedef struct statList{
@@ -112,6 +113,18 @@ typedef struct speciesInfo{
   //speciesAggression aggression;
 } speciesInfo;
 
+typedef struct armorSlotList{
+  item *shirt;
+  item *underarmor;
+  item *armor;
+  item *helmet;
+  item *cloak;
+  item *gloves;
+  item *leggings;
+  item *shoes;
+  item *shield;
+} armorSlotList;
+
 typedef struct creature{
   unsigned int creatureId;
   char *name;
@@ -133,6 +146,8 @@ typedef struct creature{
   colorPairs color;
   unsigned int attrs;
   unsigned int faction;
+  armorSlotList armor;
+  item *weapon;
   //creatureAggression aggression;
   struct {
     unsigned int speed;

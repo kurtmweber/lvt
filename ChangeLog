@@ -1,4 +1,5 @@
 for version 0.5
+  * create and initialize creature armor and weapon lists (kmw, 2017-01-07)
   * confirm if player attempts to attack an allied creature (kmw, 2017-01-06)
   * implemented free action system for player actions that don't spend a move (kmw, 2017-01-06)
 

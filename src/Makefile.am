@@ -4,4 +4,4 @@ lvt_SOURCES	=	leveldisp.c levelgen.c main.c pcg_basic.c random.c map.c screen.c 
 			util.c messages.c questions.c allocator.c creaturegen.c colors.c name.c faction.c \
 			creaturemove.c
 noinst_HEADERS	=	lvt.h level.h pcg_basic.h creature.h messages.h types.h move.h stringlookups.h \
-			colors.h
+			colors.h item.h

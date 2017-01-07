@@ -123,6 +123,7 @@ void processKey(unsigned int c){
       doLook(c);
       break;
     default:
+      freeAction = true;
       break;
   }
   return;

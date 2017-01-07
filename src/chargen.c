@@ -157,6 +157,8 @@ void initializeCharacter(){
   setCreatureColor(&player, BlackGreen);
   setCreatureAttribute(&player, 0);
   setCreatureFaction(&player, 1);
+  initCreatureArmor(&player);
+  initCreatureWeapon(&player);
   
   return;
 }
