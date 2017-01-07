@@ -1,3 +1,7 @@
+for version 0.5
+  * confirm if player attempts to attack an allied creature (kmw, 2017-01-06)
+  * implemented free action system for player actions that don't spend a move (kmw, 2017-01-06)
+
 for version 0.4
   * release (kmw, 2017-01-06)
   * creatures no longer waste a move when their line of travel is interrupted (kmw, 2016-11-06)

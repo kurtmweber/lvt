@@ -36,4 +36,6 @@
 #define SELECT_LOCATION_MSG "Please select a location."
 #define NOTHING_THERE_MSG "I see nothing there"
 
+#define ATTACK_ALLIED_Q "The creature there is allied.  Do you wish to attack?"
+
 #endif

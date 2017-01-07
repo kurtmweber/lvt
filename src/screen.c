@@ -107,6 +107,15 @@ void displayMsg(char *msg, int a){
   return;
 }
 
+void displayQuestionYesNo(char *msg){
+  clearMsg();
+  wprintw(msgWin, msg);
+  wprintw(msgWin, " (y/n)");
+  wrefresh(msgWin);
+  
+  return;
+}
+
 void displayMsgNoWait(char *msg, int a){
   clearMsg();
   wprintw(msgWin, msg);

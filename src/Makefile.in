@@ -107,8 +107,9 @@ am_lvt_OBJECTS = leveldisp.$(OBJEXT) levelgen.$(OBJEXT) main.$(OBJEXT) \
 	game.$(OBJEXT) move.$(OBJEXT) input.$(OBJEXT) \
 	creatureinit.$(OBJEXT) stringlookups.$(OBJEXT) \
 	speciesinfo.$(OBJEXT) util.$(OBJEXT) messages.$(OBJEXT) \
-	allocator.$(OBJEXT) creaturegen.$(OBJEXT) colors.$(OBJEXT) \
-	name.$(OBJEXT) faction.$(OBJEXT) creaturemove.$(OBJEXT)
+	questions.$(OBJEXT) allocator.$(OBJEXT) creaturegen.$(OBJEXT) \
+	colors.$(OBJEXT) name.$(OBJEXT) faction.$(OBJEXT) \
+	creaturemove.$(OBJEXT)
 lvt_OBJECTS = $(am_lvt_OBJECTS)
 lvt_LDADD = $(LDADD)
 AM_V_P = $(am__v_P_@AM_V@)
@@ -258,7 +259,7 @@ top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 lvt_SOURCES = leveldisp.c levelgen.c main.c pcg_basic.c random.c map.c screen.c chargen.c \
 			creaturemgmt.c game.c move.c input.c creatureinit.c stringlookups.c speciesinfo.c \
-			util.c messages.c allocator.c creaturegen.c colors.c name.c faction.c \
+			util.c messages.c questions.c allocator.c creaturegen.c colors.c name.c faction.c \
 			creaturemove.c
 
 noinst_HEADERS = lvt.h level.h pcg_basic.h creature.h messages.h types.h move.h stringlookups.h \
@@ -368,6 +369,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/move.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/name.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/pcg_basic.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/questions.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/random.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/screen.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/speciesinfo.Po@am__quote@

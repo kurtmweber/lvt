@@ -15,16 +15,26 @@
  *  along with Lavender Throne.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#define _FACTION_C
+#define _QUESTIONS_C
 
+#include <ncurses.h>
 #include <stdbool.h>
+#include "lvt.h"
 
-unsigned int numFactions;
-
-unsigned int getNumFactions(){
-  return numFactions;
-}
-
-void initializeFactions(){
-  numFactions = 2;
+bool askQuestionYesNo(char *question){
+  char c;
+  
+  displayQuestionYesNo(question);
+  
+  c = getch();
+  while ((c != 'y') && (c != 'n')){
+    beep();
+    c= getch();
+  }
+  
+  if (c == 'y'){
+    return true;
+  } else {
+    return false;
+  }
 }

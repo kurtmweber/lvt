@@ -139,6 +139,7 @@ void initializeFactions();
 
 #ifndef _GAME_C
 void startGame();
+extern bool freeAction;
 #else
 void gameLoop();
 bool doQuit();
@@ -232,6 +233,10 @@ char *generateName();
 #else
 #endif
 
+#ifndef _QUESTIONS_C
+bool askQuestionYesNo(char *question);
+#endif
+
 #ifndef _RANDOM_C
 void initializeRNG(rng *rng);
 coin coinFlip(rng *rng);
@@ -259,6 +264,7 @@ void clearPlayArea();
 void updateStatWin();
 void setCursorLoc();
 coord2D definePlayAreaDisplay();
+void displayQuestionYesNo(char *msg);
 #else
 coord2D definePlayAreaDisplay();
 #endif
@@ -285,6 +291,7 @@ int clampRangeIntSigned(int value, int min, int max);
 bool sameFactions(creature *creature1, creature *creature2);
 unsigned int sumArrayInt(int *array, unsigned int numElements);
 void *randomizeArray(void *array, unsigned int numElements, size_t size);
+coord2D getSpaceDirectionCoordinates(coord2D point, moveDirection dir);
 #else
 #endif
 

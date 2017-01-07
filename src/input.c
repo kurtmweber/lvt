@@ -18,6 +18,7 @@
 #define _INPUT_C
 
 #include <ncurses.h>
+#include <stdbool.h>
 #include <stdlib.h>
 #include <string.h>
 #include "lvt.h"
@@ -58,11 +59,25 @@ void doMoveKey(unsigned int c){
   }
   
   switch(moveCreature(&player, dir)){
+      creature *target = 0;
+      coord3D creatureLoc;
+      coord2D curPoint, newPoint;
+      
     case MOVE_FAILED_WALL:
       addToMsgQueue(MOVE_WALL_MSG, false);
       break;
     case MOVE_FAILED_CREATURE:
-      addToMsgQueue(MOVE_CREATURE_MSG, false);
+  
+      creatureLoc = getCreatureLocation(&player);
+      curPoint.x = creatureLoc.x;
+      curPoint.y = creatureLoc.y;
+      newPoint = getSpaceDirectionCoordinates(curPoint, dir);
+      target = getCreatureOccupant(dungeon[creatureLoc.level], newPoint.x, newPoint.y);
+      if (sameFactions(target, &player)){
+	if (!askQuestionYesNo(ATTACK_ALLIED_Q)){
+	  addToMsgQueue(MOVE_CREATURE_MSG, false);
+	}
+      }
       break;
     case MOVE_FAILED_DOOR:
       addToMsgQueue(MOVE_DOOR_MSG, false);
@@ -85,6 +100,8 @@ void doLook(unsigned int c){
   char *infoCreatureName;
   creatureSpecies infoCreatureSpecies;
   char levelNumText[10];
+  
+  freeAction = true;
   
   mapLoc = getCreatureLocation(&player);
   

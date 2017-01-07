@@ -20,6 +20,8 @@
 #include <stdbool.h>
 #include <string.h>
 #include "lvt.h"
+#include "move.h"
+#include "types.h"
 
 int clampRangeIntSigned(int value, int min, int max){
   if (value < min){
@@ -73,4 +75,44 @@ void *randomizeArray(void *array, unsigned int numElements, size_t size){
   }
   
   return array;
+}
+
+coord2D getSpaceDirectionCoordinates(coord2D point, moveDirection dir){
+  coord2D tmp;
+  
+  tmp.x = point.x;
+  tmp.y = point.y;
+  
+  switch (dir){
+    case UP:
+      tmp.y = MAX(point.y - 1, 0);
+      break;
+    case DOWN:
+      tmp.y = MIN(point.y + 1, dimMapY - 1);
+      break;
+    case LEFT:
+      tmp.x = MAX(point.x - 1, 0);
+      break;
+    case RIGHT:
+      tmp.x = MIN(point.x + 1, dimMapX - 1);
+      break;
+    case UPLEFT:
+      tmp.y = MAX(point.y - 1, 0);
+      tmp.x = MAX(point.x - 1, 0);
+      break;
+    case UPRIGHT:
+      tmp.y = MAX(point.y - 1, 0);
+      tmp.x = MIN(point.x + 1, dimMapX - 1);
+      break;
+    case DOWNLEFT:
+      tmp.y = MIN(point.y + 1, dimMapY - 1);
+      tmp.x = MAX(point.x - 1, 0);
+      break;
+    case DOWNRIGHT:
+      tmp.y = MIN(point.y + 1, dimMapY - 1);
+      tmp.x = MIN(point.x + 1, dimMapX - 1);
+      break;
+  }
+  
+  return tmp;
 }

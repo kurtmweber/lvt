@@ -24,6 +24,8 @@
 #include "creature.h"
 #include "messages.h"
 
+bool freeAction = false;
+
 void startGame(){
   char *welcomeMsg = 0;
   
@@ -82,8 +84,12 @@ void gameLoop(){
       }
     }
     processKey(c);
-    updateTurnCounter();
-    moveCreatures();
+    if (!freeAction){
+      updateTurnCounter();
+      moveCreatures();
+    } else {
+      freeAction = false;
+    }
     displayLevel(dungeon[getCreatureMapLevel(&player)]);
   }
   

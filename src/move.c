@@ -62,6 +62,12 @@ moveOutcome moveCreature(creature *creature, moveDirection dir){
       break;
   }
   
+  freeAction = true;	// if the move fails, then we don't update the turn counter
+			// there are multiple possibilities and multiple returns from this function
+			// in the event of a failed move, so we'll set it true here and then set it
+			// false later on, at a point where if we've gotten that far without returning
+			// then we know the move has succeeded
+  
   switch (getMapSpaceTerrain(dungeon[curPos.level], newPos.x, newPos.y)){
     case WALL:
     case PERMANENTROCK:
@@ -76,6 +82,8 @@ moveOutcome moveCreature(creature *creature, moveDirection dir){
   if (hasCreatureOccupant(dungeon[curPos.level], newPos.x, newPos.y)){
     return MOVE_FAILED_CREATURE;
   }
+  
+  freeAction = false;	// if we've gotten here, we know the move succeeded
   
   newPos.level = curPos.level;
   
