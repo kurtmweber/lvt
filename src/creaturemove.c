@@ -41,6 +41,8 @@ void moveCreatures(){
   return;
 }
 
+// coord2D findFoe
+
 void changeCreatureLocation(creature *creature, coord3D newPos){
   coord3D curPos;
   

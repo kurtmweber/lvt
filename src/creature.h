@@ -49,6 +49,26 @@ typedef enum creatureSpecies{
   MAXCREATURESPECIES
 } creatureSpecies;
 
+/* typedef enum creatureAggression{
+  CHILL = 1,
+  CALM,
+  PEEVISH,
+  AGGRESSIVE,
+  HYPERAGGRESSIVE,
+  HITLER,
+  TRUMP
+}; */
+
+/* typedef enum speciesAggression{
+  TRUMP = 8,
+  HITLER,
+  HYPERAGGRESSIVE,
+  AGGRESSIVE,
+  PEEVISH,
+  CALM,
+  CHILL
+}; */
+
 typedef enum creatureClass{
   POET,
   PEACEMAKER,
@@ -89,9 +109,11 @@ typedef struct speciesInfo{
   colorPairs color;
   unsigned int speed;
   bool hasHands;
+  //speciesAggression aggression;
 } speciesInfo;
 
 typedef struct creature{
+  unsigned int creatureId;
   char *name;
   bool isPlayer;
   unsigned int lifePace;
@@ -111,6 +133,7 @@ typedef struct creature{
   colorPairs color;
   unsigned int attrs;
   unsigned int faction;
+  //creatureAggression aggression;
   struct {
     unsigned int speed;
     unsigned int speedCounter;

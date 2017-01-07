@@ -1,4 +1,5 @@
 for version 0.4
+  * release (kmw, 2017-01-06)
   * creatures no longer waste a move when their line of travel is interrupted (kmw, 2016-11-06)
   * fixed bug that kept first creature to be generated from moving (kmw, 2016-11-06)
   * creatures now tend to move in straight lines (kmw, 2016-11-06)
