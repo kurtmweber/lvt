@@ -305,6 +305,7 @@ void doOpenDoor(unsigned int c){
     default:
       clearMsg();
       addToMsgQueue(NEVER_MIND_MSG, false);
+      freeAction = true;
       return;
   }
   
@@ -316,9 +317,11 @@ void doOpenDoor(unsigned int c){
     case 'o':
       if (doorPosTerrain == OPENDOOR){
 	addToMsgQueue(DOOR_ALREADY_OPEN_MSG, false);
+	freeAction = true;
 	return;
       } else if (doorPosTerrain != DOOR){
 	addToMsgQueue(NO_DOOR_THERE_MSG, false);
+	freeAction = true;
 	return;
       } else {
 	setMapSpaceTerrain(dungeon[doorPos.level], doorPos.x, doorPos.y, OPENDOOR);
@@ -327,9 +330,11 @@ void doOpenDoor(unsigned int c){
     case'c':
       if (doorPosTerrain == DOOR){
 	addToMsgQueue(DOOR_ALREADY_CLOSED_MSG, false);
+	freeAction = true;
 	return;
       } else if (doorPosTerrain != OPENDOOR){
 	addToMsgQueue(NO_DOOR_THERE_MSG, false);
+	freeAction = true;
 	return;
       } else {
 	setMapSpaceTerrain(dungeon[doorPos.level], doorPos.x, doorPos.y, DOOR);
@@ -437,6 +442,7 @@ void doStairs(unsigned int c, map map){
       newPos.y = stairPos.y;
     } else {
       addToMsgQueue(CANNOT_UP_HERE_MSG, false);
+      freeAction = true;
       return;
     }
   }
@@ -449,6 +455,7 @@ void doStairs(unsigned int c, map map){
       newPos.y = stairPos.y;
     } else {
       addToMsgQueue(CANNOT_DOWN_HERE_MSG, false);
+      freeAction = true;
       return;
     }
   }
