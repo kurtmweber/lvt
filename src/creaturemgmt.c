@@ -17,6 +17,7 @@
 
 #define _CREATUREMGMT_C
 
+#include <math.h>
 #include "lvt.h"
 #include "creature.h"
 
@@ -454,4 +455,53 @@ void initCreatureArmor(creature *creature){
 
 void initCreatureWeapon(creature *creature){
   creature->weapon = NULL;
+  
+  return;
+}
+
+void initCreatureInventory(creature *creature){
+  creature->inventory = NULL;
+  
+  return;
+}
+
+void killCreature(creature *creature){
+  creatureList *cNode;
+  coord3D creatureLoc;
+  
+  creatureLoc = getCreatureLocation(creature);
+  
+  clearCreatureOccupant(dungeon[creatureLoc.level], creatureLoc.x, creatureLoc.y);
+  
+  
+  cNode = findCreatureListEntry(creatures, creature);
+  removeCreatureNode(creatures, cNode);
+  return;
+}
+
+void setCreatureLevelHpXp(creature *creature, unsigned int Xp){
+  unsigned int hpDiff;
+  unsigned int newLevel;
+  unsigned int newMaxHp, newCurHp;
+  
+  setCreatureXp(creature, Xp);
+  hpDiff = getCreatureMaxHp(creature) - getCreatureCurHp(creature);
+  
+  if (Xp == 0){
+    newLevel = 1;
+  } else {
+    newLevel = MAX((unsigned int)floor(log2(Xp)), 1);	// can't run log2() on 0, gives error
+  }
+  
+  setCreatureLevel(creature, newLevel);
+  
+  newMaxHp = (unsigned int)ceil(pow(1.1, newLevel - 1) * getSpeciesBaseHp(getCreatureSpecies(creature)));
+  // newLevel - 1 so that level 1 gets base, level 2 gets base * 1.1, etc.
+
+  newCurHp = newMaxHp - hpDiff;
+  
+  setCreatureMaxHp(creature, newMaxHp);
+  setCreatureCurHp(creature, newCurHp);
+  
+  return;
 }

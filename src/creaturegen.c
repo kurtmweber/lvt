@@ -25,17 +25,6 @@
 
 unsigned int placeCreatureChance = 100;	// likelihood (out of 10,000) that a creature will be placed
 					// on a floor
-					
-creatureList *insertNewCreatureNode(creatureList *list, creatureList *node){
-  if (list){
-    list->prev = node;
-  }
-  
-  node->prev = 0;
-  node->next = list;
-  
-  return node;
-}
 
 creatureList *generateStartingCreatures(){
   creatureList *node = 0;
@@ -90,6 +79,7 @@ creature *spawnOrphanCreature(creatureSpecies species, creatureClass class){
   setCreatureLastMove(newCreature, 4);
   initCreatureArmor(newCreature);
   initCreatureWeapon(newCreature);
+  initCreatureInventory(newCreature);
   
   return newCreature;
 }

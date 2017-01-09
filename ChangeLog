@@ -1,4 +1,5 @@
 for version 0.5
+  * basic hand-to-hand combat is now possible (kmw, 2017-01-08)
   * added some more free actions for failed moves (kmw, 2017-01-07)
   * create and initialize creature armor and weapon lists (kmw, 2017-01-07)
   * confirm if player attempts to attack an allied creature (kmw, 2017-01-06)

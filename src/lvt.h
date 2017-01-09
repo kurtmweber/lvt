@@ -37,6 +37,15 @@ void freeCreatureListEntry(creatureList *node);
 #else
 #endif
 
+#ifndef _ATTACK_C
+unsigned int attack(creature *attacker, creature *defender);
+#else
+unsigned int toHit(creature *attacker);
+unsigned int toDefend(creature *defender);
+unsigned int calcAttackVal(creature *attacker);
+unsigned int calcDefenseVal(creature *defender);
+#endif
+
 #ifndef _CHARGEN_C
 void initializeCharacter();
 #else
@@ -55,7 +64,6 @@ creatureList *generateStartingCreatures();
 #else
 bool decidePlaceCreature(coord2D floor, unsigned int level);
 creature *newRandomOrphanCreature(coord2D floor, unsigned int level);
-creatureList *insertNewCreatureNode(creatureList *list, creatureList *node);
 creature *spawnOrphanCreature(creatureSpecies species, creatureClass class);
 void placeNewCreature(creature *creature, coord3D location);
 #endif
@@ -64,6 +72,12 @@ void placeNewCreature(creature *creature, coord3D location);
 void genOrphanCreatureStats(creature *creature);
 #else
 void getClassModifiers(creatureClass class, statList *list);
+#endif
+
+#ifndef _CREATURELIST_C
+creatureList *insertNewCreatureNode(creatureList *list, creatureList *node);
+creatureList *removeCreatureNode(creatureList *list, creatureList *node);
+creatureList *findCreatureListEntry(creatureList *list, creature *creature);
 #endif
 
 #ifndef _CREATUREMGMT_C
@@ -114,6 +128,9 @@ unsigned int getCreatureLastMove(creature *creature);
 void setCreatureLastMove(creature *creature, unsigned int move);
 void initCreatureArmor(creature *creature);
 void initCreatureWeapon(creature *creature);
+void initCreatureInventory(creature *creature);
+void killCreature(creature *creature);
+void setCreatureLevelHpXp(creature *creature, unsigned int Xp);
 #else
 bool updateCreatureLifeCycleNotMatured(creature *creature);
 bool updateCreatureLifeCycleMatured(creature *creature);
@@ -121,6 +138,13 @@ void getCreatureMaxStats(creature *creature, statList *stats);
 void setCreatureMaxStats(creature *creature, int stats[MAXSTATNAME]);
 void getCreatureCurStats(creature *creature, statList *stats);
 void setCreatureCurStats(creature *creature, int stats[MAXSTATNAME]);
+void setCreatureXp(creature *creature, unsigned int Xp);
+void setCreatureLevel(creature *creature, unsigned int level);
+unsigned int getCreatureCurHp(creature *creature);
+unsigned int getCreatureMaxHp(creature *creature);
+void setCreatureMaxHp(creature *creature, unsigned int maxHp);
+void setCreatureCurHp(creature *creature, unsigned int curHp);
+coord3D getCreatureLocation(creature *creature);
 #endif
 
 #ifndef _CREATUREMOVE_C

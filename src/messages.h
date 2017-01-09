@@ -35,6 +35,10 @@
 #define DIED_OLD_AGE_MSG "You have died of old age..."
 #define SELECT_LOCATION_MSG "Please select a location."
 #define NOTHING_THERE_MSG "I see nothing there"
+#define ATTACK_MISSED_MSG "Your attack missed!"
+#define ATTACK_NODAMAGE_MSG "Your attack landed, but did no damage."
+#define ATTACK_SUCCEEDED_MSG "Your attack succeeded!"
+#define ATTACK_KILLED_MSG "You killed your opponent!"
 
 #define ATTACK_ALLIED_Q "The creature there is allied.  Do you wish to attack?"
 

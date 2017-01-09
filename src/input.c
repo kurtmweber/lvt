@@ -21,6 +21,7 @@
 #include <stdbool.h>
 #include <stdlib.h>
 #include <string.h>
+#include "attack.h"
 #include "lvt.h"
 #include "move.h"
 #include "messages.h"
@@ -76,7 +77,25 @@ void doMoveKey(unsigned int c){
       if (sameFactions(target, &player)){
 	if (!askQuestionYesNo(ATTACK_ALLIED_Q)){
 	  addToMsgQueue(MOVE_CREATURE_MSG, false);
+	  return;
 	}
+      }
+      
+      freeAction = false;
+      switch(attack(&player, target)){
+	case ATTACK_MISSED:
+	  addToMsgQueue(ATTACK_MISSED_MSG, false);
+	  break;
+	case ATTACK_NODAMAGE:
+	  addToMsgQueue(ATTACK_NODAMAGE_MSG, false);
+	  break;
+	case ATTACK_SUCCEEDED:
+	  addToMsgQueue(ATTACK_SUCCEEDED_MSG, false);
+	  break;
+	case ATTACK_KILLED:
+	  addToMsgQueue(ATTACK_KILLED_MSG, false);
+	default:
+	  break;
       }
       break;
     case MOVE_FAILED_DOOR:
@@ -84,6 +103,8 @@ void doMoveKey(unsigned int c){
       break;
     case MOVE_SUCCESS:
       displayLevel(dungeon[getCreatureMapLevel(&player)]);
+      break;
+    default:
       break;
   }
   

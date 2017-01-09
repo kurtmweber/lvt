@@ -19,6 +19,7 @@
 #define _LEVEL_H
 
 #include "creature.h"
+#include "item.h"
 
 typedef enum terrain{
   WALL,
@@ -45,6 +46,7 @@ struct mapSpaceContents{
   objectClasses class;
   union {
     creature *creature;
+    item *item;
   } contents;
   mapSpaceContents *next;
 };

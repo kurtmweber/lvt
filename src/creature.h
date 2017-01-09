@@ -148,6 +148,7 @@ typedef struct creature{
   unsigned int faction;
   armorSlotList armor;
   item *weapon;
+  itemList *inventory;
   //creatureAggression aggression;
   struct {
     unsigned int speed;

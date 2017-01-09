@@ -105,10 +105,7 @@ void genOrphanCreatureStats(creature *creature){
   curStats[DEXTERITY] = (maxStats[DEXTERITY] * 2) / 3;
   
   setCreatureCurStats(creature, curStats);
-  setCreatureLevel(creature, 1);
-  setCreatureMaxHp(creature, getSpeciesBaseHp(species));
-  setCreatureCurHp(creature, getSpeciesBaseHp(species));
-  setCreatureXp(creature, 0);
+  setCreatureLevelHpXp(creature, 0);
   
   bioSex = coinFlip(&localRng);
   switch (bioSex){

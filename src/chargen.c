@@ -159,6 +159,7 @@ void initializeCharacter(){
   setCreatureFaction(&player, 1);
   initCreatureArmor(&player);
   initCreatureWeapon(&player);
+  initCreatureInventory(&player);
   
   return;
 }
