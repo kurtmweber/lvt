@@ -55,6 +55,8 @@ void initSpeciesDataBear(){
   speciesData[BEAR].color = MagentaBlack;
   speciesData[BEAR].hasHands = false;
   
+  speciesData[BEAR].size = 500;
+  
   return;
 }
 
@@ -69,6 +71,8 @@ void initSpeciesDataDwarf(){
   speciesData[DWARF].dispChar = 'h';
   speciesData[DWARF].color = RedBlack;
   speciesData[DWARF].hasHands = true;
+  
+  speciesData[DWARF].size = 200;
   
   return;
 }
@@ -85,6 +89,8 @@ void initSpeciesDataElf(){
   speciesData[ELF].color = GreenBlack;
   speciesData[ELF].hasHands = true;
   
+  speciesData[ELF].size = 300;
+  
   return;
 }
 
@@ -98,7 +104,9 @@ void initSpeciesDataHalfling(){
   
   speciesData[HALFLING].dispChar = 'h';
   speciesData[HALFLING].color = BlueBlack;
-  speciesData[ELF].hasHands = true;
+  speciesData[HALFLING].hasHands = true;
+  
+  speciesData[HALFLING].size = 200;
   
   return;
 }
@@ -114,6 +122,8 @@ void initSpeciesDataHuman(){
   speciesData[HUMAN].dispChar = '@';
   speciesData[HUMAN].color = WhiteBlack;
   speciesData[HUMAN].hasHands = true;
+  
+  speciesData[HUMAN].size = 300;
   
   return;
 }

@@ -109,7 +109,8 @@ am_lvt_OBJECTS = leveldisp.$(OBJEXT) levelgen.$(OBJEXT) main.$(OBJEXT) \
 	speciesinfo.$(OBJEXT) util.$(OBJEXT) messages.$(OBJEXT) \
 	questions.$(OBJEXT) allocator.$(OBJEXT) creaturegen.$(OBJEXT) \
 	colors.$(OBJEXT) name.$(OBJEXT) faction.$(OBJEXT) \
-	creaturemove.$(OBJEXT) attack.$(OBJEXT) creaturelist.$(OBJEXT)
+	creaturemove.$(OBJEXT) attack.$(OBJEXT) creaturelist.$(OBJEXT) \
+	item.$(OBJEXT) look.$(OBJEXT)
 lvt_OBJECTS = $(am_lvt_OBJECTS)
 lvt_LDADD = $(LDADD)
 AM_V_P = $(am__v_P_@AM_V@)
@@ -260,10 +261,10 @@ top_srcdir = @top_srcdir@
 lvt_SOURCES = leveldisp.c levelgen.c main.c pcg_basic.c random.c map.c screen.c chargen.c \
 			creaturemgmt.c game.c move.c input.c creatureinit.c stringlookups.c speciesinfo.c \
 			util.c messages.c questions.c allocator.c creaturegen.c colors.c name.c faction.c \
-			creaturemove.c attack.c creaturelist.c
+			creaturemove.c attack.c creaturelist.c item.c look.c
 
 noinst_HEADERS = lvt.h level.h pcg_basic.h creature.h messages.h types.h move.h stringlookups.h \
-			colors.h item.h attack.h
+			colors.h item.h attack.h species.h
 
 all: all-am
 
@@ -363,8 +364,10 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/faction.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/game.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/input.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/item.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/leveldisp.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/levelgen.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/look.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/main.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/map.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/messages.Po@am__quote@

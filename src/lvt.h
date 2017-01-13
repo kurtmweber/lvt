@@ -214,6 +214,10 @@ bool isDoorEligible(level level, coord2D coords);
 void placeStairs(level level, unsigned int levelNum);
 #endif
 
+#ifndef _LOOK_C
+void doLook(unsigned int c);
+#endif
+
 #ifndef _MAIN_C
 extern const double pi;
 extern creature player;

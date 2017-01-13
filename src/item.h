@@ -19,6 +19,8 @@
 #define _ITEM_H
 
 #include <stdbool.h>
+#include "creature.h"
+#include "species.h"
 
 typedef enum armorSlots{
   ARMOR_SHIRT		=	0b000000001,
@@ -32,12 +34,41 @@ typedef enum armorSlots{
   ARMOR_SHIELD		=	0b100000000,
 } armorSlots;
 
-typedef enum itemTypeId{
-  ITEM_TYPE_LONGSWORDSTEEL,
-} itemTypeId;
+typedef enum itemClassId{
+  ITEM_TYPE_LONGSWORD,
+  ITEM_TYPE_CORPSE
+} itemClassId;
+
+typedef enum longswordSubClassId{
+  ITEM_LONGSWORD_STEEL
+} longswordSubClassId;
+
+typedef enum corpseSubClassId{
+  ITEM_CORPSE_BEAR = BEAR,
+  ITEM_CORPSE_DWARF = DWARF,
+  ITEM_CORPSE_ELF = ELF,
+  ITEM_CORPSE_HALFLING = HALFLING,
+  ITEM_CORPSE_HUMAN = HUMAN
+} corpseSubClassId;
+
+typedef struct itemType{
+  char *itemName;
+  unsigned int baseDamage;
+  unsigned int baseArmor;
+  unsigned int weight;
+} itemType;
 
 typedef struct item{
-  itemTypeId type;
+  itemClassId itemClass;
+  union {
+    longswordSubClassId longswordSubClass;
+    corpseSubClassId corpseSubClass;
+  };
+  itemType itemData;
+  int damageModifier;
+  int armorModifier;
+  int weightModifier;
+  char *name;
   armorSlots possibleSlots;
   bool owned;
 } item;

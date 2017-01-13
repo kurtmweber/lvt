@@ -22,6 +22,7 @@
 #include "colors.h"
 #include "item.h"
 #include "types.h"
+#include "species.h"
 
 typedef struct statList{
   int strength;
@@ -36,19 +37,6 @@ typedef enum bioSex{
   FEMALE,
   MALE
 } bioSex;
-
-typedef enum creatureSpecies{
-  HUMAN,
-  HALFLING,
-  ELF,
-  DWARF,
-  BEAR,
-  //BOAR,
-  //DEER,
-  //ORC,
-  //GOBLIN,
-  MAXCREATURESPECIES
-} creatureSpecies;
 
 /* typedef enum creatureAggression{
   CHILL = 1,
@@ -110,6 +98,7 @@ typedef struct speciesInfo{
   colorPairs color;
   unsigned int speed;
   bool hasHands;
+  unsigned int size;
   //speciesAggression aggression;
 } speciesInfo;
 
