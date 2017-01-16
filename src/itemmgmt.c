@@ -15,55 +15,26 @@
  *  along with Lavender Throne.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef _LEVEL_H
-#define _LEVEL_H
+#define _ITEMMGMT_C
 
-#include "creature.h"
 #include "item.h"
 
-typedef enum terrain{
-  WALL,
-  PERMANENTROCK,
-  FLOOR,
-  DOOR,
-  HIDDENDOOR,
-  OPENDOOR,
-  UPSTAIR,
-  DOWNSTAIR,
-  DOWNTON,
-  ABBEY,
-  THRONE
-} terrain;
-
-/*typedef enum objectClasses{
-  WEAPON
-} objectClasses; */
-
-typedef struct mapSpaceContents mapSpaceContents;
-
-struct mapSpaceContents{
-  mapSpaceContents *prev;
-  item *item;
-  mapSpaceContents *next;
-};
+void setCorpseNutrition(item *corpse, unsigned int nutrition){
+  corpse->itemData.corpseUniqueData.nutrition = nutrition;
   
+  return;
+}
 
-typedef struct mapSpace{
-  terrain terrain;
-  union {
-    unsigned int searchCountdown;
-  } terrainData;
-  bool explored;
-  mapSpaceContents *contents;
-  creature *creatureOccupant;
-  //plant *plantOccupant;
-  void *plantOccupant;
-} mapSpace;
+void setItemLocation(item *item, coord3D location){
+  item->location = location;
+  
+  return;
+}
 
-#ifndef _MAP_TYPE
-#define _MAP_TYPE
-typedef mapSpace **level;
-typedef level *map;
-#endif
+char getItemDispChar(item *item){
+  return item->itemData.dispChar;
+}
 
-#endif
+colorPairs getItemColor(item *item){
+  return item->itemData.color;
+}

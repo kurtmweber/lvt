@@ -1,4 +1,5 @@
 for version 0.5
+  * characters now leave corpses when killed (kmw, 2017-01-15)
   * implemented item infrastructure, refactored look command code (kmw, 2017-01-12)
   * basic hand-to-hand combat is now possible (kmw, 2017-01-08)
   * added some more free actions for failed moves (kmw, 2017-01-07)

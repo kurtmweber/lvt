@@ -38,6 +38,7 @@ int main(int argc, char *argv[]){
   
   initializeLevelGen();
   initSpeciesData();
+  initItems();
   initializeFactions();
   
   creatures = 0;

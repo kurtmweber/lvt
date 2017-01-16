@@ -25,6 +25,7 @@
 #include "level.h"
 #include "creature.h"
 #include "move.h"
+#include "item.h"
 
 #define MAX(a, b) (a < b ? b : a)
 #define MIN(a, b) (a > b ? b : a)
@@ -34,6 +35,8 @@
 #ifndef _ALLOCATOR_C
 creatureList *allocateCreatureListEntry();
 void freeCreatureListEntry(creatureList *node);
+item *allocateItem();
+mapSpaceContents *allocateMapSpaceContentsListEntry();
 #else
 #endif
 
@@ -131,6 +134,8 @@ void initCreatureWeapon(creature *creature);
 void initCreatureInventory(creature *creature);
 void killCreature(creature *creature);
 void setCreatureLevelHpXp(creature *creature, unsigned int Xp);
+void setCreatureWeight(creature *creature, unsigned int weight);
+unsigned int getCreatureWeight(creature *creature);
 #else
 bool updateCreatureLifeCycleNotMatured(creature *creature);
 bool updateCreatureLifeCycleMatured(creature *creature);
@@ -145,6 +150,7 @@ unsigned int getCreatureMaxHp(creature *creature);
 void setCreatureMaxHp(creature *creature, unsigned int maxHp);
 void setCreatureCurHp(creature *creature, unsigned int curHp);
 coord3D getCreatureLocation(creature *creature);
+unsigned int getCreatureWeight(creature *creature);
 #endif
 
 #ifndef _CREATUREMOVE_C
@@ -180,6 +186,23 @@ void doSearchDoors(unsigned int c);
 void doStairs(unsigned int c);
 void doLook(unsigned int c);
 #else
+#endif
+
+#ifndef _ITEM_C
+extern itemType *itemTypes[ITEM_TYPE_MAX];
+item *spawnItem(itemClassId class, int subClass);
+void initItems();
+#else
+item *spawnCorpse(int subClass);
+void setItemClass(item *item, itemClassId class);
+void initCorpses();
+#endif
+
+#ifndef _ITEMMGMT_C
+void setCorpseNutrition(item *corpse, unsigned int nutrition);
+char getItemDispChar(item *item);
+void setItemLocation(item *item, coord3D location);
+colorPairs getItemColor(item *item);
 #endif
 
 #ifndef _LEVELDISP_C
@@ -243,6 +266,8 @@ void clearCreatureOccupant(level level, unsigned int x, unsigned int y);
 void setTerrainData(level level, unsigned int x, unsigned int y, terrain terrain, void *data);
 void *getTerrainData(level level, unsigned int x, unsigned int y, terrain terrain);
 coord2D findLevelDownstair(level level);
+void addContents(level level, unsigned int x, unsigned int y, item *item);
+mapSpaceContents *getContents(level level, unsigned int x, unsigned int y);
 #else
 #endif
 

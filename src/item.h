@@ -19,8 +19,8 @@
 #define _ITEM_H
 
 #include <stdbool.h>
-#include "creature.h"
 #include "species.h"
+#include "types.h"
 
 typedef enum armorSlots{
   ARMOR_SHIRT		=	0b000000001,
@@ -36,19 +36,30 @@ typedef enum armorSlots{
 
 typedef enum itemClassId{
   ITEM_TYPE_LONGSWORD,
-  ITEM_TYPE_CORPSE
+  ITEM_TYPE_CORPSE,
+  ITEM_TYPE_MAX
 } itemClassId;
 
+typedef struct uniqueDataLongsword{
+  int i;
+} uniqueDataLongsword;
+
 typedef enum longswordSubClassId{
-  ITEM_LONGSWORD_STEEL
+  ITEM_LONGSWORD_STEEL,
+  ITEM_LONGSWORD_MAX
 } longswordSubClassId;
 
+typedef struct uniqueDataCorpse{
+  unsigned int nutrition;
+} uniqueDataCorpse;
+
 typedef enum corpseSubClassId{
-  ITEM_CORPSE_BEAR = BEAR,
-  ITEM_CORPSE_DWARF = DWARF,
-  ITEM_CORPSE_ELF = ELF,
-  ITEM_CORPSE_HALFLING = HALFLING,
-  ITEM_CORPSE_HUMAN = HUMAN
+  ITEM_CORPSE_HUMAN,
+  ITEM_CORPSE_HALFLING,
+  ITEM_CORPSE_ELF,
+  ITEM_CORPSE_DWARF,
+  ITEM_CORPSE_BEAR,
+  ITEM_CORPSE_MAX
 } corpseSubClassId;
 
 typedef struct itemType{
@@ -56,6 +67,12 @@ typedef struct itemType{
   unsigned int baseDamage;
   unsigned int baseArmor;
   unsigned int weight;
+  union {
+    uniqueDataLongsword longswordUniqueData;
+    uniqueDataCorpse corpseUniqueData;
+  };
+  colorPairs color;
+  char dispChar;
 } itemType;
 
 typedef struct item{
@@ -71,6 +88,7 @@ typedef struct item{
   char *name;
   armorSlots possibleSlots;
   bool owned;
+  coord3D location;
 } item;
 
 typedef struct itemList itemList;

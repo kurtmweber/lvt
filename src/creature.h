@@ -76,32 +76,6 @@ typedef enum creatureClass{
   MAXCREATURECLASS
 } creatureClass;
 
-typedef enum creatureStats{
-  STRENGTH,
-  WISDOM,
-  INTELLIGENCE,
-  CONSTITUTION,
-  CHARISMA,
-  DEXTERITY,
-  MAXSTATNAME
-} creatureStats;
-
-typedef struct speciesActions{
-} speciesActions;
-
-typedef struct speciesInfo{
-  int statModifiers[MAXSTATNAME];
-  unsigned int lifePace;
-  speciesActions actions;
-  unsigned int baseHp;
-  char dispChar;
-  colorPairs color;
-  unsigned int speed;
-  bool hasHands;
-  unsigned int size;
-  //speciesAggression aggression;
-} speciesInfo;
-
 typedef struct armorSlotList{
   item *shirt;
   item *underarmor;
@@ -138,6 +112,7 @@ typedef struct creature{
   armorSlotList armor;
   item *weapon;
   itemList *inventory;
+  unsigned int weight;
   //creatureAggression aggression;
   struct {
     unsigned int speed;

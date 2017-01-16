@@ -21,7 +21,10 @@
 #include "lvt.h"
 #include "messages.h"
 
+//#define _D_DEBUG
+
 unsigned int attack(creature *attacker, creature *defender){
+  
   unsigned int toHitVal, toDefendVal;
   unsigned int toHitRoll, toDefendRoll;
   unsigned int attackVal, defenseVal;
@@ -31,6 +34,8 @@ unsigned int attack(creature *attacker, creature *defender){
   unsigned int attackerXp, defenderXp;
   static rng localRng;
   static bool rngInitd = false;
+  
+#ifndef _D_DEBUG
   
   if (!rngInitd){
     initializeRNG(&localRng);
@@ -65,13 +70,15 @@ unsigned int attack(creature *attacker, creature *defender){
     setCreatureCurHp(defender, defenderCurHp - damage);
     return ATTACK_SUCCEEDED;
   } else {
+#endif
     defenderXp = MAX(getCreatureXp(defender), 1);	// always get at least 1 xp for a kill
     attackerXp = getCreatureXp(attacker);
     setCreatureLevelHpXp(attacker, attackerXp + defenderXp);
-    
     killCreature(defender);	// can't kill the defender before we get the data we need from them
     return ATTACK_KILLED;
+#ifndef _D_DEBUG
   }
+#endif
 }
 
 unsigned int calcAttackVal(creature *attacker){

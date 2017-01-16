@@ -20,6 +20,7 @@
 #include <math.h>
 #include "lvt.h"
 #include "creature.h"
+#include "item.h"
 
 void setCreatureName(creature *creature, char *name){
   creature->name = name;
@@ -468,11 +469,17 @@ void initCreatureInventory(creature *creature){
 void killCreature(creature *creature){
   creatureList *cNode;
   coord3D creatureLoc;
+  item *creatureCorpse;
   
   creatureLoc = getCreatureLocation(creature);
   
   clearCreatureOccupant(dungeon[creatureLoc.level], creatureLoc.x, creatureLoc.y);
   
+  creatureCorpse = spawnItem(ITEM_TYPE_CORPSE, getCreatureSpecies(creature));
+  setCorpseNutrition(creatureCorpse, getCreatureWeight(creature));
+  
+  addContents(dungeon[creatureLoc.level], creatureLoc.x, creatureLoc.y, creatureCorpse);
+  setItemLocation(creatureCorpse, creatureLoc);
   
   cNode = findCreatureListEntry(creatures, creature);
   removeCreatureNode(creatures, cNode);
@@ -504,4 +511,12 @@ void setCreatureLevelHpXp(creature *creature, unsigned int Xp){
   setCreatureCurHp(creature, newCurHp);
   
   return;
+}
+
+void setCreatureWeight(creature *creature, unsigned int weight){
+  creature->weight = weight;
+}
+
+unsigned int getCreatureWeight(creature *creature){
+  return creature->weight;
 }

@@ -125,6 +125,27 @@ bool hasContents(level level, unsigned int x, unsigned int y){
   }
 }
 
+void addContents(level level, unsigned int x, unsigned int y, item *item){
+  mapSpaceContents *node;
+  
+  node = allocateMapSpaceContentsListEntry();
+  
+  if (level[x][y].contents){
+    node->next = level[x][y].contents;
+    level[x][y].contents->prev = node;
+  }
+  
+  node->prev = 0;
+  level[x][y].contents = node;
+  node->item = item;
+  
+  return;
+}
+
+mapSpaceContents *getContents(level level, unsigned int x, unsigned int y){
+  return level[x][y].contents;
+}
+
 bool hasPlantOccupant(level level, unsigned int x, unsigned int y){
   if (level[x][y].plantOccupant){
     return true;

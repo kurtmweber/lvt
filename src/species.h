@@ -18,6 +18,21 @@
 #ifndef _SPECIES_H
 #define _SPECIES_H
 
+#include "colors.h"
+
+typedef enum creatureStats{
+  STRENGTH,
+  WISDOM,
+  INTELLIGENCE,
+  CONSTITUTION,
+  CHARISMA,
+  DEXTERITY,
+  MAXSTATNAME
+} creatureStats;
+
+
+// remember to add a corpseSubClassId in item.h for each new species type!
+
 typedef enum creatureSpecies{
   HUMAN,
   HALFLING,
@@ -30,5 +45,21 @@ typedef enum creatureSpecies{
   //GOBLIN,
   MAXCREATURESPECIES
 } creatureSpecies;
+
+typedef struct speciesActions{
+} speciesActions;
+
+typedef struct speciesInfo{
+  int statModifiers[MAXSTATNAME];
+  unsigned int lifePace;
+  speciesActions actions;
+  unsigned int baseHp;
+  char dispChar;
+  colorPairs color;
+  unsigned int speed;
+  bool hasHands;
+  unsigned int weight;
+  //speciesAggression aggression;
+} speciesInfo;
 
 #endif

@@ -19,6 +19,8 @@
 
 #include <stdlib.h>
 #include "creature.h"
+#include "item.h"
+#include "level.h"
 
 creatureList *allocateCreatureListEntry(){
   creatureList *node;
@@ -30,9 +32,25 @@ creatureList *allocateCreatureListEntry(){
   return node;
 }
 
+mapSpaceContents *allocateMapSpaceContentsListEntry(){
+  mapSpaceContents *node;
+  
+  node = (mapSpaceContents *)calloc(1, sizeof(mapSpaceContents));
+  
+  return node;
+}
+
 void freeCreatureListEntry(creatureList *node){
   free(node->creature);
   free(node);
   
   return;
+}
+
+item *allocateItem(){
+  item *newItem;
+  
+  newItem = (item *)calloc(1, sizeof(item));
+  
+  return newItem;
 }

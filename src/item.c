@@ -16,3 +16,64 @@
  */
 
 #define _ITEM_C
+
+#include <stdlib.h>
+#include <string.h>
+#include "colors.h"
+#include "item.h"
+#include "lvt.h"
+
+itemType *itemTypes[ITEM_TYPE_MAX];
+
+item *spawnItem(itemClassId class, int subClass){
+  switch(class){
+    case ITEM_TYPE_CORPSE:
+      return spawnCorpse(subClass);
+      break;
+    default:
+      return 0;
+  }
+}
+
+item *spawnCorpse(int subClass){
+  item *corpse;
+  
+  corpse = allocateItem();
+  
+  setItemClass(corpse, ITEM_TYPE_CORPSE);
+  corpse->corpseSubClass = subClass;
+  corpse->itemData = itemTypes[ITEM_TYPE_CORPSE][subClass];
+  
+  return corpse;
+}
+
+void setItemClass(item *item, itemClassId class){
+  item->itemClass = class;
+  
+  return;
+}
+
+void initItems(){
+  initCorpses();
+  
+  return;
+}
+
+void initCorpses(){
+  corpseSubClassId i;
+  char *corpseSubClassNames[] = {"human", "halfling", "elf", "dwarf", "bear"};
+  colorPairs corpseColors[] = {WhiteBlack, BlueBlack, GreenBlack, RedBlack, MagentaBlack};
+  
+  itemTypes[ITEM_TYPE_CORPSE] = calloc(ITEM_CORPSE_MAX, sizeof(itemType));
+  
+  for (i = 0; i < ITEM_CORPSE_MAX; i++){
+    itemTypes[ITEM_TYPE_CORPSE][i].baseDamage = 0;
+    itemTypes[ITEM_TYPE_CORPSE][i].baseArmor = 0;
+    itemTypes[ITEM_TYPE_CORPSE][i].itemName = calloc(strlen(corpseSubClassNames[i] + 1), sizeof(char));
+    strcat(itemTypes[ITEM_TYPE_CORPSE][i].itemName, corpseSubClassNames[i]);
+    itemTypes[ITEM_TYPE_CORPSE][i].dispChar = '%';
+    itemTypes[ITEM_TYPE_CORPSE][i].color = corpseColors[i];
+  }
+  
+  return;
+}

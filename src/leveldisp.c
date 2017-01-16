@@ -25,13 +25,14 @@
 #include "level.h"
 #include "types.h"
 
-#define _D_DEBUG
+//#define _D_DEBUG
 
 screenDisplayCell *generateLevelRepresentation(level level, unsigned int line){
   screenDisplayCell *mapLine = 0;
   unsigned int x = 0;
   char c = 0;
   creature *creatureOccupant;
+  mapSpaceContents *contents;
   
   mapLine = calloc(dimMapX + 1, sizeof(screenDisplayCell));
   
@@ -51,6 +52,10 @@ screenDisplayCell *generateLevelRepresentation(level level, unsigned int line){
 	  mapLine[x].attrs = mapLine[x].attrs | A_BOLD;
 	}
       } else if (hasContents(level, x, line)){
+	contents = getContents(level, x, line);
+	mapLine[x].dispChar = getItemDispChar(contents->item);
+	mapLine[x].hasAttrs = true;
+	mapLine[x].attrs = COLOR_PAIR(getItemColor(contents->item));
       } else if (hasPlantOccupant(level, x, line)){
       } else {
 	  switch (getMapSpaceTerrain(level, x, line)){
@@ -97,7 +102,8 @@ screenDisplayCell *generateLevelRepresentation(level level, unsigned int line){
       }
 #ifndef _D_DEBUG
     } else {
-      mapLine[x] = ' ';
+      mapLine[x].dispChar = ' ';
+      mapLine[x].hasAttrs = false;
     }
 #endif
   }
