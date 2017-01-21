@@ -26,13 +26,19 @@
 itemType *itemTypes[ITEM_TYPE_MAX];
 
 item *spawnItem(itemClassId class, int subClass){
+  item *item;
+  
   switch(class){
     case ITEM_TYPE_CORPSE:
-      return spawnCorpse(subClass);
+      item =  spawnCorpse(subClass);
       break;
     default:
       return 0;
   }
+  
+  item->name = 0;
+  
+  return item;
 }
 
 item *spawnCorpse(int subClass){

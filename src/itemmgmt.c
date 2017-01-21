@@ -17,6 +17,8 @@
 
 #define _ITEMMGMT_C
 
+#include <stdlib.h>
+#include <string.h>
 #include "item.h"
 
 void setCorpseNutrition(item *corpse, unsigned int nutrition){
@@ -37,4 +39,16 @@ char getItemDispChar(item *item){
 
 colorPairs getItemColor(item *item){
   return item->itemData.color;
+}
+
+void setItemName(item *item, char *name){
+  if (item->name){
+    free(item->name);
+  }
+  
+  item->name = calloc(strlen(name) + 1, sizeof(char));
+  
+  strcpy(item->name, name);
+  
+  return;
 }

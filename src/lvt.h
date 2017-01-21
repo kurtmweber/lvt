@@ -18,6 +18,8 @@
 #ifndef _LVT_H
 #define _LVT_H
 
+//#define _D_DEBUG
+
 #include <stdbool.h>
 #include <ncurses.h>
 #include "colors.h"
@@ -239,6 +241,8 @@ void placeStairs(level level, unsigned int levelNum);
 
 #ifndef _LOOK_C
 void doLook(unsigned int c);
+#else
+void lookCreatureOccupant(coord3D mapLoc);
 #endif
 
 #ifndef _MAIN_C
