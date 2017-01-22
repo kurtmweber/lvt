@@ -148,11 +148,42 @@ void doLook(unsigned int c){
     noOccupants = false;
   }
   
+  if (hasContents(dungeon[mapLoc.level], mapLoc.x, mapLoc.y)){
+    lookContents(mapLoc);
+    noOccupants = false;
+  }
+  
   if (noOccupants){
     addToMsgQueue(NOTHING_THERE_MSG, true);
   }
   
   procMsgQueue();
+  
+  return;
+}
+
+void lookContents(coord3D mapLoc){
+  mapSpaceContents *contents;
+  item *curItem;
+  
+  contents = getContents(dungeon[mapLoc.level], mapLoc.x, mapLoc.y);
+  
+  if (!contents){	// can't happen, since we don't call this without first checking to see that there are contents
+    destroyNcurses;
+    exit(EXIT_FAILURE);
+  }
+  
+  do {  
+    curItem = contents->item;
+    if (curItem->name){
+      addToMsgQueue(curItem->name, true);
+    } else if (curItem->itemData.itemName){
+      addToMsgQueue(curItem->itemData.itemName, true);
+    } else {
+      addToMsgQueue("an unknown object", true);
+    }
+    contents = contents->next;
+  } while (contents);
   
   return;
 }

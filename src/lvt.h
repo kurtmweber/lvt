@@ -18,7 +18,7 @@
 #ifndef _LVT_H
 #define _LVT_H
 
-//#define _D_DEBUG
+#define _D_DEBUG
 
 #include <stdbool.h>
 #include <ncurses.h>
@@ -205,6 +205,7 @@ void setCorpseNutrition(item *corpse, unsigned int nutrition);
 char getItemDispChar(item *item);
 void setItemLocation(item *item, coord3D location);
 colorPairs getItemColor(item *item);
+void setItemName(item *item, char *name);
 #endif
 
 #ifndef _LEVELDISP_C
@@ -243,6 +244,7 @@ void placeStairs(level level, unsigned int levelNum);
 void doLook(unsigned int c);
 #else
 void lookCreatureOccupant(coord3D mapLoc);
+void lookContents(coord3D mapLoc);
 #endif
 
 #ifndef _MAIN_C
@@ -351,6 +353,7 @@ bool sameFactions(creature *creature1, creature *creature2);
 unsigned int sumArrayInt(int *array, unsigned int numElements);
 void *randomizeArray(void *array, unsigned int numElements, size_t size);
 coord2D getSpaceDirectionCoordinates(coord2D point, moveDirection dir);
+char *autoGenerateCorpseName(creature *creature);
 #else
 #endif
 

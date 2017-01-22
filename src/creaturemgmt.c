@@ -470,6 +470,7 @@ void killCreature(creature *creature){
   creatureList *cNode;
   coord3D creatureLoc;
   item *creatureCorpse;
+  char *corpseName;
   
   creatureLoc = getCreatureLocation(creature);
   
@@ -480,6 +481,9 @@ void killCreature(creature *creature){
   
   addContents(dungeon[creatureLoc.level], creatureLoc.x, creatureLoc.y, creatureCorpse);
   setItemLocation(creatureCorpse, creatureLoc);
+  
+  corpseName = autoGenerateCorpseName(creature);
+  setItemName(creatureCorpse, corpseName);
   
   cNode = findCreatureListEntry(creatures, creature);
   removeCreatureNode(creatures, cNode);

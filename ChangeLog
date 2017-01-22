@@ -1,4 +1,6 @@
 for version 0.5
+  * release (kmw, 2017-01-21)
+  * look command now works for objects (kmw, 2017-01-21)
   * refactored code for look function to facilitate futher expansion (kmw, 2017-01-20)
   * characters now leave corpses when killed (kmw, 2017-01-15)
   * implemented item infrastructure, refactored look command code (kmw, 2017-01-12)

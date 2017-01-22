@@ -18,9 +18,11 @@
 #define _UTIL_C
 
 #include <stdbool.h>
+#include <stdlib.h>
 #include <string.h>
 #include "lvt.h"
 #include "move.h"
+#include "stringlookups.h"
 #include "types.h"
 
 int clampRangeIntSigned(int value, int min, int max){
@@ -115,4 +117,28 @@ coord2D getSpaceDirectionCoordinates(coord2D point, moveDirection dir){
   }
   
   return tmp;
+}
+
+char *autoGenerateCorpseName(creature *creature){
+  char *corpseName;
+  char *creatureName;
+  creatureSpecies creatureSpecies;
+  
+  corpseName = calloc(15, sizeof(char));
+  strcat(corpseName, "the corpse of ");
+  
+  creatureName = getCreatureName(creature);
+  corpseName = realloc(corpseName, (strlen(corpseName) + strlen(creatureName) + 1) * sizeof(char));
+  
+  strcat(corpseName, creatureName);
+  
+  corpseName = realloc(corpseName, (strlen(corpseName) + 5) * sizeof(char));
+  strcat(corpseName, ", a ");	// at some point this should be updated to use "an" when appropriate
+  
+  creatureSpecies = getCreatureSpecies(creature);
+    
+  corpseName = realloc(corpseName, (strlen(corpseName) + strlen(speciesNames[creatureSpecies]) + 1) * sizeof(char));
+  strcat(corpseName, speciesNames[creatureSpecies]);
+  
+  return corpseName;
 }

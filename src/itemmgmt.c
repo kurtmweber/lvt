@@ -46,9 +46,7 @@ void setItemName(item *item, char *name){
     free(item->name);
   }
   
-  item->name = calloc(strlen(name) + 1, sizeof(char));
-  
-  strcpy(item->name, name);
+  item->name = name;
   
   return;
 }
