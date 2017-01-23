@@ -18,7 +18,7 @@
 #ifndef _LVT_H
 #define _LVT_H
 
-#define _D_DEBUG
+//#define _D_DEBUG
 
 #include <stdbool.h>
 #include <ncurses.h>
@@ -138,6 +138,7 @@ void killCreature(creature *creature);
 void setCreatureLevelHpXp(creature *creature, unsigned int Xp);
 void setCreatureWeight(creature *creature, unsigned int weight);
 unsigned int getCreatureWeight(creature *creature);
+bool hasWeapon(creature *creature);
 #else
 bool updateCreatureLifeCycleNotMatured(creature *creature);
 bool updateCreatureLifeCycleMatured(creature *creature);
@@ -171,6 +172,15 @@ void initializeFactions();
 #else
 #endif
 
+#ifndef _FLOORITEMS_C
+void generateFloorItems();
+#else
+bool decidePlaceItem(coord2D floor, unsigned int level);
+void randomFloorItem(coord2D floor, unsigned int level);
+item *randomWeapon();
+item *randomLongsword();
+#endif
+
 #ifndef _GAME_C
 void startGame();
 extern bool freeAction;
@@ -198,6 +208,8 @@ void initItems();
 item *spawnCorpse(int subClass);
 void setItemClass(item *item, itemClassId class);
 void initCorpses();
+void initLongswords();
+item *spawnLongsword(int subClass);
 #endif
 
 #ifndef _ITEMMGMT_C

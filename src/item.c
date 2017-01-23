@@ -32,6 +32,9 @@ item *spawnItem(itemClassId class, int subClass){
     case ITEM_TYPE_CORPSE:
       item =  spawnCorpse(subClass);
       break;
+    case ITEM_TYPE_LONGSWORD:
+      item = spawnLongsword(subClass);
+      break;
     default:
       return 0;
   }
@@ -39,6 +42,17 @@ item *spawnItem(itemClassId class, int subClass){
   item->name = 0;
   
   return item;
+}
+
+item *spawnLongsword(int subClass){
+  item *longsword;
+  
+  longsword = allocateItem();
+  setItemClass(longsword, ITEM_TYPE_LONGSWORD);
+  longsword->longswordSubClass = subClass;
+  longsword->itemData = itemTypes[ITEM_TYPE_LONGSWORD][subClass];
+  
+  return longsword;
 }
 
 item *spawnCorpse(int subClass){
@@ -61,6 +75,42 @@ void setItemClass(item *item, itemClassId class){
 
 void initItems(){
   initCorpses();
+  initLongswords();
+  
+  return;
+}
+
+void initLongswords(){
+  longswordSubClassId i;
+  char dispChar = '/';
+  
+  itemTypes[ITEM_TYPE_LONGSWORD] = calloc(ITEM_LONGSWORD_MAX, sizeof(itemType));
+  
+  // steel longsword
+  {
+    itemTypes[ITEM_TYPE_LONGSWORD][ITEM_LONGSWORD_STEEL].baseDamage = 5;
+    itemTypes[ITEM_TYPE_LONGSWORD][ITEM_LONGSWORD_STEEL].baseToHit = 2;
+    itemTypes[ITEM_TYPE_LONGSWORD][ITEM_LONGSWORD_STEEL].baseArmor = 0;
+    itemTypes[ITEM_TYPE_LONGSWORD][ITEM_LONGSWORD_STEEL].itemName = calloc(16, sizeof(char));
+    strcat(itemTypes[ITEM_TYPE_LONGSWORD][ITEM_LONGSWORD_STEEL].itemName, "steel longsword");
+    itemTypes[ITEM_TYPE_LONGSWORD][ITEM_LONGSWORD_STEEL].dispChar = dispChar;
+    itemTypes[ITEM_TYPE_LONGSWORD][ITEM_LONGSWORD_STEEL].color = WhiteBlack;
+    itemTypes[ITEM_TYPE_LONGSWORD][ITEM_LONGSWORD_STEEL].weight = 8;
+  }
+  
+  // I use braces like this because it lets me code-fold these blocks out of the way in my text editor
+  
+  // silver longsword
+  {
+    itemTypes[ITEM_TYPE_LONGSWORD][ITEM_LONGSWORD_SILVER].baseDamage = 7;
+    itemTypes[ITEM_TYPE_LONGSWORD][ITEM_LONGSWORD_SILVER].baseToHit = 1;
+    itemTypes[ITEM_TYPE_LONGSWORD][ITEM_LONGSWORD_SILVER].baseArmor = 0;
+    itemTypes[ITEM_TYPE_LONGSWORD][ITEM_LONGSWORD_SILVER].itemName = calloc(17, sizeof(char));
+    strcat(itemTypes[ITEM_TYPE_LONGSWORD][ITEM_LONGSWORD_SILVER].itemName, "silver longsword");
+    itemTypes[ITEM_TYPE_LONGSWORD][ITEM_LONGSWORD_SILVER].dispChar = dispChar;
+    itemTypes[ITEM_TYPE_LONGSWORD][ITEM_LONGSWORD_SILVER].color = CyanBlack;
+    itemTypes[ITEM_TYPE_LONGSWORD][ITEM_LONGSWORD_SILVER].weight = 10;
+  }
   
   return;
 }
@@ -75,6 +125,7 @@ void initCorpses(){
   for (i = 0; i < ITEM_CORPSE_MAX; i++){
     itemTypes[ITEM_TYPE_CORPSE][i].baseDamage = 0;
     itemTypes[ITEM_TYPE_CORPSE][i].baseArmor = 0;
+    itemTypes[ITEM_TYPE_CORPSE][i].baseToHit = 0;
     itemTypes[ITEM_TYPE_CORPSE][i].itemName = calloc(strlen(corpseSubClassNames[i] + 1), sizeof(char));
     strcat(itemTypes[ITEM_TYPE_CORPSE][i].itemName, corpseSubClassNames[i]);
     itemTypes[ITEM_TYPE_CORPSE][i].dispChar = '%';

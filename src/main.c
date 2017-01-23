@@ -45,6 +45,7 @@ int main(int argc, char *argv[]){
   
   dungeon = generateMap();
   creatures = generateStartingCreatures();
+  generateFloorItems();
   
   initializeNcurses();
   initializeColors();

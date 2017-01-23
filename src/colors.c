@@ -36,6 +36,7 @@ void initializeColors(){
   init_pair(GreenBlack, COLOR_GREEN, COLOR_BLACK);
   init_pair(RedBlack, COLOR_RED, COLOR_BLACK);
   init_pair(MagentaBlack, COLOR_MAGENTA, COLOR_BLACK);
+  init_pair(CyanBlack, COLOR_CYAN, COLOR_BLACK);
   
   return;
 }

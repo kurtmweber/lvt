@@ -46,6 +46,7 @@ typedef struct uniqueDataLongsword{
 
 typedef enum longswordSubClassId{
   ITEM_LONGSWORD_STEEL,
+  ITEM_LONGSWORD_SILVER,
   ITEM_LONGSWORD_MAX
 } longswordSubClassId;
 
@@ -65,6 +66,7 @@ typedef enum corpseSubClassId{
 typedef struct itemType{
   char *itemName;
   unsigned int baseDamage;
+  unsigned int baseToHit;
   unsigned int baseArmor;
   unsigned int weight;
   union {
@@ -83,6 +85,7 @@ typedef struct item{
   };
   itemType itemData;
   int damageModifier;
+  int toHitModifier;
   int armorModifier;
   int weightModifier;
   char *name;

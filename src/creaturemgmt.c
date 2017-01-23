@@ -18,6 +18,7 @@
 #define _CREATUREMGMT_C
 
 #include <math.h>
+#include <stdbool.h>
 #include "lvt.h"
 #include "creature.h"
 #include "item.h"
@@ -523,4 +524,12 @@ void setCreatureWeight(creature *creature, unsigned int weight){
 
 unsigned int getCreatureWeight(creature *creature){
   return creature->weight;
+}
+
+bool hasWeapon(creature *creature){
+  if (creature->weapon){
+    return true;
+  } else {
+    return false;
+  }
 }

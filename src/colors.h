@@ -24,7 +24,8 @@ typedef enum colorPairs{
   BlueBlack,
   GreenBlack,
   RedBlack,
-  MagentaBlack
+  MagentaBlack,
+  CyanBlack
 } colorPairs;
 
 #endif
