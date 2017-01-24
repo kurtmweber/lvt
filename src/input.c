@@ -29,6 +29,83 @@
 
 const unsigned int maxSearchCountdown = 1;
 
+void doPickup(){
+  coord3D curLoc;
+  mapSpaceContents *contents;
+  mapSpaceContents *thisContent;
+  item *thisItem;
+  char *pickupMsg = 0;
+  char c = 0;
+  char label = 0;
+  
+  curLoc = getCreatureLocation(&player);
+  
+  contents = getContents(dungeon[curLoc.level], curLoc.x, curLoc.y);
+  
+  // the easiest way to deal with the problem of some items being picked up and some being left behind
+  // seems to be to clear out the list and then replace those that are left behind.  We don't free()
+  // the list because we still need to process the contents, but we set the pointer to 0 so we can
+  // start from scratch when we re-add them.
+  dungeon[curLoc.level][curLoc.x][curLoc.y].contents = 0;
+  
+  if (!contents){
+    addToMsgQueue(NOTHING_THERE_MSG, false);
+    
+    return;
+  }
+  
+  do {
+    thisContent = contents;
+    
+    thisItem = thisContent->item;
+    if (thisItem->name){
+      pickupMsg = calloc(10 + strlen(thisItem->itemData.itemName) + 7 + strlen(thisItem->name) + 2, sizeof(char));
+      strcat(pickupMsg, "Pick up a ");
+      strcat(pickupMsg, thisItem->itemData.itemName);
+      strcat(pickupMsg, " named ");
+      strcat(pickupMsg, thisItem->name);
+      strcat(pickupMsg, "?");
+    } else {
+      pickupMsg = calloc(10 + strlen(thisItem->itemData.itemName) + 2, sizeof(char));
+      strcat(pickupMsg, "Pick up a ");
+      strcat(pickupMsg, thisItem->itemData.itemName);
+      strcat(pickupMsg, "?");
+    }
+    
+    displayQuestionYesNo(pickupMsg);
+    
+    while ((c != 'y') && (c != 'n')){
+      c = getch();
+    }
+    
+    contents = thisContent->next;
+    
+    if (c == 'y'){
+      label = addCreatureInventoryItem(&player, thisItem);
+      free(pickupMsg);
+      pickupMsg = 0;
+      pickupMsg = calloc(4 + strlen(thisItem->itemData.itemName) + 1, sizeof(char));
+      sprintf(pickupMsg, "(%c) %s", label, thisItem->itemData.itemName);
+      if (thisItem->name){
+	pickupMsg = realloc(pickupMsg, (strlen(pickupMsg) + 7 + strlen(thisItem->name) + 1) * sizeof(char));
+	strcat(pickupMsg, " named ");
+	strcat(pickupMsg, thisItem->name);
+      } 
+      addToMsgQueue(pickupMsg, true);
+    } else {
+      addContents(dungeon[curLoc.level], curLoc.x, curLoc.y, thisItem);
+    }
+    
+    contents = thisContent->next;
+    
+    free(thisContent);
+    
+    c = 0;
+  } while (contents);
+  
+  return;
+}
+
 void doMoveKey(unsigned int c){
   moveDirection dir;
   

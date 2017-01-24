@@ -1,4 +1,5 @@
 for version 0.6
+  * player can pick up items, which are placed in inventory (kmw, 2017-01-24)
   * generate and place random longswords in the dungeon (kmw, 2017-01-22)
   * infrastructure for spawning and placing items during map generation (kmw, 2017-01-22)
   * attended the largest protest in US history, standing up for women's rights and against patriarchy

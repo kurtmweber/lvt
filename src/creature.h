@@ -111,7 +111,7 @@ typedef struct creature{
   unsigned int faction;
   armorSlotList armor;
   item *weapon;
-  itemList *inventory;
+  item *inventory[52];
   unsigned int weight;
   //creatureAggression aggression;
   struct {

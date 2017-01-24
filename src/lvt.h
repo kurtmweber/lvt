@@ -139,6 +139,7 @@ void setCreatureLevelHpXp(creature *creature, unsigned int Xp);
 void setCreatureWeight(creature *creature, unsigned int weight);
 unsigned int getCreatureWeight(creature *creature);
 bool hasWeapon(creature *creature);
+char addCreatureInventoryItem(creature *creature, item *item);
 #else
 bool updateCreatureLifeCycleNotMatured(creature *creature);
 bool updateCreatureLifeCycleMatured(creature *creature);
@@ -197,6 +198,7 @@ void doOpenDoor(unsigned int c);
 void doSearchDoors(unsigned int c);
 void doStairs(unsigned int c);
 void doLook(unsigned int c);
+void doPickup();
 #else
 #endif
 
@@ -366,6 +368,7 @@ unsigned int sumArrayInt(int *array, unsigned int numElements);
 void *randomizeArray(void *array, unsigned int numElements, size_t size);
 coord2D getSpaceDirectionCoordinates(coord2D point, moveDirection dir);
 char *autoGenerateCorpseName(creature *creature);
+char inventoryIndexToLetter(char c);
 #else
 #endif
 

@@ -142,3 +142,15 @@ char *autoGenerateCorpseName(creature *creature){
   
   return corpseName;
 }
+
+char inventoryIndexToLetter(char c){
+  // unfortunately, ASCII doesn't just put a break between lowercase and uppercase characters, but in fact
+  // places lowercase AFTER uppercase in numerical order, but we do this fuckery because nevertheless it
+  // seems more natural to use lowercase letters before uppercase ones.
+  
+  if (c < 26){
+    return c + 'a';
+  } else {
+    return (c - 26) + 'A';
+  }
+}

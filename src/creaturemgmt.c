@@ -462,9 +462,25 @@ void initCreatureWeapon(creature *creature){
 }
 
 void initCreatureInventory(creature *creature){
-  creature->inventory = NULL;
+  unsigned int i;
+  
+  for (i = 0; i < 52; i++){
+    creature->inventory[i] = 0;
+  }
   
   return;
+}
+
+char addCreatureInventoryItem(creature *creature, item *item){
+  char i = 0;
+  
+  while (creature->inventory[i]){
+    i++;
+  }
+  
+  creature->inventory[i] = item;
+  
+  return inventoryIndexToLetter(i);
 }
 
 void killCreature(creature *creature){

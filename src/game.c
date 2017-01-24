@@ -122,6 +122,9 @@ void processKey(unsigned int c){
     case ';':
       doLook(c);
       break;
+    case ',':
+      doPickup();
+      break;
     default:
       freeAction = true;
       break;
