@@ -154,3 +154,33 @@ char inventoryIndexToLetter(char c){
     return (c - 26) + 'A';
   }
 }
+
+int inventoryLetterToIndex(char c){
+  if ((c >= 'A') && (c <= 'Z')){
+    return c - 'A' + 26;
+  } else if ((c >= 'a') && (c <= 'z')){
+    return c - 'a';
+  } else {
+    return -1;
+  }
+}
+
+bool isInventoryLetter(char c){
+  item *inventory[52];
+  
+  getCreatureInventory(&player, inventory);
+  
+  if ((c >= 'A') && (c <= 'Z')){
+    c -= 'A';
+  } else if ((c >= 'a') && (c <= 'z')){
+    c -= 'a';
+  } else {
+    return false;
+  }
+  
+  if (inventory[c]){
+    return true;
+  } else {
+    return false;
+  }
+}

@@ -205,6 +205,8 @@ void doLook(unsigned int c);
 #ifndef _INVENTORY_C
 void doInventory();
 void doPickup();
+void doNameItem();
+void doUnNameItem();
 #else
 void displayInventoryWindow(unsigned int i, bool checked[52]);
 #endif
@@ -347,6 +349,7 @@ void updateStatWin();
 void setCursorLoc();
 coord2D definePlayAreaDisplay();
 void displayQuestionYesNo(char *msg);
+char *getLineInput(char *prompt);
 #else
 coord2D definePlayAreaDisplay();
 #endif
@@ -376,6 +379,8 @@ void *randomizeArray(void *array, unsigned int numElements, size_t size);
 coord2D getSpaceDirectionCoordinates(coord2D point, moveDirection dir);
 char *autoGenerateCorpseName(creature *creature);
 char inventoryIndexToLetter(char c);
+bool isInventoryLetter(char c);
+int inventoryLetterToIndex(char c);
 #else
 #endif
 

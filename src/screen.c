@@ -107,6 +107,39 @@ void displayMsg(char *msg, int a){
   return;
 }
 
+char *getLineInput(char *prompt){
+  unsigned int c = 0;
+  unsigned int i = 1;
+  char *inputText = 0;
+  
+  wclear(msgWin);
+  
+  if (prompt){
+    wprintw(msgWin, prompt);
+    waddch(msgWin, ' ');
+    wrefresh(msgWin);
+  }
+  
+  //we'll worry about how to handle backspaces and shit later
+  while((c = getch())){
+    if ((c == '\n') && (i >= 2)){
+      break;
+    }
+    if (i == 17){
+      beep();
+    } else if ((c >= 32) && (c <= 126)){
+      i++;
+      inputText = realloc(inputText, i * sizeof(char));
+      inputText[i - 2] = c;
+      inputText[i - 1] = '\0';
+      waddch(msgWin, c);
+      wrefresh(msgWin);
+    }
+  }
+  
+  return inputText;  
+}
+
 void displayQuestionYesNo(char *msg){
   clearMsg();
   wprintw(msgWin, msg);

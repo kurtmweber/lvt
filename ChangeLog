@@ -1,4 +1,5 @@
 for version 0.6
+  * items can be named and renamed (kmw, 2017-01-26)
   * ensure that pickup fails when inventory is full (kmw, 2017-01-25)
   * inventory display now works (kmw, 2017-01-25)
   * player can pick up items, which are placed in inventory (kmw, 2017-01-24)

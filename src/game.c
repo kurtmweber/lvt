@@ -128,6 +128,12 @@ void processKey(unsigned int c){
     case 'i':
       doInventory();
       break;
+    case 'n':
+      doNameItem();
+      break;
+    case 'u':
+      doUnNameItem();
+      break;
     default:
       freeAction = true;
       break;
