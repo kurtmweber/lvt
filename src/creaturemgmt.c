@@ -474,8 +474,12 @@ void initCreatureInventory(creature *creature){
 char addCreatureInventoryItem(creature *creature, item *item){
   char i = 0;
   
-  while (creature->inventory[i]){
+  while (creature->inventory[i] && (i < 51)){
     i++;
+  }
+  
+  if (creature->inventory[i] && (i == 51)){
+    return 0;	// list is full
   }
   
   creature->inventory[i] = item;

@@ -154,6 +154,14 @@ void doPickup(){
     
     if (c == 'y'){
       label = addCreatureInventoryItem(&player, thisItem);
+      
+      if (!label){	// inventory table is full
+	addToMsgQueue(INVENTORY_FULL_MSG, false);
+	addContents(dungeon[curLoc.level], curLoc.x, curLoc.y, thisItem);
+	free(thisContent);
+	return;
+      }
+      
       free(pickupMsg);
       pickupMsg = 0;
       pickupMsg = calloc(4 + strlen(thisItem->itemData.itemName) + 1, sizeof(char));

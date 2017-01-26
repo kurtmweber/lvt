@@ -1,4 +1,5 @@
 for version 0.6
+  * ensure that pickup fails when inventory is full (kmw, 2017-01-25)
   * inventory display now works (kmw, 2017-01-25)
   * player can pick up items, which are placed in inventory (kmw, 2017-01-24)
   * generate and place random longswords in the dungeon (kmw, 2017-01-22)
