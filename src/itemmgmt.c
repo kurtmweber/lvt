@@ -50,3 +50,12 @@ void setItemName(item *item, char *name){
   
   return;
 }
+
+void removeItemName(item *item){
+  if (item->name){
+    free(item->name);
+  }
+  
+  item->name = 0;
+  return;
+}

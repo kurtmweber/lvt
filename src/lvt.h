@@ -215,6 +215,7 @@ void displayInventoryWindow(unsigned int i, bool checked[52]);
 extern itemType *itemTypes[ITEM_TYPE_MAX];
 item *spawnItem(itemClassId class, int subClass);
 void initItems();
+void removeItemName(item *item);
 #else
 item *spawnCorpse(int subClass);
 void setItemClass(item *item, itemClassId class);

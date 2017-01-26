@@ -152,6 +152,51 @@ void doNameItem(){
 }
 
 void doUnNameItem(){
+  unsigned int c = 1;
+  unsigned int i = 0;
+  bool checked[52];
+  unsigned int j = 0;
+  char *itemName = 0;
+  item *inventory[52];
+  
+  for (j = 0; j < 52; j++){
+    checked[j] = false;
+  }
+  
+  getCreatureInventory(&player, inventory);
+  
+  addToMsgQueue("Unname which item? (space to cancel)", false);
+  procMsgQueue();
+  
+  while (c){
+    displayInventoryWindow(i, checked);
+    c = getch();
+    switch (c){
+      case KEY_UP:
+	i == 0 ? : i--;
+	break;
+      case KEY_DOWN:
+	i == 51 ? : i++;
+	break;
+      case ' ':
+	return;
+      default:
+	if (isupper(c) || islower(c)){
+	  if (isInventoryLetter(c)){
+	    removeItemName(inventory[inventoryLetterToIndex(c)]);
+	    return;
+	  } else {
+	    break;
+	  }
+	} else {
+	  break;
+	}
+    }
+    
+    delwin(invWin);
+  }
+  
+  return;
   return;
 }
 
