@@ -1,10 +1,38 @@
-Lavender Throne is released under the GNU General Public license, version 3.  See file COPYING for details.
+Lavender Throne is released under the GNU General Public license, version 3.  
+See file COPYING for details.
 
-Lavender Throne makes use of the PCG random number generator.  Source code, found in the files
-src/pcg_basic.c and src/pcg_basic.h, is released under the Apache License version 2.0 and was written
-by Melissa O'Neill.  See http://www.apache.org/licenses/LICENSE-2.0 for details.
+Lavender Throne makes use of the PCG random number generator.  Source code, 
+found in the files src/pcg_basic.c and src/pcg_basic.h, is released under the 
+Apache License version 2.0 and was written by Melissa O'Neill.  See 
+http://www.apache.org/licenses/LICENSE-2.0 for details.
 
-You can turn on debugging code (which gives some shortcuts during gameplay, e.g. hidden doors are marked
-and creatures can be killed with a single hit) by uncommenting the line with "#define _D_DEBUG" in those
-files where it exists (currently leveldisp.c and attack.c).  For some reason, defining it at compile time
-with "make CFLAGS=-D_D_DEBUG" causes placeDoors to segfault.  No clue why.
+You can turn on debugging code (which gives some shortcuts during gameplay, 
+e.g. hidden doors are marked and creatures can be killed with a single hit) by 
+uncommenting the line with "#define _D_DEBUG" in those files where it exists 
+(currently leveldisp.c and attack.c).  For some reason, defining it at compile 
+time with "make CFLAGS=-D_D_DEBUG" causes placeDoors to segfault.  No clue why.
+
+HOW TO PLAY
+
+Move with numeric keypad, in cardinal directions and diagonally.
+
+Map symbols:
+.	open floor
+#	wall
+<	up stair
+>	down stair
++	closed door
+'	open door
+
+Commands:
+c	close an open door
+i	view inventory list
+n	name an item
+o	open a closed door
+s	search for hidden doors
+;	look at an object on the map (navigate the cursor with the movement 
+	keys, then hit enter/return)
+#	un-name an item
+,	pick up an item
+<	go up an up stair
+>	go down a down stair

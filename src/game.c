@@ -131,7 +131,7 @@ void processKey(unsigned int c){
     case 'n':
       doNameItem();
       break;
-    case 'u':
+    case '#':
       doUnNameItem();
       break;
     default:

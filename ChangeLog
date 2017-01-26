@@ -1,4 +1,5 @@
 for version 0.6
+  * expanded README to include basic how-to-play info (kmw, 2017-01-26)
   * items can be unnamed (kmw, 2017-01-26)
   * items can be named and renamed (kmw, 2017-01-26)
   * ensure that pickup fails when inventory is full (kmw, 2017-01-25)
