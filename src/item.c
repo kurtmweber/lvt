@@ -126,8 +126,9 @@ void initCorpses(){
     itemTypes[ITEM_TYPE_CORPSE][i].baseDamage = 0;
     itemTypes[ITEM_TYPE_CORPSE][i].baseArmor = 0;
     itemTypes[ITEM_TYPE_CORPSE][i].baseToHit = 0;
-    itemTypes[ITEM_TYPE_CORPSE][i].itemName = calloc(strlen(corpseSubClassNames[i] + 1), sizeof(char));
+    itemTypes[ITEM_TYPE_CORPSE][i].itemName = calloc(strlen(corpseSubClassNames[i]) + 8, sizeof(char));
     strcat(itemTypes[ITEM_TYPE_CORPSE][i].itemName, corpseSubClassNames[i]);
+    strcat(itemTypes[ITEM_TYPE_CORPSE][i].itemName, " corpse");
     itemTypes[ITEM_TYPE_CORPSE][i].dispChar = '%';
     itemTypes[ITEM_TYPE_CORPSE][i].color = corpseColors[i];
   }

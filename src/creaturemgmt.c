@@ -483,6 +483,16 @@ char addCreatureInventoryItem(creature *creature, item *item){
   return inventoryIndexToLetter(i);
 }
 
+void getCreatureInventory(creature *creature, item *inventory[52]){
+  unsigned int i;
+  
+  for (i = 0; i < 52; i++){
+   inventory[i] = creature->inventory[i];
+  }
+  
+  return;
+}
+
 void killCreature(creature *creature){
   creatureList *cNode;
   coord3D creatureLoc;

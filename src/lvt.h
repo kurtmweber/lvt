@@ -140,6 +140,7 @@ void setCreatureWeight(creature *creature, unsigned int weight);
 unsigned int getCreatureWeight(creature *creature);
 bool hasWeapon(creature *creature);
 char addCreatureInventoryItem(creature *creature, item *item);
+void getCreatureInventory(creature *creature, item *inventory[52]);
 #else
 bool updateCreatureLifeCycleNotMatured(creature *creature);
 bool updateCreatureLifeCycleMatured(creature *creature);
@@ -198,8 +199,14 @@ void doOpenDoor(unsigned int c);
 void doSearchDoors(unsigned int c);
 void doStairs(unsigned int c);
 void doLook(unsigned int c);
+#else
+#endif
+
+#ifndef _INVENTORY_C
+void doInventory();
 void doPickup();
 #else
+void displayInventoryWindow(unsigned int i, bool checked[52]);
 #endif
 
 #ifndef _ITEM_C

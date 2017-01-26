@@ -125,6 +125,9 @@ void processKey(unsigned int c){
     case ',':
       doPickup();
       break;
+    case 'i':
+      doInventory();
+      break;
     default:
       freeAction = true;
       break;
