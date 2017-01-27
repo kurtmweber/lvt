@@ -142,6 +142,7 @@ bool hasWeapon(creature *creature);
 char addCreatureInventoryItem(creature *creature, item *item);
 void getCreatureInventory(creature *creature, item *inventory[52]);
 void wieldItem(creature *creature, item *item);
+void unwieldWeapon(creature *creature);
 #else
 bool updateCreatureLifeCycleNotMatured(creature *creature);
 bool updateCreatureLifeCycleMatured(creature *creature);
@@ -209,6 +210,7 @@ void doPickup();
 void doNameItem();
 void doUnNameItem();
 void doWield();
+void doUnwield();
 #else
 void displayInventoryWindow(unsigned int i, bool checked[52]);
 #endif

@@ -153,6 +153,14 @@ void doWield(){
   return;
 }
 
+void doUnwield(){
+  unwieldWeapon(&player);
+  
+  addToMsgQueue("You are no longer wielding a weapon", false);
+  
+  return;
+}
+
 void doNameItem(){
   unsigned int c = 1;
   unsigned int i = 0;

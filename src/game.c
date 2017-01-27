@@ -137,6 +137,9 @@ void processKey(unsigned int c){
     case 'w':
       doWield();
       break;
+    case 'u':
+      doUnwield();
+      break;
     default:
       freeAction = true;
       break;

@@ -499,6 +499,16 @@ void getCreatureInventory(creature *creature, item *inventory[52]){
   return;
 }
 
+void unwieldWeapon(creature *creature){
+  item *weapon;
+  
+  creature->weapon->wielded = false;
+  
+  creature->weapon = 0;
+  
+  return;
+}
+
 void wieldItem(creature *creature, item *item){
   if (creature->weapon){
     creature->weapon->wielded = false;
