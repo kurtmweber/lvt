@@ -482,6 +482,8 @@ char addCreatureInventoryItem(creature *creature, item *item){
     return 0;	// list is full
   }
   
+  item->owned = true;
+  
   creature->inventory[i] = item;
   
   return inventoryIndexToLetter(i);
@@ -493,6 +495,17 @@ void getCreatureInventory(creature *creature, item *inventory[52]){
   for (i = 0; i < 52; i++){
    inventory[i] = creature->inventory[i];
   }
+  
+  return;
+}
+
+void wieldItem(creature *creature, item *item){
+  if (creature->weapon){
+    creature->weapon->wielded = false;
+  }
+  
+  item->wielded = true;
+  creature->weapon = item;
   
   return;
 }

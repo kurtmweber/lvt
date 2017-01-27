@@ -134,6 +134,9 @@ void processKey(unsigned int c){
     case '#':
       doUnNameItem();
       break;
+    case 'w':
+      doWield();
+      break;
     default:
       freeAction = true;
       break;

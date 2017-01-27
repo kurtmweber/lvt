@@ -21,8 +21,6 @@
 #include "lvt.h"
 #include "messages.h"
 
-//#define _D_DEBUG
-
 unsigned int attack(creature *attacker, creature *defender){
   
   unsigned int toHitVal, toDefendVal;
@@ -85,7 +83,11 @@ unsigned int calcAttackVal(creature *attacker){
   unsigned int weaponDamage;
   statList stats;
   
-  weaponDamage = 1;
+  if (attacker->weapon){
+    weaponDamage = attacker->weapon->itemData.baseDamage + attacker->weapon->damageModifier;
+  } else {
+    weaponDamage = 1;	// bare-handed combat
+  }
   
   getCreatureCurStats(attacker, &stats);
   
@@ -118,7 +120,11 @@ unsigned int toHit(creature *attacker){
   unsigned int weaponToHit;
   statList stats;
 
-  weaponToHit = 1;
+  if (attacker->weapon){
+    weaponToHit = attacker->weapon->itemData.baseToHit + attacker->weapon->toHitModifier;
+  } else {
+    weaponToHit = 1;	// bare-handed combat
+  }
   
   getCreatureCurStats(attacker, &stats);
   

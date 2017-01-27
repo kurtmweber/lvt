@@ -91,6 +91,7 @@ typedef struct item{
   char *name;
   armorSlots possibleSlots;
   bool owned;
+  bool wielded;
   coord3D location;
 } item;
 

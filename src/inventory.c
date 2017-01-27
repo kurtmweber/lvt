@@ -90,6 +90,9 @@ void displayInventoryWindow(unsigned int i, bool checked[52]){
 	waddstr(invWin, " named ");
 	waddstr(invWin, inventory[j]->name);
       }
+      if (inventory[j]->wielded){
+	waddstr(invWin, " (wielded)");
+      }
       waddch(invWin, '\n');
     }
   }
@@ -102,6 +105,54 @@ void displayInventoryWindow(unsigned int i, bool checked[52]){
   return;
 }
 
+void doWield(){
+  unsigned int c = 1;
+  unsigned int i = 0;
+  bool checked[52];
+  unsigned int j = 0;
+  char *itemName = 0;
+  item *inventory[52];
+  
+  for (j = 0; j < 52; j++){
+    checked[j] = false;
+  }
+  
+  getCreatureInventory(&player, inventory);
+  
+  addToMsgQueue("Wield which item? (space to cancel)", false);
+  procMsgQueue();
+  
+  while (c){
+    displayInventoryWindow(i, checked);
+    c = getch();
+    switch (c){
+      case KEY_UP:
+	i == 0 ? : i--;
+	break;
+      case KEY_DOWN:
+	i == 51 ? : i++;
+	break;
+      case ' ':
+	return;
+      default:
+	if (isupper(c) || islower(c)){
+	  if (isInventoryLetter(c)){
+	    wieldItem(&player, inventory[inventoryLetterToIndex(c)]);
+	    return;
+	  } else {
+	    break;
+	  }
+	} else {
+	  break;
+	}
+    }
+    
+    delwin(invWin);
+  }
+  
+  return;
+}
+
 void doNameItem(){
   unsigned int c = 1;
   unsigned int i = 0;
@@ -109,6 +160,8 @@ void doNameItem(){
   unsigned int j = 0;
   char *itemName = 0;
   item *inventory[52];
+  
+  freeAction = true;
   
   for (j = 0; j < 52; j++){
     checked[j] = false;
@@ -158,6 +211,8 @@ void doUnNameItem(){
   unsigned int j = 0;
   char *itemName = 0;
   item *inventory[52];
+  
+  freeAction = true;
   
   for (j = 0; j < 52; j++){
     checked[j] = false;
