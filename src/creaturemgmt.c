@@ -489,6 +489,18 @@ char addCreatureInventoryItem(creature *creature, item *item){
   return inventoryIndexToLetter(i);
 }
 
+void removeCreatureInventoryItem(creature *creature, item *item){
+  unsigned int i = 0;
+  
+  for (i = 0; i < 52; i++){
+    if (creature->inventory[i] == item){
+      creature->inventory[i] = 0;
+    }
+  }
+  
+  return;
+}
+
 void getCreatureInventory(creature *creature, item *inventory[52]){
   unsigned int i;
   

@@ -260,6 +260,57 @@ void doUnNameItem(){
   }
   
   return;
+}
+
+void doDrop(){
+  unsigned int c = 1;
+  unsigned int i = 0;
+  bool checked[52];
+  unsigned int j = 0;
+  item *inventory[52];
+  coord3D creaturePos;
+  item *chosenItem;
+  
+  for (j = 0; j < 52; j++){
+    checked[j] = false;
+  }
+  
+  getCreatureInventory(&player, inventory);
+  
+  addToMsgQueue("Drop which item? (space to cancel)", false);
+  procMsgQueue();
+  
+  while (c){
+    displayInventoryWindow(i, checked);
+    c = getch();
+    switch (c){
+      case KEY_UP:
+	i == 0 ? : i--;
+	break;
+      case KEY_DOWN:
+	i == 51 ? : i++;
+	break;
+      case ' ':
+	return;
+      default:
+	if (isupper(c) || islower(c)){
+	  if (isInventoryLetter(c)){
+	    chosenItem = inventory[inventoryLetterToIndex(c)];
+	    removeCreatureInventoryItem(&player, chosenItem);
+	    creaturePos = getCreatureLocation(&player);
+	    addContents(dungeon[creaturePos.level], creaturePos.x, creaturePos.y, chosenItem);
+	    return;
+	  } else {
+	    break;
+	  }
+	} else {
+	  break;
+	}
+    }
+    
+    delwin(invWin);
+  }
+  
   return;
 }
 

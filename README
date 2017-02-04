@@ -26,6 +26,7 @@ Map symbols:
 
 Commands:
 c	close an open door
+d	drop an item
 i	view inventory list
 n	name an item
 o	open a closed door
