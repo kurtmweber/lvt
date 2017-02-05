@@ -137,7 +137,13 @@ void doWield(){
       default:
 	if (isupper(c) || islower(c)){
 	  if (isInventoryLetter(c)){
-	    wieldItem(&player, inventory[inventoryLetterToIndex(c)]);
+	    switch (wieldItem(&player, inventory[inventoryLetterToIndex(c)])){
+	      case WIELD_FAILED_TWOHANDED:
+		addToMsgQueue(WIELD_FAILED_TWOHANDED_SHIELD_MSG, false);
+		break;
+	      default:
+		break;
+	    }
 	    return;
 	  } else {
 	    break;

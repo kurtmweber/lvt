@@ -28,6 +28,7 @@
 #include "creature.h"
 #include "move.h"
 #include "item.h"
+#include "creaturemgmt.h"
 
 #define MAX(a, b) (a < b ? b : a)
 #define MIN(a, b) (a > b ? b : a)
@@ -141,7 +142,7 @@ unsigned int getCreatureWeight(creature *creature);
 bool hasWeapon(creature *creature);
 char addCreatureInventoryItem(creature *creature, item *item);
 void getCreatureInventory(creature *creature, item *inventory[52]);
-void wieldItem(creature *creature, item *item);
+wieldOutcome wieldItem(creature *creature, item *item);
 void unwieldWeapon(creature *creature);
 void removeCreatureInventoryItem(creature *creature, item *item);
 #else

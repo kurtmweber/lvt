@@ -19,6 +19,7 @@
 
 #include <math.h>
 #include <stdbool.h>
+#include "creaturemgmt.h"
 #include "lvt.h"
 #include "creature.h"
 #include "item.h"
@@ -521,15 +522,19 @@ void unwieldWeapon(creature *creature){
   return;
 }
 
-void wieldItem(creature *creature, item *item){
+wieldOutcome wieldItem(creature *creature, item *item){
   if (creature->weapon){
     creature->weapon->wielded = false;
+  }
+  
+  if (creature->armor.shield){
+    return WIELD_FAILED_TWOHANDED;
   }
   
   item->wielded = true;
   creature->weapon = item;
   
-  return;
+  return WIELD_SUCCEEDED;
 }
 
 void killCreature(creature *creature){

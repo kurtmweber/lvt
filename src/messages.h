@@ -40,6 +40,7 @@
 #define ATTACK_SUCCEEDED_MSG "Your attack succeeded!"
 #define ATTACK_KILLED_MSG "You killed your opponent!"
 #define INVENTORY_FULL_MSG "Your inventory is full!"
+#define WIELD_FAILED_TWOHANDED_SHIELD_MSG "You cannot wield a two-handed weapon while equipped with a shield!"
 
 #define ATTACK_ALLIED_Q "The creature there is allied.  Do you wish to attack?"
 

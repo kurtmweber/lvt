@@ -6,3 +6,6 @@ Makefile.in
 src/Makefile.in
 src/.deps
 src/.deps/*
+.gitignore
+*core*
+src/*core*
