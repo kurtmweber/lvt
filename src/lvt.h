@@ -184,6 +184,8 @@ bool decidePlaceItem(coord2D floor, unsigned int level);
 void randomFloorItem(coord2D floor, unsigned int level);
 item *randomWeapon();
 item *randomLongsword();
+item *randomAxe();
+item *randomDagger();
 #endif
 
 #ifndef _GAME_C
@@ -219,15 +221,13 @@ void displayInventoryWindow(unsigned int i, bool checked[52]);
 
 #ifndef _ITEM_C
 extern itemType *itemTypes[ITEM_TYPE_MAX];
-item *spawnItem(itemClassId class, int subClass);
 void initItems();
 void removeItemName(item *item);
 #else
-item *spawnCorpse(int subClass);
-void setItemClass(item *item, itemClassId class);
 void initCorpses();
 void initLongswords();
-item *spawnLongsword(int subClass);
+void initAxes();
+void initDaggers();
 #endif
 
 #ifndef _ITEMMGMT_C
@@ -236,6 +236,7 @@ char getItemDispChar(item *item);
 void setItemLocation(item *item, coord3D location);
 colorPairs getItemColor(item *item);
 void setItemName(item *item, char *name);
+void setItemClass(item *item, itemClassId class);
 #endif
 
 #ifndef _LEVELDISP_C
@@ -359,6 +360,15 @@ void displayQuestionYesNo(char *msg);
 char *getLineInput(char *prompt);
 #else
 coord2D definePlayAreaDisplay();
+#endif
+
+#ifndef _SPAWNITEM_C
+item *spawnItem(itemClassId class, int subClass);
+#else
+item *spawnCorpse(int subClass);
+item *spawnLongsword(int subClass);
+item *spawnAxe(int subClass);
+item *spawnDagger(int subClass);
 #endif
 
 #ifndef _SPECIESINFO_C

@@ -59,3 +59,9 @@ void removeItemName(item *item){
   item->name = 0;
   return;
 }
+
+void setItemClass(item *item, itemClassId class){
+  item->itemClass = class;
+  
+  return;
+}

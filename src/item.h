@@ -37,6 +37,8 @@ typedef enum armorSlots{
 typedef enum itemClassId{
   ITEM_TYPE_LONGSWORD,
   ITEM_TYPE_CORPSE,
+  ITEM_TYPE_AXE,
+  ITEM_TYPE_DAGGER,
   ITEM_TYPE_MAX
 } itemClassId;
 
@@ -49,6 +51,26 @@ typedef enum longswordSubClassId{
   ITEM_LONGSWORD_SILVER,
   ITEM_LONGSWORD_MAX
 } longswordSubClassId;
+
+typedef struct uniqueDataAxe{
+  int i;
+} uniqueDataAxe;
+
+typedef enum axeSubClassId{
+  ITEM_AXE_THROWING,
+  ITEM_AXE_BATTLE,
+  ITEM_AXE_MAX
+} axeSubClassId;
+
+typedef struct uniqueDataDagger{
+  int i;
+} uniqueDataDagger;
+
+typedef enum daggerSubClassId{
+  ITEM_DAGGER_STILETTO,
+  ITEM_DAGGER_BASELARD,
+  ITEM_DAGGER_MAX
+} daggerSubClassId;
 
 typedef struct uniqueDataCorpse{
   unsigned int nutrition;
@@ -69,12 +91,18 @@ typedef struct itemType{
   unsigned int baseToHit;
   unsigned int baseArmor;
   unsigned int weight;
+  bool throwable;
+  bool twoHandedWield;
+  bool fragile;
   union {
     uniqueDataLongsword longswordUniqueData;
     uniqueDataCorpse corpseUniqueData;
+    uniqueDataAxe axeUniqueData;
+    uniqueDataDagger daggerUniqueData;
   };
   colorPairs color;
   char dispChar;
+  unsigned int attrs;
 } itemType;
 
 typedef struct item{
@@ -82,6 +110,8 @@ typedef struct item{
   union {
     longswordSubClassId longswordSubClass;
     corpseSubClassId corpseSubClass;
+    axeSubClassId axeSubClass;
+    daggerSubClassId daggerSubClass;
   };
   itemType itemData;
   int damageModifier;

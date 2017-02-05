@@ -37,6 +37,8 @@ void initializeColors(){
   init_pair(RedBlack, COLOR_RED, COLOR_BLACK);
   init_pair(MagentaBlack, COLOR_MAGENTA, COLOR_BLACK);
   init_pair(CyanBlack, COLOR_CYAN, COLOR_BLACK);
+  init_pair(BrownBlack, COLOR_YELLOW, COLOR_BLACK);	// COLOR_YELLOW is actually brown.  Actual yellow
+							// is COLOR_YELLOW + A_BOLD
   
   return;
 }

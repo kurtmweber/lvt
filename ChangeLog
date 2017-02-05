@@ -1,3 +1,6 @@
+for version 0.7
+  * added axes and daggers (kmw, 2017-02-04)
+
 for version 0.6
   * items can now be dropped out of inventory (kmw, 2017-02-02)
   * wielded items can now be unwielded (kmw, 2017-01-26)
