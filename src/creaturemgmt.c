@@ -553,6 +553,7 @@ void killCreature(creature *creature){
   
   cNode = findCreatureListEntry(creatures, creature);
   removeCreatureNode(creatures, cNode);
+  freeCreatureListEntry(cNode);
   return;
 }
 

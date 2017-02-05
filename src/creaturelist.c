@@ -23,6 +23,7 @@ creatureList *insertNewCreatureNode(creatureList *list, creatureList *node){
   if (list){
     list->prev = node;
     node->next = list;
+    node->prev = 0;
   } else {
     node->next = 0;
   }
@@ -47,13 +48,17 @@ creatureList *removeCreatureNode(creatureList *list, creatureList *node){
   creatureList *next;  
 
   if (list == node){
-    list = node->prev;
-    list->next = 0;
+    list = node->next;
+    list->prev = 0;
   } else {
     prev = node->prev;
     next = node->next;
-    prev->next = next;
-    next->prev = prev;
+    if (prev){
+      prev->next = next;
+    }
+    if (next){
+      next->prev = prev;
+    }
   }
   
   return list;

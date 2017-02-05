@@ -1,4 +1,5 @@
 for version 0.7
+  * fixed bug that caused segfault when killing first creature generated (kmw, 2017-02-04)
   * added axes and daggers (kmw, 2017-02-04)
 
 for version 0.6

@@ -1,6 +1,0 @@
-faction.o: faction.c /usr/include/stdc-predef.h \
- /usr/lib64/gcc/x86_64-slackware-linux/5.3.0/include/stdbool.h
-
-/usr/include/stdc-predef.h:
-
-/usr/lib64/gcc/x86_64-slackware-linux/5.3.0/include/stdbool.h:

@@ -1,2 +1,8 @@
 /autom4te.cache/
 *~
+*.o
+src/*.o
+Makefile.in
+src/Makefile.in
+src/.deps
+src/.deps/*
