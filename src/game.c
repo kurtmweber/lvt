@@ -143,6 +143,12 @@ void processKey(unsigned int c){
     case 'd':
       doDrop();
       break;
+    case 'W':
+      doWear();
+      break;
+    case 'r':
+      doRemove();
+      break;
     default:
       freeAction = true;
       break;

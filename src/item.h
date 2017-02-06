@@ -39,8 +39,27 @@ typedef enum itemClassId{
   ITEM_TYPE_CORPSE,
   ITEM_TYPE_AXE,
   ITEM_TYPE_DAGGER,
+  ITEM_TYPE_SHIRT,
+  ITEM_TYPE_UNDERARMOR,
+  ITEM_TYPE_ARMOR,
+  ITEM_TYPE_HELMET,
+  ITEM_TYPE_CLOAK,
+  ITEM_TYPE_GLOVES,
+  ITEM_TYPE_LEGGINGS,
+  ITEM_TYPE_SHOES,
+  ITEM_TYPE_SHIELD,
   ITEM_TYPE_MAX
 } itemClassId;
+
+typedef struct uniqueDataShirt{
+  int i;
+} uniqueDataShirt;
+
+typedef enum shirtSubClassId{
+  ITEM_SHIRT_TSHIRT,
+  ITEM_SHIRT_HAWAIIAN,
+  ITEM_SHIRT_MAX
+} shirtSubClassId;
 
 typedef struct uniqueDataLongsword{
   int i;
@@ -94,11 +113,13 @@ typedef struct itemType{
   bool throwable;
   bool twoHandedWield;
   bool fragile;
+  armorSlots possibleSlots;
   union {
     uniqueDataLongsword longswordUniqueData;
     uniqueDataCorpse corpseUniqueData;
     uniqueDataAxe axeUniqueData;
     uniqueDataDagger daggerUniqueData;
+    uniqueDataShirt shirtUniqueData;
   };
   colorPairs color;
   char dispChar;
@@ -112,6 +133,7 @@ typedef struct item{
     corpseSubClassId corpseSubClass;
     axeSubClassId axeSubClass;
     daggerSubClassId daggerSubClass;
+    shirtSubClassId shirtSubClass;
   };
   itemType itemData;
   int damageModifier;
@@ -119,9 +141,9 @@ typedef struct item{
   int armorModifier;
   int weightModifier;
   char *name;
-  armorSlots possibleSlots;
   bool owned;
   bool wielded;
+  bool worn;
   coord3D location;
 } item;
 

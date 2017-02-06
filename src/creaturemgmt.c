@@ -493,6 +493,10 @@ char addCreatureInventoryItem(creature *creature, item *item){
 void removeCreatureInventoryItem(creature *creature, item *item){
   unsigned int i = 0;
   
+  item->worn = false;
+  item->wielded = false;
+  item->owned = false;
+  
   for (i = 0; i < 52; i++){
     if (creature->inventory[i] == item){
       creature->inventory[i] = 0;
@@ -535,6 +539,128 @@ wieldOutcome wieldItem(creature *creature, item *item){
   creature->weapon = item;
   
   return WIELD_SUCCEEDED;
+}
+
+wearOutcome wearItem(creature *creature, item *item){
+  switch(item->itemClass){
+    case ITEM_TYPE_SHIRT:
+      if (creature->armor.shirt){
+	creature->armor.shirt->worn = false;
+      }
+      creature->armor.shirt = item;
+      creature->armor.shirt->worn = true;
+      break;
+    case ITEM_TYPE_UNDERARMOR:
+      if (creature->armor.underarmor){
+	creature->armor.underarmor->worn = false;
+      }
+      creature->armor.underarmor = item;
+      creature->armor.underarmor->worn = true;
+      break;
+    case ITEM_TYPE_ARMOR:
+      if (creature->armor.armor){
+	creature->armor.armor->worn = false;
+      }
+      creature->armor.armor = item;
+      creature->armor.armor->worn = true;
+      break;
+    case ITEM_TYPE_HELMET:
+      if  (creature->armor.helmet){
+	creature->armor.helmet->worn = false;
+      }
+      creature->armor.helmet = item;
+      creature->armor.helmet->worn = true;
+      break;
+    case ITEM_TYPE_CLOAK:
+      if (creature->armor.cloak){
+	creature->armor.cloak->worn = false;
+      }
+      creature->armor.cloak = item;
+      creature->armor.cloak->worn = true;
+      break;
+    case ITEM_TYPE_GLOVES:
+      if (creature->armor.gloves){
+	creature->armor.gloves->worn = false;
+      }
+      creature->armor.gloves = item;
+      creature->armor.gloves->worn = true;
+      break;
+    case ITEM_TYPE_LEGGINGS:
+      if (creature->armor.leggings){
+	creature->armor.leggings->worn = false;
+      }
+      creature->armor.leggings = item;
+      creature->armor.leggings->worn = true;
+      break;
+    case ITEM_TYPE_SHOES:
+      if (creature->armor.shoes){
+	creature->armor.shoes->worn = false;
+      }
+      creature->armor.shoes = item;
+      creature->armor.shoes->worn = true;
+      break;
+    case ITEM_TYPE_SHIELD:
+      if (creature->armor.shield){
+	creature->armor.shield->worn = false;
+      }
+      creature->armor.shield = item;
+      creature->armor.shield->worn = true;
+      break;
+    default:
+      return WEAR_FAILED_NOT_ARMOR;
+  }
+  
+  return WEAR_SUCCEEDED;
+}
+
+removeOutcome removeItem(creature *creature, item *item){
+  if (!item->worn){
+    return REMOVE_FAILED_NOT_WORN;
+  }
+  
+  item->worn = false;
+  
+  switch(item->itemClass){
+    case ITEM_TYPE_SHIRT:
+      creature->armor.shirt = false;
+      break;
+    case ITEM_TYPE_UNDERARMOR:
+      creature->armor.underarmor = false;
+      break;
+    case ITEM_TYPE_ARMOR:
+      creature->armor.armor = false;
+      break;
+    case ITEM_TYPE_HELMET:
+      creature->armor.helmet = false;
+      break;
+    case ITEM_TYPE_CLOAK:
+      creature->armor.cloak = false;
+      break;
+    case ITEM_TYPE_GLOVES:
+      creature->armor.gloves = false;
+      break;
+    case ITEM_TYPE_LEGGINGS:
+      creature->armor.leggings = false;
+      break;
+    case ITEM_TYPE_SHOES:
+      creature->armor.shoes = false;
+      break;
+    case ITEM_TYPE_SHIELD:
+      creature->armor.shield = false;
+      break;
+  }
+  
+  return REMOVE_SUCCEEDED;
+}
+
+unsigned int getCreatureArmorClass(creature *creature){
+  unsigned int ac = 0;
+  
+  if (creature->armor.shirt){
+    ac += getEffectiveArmor(creature->armor.shirt);
+  }
+  
+  return ac;
 }
 
 void killCreature(creature *creature){

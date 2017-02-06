@@ -26,4 +26,14 @@ typedef enum wieldOutcome{
   WIELD_FAILED
 } wieldOutcome;
 
+typedef enum wearOutcome{
+  WEAR_SUCCEEDED,
+  WEAR_FAILED_NOT_ARMOR
+} wearOutcome;
+
+typedef enum removeOutcome{
+  REMOVE_SUCCEEDED,
+  REMOVE_FAILED_NOT_WORN
+} removeOutcome;
+
 #endif

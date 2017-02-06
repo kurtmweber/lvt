@@ -30,10 +30,12 @@ d	drop an item
 i	view inventory list
 n	name an item
 o	open a closed door
+r	remove a piece of armor
 s	search for hidden doors
 t	throw an object
 u	unwield currently-wielded item
 w	wield an object (anything can be wielded, including things that aren't explicitly weapons)
+W	wear a piece of armor
 ;	look at an object on the map (navigate the cursor with the movement 
 	keys, then hit enter/return)
 #	un-name an item

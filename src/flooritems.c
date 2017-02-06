@@ -23,7 +23,13 @@
 const unsigned int placeItemChance = 100;	// likelihood (out of 10,000) that an item will be placed
 						// on a floor
 						
-const unsigned int weaponLikelihood = 100;	// % chance of a generated item being a weapon
+const unsigned int weaponLikelihood = 50;	// % chance of a generated item being a weapon
+const unsigned int armorLikelihood = 100;
+
+const unsigned int shirtLikelihood = 100;
+
+const unsigned int tShirtLikelihood = 50;
+const unsigned int hawaiianShirtLikelihood = 100;
 
 const unsigned int longswordLikelihood = 50;	// % chance of a generated weapon being a longsword
 const unsigned int axeLikelihood =  75;
@@ -72,12 +78,50 @@ void randomFloorItem(coord2D floor, unsigned int level){
   
   if (choice <= weaponLikelihood){
     newItem = randomWeapon();
+  } else if (choice <= armorLikelihood){
+    newItem = randomArmor();
   }
   
   addContents(dungeon[level], floor.x, floor.y, newItem);
 
   
   return;
+}
+
+item *randomArmor(){
+  static rng localRng;
+  static bool rngInitd = false;
+  unsigned int choice;
+
+  if (!rngInitd){
+    initializeRNG(&localRng);
+    rngInitd = true;
+  }
+  
+  choice = uniformRandomRangeInt(&localRng, 1, 100);
+  
+  if (choice <= shirtLikelihood){
+    return randomShirt();
+  }
+}
+
+item *randomShirt(){
+  static rng localRng;
+  static bool rngInitd = false;
+  unsigned int choice;
+  
+  if (!rngInitd){
+    initializeRNG(&localRng);
+    rngInitd = true;
+  }
+  
+  choice = uniformRandomRangeInt(&localRng, 1, 100);
+  
+  if (choice <= tShirtLikelihood){
+    return spawnItem(ITEM_TYPE_SHIRT, ITEM_SHIRT_TSHIRT);
+  } else if (choice <= hawaiianShirtLikelihood){
+    return spawnItem(ITEM_TYPE_SHIRT, ITEM_SHIRT_HAWAIIAN);
+  }
 }
 
 item *randomWeapon(){

@@ -1,4 +1,5 @@
 for version 0.7
+  * armor can be worn and removed (kmw, 2017-02-05)
   * attempting to wield a two-handed weapon fails when equipped with a shield (kmw, 2017-02-05)
   * fixed bug that caused segfault when killing first creature generated (kmw, 2017-02-04)
   * added axes and daggers (kmw, 2017-02-04)

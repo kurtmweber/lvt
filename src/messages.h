@@ -41,6 +41,8 @@
 #define ATTACK_KILLED_MSG "You killed your opponent!"
 #define INVENTORY_FULL_MSG "Your inventory is full!"
 #define WIELD_FAILED_TWOHANDED_SHIELD_MSG "You cannot wield a two-handed weapon while equipped with a shield!"
+#define WEAR_FAILED_NOT_ARMOR_MSG "You can't wear that, it's not armor!"
+#define REMOVE_FAILED_NOT_WORN_MSG "You can't remove something you're not wearing!"
 
 #define ATTACK_ALLIED_Q "The creature there is allied.  Do you wish to attack?"
 

@@ -65,3 +65,11 @@ void setItemClass(item *item, itemClassId class){
   
   return;
 }
+
+unsigned int getEffectiveArmor(item *item){
+  unsigned int ac;
+  
+  ac = item->itemData.baseArmor + item->armorModifier;
+  
+  return ac;
+}

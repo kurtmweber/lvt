@@ -37,13 +37,34 @@ item *spawnItem(itemClassId class, int subClass){
     case ITEM_TYPE_DAGGER:
       item = spawnDagger(subClass);
       break;
+    case ITEM_TYPE_SHIRT:
+      item = spawnShirt(subClass);
+      break;
     default:
       return 0;
   }
   
   item->name = 0;
+  item->wielded = false;
+  item->worn = false;
+  item->armorModifier = 0;
+  item->damageModifier = 0;
+  item->toHitModifier = 0;
+  item->weightModifier = 0;
+  item->owned = false;
   
   return item;
+}
+
+item *spawnShirt(int subClass){
+  item *shirt;
+  
+  shirt = allocateItem();
+  setItemClass(shirt, ITEM_TYPE_SHIRT);
+  shirt->shirtSubClass = subClass;
+  shirt->itemData = itemTypes[ITEM_TYPE_SHIRT][subClass];
+  
+  return shirt;
 }
 
 item *spawnAxe(int subClass){

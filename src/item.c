@@ -17,6 +17,7 @@
 
 #define _ITEM_C
 
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include "colors.h"
@@ -30,6 +31,54 @@ void initItems(){
   initLongswords();
   initAxes();
   initDaggers();
+  initShirts();
+  
+  return;
+}
+
+void initShirts(){
+  shirtSubClassId i;
+  char dispChar = ']';
+  
+  itemTypes[ITEM_TYPE_SHIRT] = calloc(ITEM_SHIRT_MAX, sizeof(itemType));
+  if (!itemTypes[ITEM_TYPE_SHIRT]){
+    perror("fuck you");
+    exit(EXIT_FAILURE);
+  }
+  
+  // t-shirt
+  {
+    itemTypes[ITEM_TYPE_SHIRT][ITEM_SHIRT_TSHIRT].baseDamage = 0;
+    itemTypes[ITEM_TYPE_SHIRT][ITEM_SHIRT_TSHIRT].baseToHit = 0;
+    itemTypes[ITEM_TYPE_SHIRT][ITEM_SHIRT_TSHIRT].baseArmor = 1;
+    itemTypes[ITEM_TYPE_SHIRT][ITEM_SHIRT_TSHIRT].throwable = false;
+    itemTypes[ITEM_TYPE_SHIRT][ITEM_SHIRT_TSHIRT].twoHandedWield = false;
+    itemTypes[ITEM_TYPE_SHIRT][ITEM_SHIRT_TSHIRT].fragile = false;
+    itemTypes[ITEM_TYPE_SHIRT][ITEM_SHIRT_TSHIRT].itemName = calloc(8, sizeof(char));
+    strcpy(itemTypes[ITEM_TYPE_SHIRT][ITEM_SHIRT_TSHIRT].itemName, "t-shirt");
+    itemTypes[ITEM_TYPE_SHIRT][ITEM_SHIRT_TSHIRT].dispChar = dispChar;
+    itemTypes[ITEM_TYPE_SHIRT][ITEM_SHIRT_TSHIRT].color = WhiteBlack;
+    itemTypes[ITEM_TYPE_SHIRT][ITEM_SHIRT_TSHIRT].attrs = 0;
+    itemTypes[ITEM_TYPE_SHIRT][ITEM_SHIRT_TSHIRT].weight = 1;
+    itemTypes[ITEM_TYPE_SHIRT][ITEM_SHIRT_TSHIRT].possibleSlots = ARMOR_SHIRT;
+  }
+  
+  // Hawaiian shirt
+  {
+    itemTypes[ITEM_TYPE_SHIRT][ITEM_SHIRT_HAWAIIAN].baseDamage = 0;
+    itemTypes[ITEM_TYPE_SHIRT][ITEM_SHIRT_HAWAIIAN].baseToHit = 0;
+    itemTypes[ITEM_TYPE_SHIRT][ITEM_SHIRT_HAWAIIAN].baseArmor = 1;
+    itemTypes[ITEM_TYPE_SHIRT][ITEM_SHIRT_HAWAIIAN].throwable = false;
+    itemTypes[ITEM_TYPE_SHIRT][ITEM_SHIRT_HAWAIIAN].twoHandedWield = false;
+    itemTypes[ITEM_TYPE_SHIRT][ITEM_SHIRT_HAWAIIAN].fragile = false;
+    itemTypes[ITEM_TYPE_SHIRT][ITEM_SHIRT_HAWAIIAN].itemName = calloc(15, sizeof(char));
+    strcpy(itemTypes[ITEM_TYPE_SHIRT][ITEM_SHIRT_HAWAIIAN].itemName, "Hawaiian shirt");
+    itemTypes[ITEM_TYPE_SHIRT][ITEM_SHIRT_HAWAIIAN].dispChar = dispChar;
+    itemTypes[ITEM_TYPE_SHIRT][ITEM_SHIRT_HAWAIIAN].color = MagentaBlack;
+    itemTypes[ITEM_TYPE_SHIRT][ITEM_SHIRT_HAWAIIAN].attrs = 0;
+    itemTypes[ITEM_TYPE_SHIRT][ITEM_SHIRT_HAWAIIAN].weight = 1;
+    itemTypes[ITEM_TYPE_SHIRT][ITEM_SHIRT_HAWAIIAN].possibleSlots = ARMOR_SHIRT;
+  }
   
   return;
 }
@@ -49,11 +98,12 @@ void initDaggers(){
     itemTypes[ITEM_TYPE_DAGGER][ITEM_DAGGER_STILETTO].twoHandedWield = false;
     itemTypes[ITEM_TYPE_DAGGER][ITEM_DAGGER_STILETTO].fragile = false;
     itemTypes[ITEM_TYPE_DAGGER][ITEM_DAGGER_STILETTO].itemName = calloc(16, sizeof(char));
-    strcat(itemTypes[ITEM_TYPE_DAGGER][ITEM_DAGGER_STILETTO].itemName, "stiletto dagger");
+    strcpy(itemTypes[ITEM_TYPE_DAGGER][ITEM_DAGGER_STILETTO].itemName, "stiletto dagger");
     itemTypes[ITEM_TYPE_DAGGER][ITEM_DAGGER_STILETTO].dispChar = dispChar;
     itemTypes[ITEM_TYPE_DAGGER][ITEM_DAGGER_STILETTO].color = BlueBlack;
     itemTypes[ITEM_TYPE_DAGGER][ITEM_DAGGER_STILETTO].attrs = 0;
     itemTypes[ITEM_TYPE_DAGGER][ITEM_DAGGER_STILETTO].weight = 1;
+    itemTypes[ITEM_TYPE_DAGGER][ITEM_DAGGER_STILETTO].possibleSlots = 0;
   }
   
   // baselard dagger
@@ -65,11 +115,12 @@ void initDaggers(){
     itemTypes[ITEM_TYPE_DAGGER][ITEM_DAGGER_BASELARD].twoHandedWield = false;
     itemTypes[ITEM_TYPE_DAGGER][ITEM_DAGGER_BASELARD].fragile = false;
     itemTypes[ITEM_TYPE_DAGGER][ITEM_DAGGER_BASELARD].itemName = calloc(16, sizeof(char));
-    strcat(itemTypes[ITEM_TYPE_DAGGER][ITEM_DAGGER_BASELARD].itemName, "baselard dagger");
+    strcpy(itemTypes[ITEM_TYPE_DAGGER][ITEM_DAGGER_BASELARD].itemName, "baselard dagger");
     itemTypes[ITEM_TYPE_DAGGER][ITEM_DAGGER_BASELARD].dispChar = dispChar;
     itemTypes[ITEM_TYPE_DAGGER][ITEM_DAGGER_BASELARD].color = BlueBlack;
     itemTypes[ITEM_TYPE_DAGGER][ITEM_DAGGER_BASELARD].attrs = 0;
     itemTypes[ITEM_TYPE_DAGGER][ITEM_DAGGER_BASELARD].weight = 1;
+    itemTypes[ITEM_TYPE_DAGGER][ITEM_DAGGER_BASELARD].possibleSlots = 0;
   }
   
   return;
@@ -90,11 +141,12 @@ void initAxes(){
     itemTypes[ITEM_TYPE_AXE][ITEM_AXE_THROWING].twoHandedWield = false;
     itemTypes[ITEM_TYPE_AXE][ITEM_AXE_THROWING].fragile = false;
     itemTypes[ITEM_TYPE_AXE][ITEM_AXE_THROWING].itemName = calloc(13, sizeof(char));
-    strcat(itemTypes[ITEM_TYPE_AXE][ITEM_AXE_THROWING].itemName, "throwing axe");
+    strcpy(itemTypes[ITEM_TYPE_AXE][ITEM_AXE_THROWING].itemName, "throwing axe");
     itemTypes[ITEM_TYPE_AXE][ITEM_AXE_THROWING].dispChar = dispChar;
     itemTypes[ITEM_TYPE_AXE][ITEM_AXE_THROWING].color = BrownBlack;
     itemTypes[ITEM_TYPE_AXE][ITEM_AXE_THROWING].attrs = 0;
     itemTypes[ITEM_TYPE_AXE][ITEM_AXE_THROWING].weight = 2;
+    itemTypes[ITEM_TYPE_AXE][ITEM_AXE_THROWING].possibleSlots = 0;
   }
   
   // battle axe
@@ -106,11 +158,12 @@ void initAxes(){
     itemTypes[ITEM_TYPE_AXE][ITEM_AXE_BATTLE].twoHandedWield = true;
     itemTypes[ITEM_TYPE_AXE][ITEM_AXE_BATTLE].fragile = false;
     itemTypes[ITEM_TYPE_AXE][ITEM_AXE_BATTLE].itemName = calloc(11, sizeof(char));
-    strcat(itemTypes[ITEM_TYPE_AXE][ITEM_AXE_BATTLE].itemName, "battle axe");
+    strcpy(itemTypes[ITEM_TYPE_AXE][ITEM_AXE_BATTLE].itemName, "battle axe");
     itemTypes[ITEM_TYPE_AXE][ITEM_AXE_BATTLE].dispChar = dispChar;
     itemTypes[ITEM_TYPE_AXE][ITEM_AXE_BATTLE].color = BrownBlack;
     itemTypes[ITEM_TYPE_AXE][ITEM_AXE_BATTLE].attrs = 0;
     itemTypes[ITEM_TYPE_AXE][ITEM_AXE_BATTLE].weight = 2;
+    itemTypes[ITEM_TYPE_AXE][ITEM_AXE_THROWING].possibleSlots = 0;
   }
   
   return;
@@ -131,11 +184,12 @@ void initLongswords(){
     itemTypes[ITEM_TYPE_LONGSWORD][ITEM_LONGSWORD_STEEL].twoHandedWield = false;
     itemTypes[ITEM_TYPE_LONGSWORD][ITEM_LONGSWORD_STEEL].fragile = false;
     itemTypes[ITEM_TYPE_LONGSWORD][ITEM_LONGSWORD_STEEL].itemName = calloc(16, sizeof(char));
-    strcat(itemTypes[ITEM_TYPE_LONGSWORD][ITEM_LONGSWORD_STEEL].itemName, "steel longsword");
+    strcpy(itemTypes[ITEM_TYPE_LONGSWORD][ITEM_LONGSWORD_STEEL].itemName, "steel longsword");
     itemTypes[ITEM_TYPE_LONGSWORD][ITEM_LONGSWORD_STEEL].dispChar = dispChar;
     itemTypes[ITEM_TYPE_LONGSWORD][ITEM_LONGSWORD_STEEL].color = WhiteBlack;
     itemTypes[ITEM_TYPE_LONGSWORD][ITEM_LONGSWORD_STEEL].attrs = 0;
     itemTypes[ITEM_TYPE_LONGSWORD][ITEM_LONGSWORD_STEEL].weight = 8;
+    itemTypes[ITEM_TYPE_LONGSWORD][ITEM_LONGSWORD_STEEL].possibleSlots = 0;
   }
   
   // I use braces like this because it lets me code-fold these blocks out of the way in my text editor
@@ -149,11 +203,12 @@ void initLongswords(){
     itemTypes[ITEM_TYPE_LONGSWORD][ITEM_LONGSWORD_SILVER].twoHandedWield = false;
     itemTypes[ITEM_TYPE_LONGSWORD][ITEM_LONGSWORD_SILVER].fragile = false;
     itemTypes[ITEM_TYPE_LONGSWORD][ITEM_LONGSWORD_SILVER].itemName = calloc(17, sizeof(char));
-    strcat(itemTypes[ITEM_TYPE_LONGSWORD][ITEM_LONGSWORD_SILVER].itemName, "silver longsword");
+    strcpy(itemTypes[ITEM_TYPE_LONGSWORD][ITEM_LONGSWORD_SILVER].itemName, "silver longsword");
     itemTypes[ITEM_TYPE_LONGSWORD][ITEM_LONGSWORD_SILVER].dispChar = dispChar;
     itemTypes[ITEM_TYPE_LONGSWORD][ITEM_LONGSWORD_SILVER].color = CyanBlack;
     itemTypes[ITEM_TYPE_LONGSWORD][ITEM_LONGSWORD_SILVER].attrs = 0;
     itemTypes[ITEM_TYPE_LONGSWORD][ITEM_LONGSWORD_SILVER].weight = 10;
+    itemTypes[ITEM_TYPE_LONGSWORD][ITEM_LONGSWORD_SILVER].possibleSlots = 0;
   }
   
   return;
@@ -174,11 +229,12 @@ void initCorpses(){
     itemTypes[ITEM_TYPE_CORPSE][i].twoHandedWield = false;
     itemTypes[ITEM_TYPE_CORPSE][i].fragile = false;
     itemTypes[ITEM_TYPE_CORPSE][i].itemName = calloc(strlen(corpseSubClassNames[i]) + 8, sizeof(char));
-    strcat(itemTypes[ITEM_TYPE_CORPSE][i].itemName, corpseSubClassNames[i]);
+    strcpy(itemTypes[ITEM_TYPE_CORPSE][i].itemName, corpseSubClassNames[i]);
     strcat(itemTypes[ITEM_TYPE_CORPSE][i].itemName, " corpse");
     itemTypes[ITEM_TYPE_CORPSE][i].dispChar = '%';
     itemTypes[ITEM_TYPE_CORPSE][i].color = corpseColors[i];
     itemTypes[ITEM_TYPE_CORPSE][i].attrs = 0;
+    itemTypes[ITEM_TYPE_CORPSE][i].possibleSlots = 0;
   }
   
   return;

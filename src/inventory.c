@@ -93,6 +93,9 @@ void displayInventoryWindow(unsigned int i, bool checked[52]){
       if (inventory[j]->wielded){
 	waddstr(invWin, " (wielded)");
       }
+      if (inventory[j]->worn){
+	waddstr(invWin, " (worn)");
+      }
       waddch(invWin, '\n');
     }
   }
@@ -102,6 +105,60 @@ void displayInventoryWindow(unsigned int i, bool checked[52]){
   }
   
   wrefresh(invWin);
+  return;
+}
+
+void doWear(){
+  unsigned int c = 1;
+  unsigned int i = 0;
+  bool checked[52];
+  unsigned int j = 0;
+  char *itemName = 0;
+  item *inventory[52];
+  
+  for (j = 0; j < 52; j++){
+    checked[j] = false;
+  }
+  
+  getCreatureInventory(&player, inventory);
+  
+  addToMsgQueue("Wear which item? (space to cancel)", false);
+  procMsgQueue();
+  
+  while (c){
+    displayInventoryWindow(i, checked);
+    c = getch();
+    switch (c){
+      case KEY_UP:
+	i == 0 ? : i--;
+	break;
+      case KEY_DOWN:
+	i == 51 ? : i++;
+	break;
+      case ' ':
+	return;
+      default:
+	if (isupper(c) || islower(c)){
+	  if (isInventoryLetter(c)){
+	    switch (wearItem(&player, inventory[inventoryLetterToIndex(c)])){
+	      case WEAR_FAILED_NOT_ARMOR:
+		addToMsgQueue(WEAR_FAILED_NOT_ARMOR_MSG, false);
+		break;
+	      default:
+		break;
+	    }
+	    return;
+	  } else {
+	    break;
+	  }
+	} else {
+	  break;
+	}
+    }
+    
+    delwin(invWin);
+  }
+  
   return;
 }
 
@@ -140,6 +197,60 @@ void doWield(){
 	    switch (wieldItem(&player, inventory[inventoryLetterToIndex(c)])){
 	      case WIELD_FAILED_TWOHANDED:
 		addToMsgQueue(WIELD_FAILED_TWOHANDED_SHIELD_MSG, false);
+		break;
+	      default:
+		break;
+	    }
+	    return;
+	  } else {
+	    break;
+	  }
+	} else {
+	  break;
+	}
+    }
+    
+    delwin(invWin);
+  }
+  
+  return;
+}
+
+void doRemove(){
+  unsigned int c = 1;
+  unsigned int i = 0;
+  bool checked[52];
+  unsigned int j = 0;
+  char *itemName = 0;
+  item *inventory[52];
+  
+  for (j = 0; j < 52; j++){
+    checked[j] = false;
+  }
+  
+  getCreatureInventory(&player, inventory);
+  
+  addToMsgQueue("Remove which item? (space to cancel)", false);
+  procMsgQueue();
+  
+  while (c){
+    displayInventoryWindow(i, checked);
+    c = getch();
+    switch (c){
+      case KEY_UP:
+	i == 0 ? : i--;
+	break;
+      case KEY_DOWN:
+	i == 51 ? : i++;
+	break;
+      case ' ':
+	return;
+      default:
+	if (isupper(c) || islower(c)){
+	  if (isInventoryLetter(c)){
+	    switch (removeItem(&player, inventory[inventoryLetterToIndex(c)])){
+	      case REMOVE_FAILED_NOT_WORN:
+		addToMsgQueue(REMOVE_FAILED_NOT_WORN_MSG, false);
 		break;
 	      default:
 		break;

@@ -145,6 +145,9 @@ void getCreatureInventory(creature *creature, item *inventory[52]);
 wieldOutcome wieldItem(creature *creature, item *item);
 void unwieldWeapon(creature *creature);
 void removeCreatureInventoryItem(creature *creature, item *item);
+wearOutcome wearItem(creature *creature, item *item);
+unsigned int getCreatureArmorClass(creature *creature);
+removeOutcome removeItem(creature *creature, item *item);
 #else
 bool updateCreatureLifeCycleNotMatured(creature *creature);
 bool updateCreatureLifeCycleMatured(creature *creature);
@@ -187,6 +190,8 @@ item *randomWeapon();
 item *randomLongsword();
 item *randomAxe();
 item *randomDagger();
+item *randomArmor();
+item *randomShirt();
 #endif
 
 #ifndef _GAME_C
@@ -216,6 +221,8 @@ void doUnNameItem();
 void doWield();
 void doUnwield();
 void doDrop();
+void doWear();
+void doRemove();
 #else
 void displayInventoryWindow(unsigned int i, bool checked[52]);
 #endif
@@ -229,6 +236,7 @@ void initCorpses();
 void initLongswords();
 void initAxes();
 void initDaggers();
+void initShirts();
 #endif
 
 #ifndef _ITEMMGMT_C
@@ -238,6 +246,7 @@ void setItemLocation(item *item, coord3D location);
 colorPairs getItemColor(item *item);
 void setItemName(item *item, char *name);
 void setItemClass(item *item, itemClassId class);
+unsigned int getEffectiveArmor(item *item);
 #endif
 
 #ifndef _LEVELDISP_C
@@ -370,6 +379,7 @@ item *spawnCorpse(int subClass);
 item *spawnLongsword(int subClass);
 item *spawnAxe(int subClass);
 item *spawnDagger(int subClass);
+item *spawnShirt(int subClass);
 #endif
 
 #ifndef _SPECIESINFO_C
