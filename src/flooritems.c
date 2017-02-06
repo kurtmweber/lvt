@@ -26,7 +26,10 @@ const unsigned int placeItemChance = 100;	// likelihood (out of 10,000) that an 
 const unsigned int weaponLikelihood = 50;	// % chance of a generated item being a weapon
 const unsigned int armorLikelihood = 100;
 
-const unsigned int shirtLikelihood = 100;
+const unsigned int shirtLikelihood = 50;
+const unsigned int underarmorLikelihood = 100;
+
+const unsigned int chainmailLikelihood = 100;	// underarmor types
 
 const unsigned int tShirtLikelihood = 50;
 const unsigned int hawaiianShirtLikelihood = 100;
@@ -102,6 +105,25 @@ item *randomArmor(){
   
   if (choice <= shirtLikelihood){
     return randomShirt();
+  } else if (choice <= underarmorLikelihood){
+    return randomUnderarmor();
+  }
+}
+
+item *randomUnderarmor(){
+  static rng localRng;
+  static bool rngInitd = false;
+  unsigned int choice;
+  
+  if (!rngInitd){
+    initializeRNG(&localRng);
+    rngInitd = true;
+  }
+  
+  choice = uniformRandomRangeInt(&localRng, 1, 100);
+ 
+  if (choice <= chainmailLikelihood){
+    return spawnItem(ITEM_TYPE_UNDERARMOR, ITEM_UNDERARMOR_CHAINMAIL);
   }
 }
 

@@ -55,7 +55,7 @@ screenDisplayCell *generateLevelRepresentation(level level, unsigned int line){
 	contents = getContents(level, x, line);
 	mapLine[x].dispChar = getItemDispChar(contents->item);
 	mapLine[x].hasAttrs = true;
-	mapLine[x].attrs = COLOR_PAIR(getItemColor(contents->item));
+	mapLine[x].attrs = COLOR_PAIR(getItemColor(contents->item)) | getItemAttrs(contents->item);
       } else if (hasPlantOccupant(level, x, line)){
       } else {
 	  switch (getMapSpaceTerrain(level, x, line)){

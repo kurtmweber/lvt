@@ -73,3 +73,7 @@ unsigned int getEffectiveArmor(item *item){
   
   return ac;
 }
+
+unsigned int getItemAttrs(item *item){
+  return item->itemData.attrs;
+}

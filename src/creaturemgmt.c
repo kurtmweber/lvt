@@ -660,6 +660,38 @@ unsigned int getCreatureArmorClass(creature *creature){
     ac += getEffectiveArmor(creature->armor.shirt);
   }
   
+  if (creature->armor.underarmor){
+    ac += getEffectiveArmor(creature->armor.underarmor);
+  }
+  
+  if (creature->armor.armor){
+    ac+= getEffectiveArmor(creature->armor.armor);
+  }
+  
+  if (creature->armor.helmet){
+    ac += getEffectiveArmor(creature->armor.helmet);
+  }
+  
+  if (creature->armor.cloak){
+    ac += getEffectiveArmor(creature->armor.cloak);
+  }
+  
+  if (creature->armor.gloves){
+    ac += getEffectiveArmor(creature->armor.gloves);
+  }
+  
+  if (creature->armor.leggings){
+    ac += getEffectiveArmor(creature->armor.leggings);
+  }
+  
+  if (creature->armor.shoes){
+    ac += getEffectiveArmor(creature->armor.shoes);
+  }
+  
+  if (creature->armor.shield){
+    ac += getEffectiveArmor(creature->armor.shield);
+  }
+  
   return ac;
 }
 

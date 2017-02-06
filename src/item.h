@@ -51,6 +51,15 @@ typedef enum itemClassId{
   ITEM_TYPE_MAX
 } itemClassId;
 
+typedef struct uniqueDataUnderarmor{
+  int i;
+} uniqueDataUnderarmor;
+
+typedef enum underarmorSubClassId{
+  ITEM_UNDERARMOR_CHAINMAIL,
+  ITEM_UNDERARMOR_MAX
+} underarmorSubClassId;
+
 typedef struct uniqueDataShirt{
   int i;
 } uniqueDataShirt;
@@ -120,6 +129,7 @@ typedef struct itemType{
     uniqueDataAxe axeUniqueData;
     uniqueDataDagger daggerUniqueData;
     uniqueDataShirt shirtUniqueData;
+    uniqueDataUnderarmor underarmorUniqueData;
   };
   colorPairs color;
   char dispChar;
@@ -134,6 +144,7 @@ typedef struct item{
     axeSubClassId axeSubClass;
     daggerSubClassId daggerSubClass;
     shirtSubClassId shirtSubClass;
+    underarmorSubClassId underarmorSubClass;
   };
   itemType itemData;
   int damageModifier;

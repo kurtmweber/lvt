@@ -192,6 +192,7 @@ item *randomAxe();
 item *randomDagger();
 item *randomArmor();
 item *randomShirt();
+item *randomUnderarmor();
 #endif
 
 #ifndef _GAME_C
@@ -237,6 +238,7 @@ void initLongswords();
 void initAxes();
 void initDaggers();
 void initShirts();
+void initUnderarmor();
 #endif
 
 #ifndef _ITEMMGMT_C
@@ -247,6 +249,7 @@ colorPairs getItemColor(item *item);
 void setItemName(item *item, char *name);
 void setItemClass(item *item, itemClassId class);
 unsigned int getEffectiveArmor(item *item);
+unsigned int getItemAttrs(item *item);
 #endif
 
 #ifndef _LEVELDISP_C
@@ -380,6 +383,7 @@ item *spawnLongsword(int subClass);
 item *spawnAxe(int subClass);
 item *spawnDagger(int subClass);
 item *spawnShirt(int subClass);
+item *spawnUnderarmor(int subClass);
 #endif
 
 #ifndef _SPECIESINFO_C

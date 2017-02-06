@@ -32,8 +32,35 @@ void initItems(){
   initAxes();
   initDaggers();
   initShirts();
+  initUnderarmor();
   
   return;
+}
+
+void initUnderarmor(){
+ underarmorSubClassId i;
+ char dispChar = ']';
+ 
+ itemTypes[ITEM_TYPE_UNDERARMOR] = calloc(ITEM_UNDERARMOR_MAX, sizeof(itemType));
+ 
+ // underarmor
+ {
+   itemTypes[ITEM_TYPE_UNDERARMOR][ITEM_UNDERARMOR_CHAINMAIL].baseDamage = 0;
+   itemTypes[ITEM_TYPE_UNDERARMOR][ITEM_UNDERARMOR_CHAINMAIL].baseToHit = 0;
+   itemTypes[ITEM_TYPE_UNDERARMOR][ITEM_UNDERARMOR_CHAINMAIL].baseArmor = 5;
+   itemTypes[ITEM_TYPE_UNDERARMOR][ITEM_UNDERARMOR_CHAINMAIL].throwable = false;
+   itemTypes[ITEM_TYPE_UNDERARMOR][ITEM_UNDERARMOR_CHAINMAIL].twoHandedWield = false;
+   itemTypes[ITEM_TYPE_UNDERARMOR][ITEM_UNDERARMOR_CHAINMAIL].fragile = false;
+   itemTypes[ITEM_TYPE_UNDERARMOR][ITEM_UNDERARMOR_CHAINMAIL].itemName = calloc(11, sizeof(char));
+   strcpy(itemTypes[ITEM_TYPE_UNDERARMOR][ITEM_UNDERARMOR_CHAINMAIL].itemName, "chain mail");
+   itemTypes[ITEM_TYPE_UNDERARMOR][ITEM_UNDERARMOR_CHAINMAIL].dispChar = dispChar;
+   itemTypes[ITEM_TYPE_UNDERARMOR][ITEM_UNDERARMOR_CHAINMAIL].color = WhiteBlack;
+   itemTypes[ITEM_TYPE_UNDERARMOR][ITEM_UNDERARMOR_CHAINMAIL].attrs = A_BOLD;
+   itemTypes[ITEM_TYPE_UNDERARMOR][ITEM_UNDERARMOR_CHAINMAIL].weight = 10;
+   itemTypes[ITEM_TYPE_UNDERARMOR][ITEM_UNDERARMOR_CHAINMAIL].possibleSlots = ARMOR_UNDERARMOR;
+ }
+ 
+ return;
 }
 
 void initShirts(){
@@ -41,10 +68,6 @@ void initShirts(){
   char dispChar = ']';
   
   itemTypes[ITEM_TYPE_SHIRT] = calloc(ITEM_SHIRT_MAX, sizeof(itemType));
-  if (!itemTypes[ITEM_TYPE_SHIRT]){
-    perror("fuck you");
-    exit(EXIT_FAILURE);
-  }
   
   // t-shirt
   {
