@@ -18,7 +18,7 @@
 #ifndef _LVT_H
 #define _LVT_H
 
-#define _D_DEBUG
+//#define _D_DEBUG
 
 #include <stdbool.h>
 #include <ncurses.h>
@@ -193,6 +193,7 @@ item *randomDagger();
 item *randomArmor();
 item *randomShirt();
 item *randomUnderarmor();
+item *randomShield();
 #endif
 
 #ifndef _GAME_C
@@ -239,6 +240,8 @@ void initAxes();
 void initDaggers();
 void initShirts();
 void initUnderarmor();
+void initShields();
+void initItemType(itemType *in);
 #endif
 
 #ifndef _ITEMMGMT_C
@@ -384,6 +387,7 @@ item *spawnAxe(int subClass);
 item *spawnDagger(int subClass);
 item *spawnShirt(int subClass);
 item *spawnUnderarmor(int subClass);
+item *spawnShield(int subClass);
 #endif
 
 #ifndef _SPECIESINFO_C

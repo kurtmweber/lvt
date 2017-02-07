@@ -98,7 +98,7 @@ unsigned int calcDefenseVal(creature *defender){
   unsigned int armorClass;
   statList stats;
   
-  armorClass = 0;
+  armorClass = getCreatureArmorClass(defender);
   
   getCreatureCurStats(defender, &stats);
   
@@ -109,7 +109,7 @@ unsigned int toDefend(creature *defender){
   unsigned int armorClass;
   statList stats;
 
-  armorClass = 0;
+  armorClass = getCreatureArmorClass(defender);
   
   getCreatureCurStats(defender, &stats);
   

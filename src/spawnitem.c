@@ -43,6 +43,9 @@ item *spawnItem(itemClassId class, int subClass){
     case ITEM_TYPE_UNDERARMOR:
       item = spawnUnderarmor(subClass);
       break;
+    case ITEM_TYPE_SHIELD:
+      item = spawnShield(subClass);
+      break;
     default:
       return 0;
   }
@@ -57,6 +60,17 @@ item *spawnItem(itemClassId class, int subClass){
   item->owned = false;
   
   return item;
+}
+
+item *spawnShield(int subClass){
+  item *shield;
+  
+  shield = allocateItem();
+  setItemClass(shield, ITEM_TYPE_SHIELD);
+  shield->shieldSubClass = subClass;
+  shield->itemData = itemTypes[ITEM_TYPE_SHIELD][subClass];
+  
+  return shield;
 }
 
 item *spawnUnderarmor(int subClass){

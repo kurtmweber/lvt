@@ -50,7 +50,7 @@ int main(int argc, char *argv[]){
   initializeNcurses();
   initializeColors();
   
-  printw("Lavender Throne version "PACKAGE_VERSION".  Copyright 2016 Kurt Weber");
+  printw("Lavender Throne version "PACKAGE_VERSION".  Copyright 2016-2017 Kurt Weber");
   refresh();
   getch();
   clear();

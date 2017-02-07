@@ -526,13 +526,14 @@ void unwieldWeapon(creature *creature){
   return;
 }
 
-wieldOutcome wieldItem(creature *creature, item *item){
-  if (creature->weapon){
-    creature->weapon->wielded = false;
+wieldOutcome wieldItem(creature *creature, item *item){  
+  if ((creature->armor.shield) && (item->itemData.twoHandedWield)){
+    return WIELD_FAILED_TWOHANDED;
   }
   
-  if (creature->armor.shield){
-    return WIELD_FAILED_TWOHANDED;
+  if (creature->weapon){
+    creature->weapon->wielded = false;
+    creature->weapon = 0;
   }
   
   item->wielded = true;

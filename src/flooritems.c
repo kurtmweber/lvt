@@ -26,8 +26,13 @@ const unsigned int placeItemChance = 100;	// likelihood (out of 10,000) that an 
 const unsigned int weaponLikelihood = 50;	// % chance of a generated item being a weapon
 const unsigned int armorLikelihood = 100;
 
-const unsigned int shirtLikelihood = 50;
-const unsigned int underarmorLikelihood = 100;
+const unsigned int shirtLikelihood = 30;
+const unsigned int underarmorLikelihood = 60;
+const unsigned int shieldLikelihood = 100;
+
+const unsigned int woodenShieldLikelihood = 50;
+const unsigned int steelShieldLikelihood = 80;
+const unsigned int silverShieldLikelihood = 100;
 
 const unsigned int chainmailLikelihood = 100;	// underarmor types
 
@@ -107,6 +112,29 @@ item *randomArmor(){
     return randomShirt();
   } else if (choice <= underarmorLikelihood){
     return randomUnderarmor();
+  } else if (choice <= shieldLikelihood){
+    return randomShield();
+  }
+}
+
+item *randomShield(){
+  static rng localRng;
+  static bool rngInitd = false;
+  unsigned int choice;
+
+  if (!rngInitd){
+    initializeRNG(&localRng);
+    rngInitd = true;
+  }
+  
+  choice = uniformRandomRangeInt(&localRng, 1, 100);
+  
+  if (choice <= woodenShieldLikelihood){
+    return spawnItem(ITEM_TYPE_SHIELD, ITEM_SHIELD_WOOD);
+  } else if (choice <= steelShieldLikelihood){
+    return spawnItem(ITEM_TYPE_SHIELD, ITEM_SHIELD_STEEL);
+  } else if (choice <= silverShieldLikelihood){
+    return spawnItem(ITEM_TYPE_SHIELD, ITEM_SHIELD_SILVER);
   }
 }
 

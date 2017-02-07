@@ -33,18 +33,81 @@ void initItems(){
   initDaggers();
   initShirts();
   initUnderarmor();
+  initShields();
   
   return;
 }
 
+void initShields(){
+  shieldSubClassId i;
+  char dispChar = '[';
+  
+  itemTypes[ITEM_TYPE_SHIELD] = calloc(ITEM_SHIELD_MAX, sizeof(itemType));
+ 
+  // wooden shield
+  {
+    initItemType(&itemTypes[ITEM_TYPE_SHIELD][ITEM_SHIELD_WOOD]);
+    itemTypes[ITEM_TYPE_SHIELD][ITEM_SHIELD_WOOD].baseDamage = 0;
+    itemTypes[ITEM_TYPE_SHIELD][ITEM_SHIELD_WOOD].baseToHit = 0;
+    itemTypes[ITEM_TYPE_SHIELD][ITEM_SHIELD_WOOD].baseArmor = 3;
+    itemTypes[ITEM_TYPE_SHIELD][ITEM_SHIELD_WOOD].throwable = false;
+    itemTypes[ITEM_TYPE_SHIELD][ITEM_SHIELD_WOOD].twoHandedWield = false;
+    itemTypes[ITEM_TYPE_SHIELD][ITEM_SHIELD_WOOD].fragile = false;
+    itemTypes[ITEM_TYPE_SHIELD][ITEM_SHIELD_WOOD].itemName = calloc(14, sizeof(char));
+    strcpy(itemTypes[ITEM_TYPE_SHIELD][ITEM_SHIELD_WOOD].itemName, "wooden shield");
+    itemTypes[ITEM_TYPE_SHIELD][ITEM_SHIELD_WOOD].dispChar = dispChar;
+    itemTypes[ITEM_TYPE_SHIELD][ITEM_SHIELD_WOOD].color = BrownBlack;
+    itemTypes[ITEM_TYPE_SHIELD][ITEM_SHIELD_WOOD].attrs = 0;
+    itemTypes[ITEM_TYPE_SHIELD][ITEM_SHIELD_WOOD].weight = 7;
+    itemTypes[ITEM_TYPE_SHIELD][ITEM_SHIELD_WOOD].possibleSlots = ARMOR_SHIELD;
+  }
+  
+  // steel shield
+  {
+    initItemType(&itemTypes[ITEM_TYPE_SHIELD][ITEM_SHIELD_STEEL]);
+    itemTypes[ITEM_TYPE_SHIELD][ITEM_SHIELD_STEEL].baseDamage = 0;
+    itemTypes[ITEM_TYPE_SHIELD][ITEM_SHIELD_STEEL].baseToHit = 0;
+    itemTypes[ITEM_TYPE_SHIELD][ITEM_SHIELD_STEEL].baseArmor = 5;
+    itemTypes[ITEM_TYPE_SHIELD][ITEM_SHIELD_STEEL].throwable = false;
+    itemTypes[ITEM_TYPE_SHIELD][ITEM_SHIELD_STEEL].twoHandedWield = false;
+    itemTypes[ITEM_TYPE_SHIELD][ITEM_SHIELD_STEEL].fragile = false;
+    itemTypes[ITEM_TYPE_SHIELD][ITEM_SHIELD_STEEL].itemName = calloc(13, sizeof(char));
+    strcpy(itemTypes[ITEM_TYPE_SHIELD][ITEM_SHIELD_STEEL].itemName, "steel shield");
+    itemTypes[ITEM_TYPE_SHIELD][ITEM_SHIELD_STEEL].dispChar = dispChar;
+    itemTypes[ITEM_TYPE_SHIELD][ITEM_SHIELD_STEEL].color = WhiteBlack;
+    itemTypes[ITEM_TYPE_SHIELD][ITEM_SHIELD_STEEL].attrs = 0;
+    itemTypes[ITEM_TYPE_SHIELD][ITEM_SHIELD_STEEL].weight = 10;
+    itemTypes[ITEM_TYPE_SHIELD][ITEM_SHIELD_STEEL].possibleSlots = ARMOR_SHIELD;
+  }
+  
+  // silver shield
+  {
+    initItemType(&itemTypes[ITEM_TYPE_SHIELD][ITEM_SHIELD_SILVER]);
+    itemTypes[ITEM_TYPE_SHIELD][ITEM_SHIELD_SILVER].baseDamage = 0;
+    itemTypes[ITEM_TYPE_SHIELD][ITEM_SHIELD_SILVER].baseToHit = 0;
+    itemTypes[ITEM_TYPE_SHIELD][ITEM_SHIELD_SILVER].baseArmor = 6;
+    itemTypes[ITEM_TYPE_SHIELD][ITEM_SHIELD_SILVER].throwable = false;
+    itemTypes[ITEM_TYPE_SHIELD][ITEM_SHIELD_SILVER].twoHandedWield = false;
+    itemTypes[ITEM_TYPE_SHIELD][ITEM_SHIELD_SILVER].fragile = false;
+    itemTypes[ITEM_TYPE_SHIELD][ITEM_SHIELD_SILVER].itemName = calloc(14, sizeof(char));
+    strcpy(itemTypes[ITEM_TYPE_SHIELD][ITEM_SHIELD_SILVER].itemName, "silver shield");
+    itemTypes[ITEM_TYPE_SHIELD][ITEM_SHIELD_SILVER].dispChar = dispChar;
+    itemTypes[ITEM_TYPE_SHIELD][ITEM_SHIELD_SILVER].color = WhiteBlack;
+    itemTypes[ITEM_TYPE_SHIELD][ITEM_SHIELD_SILVER].attrs = A_BOLD;
+    itemTypes[ITEM_TYPE_SHIELD][ITEM_SHIELD_SILVER].weight = 15;
+    itemTypes[ITEM_TYPE_SHIELD][ITEM_SHIELD_SILVER].possibleSlots = ARMOR_SHIELD;
+  }
+  return;
+}
+
 void initUnderarmor(){
- underarmorSubClassId i;
  char dispChar = ']';
  
  itemTypes[ITEM_TYPE_UNDERARMOR] = calloc(ITEM_UNDERARMOR_MAX, sizeof(itemType));
  
  // underarmor
  {
+   initItemType(&itemTypes[ITEM_TYPE_UNDERARMOR][ITEM_UNDERARMOR_CHAINMAIL]);
    itemTypes[ITEM_TYPE_UNDERARMOR][ITEM_UNDERARMOR_CHAINMAIL].baseDamage = 0;
    itemTypes[ITEM_TYPE_UNDERARMOR][ITEM_UNDERARMOR_CHAINMAIL].baseToHit = 0;
    itemTypes[ITEM_TYPE_UNDERARMOR][ITEM_UNDERARMOR_CHAINMAIL].baseArmor = 5;
@@ -64,13 +127,13 @@ void initUnderarmor(){
 }
 
 void initShirts(){
-  shirtSubClassId i;
   char dispChar = ']';
   
   itemTypes[ITEM_TYPE_SHIRT] = calloc(ITEM_SHIRT_MAX, sizeof(itemType));
   
   // t-shirt
   {
+    initItemType(&itemTypes[ITEM_TYPE_SHIRT][ITEM_SHIRT_HAWAIIAN]);
     itemTypes[ITEM_TYPE_SHIRT][ITEM_SHIRT_TSHIRT].baseDamage = 0;
     itemTypes[ITEM_TYPE_SHIRT][ITEM_SHIRT_TSHIRT].baseToHit = 0;
     itemTypes[ITEM_TYPE_SHIRT][ITEM_SHIRT_TSHIRT].baseArmor = 1;
@@ -88,6 +151,7 @@ void initShirts(){
   
   // Hawaiian shirt
   {
+    initItemType(&itemTypes[ITEM_TYPE_SHIRT][ITEM_SHIRT_HAWAIIAN]);
     itemTypes[ITEM_TYPE_SHIRT][ITEM_SHIRT_HAWAIIAN].baseDamage = 0;
     itemTypes[ITEM_TYPE_SHIRT][ITEM_SHIRT_HAWAIIAN].baseToHit = 0;
     itemTypes[ITEM_TYPE_SHIRT][ITEM_SHIRT_HAWAIIAN].baseArmor = 1;
@@ -107,13 +171,13 @@ void initShirts(){
 }
 
 void initDaggers(){
-  axeSubClassId i;
   char dispChar = '/';
   
   itemTypes[ITEM_TYPE_DAGGER] = calloc(ITEM_DAGGER_MAX, sizeof(itemType));
   
   // stiletto dagger
   {
+    initItemType(&itemTypes[ITEM_TYPE_DAGGER][ITEM_DAGGER_STILETTO]);
     itemTypes[ITEM_TYPE_DAGGER][ITEM_DAGGER_STILETTO].baseDamage = 2;
     itemTypes[ITEM_TYPE_DAGGER][ITEM_DAGGER_STILETTO].baseToHit = 20;
     itemTypes[ITEM_TYPE_DAGGER][ITEM_DAGGER_STILETTO].baseArmor = 0;
@@ -131,6 +195,7 @@ void initDaggers(){
   
   // baselard dagger
   {
+    initItemType(&itemTypes[ITEM_TYPE_DAGGER][ITEM_DAGGER_BASELARD]);
     itemTypes[ITEM_TYPE_DAGGER][ITEM_DAGGER_BASELARD].baseDamage = 4;
     itemTypes[ITEM_TYPE_DAGGER][ITEM_DAGGER_BASELARD].baseToHit = 15;
     itemTypes[ITEM_TYPE_DAGGER][ITEM_DAGGER_BASELARD].baseArmor = 0;
@@ -150,13 +215,13 @@ void initDaggers(){
 }
 
 void initAxes(){
-  axeSubClassId i;
   char dispChar = '/';
   
   itemTypes[ITEM_TYPE_AXE] = calloc(ITEM_AXE_MAX, sizeof(itemType));
   
   // throwing axe
   {
+    initItemType(&itemTypes[ITEM_TYPE_AXE][ITEM_AXE_THROWING]);
     itemTypes[ITEM_TYPE_AXE][ITEM_AXE_THROWING].baseDamage = 3;
     itemTypes[ITEM_TYPE_AXE][ITEM_AXE_THROWING].baseToHit = 7;
     itemTypes[ITEM_TYPE_AXE][ITEM_AXE_THROWING].baseArmor = 0;
@@ -174,6 +239,7 @@ void initAxes(){
   
   // battle axe
   {
+    initItemType(&itemTypes[ITEM_TYPE_AXE][ITEM_AXE_BATTLE]);
     itemTypes[ITEM_TYPE_AXE][ITEM_AXE_BATTLE].baseDamage = 9;
     itemTypes[ITEM_TYPE_AXE][ITEM_AXE_BATTLE].baseToHit = 5;
     itemTypes[ITEM_TYPE_AXE][ITEM_AXE_BATTLE].baseArmor = 0;
@@ -193,13 +259,13 @@ void initAxes(){
 }
 
 void initLongswords(){
-  longswordSubClassId i;
   char dispChar = '/';
   
   itemTypes[ITEM_TYPE_LONGSWORD] = calloc(ITEM_LONGSWORD_MAX, sizeof(itemType));
   
   // steel longsword
   {
+    initItemType(&itemTypes[ITEM_TYPE_LONGSWORD][ITEM_LONGSWORD_STEEL]);
     itemTypes[ITEM_TYPE_LONGSWORD][ITEM_LONGSWORD_STEEL].baseDamage = 5;
     itemTypes[ITEM_TYPE_LONGSWORD][ITEM_LONGSWORD_STEEL].baseToHit = 4;
     itemTypes[ITEM_TYPE_LONGSWORD][ITEM_LONGSWORD_STEEL].baseArmor = 0;
@@ -219,6 +285,7 @@ void initLongswords(){
   
   // silver longsword
   {
+    initItemType(&itemTypes[ITEM_TYPE_LONGSWORD][ITEM_LONGSWORD_SILVER]);
     itemTypes[ITEM_TYPE_LONGSWORD][ITEM_LONGSWORD_SILVER].baseDamage = 7;
     itemTypes[ITEM_TYPE_LONGSWORD][ITEM_LONGSWORD_SILVER].baseToHit = 3;
     itemTypes[ITEM_TYPE_LONGSWORD][ITEM_LONGSWORD_SILVER].baseArmor = 0;
@@ -245,6 +312,7 @@ void initCorpses(){
   itemTypes[ITEM_TYPE_CORPSE] = calloc(ITEM_CORPSE_MAX, sizeof(itemType));
   
   for (i = 0; i < ITEM_CORPSE_MAX; i++){
+    initItemType(&itemTypes[ITEM_TYPE_CORPSE][i]);
     itemTypes[ITEM_TYPE_CORPSE][i].baseDamage = 0;
     itemTypes[ITEM_TYPE_CORPSE][i].baseArmor = 0;
     itemTypes[ITEM_TYPE_CORPSE][i].baseToHit = 0;
@@ -260,5 +328,21 @@ void initCorpses(){
     itemTypes[ITEM_TYPE_CORPSE][i].possibleSlots = 0;
   }
   
+  return;
+}
+
+void initItemType(itemType *in){
+  in->itemName = 0;
+  in->baseDamage = 0;
+  in->baseToHit = 0;
+  in->baseArmor = 0;
+  in->weight = 0;
+  in->throwable = false;
+  in->twoHandedWield = false;
+  in->fragile = false;
+  in->possibleSlots = 0;
+  in->color = 0;
+  in->dispChar = 0;
+  in->attrs = 0;
   return;
 }
