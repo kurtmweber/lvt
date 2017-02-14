@@ -165,6 +165,43 @@ int inventoryLetterToIndex(char c){
   }
 }
 
+void directionToUnitMatrix(moveDirection dir, moveMatrix *matrix){
+  matrix->x = 0;
+  matrix->y = 0;
+  
+  switch (dir){
+    case UP:
+    case UPLEFT:
+    case UPRIGHT:
+      matrix->y = -1;
+      break;
+    case DOWN:
+    case DOWNLEFT:
+    case DOWNRIGHT:
+      matrix->y = 1;
+      break;
+    default:
+      break;
+  }
+  
+  switch (dir){
+    case UPLEFT:
+    case LEFT:
+    case DOWNLEFT:
+      matrix->x = -1;
+      break;
+    case UPRIGHT:
+    case RIGHT:
+    case DOWNRIGHT:
+      matrix->x = 1;
+      break;
+    default:
+      break;
+  }
+  
+  return;
+}
+
 bool isInventoryLetter(char c){
   item *inventory[52];
   

@@ -497,6 +497,10 @@ void removeCreatureInventoryItem(creature *creature, item *item){
   item->wielded = false;
   item->owned = false;
   
+  if (creature->weapon == item){
+    creature->weapon = 0;
+  }
+  
   for (i = 0; i < 52; i++){
     if (creature->inventory[i] == item){
       creature->inventory[i] = 0;

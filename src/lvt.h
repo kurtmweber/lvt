@@ -225,6 +225,8 @@ void doUnwield();
 void doDrop();
 void doWear();
 void doRemove();
+void displayInventoryWindow(unsigned int i, bool checked[52]);
+extern WINDOW *invWin;
 #else
 void displayInventoryWindow(unsigned int i, bool checked[52]);
 #endif
@@ -253,6 +255,7 @@ void setItemName(item *item, char *name);
 void setItemClass(item *item, itemClassId class);
 unsigned int getEffectiveArmor(item *item);
 unsigned int getItemAttrs(item *item);
+unsigned int getItemWeight(item *item);
 #endif
 
 #ifndef _LEVELDISP_C
@@ -407,6 +410,13 @@ void initSpeciesDataDwarf();
 #else
 #endif
 
+#ifndef _THROW_C
+void doThrow();
+void throwObject(creature *creature, moveDirection dir, item *item);
+#else
+void calcRicochetDirection(coord3D pos, moveMatrix *move);
+#endif
+
 #ifndef _UTIL_C
 int clampRangeIntSigned(int value, int min, int max);
 bool sameFactions(creature *creature1, creature *creature2);
@@ -417,6 +427,7 @@ char *autoGenerateCorpseName(creature *creature);
 char inventoryIndexToLetter(char c);
 bool isInventoryLetter(char c);
 int inventoryLetterToIndex(char c);
+void directionToUnitMatrix(moveDirection dir, moveMatrix *matrix);
 #else
 #endif
 

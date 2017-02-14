@@ -149,6 +149,9 @@ void processKey(unsigned int c){
     case 'r':
       doRemove();
       break;
+    case 't':
+      doThrow();
+      break;
     default:
       freeAction = true;
       break;

@@ -40,6 +40,11 @@ typedef struct coord3D{
   unsigned int level;
 } coord3D;
 
+typedef struct moveMatrix{
+  int x;
+  int y;
+} moveMatrix;
+
 typedef enum color{
   RED,
   WHITE,

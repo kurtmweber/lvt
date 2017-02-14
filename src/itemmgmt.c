@@ -77,3 +77,15 @@ unsigned int getEffectiveArmor(item *item){
 unsigned int getItemAttrs(item *item){
   return item->itemData.attrs;
 }
+
+unsigned int getItemWeight(item *item){
+  int retval;
+  
+  retval = ((int)(item->itemData.weight) + item->weightModifier);
+  
+  if (retval < 0){
+    return 0;
+  } else {
+    return (unsigned int)retval;
+  }
+}

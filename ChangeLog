@@ -1,4 +1,5 @@
 for version 0.7
+  * objects can now be thrown (kmw, 2017-02-13)
   * added shields (kmw, 2017-02-06)
   * added chain mail underarmor (kmw, 2017-02-05)
   * armor can be worn and removed (kmw, 2017-02-05)
