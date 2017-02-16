@@ -82,7 +82,7 @@ void doMoveKey(unsigned int c){
       }
       
       freeAction = false;
-      switch(attack(&player, target)){
+      switch(meleeAttack(&player, target)){
 	case ATTACK_MISSED:
 	  addToMsgQueue(ATTACK_MISSED_MSG, false);
 	  break;

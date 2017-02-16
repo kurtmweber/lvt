@@ -21,17 +21,22 @@
 #include "lvt.h"
 #include "messages.h"
 
-unsigned int attack(creature *attacker, creature *defender){
+/* unsigned int throwAttack(creature *attacker, creature *defender, item *weapon){
+  if (weapon->itemData.throwable){
+    attack(attacker, defender, weapon);
+  }
   
-  unsigned int toHitVal, toDefendVal;
+  return 0;
+} */
+
+unsigned int attack(creature *attacker, creature *defender, unsigned int toHitVal, unsigned int toDefendVal, unsigned int attackVal, unsigned int defenseVal){
   unsigned int toHitRoll, toDefendRoll;
-  unsigned int attackVal, defenseVal;
   unsigned int attackRoll, defenseRoll;
   unsigned int damage;
   unsigned int defenderCurHp;
   unsigned int attackerXp, defenderXp;
   static rng localRng;
-  static bool rngInitd = false;
+  static bool rngInitd = false;  
   
 #ifndef _D_DEBUG
   
@@ -39,19 +44,13 @@ unsigned int attack(creature *attacker, creature *defender){
     initializeRNG(&localRng);
     rngInitd = true;
     }
-  
-  toHitVal = toHit(attacker);
-  toDefendVal = toDefend(defender);
-  
+    
   toHitRoll = uniformRandomRangeInt(&localRng, 0, toHitVal);
   toDefendRoll = uniformRandomRangeInt(&localRng, 0, toDefendVal);
   
   if (toHitRoll <= toDefendRoll){
     return ATTACK_MISSED;
   }
-  
-  attackVal = calcAttackVal(attacker);
-  defenseVal = calcDefenseVal(defender);
   
   attackRoll = uniformRandomRangeInt(&localRng, 0, attackVal);
   defenseRoll = uniformRandomRangeInt(&localRng, 0, defenseVal);
@@ -79,7 +78,20 @@ unsigned int attack(creature *attacker, creature *defender){
 #endif
 }
 
-unsigned int calcAttackVal(creature *attacker){
+unsigned int meleeAttack(creature *attacker, creature *defender){
+  unsigned int toHitVal, toDefendVal;
+  unsigned int attackVal, defenseVal;
+
+  toHitVal = toHit(attacker, attacker->weapon);
+  toDefendVal = toDefend(defender);
+  
+  attackVal = calcAttackVal(attacker, attacker->weapon);
+  defenseVal = calcDefenseVal(defender);
+  
+  return attack(attacker, defender, toHitVal, toDefendVal, attackVal, defenseVal);
+}
+
+unsigned int calcAttackVal(creature *attacker, item *weapon){
   unsigned int weaponDamage;
   statList stats;
   
@@ -116,11 +128,11 @@ unsigned int toDefend(creature *defender){
   return armorClass + stats.dexterity + stats.intelligence + stats.wisdom + getCreatureXp(defender);
 }
 
-unsigned int toHit(creature *attacker){
+unsigned int toHit(creature *attacker, item *weapon){
   unsigned int weaponToHit;
   statList stats;
 
-  if (attacker->weapon){
+  if (weapon){
     weaponToHit = attacker->weapon->itemData.baseToHit + attacker->weapon->toHitModifier;
   } else {
     weaponToHit = 1;	// bare-handed combat

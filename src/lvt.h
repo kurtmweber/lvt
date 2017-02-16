@@ -44,12 +44,13 @@ mapSpaceContents *allocateMapSpaceContentsListEntry();
 #endif
 
 #ifndef _ATTACK_C
-unsigned int attack(creature *attacker, creature *defender);
+unsigned int meleeAttack(creature *attacker, creature *defender);
 #else
-unsigned int toHit(creature *attacker);
+unsigned int toHit(creature *attacker, item *weapon);
 unsigned int toDefend(creature *defender);
-unsigned int calcAttackVal(creature *attacker);
+unsigned int calcAttackVal(creature *attacker, item *weapon);
 unsigned int calcDefenseVal(creature *defender);
+unsigned int attack(creature *attacker, creature *defender, unsigned int toHitVal, unsigned int toDefendVal, unsigned int attackVal, unsigned int defenseVal);
 #endif
 
 #ifndef _CHARGEN_C
