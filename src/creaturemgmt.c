@@ -706,6 +706,10 @@ void killCreature(creature *creature){
   item *creatureCorpse;
   char *corpseName;
   
+  if (creature == &player){
+    playerDead();
+  }
+  
   creatureLoc = getCreatureLocation(creature);
   
   clearCreatureOccupant(dungeon[creatureLoc.level], creatureLoc.x, creatureLoc.y);

@@ -21,13 +21,23 @@
 #include "lvt.h"
 #include "messages.h"
 
-/* unsigned int throwAttack(creature *attacker, creature *defender, item *weapon){
+unsigned int throwAttack(creature *attacker, creature *defender, item *weapon, unsigned int distanceLeft){
+  unsigned int toHitVal, toDefendVal;
+  unsigned int attackVal, defenseVal;
+  
+  toHitVal = toHit(attacker, weapon);
+  
   if (weapon->itemData.throwable){
-    attack(attacker, defender, weapon);
+    attackVal = calcAttackVal(attacker, weapon);
+  } else {
+    attackVal = distanceLeft * weapon->itemData.weight;
   }
   
-  return 0;
-} */
+  toDefendVal = toDefend(defender);
+  defenseVal = calcDefenseVal(defender);
+  
+  return attack(attacker, defender, toHitVal, toDefendVal, attackVal, defenseVal);
+}
 
 unsigned int attack(creature *attacker, creature *defender, unsigned int toHitVal, unsigned int toDefendVal, unsigned int attackVal, unsigned int defenseVal){
   unsigned int toHitRoll, toDefendRoll;
@@ -38,7 +48,7 @@ unsigned int attack(creature *attacker, creature *defender, unsigned int toHitVa
   static rng localRng;
   static bool rngInitd = false;  
   
-#ifndef _D_DEBUG
+//#ifndef _D_DEBUG
   
   if (!rngInitd){
     initializeRNG(&localRng);
@@ -67,15 +77,15 @@ unsigned int attack(creature *attacker, creature *defender, unsigned int toHitVa
     setCreatureCurHp(defender, defenderCurHp - damage);
     return ATTACK_SUCCEEDED;
   } else {
-#endif
+//#endif
     defenderXp = MAX(getCreatureXp(defender), 1);	// always get at least 1 xp for a kill
     attackerXp = getCreatureXp(attacker);
     setCreatureLevelHpXp(attacker, attackerXp + defenderXp);
     killCreature(defender);	// can't kill the defender before we get the data we need from them
     return ATTACK_KILLED;
-#ifndef _D_DEBUG
+//#ifndef _D_DEBUG
   }
-#endif
+//#endif
 }
 
 unsigned int meleeAttack(creature *attacker, creature *defender){
@@ -95,8 +105,8 @@ unsigned int calcAttackVal(creature *attacker, item *weapon){
   unsigned int weaponDamage;
   statList stats;
   
-  if (attacker->weapon){
-    weaponDamage = attacker->weapon->itemData.baseDamage + attacker->weapon->damageModifier;
+  if (weapon){
+    weaponDamage = weapon->itemData.baseDamage + weapon->damageModifier;
   } else {
     weaponDamage = 1;	// bare-handed combat
   }
@@ -133,7 +143,7 @@ unsigned int toHit(creature *attacker, item *weapon){
   statList stats;
 
   if (weapon){
-    weaponToHit = attacker->weapon->itemData.baseToHit + attacker->weapon->toHitModifier;
+    weaponToHit = weapon->itemData.baseToHit + weapon->toHitModifier;
   } else {
     weaponToHit = 1;	// bare-handed combat
   }

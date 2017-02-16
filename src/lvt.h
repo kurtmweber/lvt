@@ -45,6 +45,7 @@ mapSpaceContents *allocateMapSpaceContentsListEntry();
 
 #ifndef _ATTACK_C
 unsigned int meleeAttack(creature *attacker, creature *defender);
+unsigned int throwAttack(creature *attacker, creature *defender, item *weapon, unsigned int distanceLeft);
 #else
 unsigned int toHit(creature *attacker, item *weapon);
 unsigned int toDefend(creature *defender);
@@ -199,6 +200,7 @@ item *randomShield();
 
 #ifndef _GAME_C
 void startGame();
+void playerDead();
 extern bool freeAction;
 #else
 void gameLoop();

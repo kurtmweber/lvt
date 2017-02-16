@@ -23,7 +23,9 @@
 #include <stdbool.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include "attack.h"
 #include "lvt.h"
+#include "messages.h"
 #include "move.h"
 
 void throwObject(creature *creature, moveDirection dir, item *item){
@@ -78,8 +80,8 @@ void throwObject(creature *creature, moveDirection dir, item *item){
     usleep(250000);
     
     
-    /*if (hasCreatureOccupant(pos.level, pos.x, pos.y)){
-      switch(throwAttack(creature, getCreatureOccupant(pos.x, pos.y), item){
+    if (hasCreatureOccupant(dungeon[pos.level], pos.x, pos.y)){
+      switch(throwAttack(creature, getCreatureOccupant(dungeon[pos.level], pos.x, pos.y), item, distance)){
 	case ATTACK_MISSED:
 	  addToMsgQueue(ATTACK_MISSED_MSG, false);
 	  break;
@@ -94,7 +96,9 @@ void throwObject(creature *creature, moveDirection dir, item *item){
 	default:
 	  break;
       }
-    } */
+      
+      return;
+    }
   }
   
   return;

@@ -1,4 +1,6 @@
 for version 0.7
+  * release (kmw, 2017-02-15)
+  * thrown objects now do damage when they hit a creature (kmw, 2017-02-15)
   * set weight of corpses when they are spawned after creature is killed (kmw, 2017-02-15)
   * refactored attack code to make different types of attacks easier to add (kmw, 2017-02-15)
   * objects can now be thrown (kmw, 2017-02-13)

@@ -53,6 +53,14 @@ bool doQuit(){
   return true;
 }
 
+void playerDead(){
+  addToMsgQueue("You are dead.  Game over.", true);
+  procMsgQueue();
+  
+  doQuit();
+  return;
+}
+
 void updateTurnCounter(){
   status.speedCounter--;
   
