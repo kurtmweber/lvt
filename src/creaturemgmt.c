@@ -718,6 +718,7 @@ void killCreature(creature *creature){
   
   corpseName = autoGenerateCorpseName(creature);
   setItemName(creatureCorpse, corpseName);
+  setItemWeight(creatureCorpse, speciesData[getCreatureSpecies(creature)].weight);
   
   cNode = findCreatureListEntry(creatures, creature);
   removeCreatureNode(creatures, cNode);

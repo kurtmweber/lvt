@@ -89,3 +89,8 @@ unsigned int getItemWeight(item *item){
     return (unsigned int)retval;
   }
 }
+
+void setItemWeight(item *item, unsigned int weight){
+  item->itemData.weight = weight;
+  return;
+}

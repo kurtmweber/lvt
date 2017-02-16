@@ -257,6 +257,7 @@ void setItemClass(item *item, itemClassId class);
 unsigned int getEffectiveArmor(item *item);
 unsigned int getItemAttrs(item *item);
 unsigned int getItemWeight(item *item);
+void setItemWeight(item *item, unsigned int weight);
 #endif
 
 #ifndef _LEVELDISP_C
