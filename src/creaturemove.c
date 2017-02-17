@@ -25,17 +25,28 @@ const unsigned int straightMoveChance = 900;	// Likelihood (out of 1000) that a 
 
 void moveCreatures(){
   creatureList *curCreatureNode;
+  creature *curCreature;
   unsigned long long i;
   char numCreatures[32];
   
   curCreatureNode = creatures;
   
   do {
-    incrementCreatureSpeedCounter(curCreatureNode->creature, getCreatureSpeed(curCreatureNode->creature));
-    while (hasAction(curCreatureNode->creature)){
-      doMoveCreature(curCreatureNode->creature);
+    curCreature = curCreatureNode->creature;
+    incrementCreatureSpeedCounter(curCreature, getCreatureSpeed(curCreature));
+    while (hasAction(curCreature)){
+      doMoveCreature(curCreature);
     }
+    
+    // we have to do this before we update the life cycle, because if the creature dies as a result of
+    // the update, the current node in the creature list is destroyed.
     curCreatureNode = curCreatureNode->next;
+    
+    if (!updateCreatureLifeCycle(curCreature)){
+      killCreature(curCreature);
+    }
+      
+
   } while (curCreatureNode);
   
   return;

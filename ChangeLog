@@ -1,3 +1,6 @@
+for version 0.8
+  * update life cycle for non-player creatures (kmw, 2017-02-16)
+
 for version 0.7
   * release (kmw, 2017-02-15)
   * thrown objects now do damage when they hit a creature (kmw, 2017-02-15)
