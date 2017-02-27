@@ -18,6 +18,7 @@
 #ifndef _SPECIES_H
 #define _SPECIES_H
 
+#include <stdbool.h>
 #include "colors.h"
 
 typedef enum creatureStats{
@@ -45,6 +46,35 @@ typedef enum creatureSpecies{
   //GOBLIN,
   MAXCREATURESPECIES
 } creatureSpecies;
+
+typedef enum plantSpecies{
+  BLUEBERRY,
+  /*BLACKBERRY,
+  FENNEL,
+  HIBISCUS,
+  LINDEN,
+  ZOYSIA,*/
+  MAXPLANTSPECIES
+} plantSpecies;
+
+typedef enum plantClass{
+  BERRYBUSH,
+  LEAFYBUSH,
+  GRASS,
+  MAXPLANTCLASS
+} plantClass;
+
+typedef struct plantSpeciesInfo{
+  unsigned int toughness;
+  unsigned int growthRate;
+  unsigned int productionTime;
+  unsigned int maturityLevel;
+  unsigned int maxProduction;
+  plantClass plantClass;
+  char dispChar;
+  colorPairs color;
+} plantSpeciesInfo;
+  
 
 typedef struct speciesActions{
 } speciesActions;

@@ -33,6 +33,7 @@ screenDisplayCell *generateLevelRepresentation(level level, unsigned int line){
   char c = 0;
   creature *creatureOccupant;
   mapSpaceContents *contents;
+  plant *plantOccupant;
   
   mapLine = calloc(dimMapX + 1, sizeof(screenDisplayCell));
   
@@ -57,6 +58,10 @@ screenDisplayCell *generateLevelRepresentation(level level, unsigned int line){
 	mapLine[x].hasAttrs = true;
 	mapLine[x].attrs = COLOR_PAIR(getItemColor(contents->item)) | getItemAttrs(contents->item);
       } else if (hasPlantOccupant(level, x, line)){
+	plantOccupant = getPlantOccupant(level, x, line);
+	mapLine[x].dispChar = getPlantDispChar(plantOccupant);
+	mapLine[x].hasAttrs = true;
+	mapLine[x].attrs = COLOR_PAIR(getPlantColor(plantOccupant));
       } else {
 	  switch (getMapSpaceTerrain(level, x, line)){
 	    case WALL:

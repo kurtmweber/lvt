@@ -28,6 +28,7 @@
 const double pi = 3.141592;
 creature player;
 creatureList *creatures;
+plantList *plants;
 map dungeon;
 gameStatus status;
 
@@ -38,6 +39,7 @@ int main(int argc, char *argv[]){
   
   initializeLevelGen();
   initSpeciesData();
+  initPlantSpeciesData();
   initItems();
   initializeFactions();
   
@@ -45,6 +47,7 @@ int main(int argc, char *argv[]){
   
   dungeon = generateMap();
   creatures = generateStartingCreatures();
+  plants = generateStartingPlants();
   generateFloorItems();
   
   initializeNcurses();

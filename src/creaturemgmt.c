@@ -772,3 +772,31 @@ bool hasWeapon(creature *creature){
     return false;
   }
 }
+
+void regenerateHitPoints(creature *creature){
+  unsigned int strength;
+  unsigned int constitution;
+  unsigned int chp;
+  statList stats;
+  static rng localRng;
+  static bool rngInitd = false;
+  unsigned int num;
+  
+  if (!rngInitd){
+    initializeRNG(&localRng);
+    rngInitd = true;
+  }
+  
+  getCreatureCurStats(creature, &stats);
+  strength = stats.strength;
+  constitution = stats.constitution;
+  
+  chp = getCreatureCurHp(creature);
+  
+  num = uniformRandomRangeInt(&localRng, 1, strength + constitution + chp);
+  if (num > strength + constitution){
+    setCreatureCurHp(creature, chp + 1);
+  }
+  
+  return;
+}

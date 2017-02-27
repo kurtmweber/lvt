@@ -18,9 +18,12 @@
 #define _SPECIESINFO_C
 
 #include "lvt.h"
+#include "colors.h"
 #include "creature.h"
+#include "plant.h"
 
 speciesInfo speciesData[MAXCREATURESPECIES];
+plantSpeciesInfo plantSpeciesData[MAXPLANTSPECIES];
 
 void getSpeciesModifiers(creatureSpecies species, statList *list){
   list->strength = speciesData[species].statModifiers[STRENGTH];
@@ -131,17 +134,41 @@ void initSpeciesDataHuman(){
 void initSpeciesData(){
   unsigned int i;
   
+  for (i = 0; i < MAXCREATURESPECIES; i++){
+    speciesData[i].lifePace = 1000;
+    speciesData[i].baseHp = 20;
+    speciesData[i].speed = 5;
+  }
+  
   initSpeciesDataHuman();
   initSpeciesDataHalfling();
   initSpeciesDataElf();
   initSpeciesDataDwarf();
   initSpeciesDataBear();
   
-  for (i = 0; i < MAXCREATURESPECIES; i++){
-    speciesData[i].lifePace = 1000;
-    speciesData[i].baseHp = 20;
-    speciesData[i].speed = 5;
-  }
+  return;
+}
+
+void initSpeciesDataBlueberry(){
+  plantSpeciesData[BLUEBERRY].toughness = 12;
+  plantSpeciesData[BLUEBERRY].growthRate = 3;
+  plantSpeciesData[BLUEBERRY].productionTime = 50;
+  plantSpeciesData[BLUEBERRY].maturityLevel = 300;
+  plantSpeciesData[BLUEBERRY].maxProduction = 10;
+  plantSpeciesData[BLUEBERRY].plantClass = BERRYBUSH;
+  plantSpeciesData[BLUEBERRY].dispChar = ':';
+  plantSpeciesData[BLUEBERRY].color = BlueBlack;
+  
+  return;
+}
+
+void initPlantSpeciesData(){
+  initSpeciesDataBlueberry();
+  /*initSpeciesDataBlackberry();
+  initSpeciesDataFennel();
+  initSpeciesDataHibiscus();
+  initSpeciesDataLinden();
+  initSpeciesDataZoysia();*/
   
   return;
 }

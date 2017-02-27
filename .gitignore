@@ -2,8 +2,6 @@
 *~
 *.o
 src/*.o
-Makefile.in
-src/Makefile.in
 src/.deps
 src/.deps/*
 .gitignore

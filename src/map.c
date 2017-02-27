@@ -154,6 +154,12 @@ bool hasPlantOccupant(level level, unsigned int x, unsigned int y){
   }
 }
 
+void setPlantOccupant(level level, unsigned int x, unsigned int y, plant *plant){
+  level[x][y].plantOccupant = plant;
+  
+  return;
+}
+
 bool hasCreatureOccupant(level level, unsigned int x, unsigned int y){
   if (level[x][y].creatureOccupant){
     return true;
@@ -176,6 +182,10 @@ void clearCreatureOccupant(level level, unsigned int x, unsigned int y){
 
 creature *getCreatureOccupant(level level, unsigned int x, unsigned int y){
   return level[x][y].creatureOccupant;
+}
+
+plant *getPlantOccupant(level level, unsigned x, unsigned int y){
+  return level[x][y].plantOccupant;
 }
 
 void updateRegionExploredState(level level, unsigned int x, unsigned int y, bool state){

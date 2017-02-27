@@ -21,6 +21,7 @@
 #include "creature.h"
 #include "item.h"
 #include "level.h"
+#include "plant.h"
 
 creatureList *allocateCreatureListEntry(){
   creatureList *node;
@@ -28,6 +29,16 @@ creatureList *allocateCreatureListEntry(){
   node = (creatureList *)calloc(1, sizeof(creatureList));
   
   node->creature = (creature *)calloc(1, sizeof(creature));
+  
+  return node;
+}
+
+plantList *allocatePlantListEntry(){
+  plantList *node;
+  
+  node = (plantList *)calloc(1, sizeof(plantList));
+  
+  node->plant = (plant *)calloc(1, sizeof(plant));
   
   return node;
 }

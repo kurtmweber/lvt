@@ -29,6 +29,7 @@
 #include "move.h"
 #include "item.h"
 #include "creaturemgmt.h"
+#include "plant.h"
 
 #define MAX(a, b) (a < b ? b : a)
 #define MIN(a, b) (a > b ? b : a)
@@ -40,6 +41,7 @@ creatureList *allocateCreatureListEntry();
 void freeCreatureListEntry(creatureList *node);
 item *allocateItem();
 mapSpaceContents *allocateMapSpaceContentsListEntry();
+plantList *allocatePlantListEntry();
 #else
 #endif
 
@@ -150,6 +152,7 @@ void removeCreatureInventoryItem(creature *creature, item *item);
 wearOutcome wearItem(creature *creature, item *item);
 unsigned int getCreatureArmorClass(creature *creature);
 removeOutcome removeItem(creature *creature, item *item);
+void regenerateHitPoints(creature *creature);
 #else
 bool updateCreatureLifeCycleNotMatured(creature *creature);
 bool updateCreatureLifeCycleMatured(creature *creature);
@@ -307,6 +310,7 @@ extern creature player;
 extern map dungeon;
 extern gameStatus status;
 extern creatureList *creatures;
+extern plantList *plants;
 #else
 #endif
 
@@ -328,6 +332,8 @@ void *getTerrainData(level level, unsigned int x, unsigned int y, terrain terrai
 coord2D findLevelDownstair(level level);
 void addContents(level level, unsigned int x, unsigned int y, item *item);
 mapSpaceContents *getContents(level level, unsigned int x, unsigned int y);
+void setPlantOccupant(level level, unsigned int x, unsigned int y, plant *plant);
+plant *getPlantOccupant(level level, unsigned x, unsigned int y);
 #else
 #endif
 
@@ -346,6 +352,38 @@ moveOutcome moveCreature(creature *creature, moveDirection dir);
 #ifndef _NAME_C
 char *generateName();
 #else
+#endif
+
+#ifndef _PLANTGEN_C
+plantList *generateStartingPlants();
+#else
+bool decidePlacePlant(coord2D floor, unsigned int level);
+plant *newRandomOrphanPlant(coord2D floor, unsigned int level);
+void placeNewPlant(plant *plant, coord3D location);
+#endif
+
+#ifndef _PLANTLIST_C
+plantList *insertNewPlantNode(plantList *list, plantList *node);
+#endif
+
+#ifndef _PLANTMGMT_C
+void setPlantSpecies(plant *plant, plantSpecies species);
+void setPlantClass(plant *plant, plantClass plantClass);
+void setPlantCurToughness(plant *plant, unsigned int toughness);
+void setPlantMaxToughness(plant *plant, unsigned int toughness);
+void setPlantCurGrowth(plant *plant, unsigned int growth);
+void setPlantMaxGrowth(plant *plant, unsigned int growth);
+void setPlantCurProduction(plant *plant, unsigned int production);
+void setPlantMaxProduction(plant *plant, unsigned int production);
+void setPlantGrowthRate(plant *plant, unsigned int growthRate);
+void setPlantProductionTime(plant *plant, unsigned int productionTime);
+void setPlantProductionProgress(plant *plant, unsigned int progress);
+void setPlantDispChar(plant *plant, char dispChar);
+void setPlantDispColor(plant *plant, colorPairs color);
+void setPlantAttrs(plant *plant, unsigned int attrs);
+void setPlantLocation(plant *plant, coord3D location);
+char getPlantDispChar(plant *plant);
+colorPairs getPlantColor(plant *plant);
 #endif
 
 #ifndef _QUESTIONS_C
@@ -399,15 +437,18 @@ item *spawnShield(int subClass);
 
 #ifndef _SPECIESINFO_C
 extern speciesInfo speciesData[MAXCREATURESPECIES];
+extern plantSpeciesInfo plantSpeciesData[MAXPLANTSPECIES];
 void initSpeciesData();
 void getSpeciesModifiers(creatureSpecies species, statList *list);
 unsigned int getSpeciesLifePace(creatureSpecies species);
 unsigned int getSpeciesBaseHp(creatureSpecies species);
+void initPlantSpeciesData();
 #else
 void initSpeciesDataHuman();
 void initSpeciesDataHalfling();
 void initSpeciesDataElf();
 void initSpeciesDataDwarf();
+void initSpeciesDataBlueberry();
 #endif
 
 #ifndef _STRINGLOOKUPS_C
