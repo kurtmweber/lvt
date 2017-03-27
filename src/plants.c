@@ -15,52 +15,25 @@
  *  along with Lavender Throne.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef _STRINGLOOKUPS_H
-#define _STRINGLOOKUPS_H
+#define _PLANTS_C
 
-#include "creature.h"
+#include "lvt.h"
 
-#ifdef _STRINGLOOKUPS_C
+void updatePlants(){
+  plantList *curPlantNode;
+  plant *curPlant;
+  unsigned long long i;
+  char numPlants[32];
+  
+  curPlantNode = plants;
+  
+  do {
+    curPlant = curPlantNode->plant;    
+    // we have to do this before we update the life cycle, because if the creature dies as a result of
+    // the update, the current node in the creature list is destroyed.
+    curPlantNode = curPlantNode->next;      
 
-const char *speciesNames[] = {
-  "human",
-  "halfling",
-  "elf",
-  "dwarf",
-  "bear",
-  "boar",
-  "deer",
-  "orc",
-  "goblin"
-};
-
-const char *plantSpeciesNames[] = {
-  "blueberry"
-};
-
-const char *classNames[] = {
-  "poet",
-  "peacemaker",
-  "paladin",
-  "ranger",
-  "warrior",
-  "merchant",
-  "peasant",
-  "scholar",
-  "beggar",
-  "craftsperson",
-  "meshchanin",
-  "noble",
-  "white cleric",
-  "black cleric"
-};
-
-#else
-
-extern const char *speciesNames[MAXCREATURESPECIES];
-extern const char *classNames[MAXCREATURECLASS];
-extern const char *plantSpeciesNames[MAXPLANTSPECIES];
-
-#endif
-
-#endif
+  } while (curPlantNode);
+  
+  return;
+}

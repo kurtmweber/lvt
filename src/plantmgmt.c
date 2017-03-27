@@ -17,6 +17,9 @@
 
 #define _PLANTMGMT_C
 
+#include <math.h>
+#include "creature.h"
+#include "lvt.h"
 #include "plant.h"
 #include "types.h"
 
@@ -24,6 +27,10 @@ void setPlantSpecies(plant *plant, plantSpecies species){
   plant->species = species;
   
   return;
+}
+
+plantSpecies getPlantSpecies(plant *plant){
+  return plant->species;
 }
 
 void setPlantClass(plant *plant, plantClass plantClass){
@@ -36,6 +43,14 @@ void setPlantCurToughness(plant *plant, unsigned int toughness){
   plant->curToughness = toughness;
   
   return;
+}
+
+unsigned int getPlantCurToughness(plant *plant){
+  return plant->curToughness;
+}
+
+unsigned int getPlantMaxToughness(plant *plant){
+  return plant->maxToughness;
 }
 
 void setPlantMaxToughness(plant *plant, unsigned int toughness){
@@ -60,6 +75,10 @@ void setPlantCurProduction(plant *plant, unsigned int production){
   plant->curProduction = production;
   
   return;
+}
+
+unsigned int getPlantCurProduction(plant *plant){
+  return plant->curProduction;
 }
 
 void setPlantMaxProduction(plant *plant, unsigned int production){
@@ -116,4 +135,19 @@ char getPlantDispChar(plant *plant){
 
 colorPairs getPlantColor(plant *plant){
   return plant->dispColor;
+}
+
+void tramplePlant(plant *plant, creature *creature){
+  unsigned int curPlantToughness;
+  unsigned int damageAmount;
+
+  curPlantToughness = getPlantCurToughness(plant);
+    
+  damageAmount = (unsigned int)floor((double)getCreatureWeight(creature) / 100.0);
+    
+  if (damageAmount >= curPlantToughness){
+    setPlantCurToughness(plant, 0);
+  } else {
+    setPlantCurToughness(plant, curPlantToughness - damageAmount);
+  }
 }

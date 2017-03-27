@@ -18,7 +18,7 @@
 #ifndef _LVT_H
 #define _LVT_H
 
-//#define _D_DEBUG
+#define _D_DEBUG
 
 #include <stdbool.h>
 #include <ncurses.h>
@@ -302,6 +302,7 @@ void doLook(unsigned int c);
 #else
 void lookCreatureOccupant(coord3D mapLoc);
 void lookContents(coord3D mapLoc);
+void lookPlantOccupant(coord3D mapLoc);
 #endif
 
 #ifndef _MAIN_C
@@ -384,6 +385,15 @@ void setPlantAttrs(plant *plant, unsigned int attrs);
 void setPlantLocation(plant *plant, coord3D location);
 char getPlantDispChar(plant *plant);
 colorPairs getPlantColor(plant *plant);
+unsigned int getPlantCurToughness(plant *plant);
+unsigned int getPlantMaxToughness(plant *plant);
+void tramplePlant(plant *plant, creature *creature);
+plantSpecies getPlantSpecies(plant *plant);
+unsigned int getPlantCurProduction(plant *plant);
+#endif
+
+#ifndef _PLANTS_C
+void updatePlants();
 #endif
 
 #ifndef _QUESTIONS_C

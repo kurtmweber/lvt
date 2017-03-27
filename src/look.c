@@ -25,6 +25,7 @@
 #include "lvt.h"
 #include "move.h"
 #include "messages.h"
+#include "plant.h"
 #include "stringlookups.h"
 
 void doLook(unsigned int c){
@@ -148,6 +149,11 @@ void doLook(unsigned int c){
     noOccupants = false;
   }
   
+  if (hasPlantOccupant(dungeon[mapLoc.level], mapLoc.x, mapLoc.y)){
+    lookPlantOccupant(mapLoc);
+    noOccupants = false;
+  }
+  
   if (hasContents(dungeon[mapLoc.level], mapLoc.x, mapLoc.y)){
     lookContents(mapLoc);
     noOccupants = false;
@@ -184,6 +190,30 @@ void lookContents(coord3D mapLoc){
     }
     contents = contents->next;
   } while (contents);
+  
+  return;
+}
+
+void lookPlantOccupant(coord3D mapLoc){
+  plant *infoPlant;
+  char *infoMsg;
+  plantSpecies infoPlantSpecies;
+  
+  infoPlant = getPlantOccupant(dungeon[mapLoc.level], mapLoc.x, mapLoc.y);
+  infoMsg = (char *)calloc(11, sizeof(char));
+  strcat(infoMsg, "You see a ");
+  infoPlantSpecies = getPlantSpecies(infoPlant);
+  infoMsg = realloc(infoMsg, (strlen(infoMsg) + strlen(plantSpeciesNames[infoPlantSpecies]) + 1) * sizeof(char));
+  strcat(infoMsg, plantSpeciesNames[infoPlantSpecies]);
+  
+  if (getPlantCurProduction(infoPlant) > 0){
+    infoMsg = realloc(infoMsg, (strlen(infoMsg) + 14 + 1) * sizeof(char));
+    strcat(infoMsg, " bearing fruit");
+  }
+  
+  addToMsgQueue(infoMsg, true);
+  
+  free(infoMsg);
   
   return;
 }

@@ -98,6 +98,7 @@ void gameLoop(){
     if (!freeAction){
       updateTurnCounter();
       moveCreatures();
+      updatePlants();
     } else {
       freeAction = false;
     }

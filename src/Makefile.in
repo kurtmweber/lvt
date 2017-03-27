@@ -113,7 +113,7 @@ am_lvt_OBJECTS = leveldisp.$(OBJEXT) levelgen.$(OBJEXT) main.$(OBJEXT) \
 	item.$(OBJEXT) look.$(OBJEXT) itemmgmt.$(OBJEXT) \
 	flooritems.$(OBJEXT) inventory.$(OBJEXT) spawnitem.$(OBJEXT) \
 	throw.$(OBJEXT) plantgen.$(OBJEXT) plantlist.$(OBJEXT) \
-	plantmgmt.$(OBJEXT)
+	plantmgmt.$(OBJEXT) plants.$(OBJEXT)
 lvt_OBJECTS = $(am_lvt_OBJECTS)
 lvt_LDADD = $(LDADD)
 AM_V_P = $(am__v_P_@AM_V@)
@@ -265,7 +265,7 @@ lvt_SOURCES = leveldisp.c levelgen.c main.c pcg_basic.c random.c map.c screen.c 
 			creaturemgmt.c game.c move.c input.c creatureinit.c stringlookups.c speciesinfo.c \
 			util.c messages.c questions.c allocator.c creaturegen.c colors.c name.c faction.c \
 			creaturemove.c attack.c creaturelist.c item.c look.c itemmgmt.c flooritems.c \
-			inventory.c spawnitem.c throw.c plantgen.c plantlist.c plantmgmt.c
+			inventory.c spawnitem.c throw.c plantgen.c plantlist.c plantmgmt.c plants.c
 
 noinst_HEADERS = lvt.h level.h pcg_basic.h creature.h messages.h types.h move.h stringlookups.h \
 			colors.h item.h attack.h species.h creaturemgmt.h plant.h
@@ -384,6 +384,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/plantgen.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/plantlist.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/plantmgmt.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/plants.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/questions.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/random.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/screen.Po@am__quote@

@@ -17,6 +17,7 @@
 
 #define _MOVE_C
 
+#include <math.h>
 #include <ncurses.h>
 #include "lvt.h"
 #include "move.h"
@@ -81,6 +82,10 @@ moveOutcome moveCreature(creature *creature, moveDirection dir){
   
   if (hasCreatureOccupant(dungeon[curPos.level], newPos.x, newPos.y)){
     return MOVE_FAILED_CREATURE;
+  }
+  
+  if (hasPlantOccupant(dungeon[curPos.level], newPos.x, newPos.y)){
+    tramplePlant(getPlantOccupant(dungeon[curPos.level], newPos.x, newPos.y), creature);
   }
   
   freeAction = false;	// if we've gotten here, we know the move succeeded
