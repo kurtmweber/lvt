@@ -1,5 +1,6 @@
 for version 0.8
-  * look command now works on plant (kmw, 2017-03-27)
+  * plants bearing fruit are highlighted on-screen (kmw, 2017-03-27)
+  * look command now works on plants (kmw, 2017-03-27)
   * generate and place plants (kmw, 2017-02-26)
   * update life cycle for non-player creatures (kmw, 2017-02-16)
 

@@ -62,6 +62,9 @@ screenDisplayCell *generateLevelRepresentation(level level, unsigned int line){
 	mapLine[x].dispChar = getPlantDispChar(plantOccupant);
 	mapLine[x].hasAttrs = true;
 	mapLine[x].attrs = COLOR_PAIR(getPlantColor(plantOccupant));
+	if (getPlantCurProduction(plantOccupant) > 0){	// bold if plant is bearing fruit
+	  mapLine[x].attrs = mapLine[x].attrs | A_BOLD;
+	}
       } else {
 	  switch (getMapSpaceTerrain(level, x, line)){
 	    case WALL:

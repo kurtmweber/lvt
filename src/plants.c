@@ -24,14 +24,15 @@ void updatePlants(){
   plant *curPlant;
   unsigned long long i;
   char numPlants[32];
+  unsigned int curToughness;
   
   curPlantNode = plants;
   
   do {
     curPlant = curPlantNode->plant;    
-    // we have to do this before we update the life cycle, because if the creature dies as a result of
-    // the update, the current node in the creature list is destroyed.
-    curPlantNode = curPlantNode->next;      
+    // we have to do this before we update the life cycle, because if the plant dies as a result of
+    // the update, the current node in the plant list is destroyed.
+    curPlantNode = curPlantNode->next;
 
   } while (curPlantNode);
   
