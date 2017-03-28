@@ -157,15 +157,56 @@ void initSpeciesDataBlueberry(){
   plantSpeciesData[BLUEBERRY].maxProduction = 10;
   plantSpeciesData[BLUEBERRY].plantClass = BERRYBUSH;
   plantSpeciesData[BLUEBERRY].dispChar = ':';
-  plantSpeciesData[BLUEBERRY].color = BlueBlack;
+  plantSpeciesData[BLUEBERRY].color = CyanBlack;
+  
+  return;
+}
+
+void initSpeciesDataBlackberry(){
+  plantSpeciesData[BLACKBERRY].toughness = 7;
+  plantSpeciesData[BLACKBERRY].growthRate = 5;
+  plantSpeciesData[BLACKBERRY].productionTime = 40;
+  plantSpeciesData[BLACKBERRY].maturityLevel = 500;
+  plantSpeciesData[BLACKBERRY].maxProduction = 20;
+  plantSpeciesData[BLACKBERRY].plantClass = BERRYBUSH;
+  plantSpeciesData[BLACKBERRY].dispChar = ':';
+  plantSpeciesData[BLACKBERRY].color = BlueBlack;
+  
+  return;
+}
+
+void initSpeciesDataStrawberry(){
+  plantSpeciesData[STRAWBERRY].toughness = 20;
+  plantSpeciesData[STRAWBERRY].growthRate = 4;
+  plantSpeciesData[STRAWBERRY].productionTime = 100;
+  plantSpeciesData[STRAWBERRY].maturityLevel = 500;
+  plantSpeciesData[STRAWBERRY].maxProduction = 15;
+  plantSpeciesData[STRAWBERRY].plantClass = BERRYBUSH;
+  plantSpeciesData[STRAWBERRY].dispChar = ':';
+  plantSpeciesData[STRAWBERRY].color = RedBlack;
+  
+  return;
+}
+
+void initSpeciesDataRaspberry(){
+  plantSpeciesData[RASPBERRY].toughness = 10;
+  plantSpeciesData[RASPBERRY].growthRate = 5;
+  plantSpeciesData[RASPBERRY].productionTime = 50;
+  plantSpeciesData[RASPBERRY].maturityLevel = 1000;
+  plantSpeciesData[RASPBERRY].maxProduction = 100;
+  plantSpeciesData[RASPBERRY].plantClass = BERRYBUSH;
+  plantSpeciesData[RASPBERRY].dispChar = ':';
+  plantSpeciesData[RASPBERRY].color = MagentaBlack;
   
   return;
 }
 
 void initPlantSpeciesData(){
   initSpeciesDataBlueberry();
-  /*initSpeciesDataBlackberry();
-  initSpeciesDataFennel();
+  initSpeciesDataBlackberry();
+  initSpeciesDataStrawberry();
+  initSpeciesDataRaspberry();
+  /*initSpeciesDataFennel();
   initSpeciesDataHibiscus();
   initSpeciesDataLinden();
   initSpeciesDataZoysia();*/

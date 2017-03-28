@@ -49,8 +49,10 @@ typedef enum creatureSpecies{
 
 typedef enum plantSpecies{
   BLUEBERRY,
-  /*BLACKBERRY,
-  FENNEL,
+  BLACKBERRY,
+  STRAWBERRY,
+  RASPBERRY,
+  /*FENNEL,
   HIBISCUS,
   LINDEN,
   ZOYSIA,*/

@@ -465,6 +465,8 @@ void initSpeciesDataHalfling();
 void initSpeciesDataElf();
 void initSpeciesDataDwarf();
 void initSpeciesDataBlueberry();
+void initSpeciesDataStrawberry();
+void initSpeciesDataRaspberry();
 #endif
 
 #ifndef _STRINGLOOKUPS_C

@@ -35,7 +35,14 @@ const char *speciesNames[] = {
 };
 
 const char *plantSpeciesNames[] = {
-  "blueberry"
+  "blueberry",
+  "blackberry",
+  "strawberry",
+  "raspberry",
+  "fennel",
+  "hibiscus",
+  "linden",
+  "zoysia"
 };
 
 const char *classNames[] = {
