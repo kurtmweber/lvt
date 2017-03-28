@@ -31,10 +31,10 @@
 #include "creaturemgmt.h"
 #include "plant.h"
 
-#define MAX(a, b) (a < b ? b : a)
-#define MIN(a, b) (a > b ? b : a)
-#define ISODD(a) (a % 2 ? true : false)
-#define ISEVEN(a) (a % 2 ? false : true)
+#define MAX(a, b) ((a) < (b) ? (b) : (a))
+#define MIN(a, b) ((a) > (b) ? (b) : (a))
+#define ISODD(a) ((a) % 2 ? true : false)
+#define ISEVEN(a) ((a) % 2 ? false : true)
 
 #ifndef _ALLOCATOR_C
 creatureList *allocateCreatureListEntry();
@@ -390,6 +390,12 @@ unsigned int getPlantMaxToughness(plant *plant);
 void tramplePlant(plant *plant, creature *creature);
 plantSpecies getPlantSpecies(plant *plant);
 unsigned int getPlantCurProduction(plant *plant);
+unsigned int getPlantGrowthRate(plant *plant);
+unsigned int getPlantCurGrowth(plant *plant);
+unsigned int getPlantMaxGrowth(plant *plant);
+unsigned int getPlantMaxProduction(plant *plant);
+unsigned int getPlantProductionProgress(plant *plant);
+unsigned int getPlantProductionTime(plant *plant);
 #endif
 
 #ifndef _PLANTS_C

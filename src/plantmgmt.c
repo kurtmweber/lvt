@@ -65,10 +65,18 @@ void setPlantCurGrowth(plant *plant, unsigned int growth){
   return;
 }
 
+unsigned int getPlantCurGrowth(plant *plant){
+  return plant->curGrowth;
+}
+
 void setPlantMaxGrowth(plant *plant, unsigned int growth){
   plant->maxGrowth = growth;
   
   return;
+}
+
+unsigned int getPlantMaxGrowth(plant *plant, unsigned int growth){
+  return plant->maxGrowth;
 }
 
 void setPlantCurProduction(plant *plant, unsigned int production){
@@ -87,10 +95,18 @@ void setPlantMaxProduction(plant *plant, unsigned int production){
   return;
 }
 
+unsigned int getPlantMaxProduction(plant *plant){
+  return plant->maxProduction;
+}
+
 void setPlantGrowthRate(plant *plant, unsigned int growthRate){
   plant->growthRate = growthRate;
   
   return;
+}
+
+unsigned int getPlantGrowthRate(plant *plant){
+  return plant->growthRate;
 }
 
 void setPlantProductionTime(plant *plant, unsigned int productionTime){
@@ -99,10 +115,18 @@ void setPlantProductionTime(plant *plant, unsigned int productionTime){
   return;
 }
 
+unsigned int getPlantProductionTime(plant *plant){
+  return plant->productionTime;
+}
+
 void setPlantProductionProgress(plant *plant, unsigned int progress){
   plant->productionProgress = progress;
   
   return;
+}
+
+unsigned int getPlantProductionProgress(plant *plant){
+  return plant->productionProgress;
 }
 
 void setPlantDispChar(plant *plant, char dispChar){

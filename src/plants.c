@@ -24,7 +24,11 @@ void updatePlants(){
   plant *curPlant;
   unsigned long long i;
   char numPlants[32];
-  unsigned int curToughness;
+  unsigned int curToughness = 0, maxToughness = 0;
+  unsigned int curGrowth = 0, maxGrowth = 0;
+  unsigned int curProduction = 0, maxProduction = 0;
+  unsigned int curProductionProgress = 0, productionTime = 0;
+  unsigned int growthRate = 0;
   
   curPlantNode = plants;
   
@@ -34,6 +38,27 @@ void updatePlants(){
     // the update, the current node in the plant list is destroyed.
     curPlantNode = curPlantNode->next;
 
+    growthRate = getPlantGrowthRate(curPlant);
+    
+    // fix this to carry over excess growth at whatever stage
+    maxToughness = getPlantMaxToughness(curPlant);
+    curToughness = getPlantCurToughness(curPlant);
+    if (curToughness < maxToughness){
+      setPlantCurToughness(curPlant, MIN((curToughness + growthRate), maxToughness));
+    } else if ((curGrowth = getPlantCurGrowth(curPlant)) < (maxGrowth = getPlantMaxGrowth(curPlant))){
+      setPlantCurGrowth(curPlant, MIN((curGrowth + growthRate), maxGrowth));
+    } else if ((curProduction = getPlantCurProduction(curPlant)) < (maxProduction = getPlantMaxProduction(curPlant))){
+      curProductionProgress = getPlantProductionProgress(curPlant);
+      productionTime = getPlantProductionTime(curPlant);
+      
+      if ((curProductionProgress + growthRate) >= productionTime){
+	setPlantProductionProgress(curPlant, 0);
+	setPlantCurProduction(curPlant, curProduction + 1);
+      } else {
+	setPlantProductionProgress(curPlant, curProductionProgress + growthRate);
+      }
+    }
+      
   } while (curPlantNode);
   
   return;
