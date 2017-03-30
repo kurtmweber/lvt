@@ -62,6 +62,9 @@ void playerDead(){
 }
 
 void updateTurnCounter(){
+  creatureList *curCreatureNode;
+  creature *curCreature;
+  
   status.speedCounter--;
   
   if (status.speedCounter == 0){
@@ -77,6 +80,21 @@ void updateTurnCounter(){
     }
     if (getCreatureCurHp(&player) < getCreatureMaxHp(&player)){
       regenerateHitPoints(&player);
+    }
+    
+    curCreatureNode = creatures;
+    if (curCreatureNode){
+      do {
+	curCreature = curCreatureNode->creature;
+	
+	curCreatureNode = curCreatureNode->next;
+	
+	if (!updateCreatureLifeCycle(curCreature)){
+	  killCreature(curCreature);
+	} else if (!updateCreatureNutrition(curCreature)){
+	  killCreature(curCreature);
+	}
+      } while (curCreatureNode);
     }
   }
   

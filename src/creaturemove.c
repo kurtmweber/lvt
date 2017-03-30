@@ -44,14 +44,7 @@ void moveCreatures(){
     
     // we have to do this before we update the life cycle, because if the creature dies as a result of
     // the update, the current node in the creature list is destroyed.
-    curCreatureNode = curCreatureNode->next;
-    
-    if (!updateCreatureLifeCycle(curCreature)){
-      killCreature(curCreature);
-    } else if (!updateCreatureNutrition(curCreature)){
-      killCreature(curCreature);
-    }
-      
+    curCreatureNode = curCreatureNode->next;      
 
   } while (curCreatureNode);
   
