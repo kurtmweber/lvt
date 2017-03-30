@@ -161,6 +161,24 @@ colorPairs getPlantColor(plant *plant){
   return plant->dispColor;
 }
 
+coord3D getPlantLocation(plant *plant){
+  return plant->location;
+}
+
+void killPlant(plant *plant){
+  plantList *pNode;
+  coord3D plantLoc;
+  
+  plantLoc = getPlantLocation(plant);
+  
+  clearPlantOccupant(dungeon[plantLoc.level], plantLoc.x, plantLoc.y);
+  
+  pNode = findPlantListEntry(plants, plant);
+  removePlantNode(plants, pNode);
+  freePlantListEntry(pNode);
+  return;
+}
+
 void tramplePlant(plant *plant, creature *creature){
   unsigned int curPlantToughness;
   unsigned int damageAmount;
@@ -171,6 +189,7 @@ void tramplePlant(plant *plant, creature *creature){
     
   if (damageAmount >= curPlantToughness){
     setPlantCurToughness(plant, 0);
+    killPlant(plant);
   } else {
     setPlantCurToughness(plant, curPlantToughness - damageAmount);
   }

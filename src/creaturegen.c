@@ -74,8 +74,6 @@ creature *spawnOrphanCreature(creatureSpecies species, creatureClass class){
   setCreatureFaction(newCreature, faction);
   
   setCreatureName(newCreature, generateName());
-  setCreatureSpeed(newCreature, speciesData[species].speed);
-  setCreatureWeight(newCreature, speciesData[species].weight);
   setCreatureLifePace(newCreature, speciesData[species].lifePace);
   
   setCreatureLastMove(newCreature, 4);

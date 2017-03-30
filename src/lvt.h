@@ -42,6 +42,7 @@ void freeCreatureListEntry(creatureList *node);
 item *allocateItem();
 mapSpaceContents *allocateMapSpaceContentsListEntry();
 plantList *allocatePlantListEntry();
+void freePlantListEntry(plantList *node);
 #else
 #endif
 
@@ -335,6 +336,7 @@ void addContents(level level, unsigned int x, unsigned int y, item *item);
 mapSpaceContents *getContents(level level, unsigned int x, unsigned int y);
 void setPlantOccupant(level level, unsigned int x, unsigned int y, plant *plant);
 plant *getPlantOccupant(level level, unsigned x, unsigned int y);
+void clearPlantOccupant(level level, unsigned int x, unsigned int y);
 #else
 #endif
 
@@ -365,6 +367,8 @@ void placeNewPlant(plant *plant, coord3D location);
 
 #ifndef _PLANTLIST_C
 plantList *insertNewPlantNode(plantList *list, plantList *node);
+plantList *findPlantListEntry(plantList *list, plant *plant);
+plantList *removePlantNode(plantList *list, plantList *node);
 #endif
 
 #ifndef _PLANTMGMT_C
@@ -396,6 +400,7 @@ unsigned int getPlantMaxGrowth(plant *plant);
 unsigned int getPlantMaxProduction(plant *plant);
 unsigned int getPlantProductionProgress(plant *plant);
 unsigned int getPlantProductionTime(plant *plant);
+coord3D getPlantLocation(plant *plant);
 #endif
 
 #ifndef _PLANTS_C

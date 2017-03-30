@@ -107,6 +107,9 @@ void genOrphanCreatureStats(creature *creature){
   setCreatureCurStats(creature, curStats);
   setCreatureLevelHpXp(creature, 0);
   
+  setCreatureSpeed(creature, speciesData[species].speed);
+  setCreatureWeight(creature, speciesData[species].weight);
+  
   bioSex = coinFlip(&localRng);
   switch (bioSex){
     case HEADS:

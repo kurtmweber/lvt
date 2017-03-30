@@ -62,6 +62,13 @@ void freeCreatureListEntry(creatureList *node){
   return;
 }
 
+
+void freePlantListEntry(plantList *node){  
+  free(node->plant);
+  free(node);
+  
+  return;
+}
 item *allocateItem(){
   item *newItem;
   

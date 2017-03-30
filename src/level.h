@@ -20,6 +20,7 @@
 
 #include "creature.h"
 #include "item.h"
+#include "plant.h"
 
 typedef enum terrain{
   WALL,
@@ -56,8 +57,8 @@ typedef struct mapSpace{
   bool explored;
   mapSpaceContents *contents;
   creature *creatureOccupant;
-  //plant *plantOccupant;
-  void *plantOccupant;
+  plant *plantOccupant;
+  //void *plantOccupant;
 } mapSpace;
 
 #ifndef _MAP_TYPE

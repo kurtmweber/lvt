@@ -32,3 +32,34 @@ plantList *insertNewPlantNode(plantList *list, plantList *node){
   
   return node;
 }
+
+plantList *findPlantListEntry(plantList *list, plant *plant){
+  do {
+    if (list->plant == plant){
+      return list;
+    }
+    
+    list = list->next;
+  } while(list);
+}
+
+plantList *removePlantNode(plantList *list, plantList *node){
+  plantList *prev;
+  plantList *next;  
+
+  if (list == node){
+    list = node->next;
+    list->prev = 0;
+  } else {
+    prev = node->prev;
+    next = node->next;
+    if (prev){
+      prev->next = next;
+    }
+    if (next){
+      next->prev = prev;
+    }
+  }
+  
+  return list;
+}

@@ -58,6 +58,10 @@ void changeCreatureLocation(creature *creature, coord3D newPos){
   coord3D curPos;
   
   curPos = getCreatureLocation(creature);
+  
+  if (hasPlantOccupant(dungeon[curPos.level], newPos.x, newPos.y)){
+    tramplePlant(getPlantOccupant(dungeon[curPos.level], newPos.x, newPos.y), creature);
+  }
 
   clearCreatureOccupant(dungeon[curPos.level], curPos.x, curPos.y);
   setCreatureOccupant(dungeon[newPos.level], newPos.x, newPos.y, creature);

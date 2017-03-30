@@ -1,4 +1,5 @@
 for version 0.8
+  * plants will die if they are trampled enough (kmw, 2017-03-30)
   * added some new plant species (kmw, 2017-03-28)
   * plant growth and production updates every turn (kmw, 2017-03-27)
   * plants bearing fruit are highlighted on-screen (kmw, 2017-03-27)

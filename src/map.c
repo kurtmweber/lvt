@@ -180,6 +180,12 @@ void clearCreatureOccupant(level level, unsigned int x, unsigned int y){
   return;
 }
 
+void clearPlantOccupant(level level, unsigned int x, unsigned int y){
+  level[x][y].plantOccupant = 0;
+  
+  return;
+}
+
 creature *getCreatureOccupant(level level, unsigned int x, unsigned int y){
   return level[x][y].creatureOccupant;
 }
