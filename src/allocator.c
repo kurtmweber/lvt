@@ -52,12 +52,19 @@ mapSpaceContents *allocateMapSpaceContentsListEntry(){
 }
 
 void freeCreatureListEntry(creatureList *node){
+  if (!node){
+    return;
+  }
+  
   if (node->creature->name){
     free(node->creature->name);
+    node->creature->name = 0;
   }
   
   free(node->creature);
+  node->creature = 0;
   free(node);
+  node = 0;
   
   return;
 }

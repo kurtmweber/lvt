@@ -74,6 +74,19 @@ bool hasCreatureMatured(creature *creature){
     return true;
 }
 
+bool updateCreatureNutrition(creature *creature){
+  unsigned int curNut;
+
+  curNut = getCreatureNutrition(creature);
+  
+  if (curNut == 1){
+    return false;
+  } else {
+    setCreatureNutrition(creature, curNut - 1);
+    return true;
+  }
+}
+
 bool updateCreatureLifeCycle(creature *creature){
   if (!getCreatureMatured(creature) && hasCreatureMatured(creature)){
     setCreatureMatured(creature, true);
@@ -89,7 +102,7 @@ bool updateCreatureLifeCycle(creature *creature){
     if (!updateCreatureLifeCycleMatured(creature)){
       return false;
     }
-  }
+  } 
 }
 
 bool updateCreatureLifeCycleNotMatured(creature *creature){
@@ -700,6 +713,22 @@ unsigned int getCreatureArmorClass(creature *creature){
   return ac;
 }
 
+void setCreatureNutrition (creature *creature, unsigned int nutrition){
+  unsigned int weight;
+  
+  weight = getCreatureWeight(creature);
+  
+  if (nutrition >= weight){
+    creature->nutrition = weight;
+  } else {
+    creature->nutrition = nutrition;
+  }
+}
+
+unsigned int getCreatureNutrition(creature *creature){
+  return creature->nutrition;
+}
+
 void killCreature(creature *creature){
   creatureList *cNode;
   coord3D creatureLoc;
@@ -725,7 +754,7 @@ void killCreature(creature *creature){
   setItemWeight(creatureCorpse, speciesData[getCreatureSpecies(creature)].weight);
   
   cNode = findCreatureListEntry(creatures, creature);
-  removeCreatureNode(creatures, cNode);
+  creatures = removeCreatureNode(creatures, cNode);
   freeCreatureListEntry(cNode);
   return;
 }

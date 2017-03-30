@@ -26,6 +26,7 @@ creatureList *insertNewCreatureNode(creatureList *list, creatureList *node){
     node->prev = 0;
   } else {
     node->next = 0;
+    node->prev = 0;
   }
   
   //node->next = list;
@@ -34,6 +35,10 @@ creatureList *insertNewCreatureNode(creatureList *list, creatureList *node){
 }
 
 creatureList *findCreatureListEntry(creatureList *list, creature *creature){
+  if (!list){
+    return 0;
+  }
+  
   do {
     if (list->creature == creature){
       return list;
@@ -41,15 +46,27 @@ creatureList *findCreatureListEntry(creatureList *list, creature *creature){
     
     list = list->next;
   } while(list);
+  
+  return 0;
 }
 
 creatureList *removeCreatureNode(creatureList *list, creatureList *node){
   creatureList *prev;
-  creatureList *next;  
-
+  creatureList *next;
+  
+  if (!node){
+    return 0;
+  }
+  
+  if (!list){
+    return 0;
+  }
+  
   if (list == node){
     list = node->next;
-    list->prev = 0;
+    if (list){
+      list->prev = 0;
+    }
   } else {
     prev = node->prev;
     next = node->next;

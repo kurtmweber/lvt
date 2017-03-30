@@ -109,6 +109,7 @@ void genOrphanCreatureStats(creature *creature){
   
   setCreatureSpeed(creature, speciesData[species].speed);
   setCreatureWeight(creature, speciesData[species].weight);
+  setCreatureNutrition(creature, speciesData[species].weight);
   
   bioSex = coinFlip(&localRng);
   switch (bioSex){

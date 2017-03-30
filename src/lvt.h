@@ -154,6 +154,9 @@ wearOutcome wearItem(creature *creature, item *item);
 unsigned int getCreatureArmorClass(creature *creature);
 removeOutcome removeItem(creature *creature, item *item);
 void regenerateHitPoints(creature *creature);
+void setCreatureNutrition (creature *creature, unsigned int nutrition);
+unsigned int getCreatureNutrition(creature *creature);
+bool updateCreatureNutrition(creature *creature);
 #else
 bool updateCreatureLifeCycleNotMatured(creature *creature);
 bool updateCreatureLifeCycleMatured(creature *creature);
@@ -169,6 +172,8 @@ void setCreatureMaxHp(creature *creature, unsigned int maxHp);
 void setCreatureCurHp(creature *creature, unsigned int curHp);
 coord3D getCreatureLocation(creature *creature);
 unsigned int getCreatureWeight(creature *creature);
+void setCreatureNutrition (creature *creature, unsigned int nutrition);
+unsigned int getCreatureNutrition(creature *creature);
 #endif
 
 #ifndef _CREATUREMOVE_C

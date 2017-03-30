@@ -57,7 +57,8 @@ void updateStatWin(){
   wprintw(statWin, "CHR: %i ", stats.charisma);
   wprintw(statWin, "DEX: %i ", stats.dexterity);
   wprintw(statWin, "HP/Max: %i/%i ", getCreatureCurHp(&player), getCreatureMaxHp(&player));
-  wprintw(statWin, "AC: %i", getCreatureArmorClass(&player));
+  wprintw(statWin, "AC: %i ", getCreatureArmorClass(&player));
+  wprintw(statWin, "NUT: %i", getCreatureNutrition(&player));
   wrefresh(statWin);
   return;
 }

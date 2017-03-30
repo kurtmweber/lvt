@@ -31,6 +31,10 @@ void moveCreatures(){
   
   curCreatureNode = creatures;
   
+  if (!curCreatureNode){
+    return;
+  }
+  
   do {
     curCreature = curCreatureNode->creature;
     incrementCreatureSpeedCounter(curCreature, getCreatureSpeed(curCreature));
@@ -43,6 +47,8 @@ void moveCreatures(){
     curCreatureNode = curCreatureNode->next;
     
     if (!updateCreatureLifeCycle(curCreature)){
+      killCreature(curCreature);
+    } else if (!updateCreatureNutrition(curCreature)){
       killCreature(curCreature);
     }
       

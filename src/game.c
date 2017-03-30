@@ -71,6 +71,10 @@ void updateTurnCounter(){
       addToMsgQueue(DIED_OLD_AGE_MSG, true);
       doQuit();
     }
+    if (!updateCreatureNutrition(&player)){
+      addToMsgQueue(DIED_HUNGER_MSG, true);
+      doQuit();
+    }
     if (getCreatureCurHp(&player) < getCreatureMaxHp(&player)){
       regenerateHitPoints(&player);
     }
