@@ -305,6 +305,28 @@ void initLongswords(){
   return;
 }
 
+void initSeeds(){
+  seedSubClassId i;
+  char *seedSubClassNames[] = {"blueberry", "blackberry", "strawberry", "raspberry"};
+  colorPairs seedColors[] = {CyanBlack, BlueBlack, RedBlack, MagentaBlack};
+  
+  itemTypes[ITEM_TYPE_SEED] = calloc(ITEM_SEED_MAX, sizeof(itemType));
+  
+  for (i = 0; i < ITEM_SEED_MAX; i++){
+    initItemType(&itemTypes[ITEM_TYPE_FRUIT][i]);
+    itemTypes[ITEM_TYPE_FRUIT][i].itemName = calloc(strlen(seedSubClassNames[i]) + 5 + 1, sizeof(char));
+    strcpy(itemTypes[ITEM_TYPE_FRUIT][i].itemName, seedSubClassNames[i]);
+    strcat(itemTypes[ITEM_TYPE_FRUIT][i].itemName, " seed");
+    itemTypes[ITEM_TYPE_FRUIT][i].dispChar = '*';
+    itemTypes[ITEM_TYPE_FRUIT][i].color = seedColors[i];
+    itemTypes[ITEM_TYPE_FRUIT][i].attrs = A_BOLD;
+    itemTypes[ITEM_TYPE_FRUIT][i].possibleSlots = 0;
+    itemTypes[ITEM_TYPE_FRUIT][i].weight = 1;
+  }
+  
+  return;
+}
+
 void initFruit(){
   fruitSubClassId i;
   char *fruitSubClassNames[] = {"blueberry", "blackberry", "strawberry", "raspberry"};
@@ -318,9 +340,9 @@ void initFruit(){
     strcpy(itemTypes[ITEM_TYPE_FRUIT][i].itemName, fruitSubClassNames[i]);
     itemTypes[ITEM_TYPE_FRUIT][i].dispChar = '*';
     itemTypes[ITEM_TYPE_FRUIT][i].color = fruitColors[i];
-    itemTypes[ITEM_TYPE_FRUIT][i].attrs = 0;
+    itemTypes[ITEM_TYPE_FRUIT][i].attrs = A_BOLD;
     itemTypes[ITEM_TYPE_FRUIT][i].possibleSlots = 0;
-    itemTypes[ITEM_TYPE_FRUIT][i].weight = 1;
+    itemTypes[ITEM_TYPE_FRUIT][i].weight = 2;
   }
   
   return;

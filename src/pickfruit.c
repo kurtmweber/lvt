@@ -129,6 +129,11 @@ void doPickFruit(){
 
 item *pickFruitFromPlant(plant *plant){
   unsigned int curProd;
+  unsigned int growthRate;
+  unsigned int maturityLevel;
+  unsigned int nutrition;
+  unsigned int productionTime;
+  unsigned int maxProduction;
   item *fruit;
   
   curProd = getPlantCurProduction(plant);
@@ -138,6 +143,15 @@ item *pickFruitFromPlant(plant *plant){
   }
   
   fruit = spawnItem(ITEM_TYPE_FRUIT, getPlantSpecies(plant));
+  
+  growthRate = getPlantGrowthRate(plant);
+  maturityLevel = getPlantMaxGrowth(plant);
+  productionTime = getPlantProductionTime(plant);
+  maxProduction = getPlantMaxProduction(plant);
+  
+  nutrition = ((maturityLevel / maxProduction) + productionTime) / growthRate;
+  setFruitNutrition(fruit, nutrition);
+  
   setPlantCurProduction(plant, curProd - 1);
   
   return fruit;

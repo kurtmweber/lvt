@@ -177,7 +177,7 @@ void doThrow(){
 	i == 0 ? : i--;
 	break;
       case KEY_DOWN:
-	i == 51 ? : i++;
+	i == 39 ? : i++;
 	break;
       case ' ':
 	freeAction = true;

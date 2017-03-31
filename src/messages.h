@@ -46,6 +46,7 @@
 #define DIED_HUNGER_MSG "You have died of hunger..."
 #define NO_FRUIT_MSG "That plant has no fruit."
 #define NO_PLANT_MSG "I see no plant there"
+#define NOT_FOOD_MSG "That is not food!"
 
 #define ATTACK_ALLIED_Q "The creature there is allied.  Do you wish to attack?"
 #define PICK_CURRENT_SPACE_Q "Do you want to pick from the current space?"

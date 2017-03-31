@@ -133,7 +133,7 @@ void doWear(){
 	i == 0 ? : i--;
 	break;
       case KEY_DOWN:
-	i == 51 ? : i++;
+	i == 39 ? : i++;
 	break;
       case ' ':
 	return;
@@ -187,7 +187,7 @@ void doWield(){
 	i == 0 ? : i--;
 	break;
       case KEY_DOWN:
-	i == 51 ? : i++;
+	i == 39 ? : i++;
 	break;
       case ' ':
 	return;
@@ -241,7 +241,7 @@ void doRemove(){
 	i == 0 ? : i--;
 	break;
       case KEY_DOWN:
-	i == 51 ? : i++;
+	i == 39 ? : i++;
 	break;
       case ' ':
 	return;
@@ -305,7 +305,7 @@ void doNameItem(){
 	i == 0 ? : i--;
 	break;
       case KEY_DOWN:
-	i == 51 ? : i++;
+	i == 39 ? : i++;
 	break;
       case ' ':
 	return;
@@ -405,7 +405,7 @@ void doDrop(){
 	i == 0 ? : i--;
 	break;
       case KEY_DOWN:
-	i == 51 ? : i++;
+	i == 39 ? : i++;
 	break;
       case ' ':
 	return;

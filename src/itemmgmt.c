@@ -27,6 +27,20 @@ void setCorpseNutrition(item *corpse, unsigned int nutrition){
   return;
 }
 
+unsigned int getCorpseNutrition(item *corpse){
+  return corpse->itemData.corpseUniqueData.nutrition;
+}
+
+void setFruitNutrition(item *fruit, unsigned int nutrition){
+  fruit->itemData.fruitUniqueData.nutrition = nutrition;
+  
+  return;
+}
+
+unsigned int getFruitNutrition(item *fruit){
+  return fruit->itemData.fruitUniqueData.nutrition;
+}
+
 void setItemLocation(item *item, coord3D location){
   item->location = location;
   
@@ -64,6 +78,10 @@ void setItemClass(item *item, itemClassId class){
   item->itemClass = class;
   
   return;
+}
+
+itemClassId getItemClass(item *item){
+  return item->itemClass;
 }
 
 unsigned int getEffectiveArmor(item *item){

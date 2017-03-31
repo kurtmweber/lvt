@@ -32,6 +32,10 @@ void updatePlants(){
   
   curPlantNode = plants;
   
+  if (!curPlantNode){
+    return;
+  }
+  
   do {
     curPlant = curPlantNode->plant;    
     // we have to do this before we update the life cycle, because if the plant dies as a result of

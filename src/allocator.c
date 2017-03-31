@@ -76,10 +76,29 @@ void freePlantListEntry(plantList *node){
   
   return;
 }
+
 item *allocateItem(){
   item *newItem;
   
   newItem = (item *)calloc(1, sizeof(item));
   
   return newItem;
+}
+
+void freeItem(item *item){
+  if (!item){
+    return;
+  }
+  
+  if (item->name){
+    free(item->name);
+  }
+  
+  if (item->itemData.itemName){
+    free(item->itemData.itemName);
+  }
+  
+  free(item);
+  
+  return;
 }

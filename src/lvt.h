@@ -43,6 +43,7 @@ item *allocateItem();
 mapSpaceContents *allocateMapSpaceContentsListEntry();
 plantList *allocatePlantListEntry();
 void freePlantListEntry(plantList *node);
+void freeItem(item *item);
 #else
 #endif
 
@@ -186,6 +187,12 @@ void moveCreatureDownStair(creature *creature);
 void changeCreatureLocation(creature *creature, coord3D newPos);
 #endif
 
+#ifndef _EAT_C
+void doEat();
+#else
+void eatItem(creature *creature, item *item);
+#endif
+
 #ifndef _FACTIONS_C
 unsigned int getNumFactions();
 void initializeFactions();
@@ -261,6 +268,9 @@ void initItemType(itemType *in);
 
 #ifndef _ITEMMGMT_C
 void setCorpseNutrition(item *corpse, unsigned int nutrition);
+void setFruitNutrition(item *fruit, unsigned int nutrition);
+unsigned int getFruitNutrition(item *fruit);
+unsigned int getCorpseNutrition(item *corpse);
 char getItemDispChar(item *item);
 void setItemLocation(item *item, coord3D location);
 colorPairs getItemColor(item *item);
@@ -270,6 +280,7 @@ unsigned int getEffectiveArmor(item *item);
 unsigned int getItemAttrs(item *item);
 unsigned int getItemWeight(item *item);
 void setItemWeight(item *item, unsigned int weight);
+itemClassId getItemClass(item *item);
 #endif
 
 #ifndef _LEVELDISP_C

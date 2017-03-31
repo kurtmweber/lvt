@@ -189,6 +189,9 @@ void processKey(unsigned int c){
     case 'p':
       doPickFruit();
       break;
+    case 'e':
+      doEat();
+      break;
     default:
       freeAction = true;
       break;
