@@ -88,6 +88,11 @@ typedef struct armorSlotList{
   item *shield;
 } armorSlotList;
 
+/* typedef struct inventoryEntry{
+  item **contents;
+  unsigned int quantity;
+} inventoryEntry; */
+
 typedef struct creature{
   unsigned int creatureId;
   char *name;
@@ -111,6 +116,7 @@ typedef struct creature{
   unsigned int faction;
   armorSlotList armor;
   item *weapon;
+  //inventoryEntry inventory[52];
   item *inventory[52];
   unsigned int weight;
   unsigned int nutrition;

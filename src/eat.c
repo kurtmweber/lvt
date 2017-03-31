@@ -26,8 +26,6 @@ void eatItem(creature *creature, item *item){
   unsigned int curNutrition;
   unsigned int itemNutrition;
   
-  removeCreatureInventoryItem(creature, item);
-  
   switch (getItemClass(item)){
     case ITEM_TYPE_CORPSE:
       itemNutrition = getCorpseNutrition(item);
@@ -42,6 +40,7 @@ void eatItem(creature *creature, item *item){
   curNutrition = getCreatureNutrition(creature);
   setCreatureNutrition(creature, curNutrition + itemNutrition);
   
+  removeCreatureInventoryItem(creature, item);
   freeItem(item);
   
   return;
@@ -76,6 +75,7 @@ void doEat(){
 	i == 39 ? : i++;
 	break;
       case ' ':
+	freeAction = true;
 	return;
       default:
 	if (isupper(c) || islower(c)){

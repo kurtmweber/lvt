@@ -500,7 +500,7 @@ char addCreatureInventoryItem(creature *creature, item *item){
   
   creature->inventory[i] = item;
   
-  return inventoryIndexToLetter(i);
+  return inventoryIndexToLetter(i);    
 }
 
 void removeCreatureInventoryItem(creature *creature, item *item){

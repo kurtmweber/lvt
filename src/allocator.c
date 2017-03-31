@@ -94,10 +94,6 @@ void freeItem(item *item){
     free(item->name);
   }
   
-  if (item->itemData.itemName){
-    free(item->itemData.itemName);
-  }
-  
   free(item);
   
   return;
