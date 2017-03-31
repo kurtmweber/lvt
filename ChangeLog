@@ -1,4 +1,5 @@
 for version 0.8
+  * fruit can now be picked from plants (kmw, 2017-03-30)
   * non-player creature life cycle and hunger update every turn instead of every move (kmw, 2017-03-30)
   * it is now possible to die of hunger (kmw, 2017-03-30)
   * plants will die if they are trampled enough (kmw, 2017-03-30)

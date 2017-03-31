@@ -255,6 +255,7 @@ void initDaggers();
 void initShirts();
 void initUnderarmor();
 void initShields();
+void initFruit();
 void initItemType(itemType *in);
 #endif
 
@@ -362,6 +363,12 @@ char *generateName();
 #else
 #endif
 
+#ifndef _PICKFRUIT_C
+void doPickFruit();
+#else
+item *pickFruitFromPlant(plant *plant);
+#endif
+
 #ifndef _PLANTGEN_C
 plantList *generateStartingPlants();
 #else
@@ -459,6 +466,7 @@ item *spawnDagger(int subClass);
 item *spawnShirt(int subClass);
 item *spawnUnderarmor(int subClass);
 item *spawnShield(int subClass);
+item *spawnFruit(int subClass);
 #endif
 
 #ifndef _SPECIESINFO_C

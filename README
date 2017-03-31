@@ -30,6 +30,7 @@ d	drop an item
 i	view inventory list
 n	name an item
 o	open a closed door
+p	pick fruit from a plant
 r	remove a piece of armor
 s	search for hidden doors
 t	throw an object

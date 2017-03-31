@@ -34,6 +34,7 @@ void initItems(){
   initShirts();
   initUnderarmor();
   initShields();
+  initFruit();
   
   return;
 }
@@ -299,6 +300,27 @@ void initLongswords(){
     itemTypes[ITEM_TYPE_LONGSWORD][ITEM_LONGSWORD_SILVER].attrs = 0;
     itemTypes[ITEM_TYPE_LONGSWORD][ITEM_LONGSWORD_SILVER].weight = 10;
     itemTypes[ITEM_TYPE_LONGSWORD][ITEM_LONGSWORD_SILVER].possibleSlots = 0;
+  }
+  
+  return;
+}
+
+void initFruit(){
+  fruitSubClassId i;
+  char *fruitSubClassNames[] = {"blueberry", "blackberry", "strawberry", "raspberry"};
+  colorPairs fruitColors[] = {CyanBlack, BlueBlack, RedBlack, MagentaBlack};
+  
+  itemTypes[ITEM_TYPE_FRUIT] = calloc(ITEM_FRUIT_MAX, sizeof(itemType));
+  
+  for (i = 0; i < ITEM_FRUIT_MAX; i++){
+    initItemType(&itemTypes[ITEM_TYPE_FRUIT][i]);
+    itemTypes[ITEM_TYPE_FRUIT][i].itemName = calloc(strlen(fruitSubClassNames[i]) + 1, sizeof(char));
+    strcpy(itemTypes[ITEM_TYPE_FRUIT][i].itemName, fruitSubClassNames[i]);
+    itemTypes[ITEM_TYPE_FRUIT][i].dispChar = '*';
+    itemTypes[ITEM_TYPE_FRUIT][i].color = fruitColors[i];
+    itemTypes[ITEM_TYPE_FRUIT][i].attrs = 0;
+    itemTypes[ITEM_TYPE_FRUIT][i].possibleSlots = 0;
+    itemTypes[ITEM_TYPE_FRUIT][i].weight = 1;
   }
   
   return;

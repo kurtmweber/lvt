@@ -44,7 +44,10 @@
 #define WEAR_FAILED_NOT_ARMOR_MSG "You can't wear that, it's not armor!"
 #define REMOVE_FAILED_NOT_WORN_MSG "You can't remove something you're not wearing!"
 #define DIED_HUNGER_MSG "You have died of hunger..."
+#define NO_FRUIT_MSG "That plant has no fruit."
+#define NO_PLANT_MSG "I see no plant there"
 
 #define ATTACK_ALLIED_Q "The creature there is allied.  Do you wish to attack?"
+#define PICK_CURRENT_SPACE_Q "Do you want to pick from the current space?"
 
 #endif

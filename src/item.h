@@ -48,6 +48,7 @@ typedef enum itemClassId{
   ITEM_TYPE_LEGGINGS,
   ITEM_TYPE_SHOES,
   ITEM_TYPE_SHIELD,
+  ITEM_TYPE_FRUIT,
   ITEM_TYPE_MAX
 } itemClassId;
 
@@ -124,6 +125,18 @@ typedef enum corpseSubClassId{
   ITEM_CORPSE_MAX
 } corpseSubClassId;
 
+typedef struct uniqueDataFruit{
+  unsigned int nutrition;
+} uniqueDataFruit;
+
+typedef enum fruitSubClassId{
+  ITEM_FRUIT_BLUEBERRY,
+  ITEM_FRUIT_BLACKBERRY,
+  ITEM_FRUIT_STRAWBERRY,
+  ITEM_FRUIT_RASPBERRY,
+  ITEM_FRUIT_MAX
+} fruitSubClassId;
+
 typedef struct itemType{
   char *itemName;
   unsigned int baseDamage;
@@ -142,6 +155,7 @@ typedef struct itemType{
     uniqueDataShirt shirtUniqueData;
     uniqueDataUnderarmor underarmorUniqueData;
     uniqueDataShield shieldUniqueData;
+    uniqueDataFruit fruitUniqueData;
   };
   colorPairs color;
   char dispChar;
@@ -158,6 +172,7 @@ typedef struct item{
     shirtSubClassId shirtSubClass;
     underarmorSubClassId underarmorSubClass;
     shieldSubClassId shieldSubClass;
+    fruitSubClassId fruitSubClass;
   };
   itemType itemData;
   int damageModifier;
