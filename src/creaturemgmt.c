@@ -485,6 +485,9 @@ void initCreatureInventory(creature *creature){
   return;
 }
 
+/* ALWAYS check the return value of addCreatureInventoryItem().  If the list is full, then the item
+ * is not added to inventory, and so you need to do something appropriate with it
+ */
 char addCreatureInventoryItem(creature *creature, item *item){
   char i = 0;
   

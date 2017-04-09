@@ -190,7 +190,7 @@ void changeCreatureLocation(creature *creature, coord3D newPos);
 #ifndef _EAT_C
 void doEat();
 #else
-void eatItem(creature *creature, item *item);
+void eatItem(creature *creature, item *foodItem);
 #endif
 
 #ifndef _FACTIONS_C
@@ -263,6 +263,7 @@ void initShirts();
 void initUnderarmor();
 void initShields();
 void initFruit();
+void initSeeds();
 void initItemType(itemType *in);
 #endif
 
@@ -478,6 +479,7 @@ item *spawnShirt(int subClass);
 item *spawnUnderarmor(int subClass);
 item *spawnShield(int subClass);
 item *spawnFruit(int subClass);
+item *spawnSeed(int subClass);
 #endif
 
 #ifndef _SPECIESINFO_C

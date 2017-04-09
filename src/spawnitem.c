@@ -49,6 +49,9 @@ item *spawnItem(itemClassId class, int subClass){
     case ITEM_TYPE_FRUIT:
       item = spawnFruit(subClass);
       break;
+    case ITEM_TYPE_SEED:
+      item = spawnSeed(subClass);
+      break;
     default:
       return 0;
   }
@@ -63,6 +66,18 @@ item *spawnItem(itemClassId class, int subClass){
   item->owned = false;
   
   return item;
+}
+
+item *spawnSeed(int subClass){
+  item *seed;
+  
+  seed = allocateItem();
+  
+  setItemClass(seed, ITEM_TYPE_SEED);
+  seed->seedSubClass = subClass;
+  seed->itemData = itemTypes[ITEM_TYPE_SEED][subClass];
+  
+  return seed;
 }
 
 item *spawnFruit(int subClass){

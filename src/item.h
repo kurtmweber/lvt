@@ -130,6 +130,11 @@ typedef struct uniqueDataFruit{
   unsigned int nutrition;
 } uniqueDataFruit;
 
+/* A lot of functions assume that a given enum value in seedSubClassId will correspond to the correct
+ * value in fruitSubClassId, so to be safe, (a) always add a fruit and its seed subclass id together and
+ * (b) make sure they are in the same order
+ */
+
 typedef enum fruitSubClassId{
   ITEM_FRUIT_BLUEBERRY,
   ITEM_FRUIT_BLACKBERRY,

@@ -19,19 +19,27 @@
 
 #include <ctype.h>
 
+#include "item.h"
 #include "lvt.h"
 #include "messages.h"
 
-void eatItem(creature *creature, item *item){
+void eatItem(creature *creature, item *foodItem){
+  item *newSeedItem;
   unsigned int curNutrition;
   unsigned int itemNutrition;
+  itemClassId itemClass;
+  int itemSubClass;
+  char newSeedInv;
+  coord3D curLoc;
   
-  switch (getItemClass(item)){
+  itemClass = getItemClass(foodItem);
+  
+  switch (itemClass){
     case ITEM_TYPE_CORPSE:
-      itemNutrition = getCorpseNutrition(item);
+      itemNutrition = getCorpseNutrition(foodItem);
       break;
     case ITEM_TYPE_FRUIT:
-      itemNutrition = getFruitNutrition(item);
+      itemNutrition = getFruitNutrition(foodItem);
       break;
     default:	// can't happen
       return;
@@ -40,8 +48,18 @@ void eatItem(creature *creature, item *item){
   curNutrition = getCreatureNutrition(creature);
   setCreatureNutrition(creature, curNutrition + itemNutrition);
   
-  removeCreatureInventoryItem(creature, item);
-  freeItem(item);
+  if (itemClass == ITEM_TYPE_FRUIT){
+    itemSubClass = foodItem->fruitSubClass;
+    newSeedItem = spawnItem(ITEM_TYPE_SEED, itemSubClass);
+    newSeedInv = addCreatureInventoryItem(creature, newSeedItem);
+    if (!newSeedInv){
+      curLoc = getCreatureLocation(creature);
+      addContents(dungeon[curLoc.level], curLoc.x, curLoc.y, newSeedItem);
+    }
+  }
+  
+  removeCreatureInventoryItem(creature, foodItem);
+  freeItem(foodItem);
   
   return;
 }

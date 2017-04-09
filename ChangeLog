@@ -1,4 +1,5 @@
 for version 0.8
+  * eating a berry creates a seed (kmw, 2017-04-09)
   * fixed bug relating to freeing item type names of fruit (kmw, 2017-03-31)
   * fruit and corpses can be eaten (kmw, 2017-03-31)
   * fixed bug that caused segfault when scrolling past end of full inventory list display (kmw, 2017-03-31)
