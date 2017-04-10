@@ -503,6 +503,12 @@ char addCreatureInventoryItem(creature *creature, item *item){
   
   creature->inventory[i] = item;
   setItemOwned(item, true);
+  setItemOwner(item, creature);
+  
+  if (isSeed(item)){
+    setSeedRest(item, 0);
+    setSeedDormancy(item, 0);
+  }
   
   return inventoryIndexToLetter(i);    
 }
@@ -517,6 +523,8 @@ void removeCreatureInventoryItem(creature *creature, item *item){
   if (creature->weapon == item){
     creature->weapon = 0;
   }
+  
+  setItemOwner(item, NULL);
   
   for (i = 0; i < 52; i++){
     if (creature->inventory[i] == item){

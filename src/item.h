@@ -19,6 +19,7 @@
 #define _ITEM_H
 
 #include <stdbool.h>
+#include "creature.h"
 #include "species.h"
 #include "types.h"
 
@@ -202,6 +203,7 @@ typedef struct item{
   int weightModifier;
   char *name;
   bool owned;
+  struct creature *owner;
   bool wielded;
   bool worn;
   coord3D location;

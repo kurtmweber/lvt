@@ -70,12 +70,19 @@ item *spawnItem(itemClassId class, int subClass){
 
 item *spawnSeed(int subClass){
   item *seed;
+  seedList *newSeed;
   
   seed = allocateItem();
   
   setItemClass(seed, ITEM_TYPE_SEED);
   seed->seedSubClass = subClass;
   seed->itemData = itemTypes[ITEM_TYPE_SEED][subClass];
+  setSeedRest(seed, 0);
+  setSeedDormancy(seed, 0);
+  
+  newSeed = allocateSeedListEntry();
+  newSeed->seed = seed;
+  seeds = insertNewSeedNode(seeds, newSeed);
   
   return seed;
 }

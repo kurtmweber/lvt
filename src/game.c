@@ -83,6 +83,7 @@ void updateTurnCounter(){
     }
     
     updatePlants();
+    updateSeeds();
     
     curCreatureNode = creatures;
     if (curCreatureNode){

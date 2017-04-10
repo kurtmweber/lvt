@@ -88,7 +88,7 @@ void freePlantListEntry(plantList *node){
 }
 
 void freeSeedListEntry(seedList *node){  
-  free(node->seed);
+  freeItem(node->seed);
   free(node);
   
   return;

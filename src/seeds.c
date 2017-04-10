@@ -15,4 +15,45 @@
  *  along with Lavender Throne.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include _SEEDS_C
+#define _SEEDS_C
+
+#include "lvt.h"
+
+const unsigned int seedDormancyLimit = 100;
+const unsigned int seedRestLimit = 100;
+
+void updateSeeds(){
+  seedList *curSeedNode;
+  item *curSeed;
+  unsigned int dormancy;
+  unsigned int rest;
+  creature *owner;
+  seedList *sNode;
+  
+  curSeedNode = seeds;
+  if (!curSeedNode){
+    return;
+  }
+  
+  do {
+    curSeed = curSeedNode->seed;
+    curSeedNode = curSeedNode->next;
+    
+    if (getItemOwned(curSeed)){
+      dormancy = getSeedDormancy(curSeed);
+      dormancy++;
+      if (dormancy == seedDormancyLimit){
+	owner = getItemOwner(curSeed);
+	removeCreatureInventoryItem(owner, curSeed);
+	sNode = findSeedListEntry(seeds, curSeed);
+	seeds = removeSeedNode(seeds, sNode);
+	freeSeedListEntry(sNode);
+	//freeItem(curSeed);
+      } else {
+	setSeedDormancy(curSeed, dormancy);
+      }
+    }
+  } while (curSeedNode);
+  
+  return;
+}

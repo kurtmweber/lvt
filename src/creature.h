@@ -77,15 +77,15 @@ typedef enum creatureClass{
 } creatureClass;
 
 typedef struct armorSlotList{
-  item *shirt;
-  item *underarmor;
-  item *armor;
-  item *helmet;
-  item *cloak;
-  item *gloves;
-  item *leggings;
-  item *shoes;
-  item *shield;
+  struct item *shirt;
+  struct item *underarmor;
+  struct item *armor;
+  struct item *helmet;
+  struct item *cloak;
+  struct item *gloves;
+  struct item *leggings;
+  struct item *shoes;
+  struct item *shield;
 } armorSlotList;
 
 /* typedef struct inventoryEntry{
@@ -115,9 +115,9 @@ typedef struct creature{
   unsigned int attrs;
   unsigned int faction;
   armorSlotList armor;
-  item *weapon;
+  struct item *weapon;
   //inventoryEntry inventory[52];
-  item *inventory[52];
+  struct item *inventory[52];
   unsigned int weight;
   unsigned int nutrition;
   //creatureAggression aggression;

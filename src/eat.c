@@ -31,7 +31,6 @@ void eatItem(creature *creature, item *foodItem){
   int itemSubClass;
   char newSeedInv;
   coord3D curLoc;
-  seedList *newSeed;
   
   itemClass = getItemClass(foodItem);
   
@@ -57,9 +56,6 @@ void eatItem(creature *creature, item *foodItem){
       curLoc = getCreatureLocation(creature);
       addContents(curLoc.level, curLoc.x, curLoc.y, newSeedItem);
     }
-    newSeed = allocateSeedListEntry();
-    newSeed->seed = newSeedItem;
-    seeds = insertNewSeedNode(seeds, newSeed);
   }
   
   removeCreatureInventoryItem(creature, foodItem);

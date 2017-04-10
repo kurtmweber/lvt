@@ -149,6 +149,7 @@ void addContents(unsigned int mapLevel, unsigned int x, unsigned int y, item *it
   
   setItemLocation(item, curLoc);
   setItemOwned(item, false);
+  setItemOwner(item, NULL);
   
   return;
 }

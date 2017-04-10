@@ -31,6 +31,34 @@ unsigned int getCorpseNutrition(item *corpse){
   return corpse->itemData.corpseUniqueData.nutrition;
 }
 
+void setSeedRest(item *seed, unsigned int rest){
+  seed->itemData.seedUniqueData.rest = rest;
+  
+  return;
+}
+
+void setSeedDormancy(item *seed, unsigned int dormancy){
+  seed->itemData.seedUniqueData.dormancy = dormancy;
+  
+  return;
+}
+
+unsigned int getSeedRest(item *seed){
+  return seed->itemData.seedUniqueData.rest;
+}
+
+unsigned int getSeedDormancy(item *seed){
+  return seed->itemData.seedUniqueData.dormancy;
+}
+
+bool isSeed(item *item){
+  if (item->itemClass == ITEM_TYPE_SEED){
+    return true;
+  } else {
+    return false;
+  }
+}
+
 void setFruitNutrition(item *fruit, unsigned int nutrition){
   fruit->itemData.fruitUniqueData.nutrition = nutrition;
   
@@ -125,4 +153,14 @@ void setItemOwned(item *item, bool status){
 
 bool getItemOwned(item *item){
   return item->owned;
+}
+
+void setItemOwner(item *item, creature *owner){
+  item->owner = owner;
+  
+  return;
+}
+
+creature *getItemOwner(item *item){
+  return item->owner;
 }

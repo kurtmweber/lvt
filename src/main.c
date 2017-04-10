@@ -27,9 +27,9 @@
 
 const double pi = 3.141592;
 creature player;
-creatureList *creatures;
-plantList *plants;
-seedList *seeds;
+creatureList *creatures = 0;
+plantList *plants = 0;
+seedList *seeds = 0;
 map dungeon;
 gameStatus status;
 

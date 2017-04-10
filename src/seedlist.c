@@ -50,7 +50,9 @@ seedList *removeSeedNode(seedList *list, seedList *node){
 
   if (list == node){
     list = node->next;
-    list->prev = 0;
+    if (list){
+      list->prev = 0;
+    }
   } else {
     prev = node->prev;
     next = node->next;

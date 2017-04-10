@@ -47,6 +47,7 @@ seedList *allocateSeedListEntry();
 void freeSeedListEntry(seedList *node);
 void freeItem(item *item);
 #else
+void freeItem(item *item);
 #endif
 
 #ifndef _ATTACK_C
@@ -287,6 +288,13 @@ itemClassId getItemClass(item *item);
 coord3D getItemLocation(item *item);
 void setItemOwned(item *item, bool status);
 bool getItemOwned(item *item);
+void setSeedRest(item *seed, unsigned int rest);
+void setSeedDormancy(item *seed, unsigned int dormancy);
+unsigned int getSeedRest(item *seed);
+unsigned int getSeedDormancy(item *seed);
+bool isSeed(item *item);
+void setItemOwner(item *item, creature *owner);
+creature *getItemOwner(item *item);
 #endif
 
 #ifndef _LEVELDISP_C
@@ -478,6 +486,10 @@ coord2D definePlayAreaDisplay();
 seedList *insertNewSeedNode(seedList *list, seedList *node);
 seedList *findSeedListEntry(seedList *list, item *seed);
 seedList *removeSeedNode(seedList *list, seedList *node);
+#endif
+
+#ifndef _SEEDS_C
+void updateSeeds();
 #endif
 
 #ifndef _SPAWNITEM_C
