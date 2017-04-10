@@ -125,8 +125,12 @@ bool hasContents(level level, unsigned int x, unsigned int y){
   }
 }
 
-void addContents(level level, unsigned int x, unsigned int y, item *item){
+void addContents(unsigned int mapLevel, unsigned int x, unsigned int y, item *item){
   mapSpaceContents *node;
+  coord3D curLoc;
+  level level;
+  
+  level = dungeon[mapLevel];
   
   node = allocateMapSpaceContentsListEntry();
   
@@ -138,6 +142,12 @@ void addContents(level level, unsigned int x, unsigned int y, item *item){
   node->prev = 0;
   level[x][y].contents = node;
   node->item = item;
+  
+  curLoc.x = x;
+  curLoc.y = y;
+  curLoc.level = mapLevel;
+  
+  setItemLocation(item, curLoc);
   
   return;
 }

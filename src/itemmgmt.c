@@ -112,3 +112,7 @@ void setItemWeight(item *item, unsigned int weight){
   item->itemData.weight = weight;
   return;
 }
+
+coord3D getItemLocation(item *item){
+  return item->location;
+}

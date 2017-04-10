@@ -282,6 +282,7 @@ unsigned int getItemAttrs(item *item);
 unsigned int getItemWeight(item *item);
 void setItemWeight(item *item, unsigned int weight);
 itemClassId getItemClass(item *item);
+coord3D getItemLocation(item *item);
 #endif
 
 #ifndef _LEVELDISP_C
@@ -350,7 +351,7 @@ void clearCreatureOccupant(level level, unsigned int x, unsigned int y);
 void setTerrainData(level level, unsigned int x, unsigned int y, terrain terrain, void *data);
 void *getTerrainData(level level, unsigned int x, unsigned int y, terrain terrain);
 coord2D findLevelDownstair(level level);
-void addContents(level level, unsigned int x, unsigned int y, item *item);
+void addContents(unsigned int mapLevel, unsigned int x, unsigned int y, item *item);
 mapSpaceContents *getContents(level level, unsigned int x, unsigned int y);
 void setPlantOccupant(level level, unsigned int x, unsigned int y, plant *plant);
 plant *getPlantOccupant(level level, unsigned x, unsigned int y);

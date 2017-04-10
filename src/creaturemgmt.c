@@ -749,7 +749,7 @@ void killCreature(creature *creature){
   creatureCorpse = spawnItem(ITEM_TYPE_CORPSE, getCreatureSpecies(creature));
   setCorpseNutrition(creatureCorpse, getCreatureWeight(creature));
   
-  addContents(dungeon[creatureLoc.level], creatureLoc.x, creatureLoc.y, creatureCorpse);
+  addContents(creatureLoc.level, creatureLoc.x, creatureLoc.y, creatureCorpse);
   setItemLocation(creatureCorpse, creatureLoc);
   
   corpseName = autoGenerateCorpseName(creature);

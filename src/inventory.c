@@ -415,7 +415,7 @@ void doDrop(){
 	    chosenItem = inventory[inventoryLetterToIndex(c)];
 	    removeCreatureInventoryItem(&player, chosenItem);
 	    creaturePos = getCreatureLocation(&player);
-	    addContents(dungeon[creaturePos.level], creaturePos.x, creaturePos.y, chosenItem);
+	    addContents(creaturePos.level, creaturePos.x, creaturePos.y, chosenItem);
 	    return;
 	  } else {
 	    break;
@@ -487,7 +487,7 @@ void doPickup(){
       
       if (!label){	// inventory table is full
 	addToMsgQueue(INVENTORY_FULL_MSG, false);
-	addContents(dungeon[curLoc.level], curLoc.x, curLoc.y, thisItem);
+	addContents(curLoc.level, curLoc.x, curLoc.y, thisItem);
 	free(thisContent);
 	return;
       }
@@ -503,7 +503,7 @@ void doPickup(){
       } 
       addToMsgQueue(pickupMsg, true);
     } else {
-      addContents(dungeon[curLoc.level], curLoc.x, curLoc.y, thisItem);
+      addContents(curLoc.level, curLoc.x, curLoc.y, thisItem);
     }
     
     contents = thisContent->next;

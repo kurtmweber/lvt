@@ -53,7 +53,7 @@ void throwObject(creature *creature, moveDirection dir, item *item){
   pos = getCreatureLocation(creature);
   
   removeCreatureInventoryItem(creature, item);
-  addContents(dungeon[pos.level], pos.x, pos.y, item);
+  addContents(pos.level, pos.x, pos.y, item);
   
   while (distance){
     distance--;
@@ -65,7 +65,7 @@ void throwObject(creature *creature, moveDirection dir, item *item){
     do {
       thisContent = contents;
       if (thisContent->item != item){
-	addContents(dungeon[pos.level], pos.x, pos.y, thisContent->item);
+	addContents(pos.level, pos.x, pos.y, thisContent->item);
       }
       contents = thisContent->next;
       free(thisContent);
@@ -74,7 +74,7 @@ void throwObject(creature *creature, moveDirection dir, item *item){
     pos.x += move.x;
     pos.y += move.y;
     
-    addContents(dungeon[pos.level], pos.x, pos.y, item);
+    addContents(pos.level, pos.x, pos.y, item);
     displayLevel(dungeon[pos.level]);
     
     usleep(250000);

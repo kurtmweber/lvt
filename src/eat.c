@@ -54,7 +54,7 @@ void eatItem(creature *creature, item *foodItem){
     newSeedInv = addCreatureInventoryItem(creature, newSeedItem);
     if (!newSeedInv){
       curLoc = getCreatureLocation(creature);
-      addContents(dungeon[curLoc.level], curLoc.x, curLoc.y, newSeedItem);
+      addContents(curLoc.level, curLoc.x, curLoc.y, newSeedItem);
     }
   }
   

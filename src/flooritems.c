@@ -90,7 +90,7 @@ void randomFloorItem(coord2D floor, unsigned int level){
     newItem = randomArmor();
   }
   
-  addContents(dungeon[level], floor.x, floor.y, newItem);
+  addContents(level, floor.x, floor.y, newItem);
 
   
   return;
