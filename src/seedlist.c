@@ -15,12 +15,12 @@
  *  along with Lavender Throne.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#define _PLANTLIST_C
+#define _SEEDLIST_C
 
 #include "lvt.h"
 #include "plant.h"
 
-plantList *insertNewPlantNode(plantList *list, plantList *node){
+seedList *insertNewSeedNode(seedList *list, seedList *node){
   if (list){
     list->prev = node;
     node->next = list;
@@ -34,9 +34,9 @@ plantList *insertNewPlantNode(plantList *list, plantList *node){
   return node;
 }
 
-plantList *findPlantListEntry(plantList *list, plant *plant){
+seedList *findSeedListEntry(seedList *list, item *seed){
   do {
-    if (list->plant == plant){
+    if (list->seed == seed){
       return list;
     }
     
@@ -44,9 +44,9 @@ plantList *findPlantListEntry(plantList *list, plant *plant){
   } while(list);
 }
 
-plantList *removePlantNode(plantList *list, plantList *node){
-  plantList *prev;
-  plantList *next;  
+seedList *removeSeedNode(seedList *list, seedList *node){
+  seedList *prev;
+  seedList *next;  
 
   if (list == node){
     list = node->next;

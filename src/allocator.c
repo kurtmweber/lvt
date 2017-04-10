@@ -51,6 +51,16 @@ mapSpaceContents *allocateMapSpaceContentsListEntry(){
   return node;
 }
 
+seedList *allocateSeedListEntry(){
+  seedList *node;
+  
+  node = (seedList *)calloc(1, sizeof(seedList));
+  
+  node->seed = (item *)calloc(1, sizeof(item));
+  
+  return node;
+}
+
 void freeCreatureListEntry(creatureList *node){
   if (!node){
     return;
@@ -72,6 +82,13 @@ void freeCreatureListEntry(creatureList *node){
 
 void freePlantListEntry(plantList *node){  
   free(node->plant);
+  free(node);
+  
+  return;
+}
+
+void freeSeedListEntry(seedList *node){  
+  free(node->seed);
   free(node);
   
   return;

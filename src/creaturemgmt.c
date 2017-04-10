@@ -502,6 +502,7 @@ char addCreatureInventoryItem(creature *creature, item *item){
   item->owned = true;
   
   creature->inventory[i] = item;
+  setItemOwned(item, true);
   
   return inventoryIndexToLetter(i);    
 }

@@ -18,7 +18,7 @@
 #ifndef _LVT_H
 #define _LVT_H
 
-#define _D_DEBUG
+//#define _D_DEBUG
 
 #include <stdbool.h>
 #include <ncurses.h>
@@ -43,6 +43,8 @@ item *allocateItem();
 mapSpaceContents *allocateMapSpaceContentsListEntry();
 plantList *allocatePlantListEntry();
 void freePlantListEntry(plantList *node);
+seedList *allocateSeedListEntry();
+void freeSeedListEntry(seedList *node);
 void freeItem(item *item);
 #else
 #endif
@@ -283,6 +285,8 @@ unsigned int getItemWeight(item *item);
 void setItemWeight(item *item, unsigned int weight);
 itemClassId getItemClass(item *item);
 coord3D getItemLocation(item *item);
+void setItemOwned(item *item, bool status);
+bool getItemOwned(item *item);
 #endif
 
 #ifndef _LEVELDISP_C
@@ -332,6 +336,7 @@ extern map dungeon;
 extern gameStatus status;
 extern creatureList *creatures;
 extern plantList *plants;
+extern seedList *seeds;
 #else
 #endif
 
@@ -467,6 +472,12 @@ void displayQuestionYesNo(char *msg);
 char *getLineInput(char *prompt);
 #else
 coord2D definePlayAreaDisplay();
+#endif
+
+#ifndef _SEEDLIST_C
+seedList *insertNewSeedNode(seedList *list, seedList *node);
+seedList *findSeedListEntry(seedList *list, item *seed);
+seedList *removeSeedNode(seedList *list, seedList *node);
 #endif
 
 #ifndef _SPAWNITEM_C

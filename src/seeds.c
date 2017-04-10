@@ -15,40 +15,4 @@
  *  along with Lavender Throne.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef _PLANT_H
-#define _PLANT_H
-
-#include "species.h"
-#include "types.h"
-
-typedef struct plant{
-  plantClass plantClass;
-  plantSpecies species;
-  unsigned int curToughness;
-  unsigned int maxToughness;
-  unsigned int curGrowth;
-  unsigned int maxGrowth;
-  unsigned int curProduction;
-  unsigned int maxProduction;
-  unsigned int growthRate;
-  unsigned int productionTime;
-  unsigned int productionProgress;
-  char dispChar;
-  colorPairs dispColor;
-  unsigned int attrs;
-  coord3D location;
-} plant;
-
-typedef struct plantList{
-  struct plantList *next;
-  plant *plant;
-  struct plantList *prev;
-} plantList;
-
-typedef struct seedList{
-  struct seedList *next;
-  item *seed;
-  struct seedList *prev;
-} seedList;
-
-#endif
+#include _SEEDS_C

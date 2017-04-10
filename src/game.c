@@ -82,6 +82,8 @@ void updateTurnCounter(){
       regenerateHitPoints(&player);
     }
     
+    updatePlants();
+    
     curCreatureNode = creatures;
     if (curCreatureNode){
       do {
@@ -120,7 +122,6 @@ void gameLoop(){
     if (!freeAction){
       updateTurnCounter();
       moveCreatures();
-      updatePlants();
     } else {
       freeAction = false;
     }

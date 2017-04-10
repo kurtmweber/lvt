@@ -116,3 +116,13 @@ void setItemWeight(item *item, unsigned int weight){
 coord3D getItemLocation(item *item){
   return item->location;
 }
+
+void setItemOwned(item *item, bool status){
+  item->owned = status;
+  
+  return;
+}
+
+bool getItemOwned(item *item){
+  return item->owned;
+}

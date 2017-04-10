@@ -1,4 +1,5 @@
 for version 0.8
+  * plants are updated every turn rather than every move (kmw, 2017-04-09)
   * addContents() in map.c also now sets the location in item struct (kmw, 2017-04-09)
   * eating a berry creates a seed (kmw, 2017-04-09)
   * fixed bug relating to freeing item type names of fruit (kmw, 2017-03-31)
