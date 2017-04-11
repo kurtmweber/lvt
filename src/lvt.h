@@ -369,7 +369,10 @@ mapSpaceContents *getContents(level level, unsigned int x, unsigned int y);
 void setPlantOccupant(level level, unsigned int x, unsigned int y, plant *plant);
 plant *getPlantOccupant(level level, unsigned x, unsigned int y);
 void clearPlantOccupant(level level, unsigned int x, unsigned int y);
+void removeContent(unsigned int mapLevel, unsigned int x, unsigned int y, item *item);
 #else
+void addContents(unsigned int mapLevel, unsigned int x, unsigned int y, item *item);
+mapSpaceContents *getContents(level level, unsigned int x, unsigned int y);
 #endif
 
 #ifndef _MESSAGES_C
@@ -397,10 +400,14 @@ item *pickFruitFromPlant(plant *plant);
 
 #ifndef _PLANTGEN_C
 plantList *generateStartingPlants();
+void placeNewPlant(plant *plant, coord3D location);
+plant *spawnOrphanPlant(plantSpecies species);
+plant *spawnPlantFromSeed(plantSpecies species);
 #else
 bool decidePlacePlant(coord2D floor, unsigned int level);
 plant *newRandomOrphanPlant(coord2D floor, unsigned int level);
 void placeNewPlant(plant *plant, coord3D location);
+plant *spawnOrphanPlant(plantSpecies species);
 #endif
 
 #ifndef _PLANTLIST_C

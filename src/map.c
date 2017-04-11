@@ -154,6 +154,30 @@ void addContents(unsigned int mapLevel, unsigned int x, unsigned int y, item *it
   return;
 }
 
+void removeContent(unsigned int mapLevel, unsigned int x, unsigned int y, item *item){
+  mapSpaceContents *node;
+  mapSpaceContents *curNode;
+  
+  node = getContents(dungeon[mapLevel], x, y);
+  
+  dungeon[mapLevel][x][y].contents = 0;
+  
+  if (!node){
+    return;
+  }
+  
+  do {
+    curNode = node;
+    if (curNode->item != item){
+      addContents(mapLevel, x, y, curNode->item);
+    }
+    
+    node = node->next;
+  } while(node);
+  
+  return;
+}
+
 mapSpaceContents *getContents(level level, unsigned int x, unsigned int y){
   return level[x][y].contents;
 }

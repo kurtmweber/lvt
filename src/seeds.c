@@ -29,6 +29,9 @@ void updateSeeds(){
   unsigned int rest;
   creature *owner;
   seedList *sNode;
+  plant *newPlant;
+  plantList *pNode;
+  coord3D seedLoc;
   
   curSeedNode = seeds;
   if (!curSeedNode){
@@ -51,6 +54,23 @@ void updateSeeds(){
 	//freeItem(curSeed);
       } else {
 	setSeedDormancy(curSeed, dormancy);
+      }
+    } else {
+      rest = getSeedRest(curSeed);
+      rest++;
+      if (rest == seedRestLimit){
+	newPlant = spawnPlantFromSeed(curSeed->seedSubClass);
+	placeNewPlant(newPlant, getItemLocation(curSeed));
+	sNode = findSeedListEntry(seeds, curSeed);
+	seedLoc = getItemLocation(curSeed);
+	removeContent(seedLoc.level, seedLoc.x, seedLoc.y, curSeed);
+	seeds = removeSeedNode(seeds, sNode);
+	freeSeedListEntry(sNode);
+	pNode = allocatePlantListEntry();
+	plants = insertNewPlantNode(plants, pNode);
+	pNode->plant = newPlant;
+      } else {
+	setSeedRest(curSeed, rest);
       }
     }
   } while (curSeedNode);

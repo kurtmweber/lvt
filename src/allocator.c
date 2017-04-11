@@ -21,6 +21,7 @@
 #include "creature.h"
 #include "item.h"
 #include "level.h"
+#include "lvt.h"
 #include "plant.h"
 
 creatureList *allocateCreatureListEntry(){

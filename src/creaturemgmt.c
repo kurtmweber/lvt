@@ -518,7 +518,7 @@ void removeCreatureInventoryItem(creature *creature, item *item){
   
   item->worn = false;
   item->wielded = false;
-  item->owned = false;
+  setItemOwned(item, false);
   
   if (creature->weapon == item){
     creature->weapon = 0;

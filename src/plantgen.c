@@ -76,6 +76,36 @@ plant *spawnOrphanPlant(plantSpecies species){
   return newPlant;
 }
 
+plant *spawnPlantFromSeed(plantSpecies species){
+  plant *newPlant;
+  static rng localRng;
+  static bool rngInitd = false;
+  
+  if (!rngInitd){
+    initializeRNG(&localRng);
+    rngInitd = true;
+  }
+  
+  newPlant = (plant *)calloc(1, sizeof(plant));
+  
+  setPlantSpecies(newPlant, species);
+  setPlantClass(newPlant, plantSpeciesData[species].plantClass);
+  setPlantCurToughness(newPlant, plantSpeciesData[species].toughness);
+  setPlantMaxToughness(newPlant, plantSpeciesData[species].toughness);
+  setPlantCurGrowth(newPlant, 0);
+  setPlantMaxGrowth(newPlant, plantSpeciesData[species].maturityLevel);
+  setPlantCurProduction(newPlant, 0);
+  setPlantMaxProduction(newPlant, plantSpeciesData[species].maxProduction);
+  setPlantGrowthRate(newPlant, plantSpeciesData[species].growthRate);
+  setPlantProductionTime(newPlant, plantSpeciesData[species].productionTime);
+  setPlantProductionProgress(newPlant, 0);
+  setPlantDispChar(newPlant, plantSpeciesData[species].dispChar);
+  setPlantDispColor(newPlant, plantSpeciesData[species].color);
+  setPlantAttrs(newPlant, 0);
+  
+  return newPlant;
+}
+
 plant *newRandomOrphanPlant(coord2D floor, unsigned int level){
   static rng localRng;
   static bool rngInitd = false;
