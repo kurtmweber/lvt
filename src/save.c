@@ -24,6 +24,7 @@
 #include <string.h>
 
 #include "lvt.h"
+#include "save.h"
 
 uintptr_t objectId;
 void **objectIdMap;
@@ -151,7 +152,7 @@ uintptr_t getObjectId(void *object){
   
   for (i = 0; i < (objectId - 1); i++){
     if (objectIdMap[i] == object){
-      return i;
+      return i + 1;
     }
   }
   
@@ -181,6 +182,7 @@ void encapsulateAndWrite(void *object, encapsulatedTypes type, size_t objectSize
 uintptr_t storeObject(void *object, encapsulatedTypes type){
   switch(type){
     case ENCAP_TYPE_CREATURE:
+    case ENCAP_TYPE_PLAYER:
       return storeCreature((creature *)object, type);
       break;
     case ENCAP_TYPE_STRING:
@@ -201,7 +203,7 @@ void doSave(){
   // when reading, the first creature object encountered will be the player
   // so it must be the first to be written
   
-  storeObject(&player, ENCAP_TYPE_CREATURE);
+  storeObject(&player, ENCAP_TYPE_PLAYER);
   
   fclose(saveFile);
   

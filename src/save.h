@@ -15,57 +15,26 @@
  *  along with Lavender Throne.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef _TYPES_H
-#define _TYPES_H
+#ifndef _SAVE_H
+#define _SAVE_H
 
-#include <stdbool.h>
+typedef enum encapsulatedTypes{
+  ENCAP_TYPE_STRING,
+  ENCAP_TYPE_PLAYER,
+  ENCAP_TYPE_CREATURE,
+  ENCAP_TYPE_ITEM
+} encapsulatedTypes;
 
-#include "pcg_basic.h"
+typedef struct readObjectList{
+  uintptr_t id;
+  void *ptr;
+  encapsulatedTypes type;
+} readObjectList;
 
-typedef pcg32_random_t rng;
-
-typedef enum coin{
-  HEADS,
-  TAILS
-} coin;
-
-typedef struct coord2D{
-  unsigned int x;
-  unsigned int y;
-} coord2D;
-
-typedef struct coord3D{
-  unsigned int x;
-  unsigned int y;
-  unsigned int level;
-} coord3D;
-
-typedef struct moveMatrix{
-  int x;
-  int y;
-} moveMatrix;
-
-typedef enum color{
-  RED,
-  WHITE,
-  BRIGHTWHITE
-} color;
-
-typedef struct gameStatus{
-  unsigned int turnNum;
-  unsigned int speedCounter;
-  unsigned int playerSpeed;
-} gameStatus;
-
-typedef struct msgQueueEntry{
-  bool confirm;
-  char *msg;
-} msgQueueEntry;
-
-typedef struct screenDisplayCell{
-  char dispChar;
-  bool hasAttrs;
-  unsigned int attrs;
-} screenDisplayCell;
+typedef struct fileObjectInfo{
+  uintptr_t id;
+  encapsulatedTypes type;
+  size_t size;
+} fileObjectInfo;
 
 #endif

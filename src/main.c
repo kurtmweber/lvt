@@ -20,6 +20,7 @@
 #include <stdio.h>
 #include <ncurses.h>
 #include <config.h>
+#include <stdbool.h>
 #include "lvt.h"
 #include "level.h"
 #include "creature.h"
@@ -36,6 +37,9 @@ gameStatus status;
 int main(int argc, char *argv[]){
   coord2D initUpstair;
   coord3D initLocation;
+  bool readingSaved = false;
+  
+  readingSaved = readSaveFile();
   
   initializeLevelGen();
   initSpeciesData();
@@ -56,7 +60,9 @@ int main(int argc, char *argv[]){
   getch();
   clear();
   
-  initializeCharacter();
+  if (!readingSaved){
+    initializeCharacter();
+  }
   clear();
     
   initUpstair = findLevelUpstair(dungeon[0]);

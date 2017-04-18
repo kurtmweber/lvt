@@ -18,7 +18,7 @@
 #ifndef _LVT_H
 #define _LVT_H
 
-#define _D_DEBUG
+//#define _D_DEBUG
 
 #include <stdbool.h>
 #include <ncurses.h>
@@ -30,6 +30,7 @@
 #include "item.h"
 #include "creaturemgmt.h"
 #include "plant.h"
+#include "save.h"
 
 #define MAX(a, b) ((a) < (b) ? (b) : (a))
 #define MIN(a, b) ((a) > (b) ? (b) : (a))
@@ -465,6 +466,19 @@ unsigned int uniformRandomRangeInt(rng *rng, unsigned int lower, unsigned int up
 unsigned int boundedRand(rng *rng, unsigned int bound);
 double randomDouble(rng *rng);
 coin coinFlip(rng *rng);
+#endif
+
+#ifndef _READSAVE_C
+bool readSaveFile();
+#else
+fileObjectInfo getFileObjectInfo(FILE *file);
+void getFileObjectData(void *data, size_t size, FILE *saveFile);
+void addToObjectList(void *data, uintptr_t id, encapsulatedTypes type);
+void readSavedPlayerObject(creature *object);
+void *findInObjectList(uintptr_t object);
+void readSavedStringObject(char *object);
+void readSavedItemObject(item *object);
+void setPlayerObjectPtr(creature *playerPtr);
 #endif
 
 #ifndef _SAVE_C
