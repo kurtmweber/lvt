@@ -22,7 +22,8 @@ typedef enum encapsulatedTypes{
   ENCAP_TYPE_STRING,
   ENCAP_TYPE_PLAYER,
   ENCAP_TYPE_CREATURE,
-  ENCAP_TYPE_ITEM
+  ENCAP_TYPE_ITEM,
+  ENCAP_TYPE_GLOBALSTATUS
 } encapsulatedTypes;
 
 typedef struct readObjectList{

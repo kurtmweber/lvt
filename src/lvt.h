@@ -480,6 +480,7 @@ void *findInObjectList(uintptr_t object);
 void readSavedStringObject(char *object);
 void readSavedItemObject(item *object);
 void setPlayerObjectPtr(creature *playerPtr);
+void readSavedGlobalStatusObject(gameStatus *object);
 #endif
 
 #ifndef _SAVE_C
@@ -494,6 +495,7 @@ void encapsulateAndWrite(void *object, encapsulatedTypes type, size_t objectSize
 uintptr_t storeItem(item *object, encapsulatedTypes type);
 void setStored(void *object);
 bool alreadyStored(void *object);
+uintptr_t storeGlobalStatus(gameStatus *object, encapsulatedTypes type);
 #endif
 
 #ifndef _SCREEN_C

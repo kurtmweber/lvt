@@ -72,10 +72,19 @@ bool readSaveFile(){
       case ENCAP_TYPE_ITEM:
 	readSavedItemObject((item *)objectList[i].ptr);
 	break;
+      case ENCAP_TYPE_GLOBALSTATUS:
+	readSavedGlobalStatusObject((gameStatus *)objectList[i].ptr);
+	break;
       default:
 	break;
     }
   }
+}
+
+void readSavedGlobalStatusObject(gameStatus *object){
+  status = *object;
+  
+  return;
 }
 
 void readSavedItemObject(item *object){

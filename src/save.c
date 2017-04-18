@@ -117,6 +117,24 @@ uintptr_t storeString(char *object, encapsulatedTypes type){
   return localId;
 }
 
+uintptr_t storeGlobalStatus(gameStatus *object, encapsulatedTypes type){
+  uintptr_t localId;
+  
+  if (!object){
+    return 0;
+  }
+  
+  localId = getObjectId((void *)object);
+  
+  if (alreadyStored((void *)object)){
+    return localId;
+  }
+  
+  setStored((void *)object);
+  
+  encapsulateAndWrite(object, type, sizeof(gameStatus), localId);
+}
+
 uintptr_t storeItem(item *object, encapsulatedTypes type){
   uintptr_t localId;
   item tmp;
@@ -191,6 +209,9 @@ uintptr_t storeObject(void *object, encapsulatedTypes type){
     case ENCAP_TYPE_ITEM:
       return storeItem((item *)object, type);
       break;
+    case ENCAP_TYPE_GLOBALSTATUS:
+      return storeGlobalStatus((gameStatus *)object, type);
+      break;
     default:
       return 0;
   }
@@ -204,6 +225,7 @@ void doSave(){
   // so it must be the first to be written
   
   storeObject(&player, ENCAP_TYPE_PLAYER);
+  storeObject(&status, ENCAP_TYPE_GLOBALSTATUS);
   
   fclose(saveFile);
   
