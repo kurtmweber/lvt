@@ -34,6 +34,7 @@ o	open a closed door
 p	pick fruit from a plant
 r	remove a piece of armor
 s	search for hidden doors
+S	save game
 t	throw an object
 u	unwield currently-wielded item
 w	wield an object (anything can be wielded, including things that aren't explicitly weapons)

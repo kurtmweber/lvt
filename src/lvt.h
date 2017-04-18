@@ -18,7 +18,7 @@
 #ifndef _LVT_H
 #define _LVT_H
 
-//#define _D_DEBUG
+#define _D_DEBUG
 
 #include <stdbool.h>
 #include <ncurses.h>
@@ -465,6 +465,20 @@ unsigned int uniformRandomRangeInt(rng *rng, unsigned int lower, unsigned int up
 unsigned int boundedRand(rng *rng, unsigned int bound);
 double randomDouble(rng *rng);
 coin coinFlip(rng *rng);
+#endif
+
+#ifndef _SAVE_C
+void doSave();
+#else
+uintptr_t storeObject(void *object, encapsulatedTypes type);
+uintptr_t storeCreature(creature *object, encapsulatedTypes type);
+void resetObjectReferences();
+uintptr_t storeString(char *object, encapsulatedTypes type);
+uintptr_t getObjectId(void *object);
+void encapsulateAndWrite(void *object, encapsulatedTypes type, size_t objectSize, uintptr_t objectId);
+uintptr_t storeItem(item *object, encapsulatedTypes type);
+void setStored(void *object);
+bool alreadyStored(void *object);
 #endif
 
 #ifndef _SCREEN_C

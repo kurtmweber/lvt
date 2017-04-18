@@ -68,4 +68,10 @@ typedef struct screenDisplayCell{
   unsigned int attrs;
 } screenDisplayCell;
 
+typedef enum encapsulatedTypes{
+  ENCAP_TYPE_STRING,
+  ENCAP_TYPE_CREATURE,
+  ENCAP_TYPE_ITEM
+} encapsulatedTypes;
+
 #endif

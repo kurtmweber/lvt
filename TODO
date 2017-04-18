@@ -1,3 +1,4 @@
 * When updating plant status every turn, any excess growth should be carried over, rather than just stopping
   and resetting growth at the next stage to 0 (2017-03-27, kmw)
-  
+* Make savefiles portable--this will require paying attention to endianness, at the very least (2017-04-11,
+  kmw)

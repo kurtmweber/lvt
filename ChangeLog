@@ -1,4 +1,7 @@
 for version 0.8
+  * serialize and store creature, item, and strings (kmw, 2017-04-17)
+
+for version 0.8
   * release (kmw, 2017-04-10)
   * seeds that lay in place will plant and grow (kmw, 2017-04-10)
   * seeds that are not planted in time will rot away (kmw, 2017-04-09)

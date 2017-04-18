@@ -194,6 +194,8 @@ void processKey(unsigned int c){
     case 'e':
       doEat();
       break;
+    case 'S':
+      doSave();
     default:
       freeAction = true;
       break;

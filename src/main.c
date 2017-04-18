@@ -34,7 +34,6 @@ map dungeon;
 gameStatus status;
 
 int main(int argc, char *argv[]){
-
   coord2D initUpstair;
   coord3D initLocation;
   
@@ -43,8 +42,6 @@ int main(int argc, char *argv[]){
   initPlantSpeciesData();
   initItems();
   initializeFactions();
-  
-  creatures = 0;
   
   dungeon = generateMap();
   creatures = generateStartingCreatures();
