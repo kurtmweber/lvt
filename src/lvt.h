@@ -222,6 +222,7 @@ item *randomShield();
 void startGame();
 void playerDead();
 extern bool freeAction;
+void initializeGameStatus();
 #else
 void gameLoop();
 bool doQuit();

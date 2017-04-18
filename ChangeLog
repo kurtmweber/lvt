@@ -1,4 +1,5 @@
 for version 0.8
+  * move global status initialization into separate function to facilitate save restore (kmw, 2017-04-18)
   * restore player data from savefile (kmw, 2017-04-18)
   * serialize and store creature, item, and strings when saving game (kmw, 2017-04-17)
 

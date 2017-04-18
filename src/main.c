@@ -75,6 +75,10 @@ int main(int argc, char *argv[]){
   
   initializeGameScreen();
   
+  if (!readingSaved){
+    initializeGameStatus();
+  }
+  
   startGame();
   
   destroyNcurses();

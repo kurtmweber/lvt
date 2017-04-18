@@ -7,3 +7,4 @@ src/.deps/*
 .gitignore
 *core*
 src/*core*
+lvtsave

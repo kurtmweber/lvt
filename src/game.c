@@ -29,10 +29,6 @@ bool freeAction = false;
 void startGame(){
   char *welcomeMsg = 0;
   
-  status.turnNum = 0;
-  status.playerSpeed = 5;
-  status.speedCounter = 5;
-  
   displayLevel(dungeon[0]);
   
   welcomeMsg = calloc(MSGLEN(WELCOME_MSG) + strlen(getCreatureName(&player)) + 1 , sizeof(char));
@@ -44,6 +40,12 @@ void startGame(){
   gameLoop();
   
   return;
+}
+
+void initializeGameStatus(){
+  status.turnNum = 0;
+  status.playerSpeed = 5;
+  status.speedCounter = 5;
 }
 
 bool doQuit(){
