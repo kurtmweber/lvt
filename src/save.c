@@ -45,11 +45,7 @@ uintptr_t storeCreature(creature *object, encapsulatedTypes type){
   
   tmp = *object;
   
-  localId = getObjectId((void *)object);
-  
-  if (alreadyStored((void *)object)){
-    return localId;
-  }
+  CHECK_ALREADY_STORED
   
   setStored((void *)object);
   
@@ -105,11 +101,7 @@ uintptr_t storeString(char *object, encapsulatedTypes type){
     return 0;
   }
   
-  localId = getObjectId((void *)object);
-  
-  if (alreadyStored((void *)object)){
-    return localId;
-  }
+  CHECK_ALREADY_STORED
   
   setStored((void *)object);
   
@@ -124,11 +116,7 @@ uintptr_t storeGlobalStatus(gameStatus *object, encapsulatedTypes type){
     return 0;
   }
   
-  localId = getObjectId((void *)object);
-  
-  if (alreadyStored((void *)object)){
-    return localId;
-  }
+  CHECK_ALREADY_STORED
   
   setStored((void *)object);
   
@@ -145,11 +133,7 @@ uintptr_t storeItem(item *object, encapsulatedTypes type){
   
   tmp = *object;
   
-  localId = getObjectId((void *)object);
-  
-  if (alreadyStored((void *)object)){
-    return localId;
-  }
+  CHECK_ALREADY_STORED
   
   setStored((void *)object);
   
@@ -226,6 +210,7 @@ void doSave(){
   
   storeObject(&player, ENCAP_TYPE_PLAYER);
   storeObject(&status, ENCAP_TYPE_GLOBALSTATUS);
+  //storeObject(dungeon, ENCAP_TYPE_DUNGEON);
   
   fclose(saveFile);
   

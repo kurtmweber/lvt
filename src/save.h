@@ -38,4 +38,11 @@ typedef struct fileObjectInfo{
   size_t size;
 } fileObjectInfo;
 
+#define CHECK_ALREADY_STORED \
+localId = getObjectId((void *)object);\
+\
+  if (alreadyStored((void *)object)){\
+    return localId;\
+  }\
+
 #endif
