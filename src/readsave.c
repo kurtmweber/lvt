@@ -138,6 +138,15 @@ void readSavedItemObject(item *object){
   
   object->itemData.itemName = findInObjectList((uintptr_t)object->itemData.itemName);
   
+  // add to the seed linked list if that's what we've got here
+  if (object->itemClass == ITEM_TYPE_SEED){
+    seedList *newSeed;
+    
+    newSeed = allocateSeedListEntry();
+    newSeed->seed = object;
+    seeds = insertNewSeedNode(seeds, newSeed);
+  }
+  
   return;
 }
 

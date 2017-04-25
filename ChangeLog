@@ -1,4 +1,5 @@
-for version 0.8
+for version 0.9
+  * seeds are updated after being restored from save (kmw, 2017-04-24)
   * save and restore dungeon map and creatures (kmw, 2017-04-24)
   * refactoring object-storage code in save.c (kmw, 2017-04-23)
   * global status save and restore (kmw, 2017-04-18)
