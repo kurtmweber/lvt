@@ -145,6 +145,33 @@ uintptr_t storeItem(item *object, encapsulatedTypes type){
   return localId;
 }
 
+uintptr_t storeMapSpace(mapSpace *object, encapsulatedTypes type){
+  uintptr_t localId;
+  mapSpace tmp;
+  
+  if (!object){
+    return 0;
+  }
+  
+  // No need to CHECK_ALREADY_STORED here, because there is no way it would be
+  // This also saves us on the order of a trillion searches through a list
+  
+  // CHECK_ALREADY_STORED
+  
+  tmp = *object;
+  
+  if (object->creatureOccupant != &player){
+    tmp.creatureOccupant = (creature *)storeObject(object->creatureOccupant, ENCAP_TYPE_CREATURE);
+  }
+  //tmp.creatureOccupant = 0;
+  tmp.contents = 0;
+  tmp.plantOccupant = 0;
+  
+  encapsulateAndWrite(&tmp, type, sizeof(mapSpace), localId);
+  
+  return 0;	// map spaces will never be referenced, so we can use id = 0
+}
+
 uintptr_t getObjectId(void *object){  
   uintptr_t i;
   
@@ -184,6 +211,8 @@ void encapsulateAndWrite(void *object, encapsulatedTypes type, size_t objectSize
 uintptr_t storeObject(void *object, encapsulatedTypes type){
   switch(type){
     case ENCAP_TYPE_CREATURE:
+      return storeCreature((creature *)object, type);
+      break;
     case ENCAP_TYPE_PLAYER:
       return storeCreature((creature *)object, type);
       break;
@@ -196,13 +225,19 @@ uintptr_t storeObject(void *object, encapsulatedTypes type){
     case ENCAP_TYPE_GLOBALSTATUS:
       return storeGlobalStatus((gameStatus *)object, type);
       break;
+    case ENCAP_TYPE_MAPSPACE:
+      return storeMapSpace((mapSpace *)object, type);
+      break;
     default:
       return 0;
   }
 }
 
 
-void doSave(){  
+void doSave(){
+  unsigned int i, j, k;
+  level curLevel;
+  
   resetObjectReferences();
   
   // when reading, the first creature object encountered will be the player
@@ -210,7 +245,14 @@ void doSave(){
   
   storeObject(&player, ENCAP_TYPE_PLAYER);
   storeObject(&status, ENCAP_TYPE_GLOBALSTATUS);
-  //storeObject(dungeon, ENCAP_TYPE_DUNGEON);
+  
+  for (i = 0; i < numLevels; i++){
+    for (j = 0; j < dimMapX; j++){
+      for (k = 0; k < dimMapY; k++){
+	storeObject(&dungeon[i][j][k], ENCAP_TYPE_MAPSPACE);
+      }
+    }
+  }
   
   fclose(saveFile);
   

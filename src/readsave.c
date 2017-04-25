@@ -66,6 +66,9 @@ bool readSaveFile(){
   
   for (i = 0; i < numObjects; i++){
     switch(objectList[i].type){
+      case ENCAP_TYPE_CREATURE:
+	readSavedCreatureObject((creature *)objectList[i].ptr);
+	break;
       case ENCAP_TYPE_STRING:
 	readSavedStringObject((char *)objectList[i].ptr);
 	break;
@@ -75,10 +78,51 @@ bool readSaveFile(){
       case ENCAP_TYPE_GLOBALSTATUS:
 	readSavedGlobalStatusObject((gameStatus *)objectList[i].ptr);
 	break;
+      case ENCAP_TYPE_MAPSPACE:
+	readSavedMapSpaceObject((mapSpace *)objectList[i].ptr);
+	break;
       default:
 	break;
     }
   }
+}
+
+void readSavedMapSpaceObject(mapSpace *object){
+  static unsigned int i = 0, j = 0, k = 0;
+  static bool initialized = false;
+  unsigned int a = 0, b = 0;
+  
+  if (i == numLevels){
+    return;
+  }
+  
+  if (!initialized){
+    dungeon = calloc(numLevels, sizeof(level *));
+    for (a = 0; a < numLevels; a++){
+      dungeon[a] = (mapSpace **)calloc(dimMapX, sizeof(mapSpace *));
+      for (b = 0; b < dimMapX; b++){
+	dungeon[a][b] = (mapSpace *)calloc(dimMapY, sizeof(mapSpace));
+      }
+    }
+    initialized = true;
+  }
+  
+  object->creatureOccupant = findInObjectList((uintptr_t)object->creatureOccupant);
+  
+  dungeon[i][j][k] = *object;
+  
+  if (j == (dimMapX - 1) && k == (dimMapY - 1)){
+    j = 0;
+    k = 0;
+    i++;
+  } else if (k == (dimMapY - 1)){
+    k = 0;
+    j++;
+  } else {
+    k++;
+  }
+  
+  return;
 }
 
 void readSavedGlobalStatusObject(gameStatus *object){
@@ -98,6 +142,35 @@ void readSavedItemObject(item *object){
 }
 
 void readSavedStringObject(char *object){
+  return;
+}
+
+void readSavedCreatureObject(creature *object){
+  unsigned int i;
+  creatureList *node = 0;
+  
+  object->name = findInObjectList((uintptr_t)object->name);
+  object->armor.shirt = findInObjectList((uintptr_t)object->armor.shirt);
+  object->armor.underarmor = findInObjectList((uintptr_t)object->armor.underarmor);
+  object->armor.armor = findInObjectList((uintptr_t)object->armor.armor);
+  object->armor.helmet = findInObjectList((uintptr_t)object->armor.helmet);
+  object->armor.cloak = findInObjectList((uintptr_t)object->armor.cloak);
+  object->armor.gloves = findInObjectList((uintptr_t)object->armor.gloves);
+  object->armor.leggings = findInObjectList((uintptr_t)object->armor.leggings);
+  object->armor.shoes = findInObjectList((uintptr_t)object->armor.shoes);
+  object->armor.shield = findInObjectList((uintptr_t)object->armor.shield);
+  
+  object->weapon = findInObjectList((uintptr_t)object->weapon);
+  
+  for (i = 0; i < 52; i++){
+    object->inventory[i] = findInObjectList((uintptr_t)object->inventory[i]);
+  }
+  
+  node = allocateCreatureListEntry();
+  node->creature = object;
+  
+  creatures = insertNewCreatureNode(creatures, node);
+    
   return;
 }
 
@@ -124,8 +197,6 @@ void readSavedPlayerObject(creature *object){
   }
   
   setPlayerObjectPtr(&player);
-  
-  //free(object);
   
   return;
 }

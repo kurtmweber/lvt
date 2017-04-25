@@ -1,4 +1,5 @@
 for version 0.8
+  * save and restore dungeon map and creatures (kmw, 2017-04-24)
   * refactoring object-storage code in save.c (kmw, 2017-04-23)
   * global status save and restore (kmw, 2017-04-18)
   * move global status initialization into separate function to facilitate save restore (kmw, 2017-04-18)

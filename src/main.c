@@ -47,8 +47,13 @@ int main(int argc, char *argv[]){
   initItems();
   initializeFactions();
   
-  dungeon = generateMap();
-  creatures = generateStartingCreatures();
+  if (!readingSaved){
+    dungeon = generateMap();
+  }
+  
+  if (!readingSaved){
+    creatures = generateStartingCreatures();
+  }
   plants = generateStartingPlants();
   generateFloorItems();
   
@@ -64,14 +69,16 @@ int main(int argc, char *argv[]){
     initializeCharacter();
   }
   clear();
-    
-  initUpstair = findLevelUpstair(dungeon[0]);
-  initLocation.x = initUpstair.x;
-  initLocation.y = initUpstair.y;
-  initLocation.level = 0;
-  setCreatureLocation(&player, initLocation);
-  setCreatureOccupant(dungeon[initLocation.level], initLocation.x, initLocation.y, &player);
-  updateRegionExploredState(dungeon[initLocation.level], initLocation.x, initLocation.y, true);
+  
+  if (!readingSaved){
+    initUpstair = findLevelUpstair(dungeon[0]);
+    initLocation.x = initUpstair.x;
+    initLocation.y = initUpstair.y;
+    initLocation.level = 0;
+    setCreatureLocation(&player, initLocation);
+    setCreatureOccupant(dungeon[initLocation.level], initLocation.x, initLocation.y, &player);
+    updateRegionExploredState(dungeon[initLocation.level], initLocation.x, initLocation.y, true);
+  }
   
   initializeGameScreen();
   
