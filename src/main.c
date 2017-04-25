@@ -54,7 +54,11 @@ int main(int argc, char *argv[]){
   if (!readingSaved){
     creatures = generateStartingCreatures();
   }
-  plants = generateStartingPlants();
+  
+  if (!readingSaved){
+    plants = generateStartingPlants();
+  }
+  
   generateFloorItems();
   
   initializeNcurses();

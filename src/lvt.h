@@ -483,6 +483,7 @@ void setPlayerObjectPtr(creature *playerPtr);
 void readSavedGlobalStatusObject(gameStatus *object);
 void readSavedMapSpaceObject(mapSpace *object);
 void readSavedCreatureObject(creature *object);
+void readPlantObject(plant *object);
 #endif
 
 #ifndef _SAVE_C
@@ -498,9 +499,8 @@ uintptr_t storeItem(item *object, encapsulatedTypes type);
 void setStored(void *object);
 bool alreadyStored(void *object);
 uintptr_t storeGlobalStatus(gameStatus *object, encapsulatedTypes type);
-uintptr_t storeDungeon(map object, encapsulatedTypes type);
-uintptr_t storeLevel(level object, encapsulatedTypes type);
 uintptr_t storeMapSpace(mapSpace *object, encapsulatedTypes type);
+uintptr_t storePlant(plant *object, encapsulatedTypes type);
 #endif
 
 #ifndef _SCREEN_C

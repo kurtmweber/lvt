@@ -121,6 +121,24 @@ uintptr_t storeGlobalStatus(gameStatus *object, encapsulatedTypes type){
   setStored((void *)object);
   
   encapsulateAndWrite(object, type, sizeof(gameStatus), localId);
+  
+  return localId;
+}
+
+uintptr_t storePlant(plant *object, encapsulatedTypes type){
+  uintptr_t localId;
+  
+  if (!object){
+    return 0;
+  }
+  
+  CHECK_ALREADY_STORED
+  
+  setStored((void *)object);
+  
+  encapsulateAndWrite(object, type, sizeof(plant), localId);
+  
+  return localId;
 }
 
 uintptr_t storeItem(item *object, encapsulatedTypes type){
@@ -160,12 +178,9 @@ uintptr_t storeMapSpace(mapSpace *object, encapsulatedTypes type){
   
   tmp = *object;
   
-  if (object->creatureOccupant != &player){
-    tmp.creatureOccupant = (creature *)storeObject(object->creatureOccupant, ENCAP_TYPE_CREATURE);
-  }
-  //tmp.creatureOccupant = 0;
+  tmp.creatureOccupant = (creature *)storeObject(object->creatureOccupant, ENCAP_TYPE_CREATURE);
   tmp.contents = 0;
-  tmp.plantOccupant = 0;
+  tmp.plantOccupant = (plant *)storeObject(object->plantOccupant, ENCAP_TYPE_PLANT);
   
   encapsulateAndWrite(&tmp, type, sizeof(mapSpace), localId);
   
@@ -227,6 +242,9 @@ uintptr_t storeObject(void *object, encapsulatedTypes type){
       break;
     case ENCAP_TYPE_MAPSPACE:
       return storeMapSpace((mapSpace *)object, type);
+      break;
+    case ENCAP_TYPE_PLANT:
+      return storePlant((plant *)object, type);
       break;
     default:
       return 0;

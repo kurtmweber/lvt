@@ -81,6 +81,9 @@ bool readSaveFile(){
       case ENCAP_TYPE_MAPSPACE:
 	readSavedMapSpaceObject((mapSpace *)objectList[i].ptr);
 	break;
+      case ENCAP_TYPE_PLANT:
+	readPlantObject((plant *)objectList[i].ptr);
+	break;
       default:
 	break;
     }
@@ -108,6 +111,7 @@ void readSavedMapSpaceObject(mapSpace *object){
   }
   
   object->creatureOccupant = findInObjectList((uintptr_t)object->creatureOccupant);
+  object->plantOccupant = findInObjectList((uintptr_t)object->plantOccupant);
   
   dungeon[i][j][k] = *object;
   
@@ -148,6 +152,14 @@ void readSavedItemObject(item *object){
   }
   
   return;
+}
+
+void readPlantObject(plant *object){
+  plantList *newPlant;
+  
+  newPlant = allocatePlantListEntry();
+  newPlant->plant = object;
+  plants = insertNewPlantNode(plants, newPlant);
 }
 
 void readSavedStringObject(char *object){
