@@ -166,6 +166,7 @@ uintptr_t storeItem(item *object, encapsulatedTypes type){
 uintptr_t storeMapSpace(mapSpace *object, encapsulatedTypes type){
   uintptr_t localId;
   mapSpace tmp;
+  mapSpaceContents *contents;
   
   if (!object){
     return 0;
@@ -174,15 +175,22 @@ uintptr_t storeMapSpace(mapSpace *object, encapsulatedTypes type){
   // No need to CHECK_ALREADY_STORED here, because there is no way it would be
   // This also saves us on the order of a trillion searches through a list
   
-  // CHECK_ALREADY_STORED
+  //localId = getObjectIdGuaranteedUnique(object);
   
   tmp = *object;
   
   tmp.creatureOccupant = (creature *)storeObject(object->creatureOccupant, ENCAP_TYPE_CREATURE);
-  tmp.contents = 0;
   tmp.plantOccupant = (plant *)storeObject(object->plantOccupant, ENCAP_TYPE_PLANT);
+  tmp.contents = 0;
   
-  encapsulateAndWrite(&tmp, type, sizeof(mapSpace), localId);
+  contents = object->contents;
+  
+  while(contents){
+    storeItem(contents->item, ENCAP_TYPE_ITEM);
+    contents = contents->next;
+  }
+  
+  encapsulateAndWrite(&tmp, type, sizeof(mapSpace), 0);
   
   return 0;	// map spaces will never be referenced, so we can use id = 0
 }
@@ -200,6 +208,13 @@ uintptr_t getObjectId(void *object){
     }
   }
   
+  objectIdMap = realloc(objectIdMap, sizeof(void *) * (objectId));
+  objectIdMap[objectId - 1] = object;
+  
+  return objectId++;
+}
+
+uintptr_t getObjectIdGuaranteedUnique(void *object){
   objectIdMap = realloc(objectIdMap, sizeof(void *) * (objectId));
   objectIdMap[objectId - 1] = object;
   

@@ -18,7 +18,7 @@
 #ifndef _LVT_H
 #define _LVT_H
 
-//#define _D_DEBUG
+#define _D_DEBUG
 
 #include <stdbool.h>
 #include <ncurses.h>
@@ -474,7 +474,7 @@ bool readSaveFile();
 #else
 fileObjectInfo getFileObjectInfo(FILE *file);
 void getFileObjectData(void *data, size_t size, FILE *saveFile);
-void addToObjectList(void *data, uintptr_t id, encapsulatedTypes type);
+void addToObjectList(void *data, uintptr_t id, encapsulatedTypes type,size_t size);
 void readSavedPlayerObject(creature *object);
 void *findInObjectList(uintptr_t object);
 void readSavedStringObject(char *object);
@@ -501,6 +501,7 @@ bool alreadyStored(void *object);
 uintptr_t storeGlobalStatus(gameStatus *object, encapsulatedTypes type);
 uintptr_t storeMapSpace(mapSpace *object, encapsulatedTypes type);
 uintptr_t storePlant(plant *object, encapsulatedTypes type);
+uintptr_t getObjectIdGuaranteedUnique(void *object);
 #endif
 
 #ifndef _SCREEN_C

@@ -142,6 +142,7 @@ void setItemWeight(item *item, unsigned int weight){
 }
 
 coord3D getItemLocation(item *item){
+  // only trust this if item is unowned
   return item->location;
 }
 

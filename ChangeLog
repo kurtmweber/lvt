@@ -1,4 +1,5 @@
 for version 0.9
+  * unowned items are saved and restored (kmw, 2017-05-21)
   * plants are saved and restored (kmw, 2017-04-24)
   * seeds are updated after being restored from save (kmw, 2017-04-24)
   * save and restore dungeon map and creatures (kmw, 2017-04-24)

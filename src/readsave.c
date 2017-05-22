@@ -27,15 +27,21 @@
 
 uintptr_t numObjects;
 readObjectList *objectList;
+uintptr_t numItems;
+item **itemList;
 
 bool readSaveFile(){
   FILE *saveFile;
   fileObjectInfo info;
   uintptr_t i;
   void *data = 0;
+  coord3D itemLoc;
   
   objectList = 0;
   numObjects = 0;
+  
+  itemList = 0;
+  numItems = 0;
   
   saveFile = fopen("lvtsave", "r");
   if (!saveFile){
@@ -46,7 +52,7 @@ bool readSaveFile(){
     info = getFileObjectInfo(saveFile);
     data = malloc(info.size);
     getFileObjectData(data, info.size, saveFile);
-    addToObjectList(data, info.id, info.type);
+    addToObjectList(data, info.id, info.type, info.size);
   }
   
   numObjects--;	// b/c of how feof works, we'll always get one junk entry at the end of objectList,
@@ -88,6 +94,15 @@ bool readSaveFile(){
 	break;
     }
   }
+  
+  for (i = 0; i < numItems; i++){
+    if (!getItemOwned(itemList[i])){
+      itemLoc = getItemLocation(itemList[i]);
+      addContents(itemLoc.level, itemLoc.x, itemLoc.y, itemList[i]);
+    }
+  }
+  
+  free(itemList);
 }
 
 void readSavedMapSpaceObject(mapSpace *object){
@@ -150,6 +165,11 @@ void readSavedItemObject(item *object){
     newSeed->seed = object;
     seeds = insertNewSeedNode(seeds, newSeed);
   }
+  
+  numItems++;
+  
+  itemList = realloc(itemList, numItems * sizeof(item *));
+  itemList[numItems - 1] = object;
   
   return;
 }
@@ -250,7 +270,7 @@ void *findInObjectList(uintptr_t object){
   return 0;
 }
 
-void addToObjectList(void *data, uintptr_t id, encapsulatedTypes type){
+void addToObjectList(void *data, uintptr_t id, encapsulatedTypes type, size_t size){
   objectList = realloc(objectList, (numObjects + 1) * sizeof(readObjectList));
   
   objectList[numObjects].id = id;

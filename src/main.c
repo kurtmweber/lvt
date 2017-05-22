@@ -59,7 +59,9 @@ int main(int argc, char *argv[]){
     plants = generateStartingPlants();
   }
   
-  generateFloorItems();
+  if (!readingSaved){
+    generateFloorItems();
+  }
   
   initializeNcurses();
   initializeColors();

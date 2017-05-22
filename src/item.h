@@ -206,15 +206,15 @@ typedef struct item{
   struct creature *owner;
   bool wielded;
   bool worn;
-  coord3D location;
+  coord3D location;	// only trust if owned = FALSE
 } item;
 
-typedef struct itemList itemList;
+/*typedef struct itemList itemList;
 
 typedef struct itemList{
   itemList *prev;
   item *item;
   itemList *next;
-} itemList;
+} itemList;*/
 
 #endif
