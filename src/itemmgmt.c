@@ -112,6 +112,24 @@ itemClassId getItemClass(item *item){
   return item->itemClass;
 }
 
+unsigned int getItemNutrition(item *item){
+  itemClassId cId;
+  
+  cId = getItemClass(item);
+  
+  if (cId == ITEM_TYPE_FRUIT){
+    return getFruitNutrition(item);
+  }
+  
+  if (cId == ITEM_TYPE_CORPSE){
+    return getCorpseNutrition(item);
+  }
+  
+  return 0;
+}
+  
+  
+
 unsigned int getEffectiveArmor(item *item){
   unsigned int ac;
   

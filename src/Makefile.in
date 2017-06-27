@@ -115,7 +115,7 @@ am_lvt_OBJECTS = leveldisp.$(OBJEXT) levelgen.$(OBJEXT) main.$(OBJEXT) \
 	throw.$(OBJEXT) plantgen.$(OBJEXT) plantlist.$(OBJEXT) \
 	plantmgmt.$(OBJEXT) plants.$(OBJEXT) pickfruit.$(OBJEXT) \
 	eat.$(OBJEXT) seedlist.$(OBJEXT) seeds.$(OBJEXT) \
-	save.$(OBJEXT) readsave.$(OBJEXT)
+	save.$(OBJEXT) readsave.$(OBJEXT) creatureeat.$(OBJEXT)
 lvt_OBJECTS = $(am_lvt_OBJECTS)
 lvt_LDADD = $(LDADD)
 AM_V_P = $(am__v_P_@AM_V@)
@@ -268,7 +268,7 @@ lvt_SOURCES = leveldisp.c levelgen.c main.c pcg_basic.c random.c map.c screen.c 
 			util.c messages.c questions.c allocator.c creaturegen.c colors.c name.c faction.c \
 			creaturemove.c attack.c creaturelist.c item.c look.c itemmgmt.c flooritems.c \
 			inventory.c spawnitem.c throw.c plantgen.c plantlist.c plantmgmt.c plants.c \
-			pickfruit.c eat.c seedlist.c seeds.c save.c readsave.c
+			pickfruit.c eat.c seedlist.c seeds.c save.c readsave.c creatureeat.c
 
 noinst_HEADERS = lvt.h level.h pcg_basic.h creature.h messages.h types.h move.h stringlookups.h \
 			colors.h item.h attack.h species.h creaturemgmt.h plant.h save.h
@@ -363,6 +363,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/attack.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/chargen.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/colors.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/creatureeat.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/creaturegen.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/creatureinit.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/creaturelist.Po@am__quote@

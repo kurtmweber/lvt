@@ -25,7 +25,6 @@
 #define KEY_DOWNLEFT KEY_END
 #define KEY_DOWNRIGHT KEY_NPAGE
 
-
 typedef enum moveOutcome{
   MOVE_SUCCESS,
   MOVE_FAILED_WALL,

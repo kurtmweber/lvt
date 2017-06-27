@@ -39,7 +39,9 @@ void moveCreatures(){
     curCreature = curCreatureNode->creature;
     incrementCreatureSpeedCounter(curCreature, getCreatureSpeed(curCreature));
     while (hasAction(curCreature)){
-      doMoveCreature(curCreature);
+      if (!hungerAction(curCreature)){
+	doMoveCreature(curCreature);
+      }
     }
     
     // we have to do this before we update the life cycle, because if the creature dies as a result of

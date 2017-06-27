@@ -75,6 +75,10 @@ void initializeColors();
 #else
 #endif
 
+#ifndef _CREATUREEAT_C
+bool hungerAction(creature *curCreature);
+#endif
+
 #ifndef _CREATUREGEN_C
 creatureList *generateStartingCreatures();
 #else
@@ -162,6 +166,11 @@ void regenerateHitPoints(creature *creature);
 void setCreatureNutrition (creature *creature, unsigned int nutrition);
 unsigned int getCreatureNutrition(creature *creature);
 bool updateCreatureNutrition(creature *creature);
+void setCreatureHungry(creature *creature);
+void unsetCreatureHungry(creature *creature);
+bool isCreatureHungry(creature *creature);
+bool hasFoodInventory(creature *creature);
+item *selectOptimalFoodInventory(creature *creature);
 #else
 bool updateCreatureLifeCycleNotMatured(creature *creature);
 bool updateCreatureLifeCycleMatured(creature *creature);
@@ -193,6 +202,7 @@ void changeCreatureLocation(creature *creature, coord3D newPos);
 
 #ifndef _EAT_C
 void doEat();
+void eatItem(creature *creature, item *foodItem);
 #else
 void eatItem(creature *creature, item *foodItem);
 #endif
@@ -297,6 +307,11 @@ unsigned int getSeedDormancy(item *seed);
 bool isSeed(item *item);
 void setItemOwner(item *item, creature *owner);
 creature *getItemOwner(item *item);
+unsigned int getItemNutrition(item *item);
+#else
+itemClassId getItemClass(item *item);
+unsigned int getFruitNutrition(item *fruit);
+unsigned int getCorpseNutrition(item *corpse);
 #endif
 
 #ifndef _LEVELDISP_C
@@ -396,6 +411,7 @@ char *generateName();
 
 #ifndef _PICKFRUIT_C
 void doPickFruit();
+item *pickFruitFromPlant(plant *plant);
 #else
 item *pickFruitFromPlant(plant *plant);
 #endif
@@ -590,6 +606,8 @@ char inventoryIndexToLetter(char c);
 bool isInventoryLetter(char c);
 int inventoryLetterToIndex(char c);
 void directionToUnitMatrix(moveDirection dir, moveMatrix *matrix);
+item *checkAdjacentFood(coord3D location);
+item *checkAdjacentFruitingBush(coord3D location);
 #else
 #endif
 

@@ -1,3 +1,7 @@
+for version 0.10
+  * hungry creatures will now pick up food if they randomly happen to pass by a food source, though
+    they do not actively seek food out (kmw, 2017-06-26)
+
 for version 0.9
   * release (kmw, 2017-05-21)
   * unowned items are saved and restored (kmw, 2017-05-21)

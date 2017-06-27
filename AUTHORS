@@ -1,4 +1,8 @@
 Kurt M. Weber (kmw) <weberk294@gmail.com>
+  * Kurt is a Ph.D. student in Russian history at the University of California, Riverside,  He discovered
+    Moria on an old IBM PC/XT his father purchased at a yard sale in the late 90's, then over the next
+    several years became an avid roguelike fan.  Lavender Throne is a hobby for him when he needs a break
+    from his real work.
 
 PCG Random Number Generator (src/pcg_basic.c, src/pcg_basic.h):
   * Melissa O'Neill <oneill@pcg-random.org>

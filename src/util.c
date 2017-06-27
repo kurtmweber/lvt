@@ -21,6 +21,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "lvt.h"
+#include "level.h"
 #include "move.h"
 #include "stringlookups.h"
 #include "types.h"
@@ -220,4 +221,119 @@ bool isInventoryLetter(char c){
   } else {
     return false;
   }
+}
+
+item *checkAdjacentFood(coord3D location){
+  coord3D moves[9];
+  unsigned int i;
+  mapSpaceContents *curContents;
+  itemClassId cId;
+  
+  {
+    moves[0].x = MAX(location.x - 1, 0);
+    moves[0].y = MAX(location.y - 1, 0);
+    moves[0].level = location.level;
+  
+    moves[1].x = MAX(location.x - 1, 0);
+    moves[1].y = location.y;
+    moves[1].level = location.level;
+  
+    moves[2].x = MAX(location.x - 1, 0);
+    moves[2].y = MIN(location.y + 1, dimMapY - 1);
+    moves[2].level = location.level;
+  
+    moves[3].x = location.x;
+    moves[3].y = MAX(location.y - 1, 0);
+    moves[3].level = location.level;
+  
+    moves[4].x = location.x;
+    moves[4].y = location.y;
+    moves[4].level = location.level;
+  
+    moves[5].x = location.x;
+    moves[5].y = MIN(location.y + 1, dimMapY - 1);
+    moves[5].level = location.level;
+  
+    moves[6].x = MIN(location.x + 1, dimMapX - 1);
+    moves[6].y = MAX(location.y - 1, 0);
+    moves[6].level = location.level;
+  
+    moves[7].x = MIN(location.x + 1, dimMapX - 1);
+    moves[7].y = location.y;
+    moves[7].level = location.level;
+  
+    moves[8].x = MIN(location.x + 1, dimMapX - 1);
+    moves[8].y = MIN(location.y + 1, dimMapY - 1);
+    moves[8].level = location.level;
+  }
+  
+  for (i = 0; i < 9; i++){
+    curContents = getContents(dungeon[moves[i].level], moves[i].x, moves[i].y);
+    while (curContents){
+      cId = getItemClass(curContents->item);
+      if ((cId == ITEM_TYPE_CORPSE) || (cId == ITEM_TYPE_FRUIT)){
+	return curContents->item;
+      }
+      curContents = curContents->next;
+    }
+  }
+  
+  return NULL;
+}
+
+item *checkAdjacentFruitingBush(coord3D location){
+  coord3D moves[9];
+  unsigned int i;
+  plant *plantOccupant;
+  item *berry;
+  
+  {
+    moves[0].x = MAX(location.x - 1, 0);
+    moves[0].y = MAX(location.y - 1, 0);
+    moves[0].level = location.level;
+  
+    moves[1].x = MAX(location.x - 1, 0);
+    moves[1].y = location.y;
+    moves[1].level = location.level;
+  
+    moves[2].x = MAX(location.x - 1, 0);
+    moves[2].y = MIN(location.y + 1, dimMapY - 1);
+    moves[2].level = location.level;
+  
+    moves[3].x = location.x;
+    moves[3].y = MAX(location.y - 1, 0);
+    moves[3].level = location.level;
+  
+    moves[4].x = location.x;
+    moves[4].y = location.y;
+    moves[4].level = location.level;
+  
+    moves[5].x = location.x;
+    moves[5].y = MIN(location.y + 1, dimMapY - 1);
+    moves[5].level = location.level;
+  
+    moves[6].x = MIN(location.x + 1, dimMapX - 1);
+    moves[6].y = MAX(location.y - 1, 0);
+    moves[6].level = location.level;
+  
+    moves[7].x = MIN(location.x + 1, dimMapX - 1);
+    moves[7].y = location.y;
+    moves[7].level = location.level;
+  
+    moves[8].x = MIN(location.x + 1, dimMapX - 1);
+    moves[8].y = MIN(location.y + 1, dimMapY - 1);
+    moves[8].level = location.level;
+  }
+  
+  for (i = 0; i < 9; i++){
+    if (hasPlantOccupant(dungeon[moves[i].level], moves[i].x, moves[i].y)){
+      plantOccupant = getPlantOccupant(dungeon[moves[i].level], moves[i].x, moves[i].y);
+      if (getPlantCurProduction(plantOccupant) > 0){
+	berry = pickFruitFromPlant(plantOccupant);
+	return berry;
+      }
+    }
+  }
+  
+  return NULL;
 }

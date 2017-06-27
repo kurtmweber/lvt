@@ -19,6 +19,7 @@
 
 #include <math.h>
 #include <stdbool.h>
+#include <stdlib.h>
 #include "creaturemgmt.h"
 #include "lvt.h"
 #include "creature.h"
@@ -545,6 +546,49 @@ void getCreatureInventory(creature *creature, item *inventory[52]){
   return;
 }
 
+bool hasFoodInventory(creature *creature){
+  unsigned int i = 0;
+  itemClassId cId;
+  
+  for (i = 0; i < 52; i++){
+    if (creature->inventory[i]){
+      cId = getItemClass(creature->inventory[i]);
+      if ((cId == ITEM_TYPE_FRUIT) || (cId == ITEM_TYPE_CORPSE)){
+	return true;
+      }
+    }
+  }
+  
+  return false;
+}
+
+item *selectOptimalFoodInventory(creature *creature){  
+  unsigned int nutDiff;
+  item *bestNutDiffItem = 0;
+  itemClassId cId;
+  unsigned int i = 0;
+  int curNutDiff = 0;
+  int bestNutDiff = 0;
+  
+  nutDiff = getCreatureWeight(creature) - getCreatureNutrition(creature);
+  bestNutDiff = nutDiff;
+  
+  for (i = 0; i < 52; i++){
+    if (creature->inventory[i]){
+      cId = getItemClass(creature->inventory[i]);
+      if ((cId == ITEM_TYPE_FRUIT) || (cId == ITEM_TYPE_CORPSE)){
+	curNutDiff = nutDiff - getItemNutrition(creature->inventory[i]);
+	if (abs(curNutDiff) < abs(bestNutDiff)){
+	  bestNutDiff = curNutDiff;
+	  bestNutDiffItem = creature->inventory[i];
+	}
+      }
+    }
+  }
+  
+  return bestNutDiffItem;
+}
+
 void unwieldWeapon(creature *creature){
   item *weapon;
   
@@ -723,6 +767,22 @@ unsigned int getCreatureArmorClass(creature *creature){
   }
   
   return ac;
+}
+
+void setCreatureHungry(creature *creature){
+  creature->hungry = true;
+  
+  return;
+}
+
+void unsetCreatureHungry(creature *creature){
+  creature->hungry = false;
+  
+  return;
+}
+
+bool isCreatureHungry(creature *creature){
+  return creature->hungry;
 }
 
 void setCreatureNutrition (creature *creature, unsigned int nutrition){

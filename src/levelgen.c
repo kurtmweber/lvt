@@ -379,6 +379,11 @@ void placeDoors(level level){
   
   doorEligible = findDoorEligible(level);
   
+  if (!doorEligible){
+    free(doorEligible);
+    return;
+  }
+  
   while (doorEligible[i].x){
     if (uniformRandomRangeInt(&levelGenRNG, 1, 1000) < doorLikelihood){
       if (uniformRandomRangeInt(&levelGenRNG, 1, 1000) < hiddenDoorLikelihood){

@@ -2,3 +2,12 @@
   and resetting growth at the next stage to 0 (2017-03-27, kmw)
 * Make savefiles portable--this will require paying attention to endianness, at the very least (2017-04-11,
   kmw)
+* Add creature food preferences, and update creature AI to respect them when eating (2017-05-28, kmw)
+* Creatures should prefer not to waste food by eating items that give more nutrition value than what they
+  need, unless desperately hungry (2017-06-26, kmw)
+* Creatures should avoid eating corpses of former allies (2017-06-26, kmw)
+* Creatures should pick up unneeded food and carry it around for later (2017-06-26, kmw)
+* It should be possible to start eating, get some nutrition, then stop and save the rest for later
+  (2017-06-26, kmw)
+* Hungry creatures should actively seek out food, rather than simply hoping they randomly pass by
+  some (2017-06-26, kmw)

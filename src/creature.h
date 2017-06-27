@@ -119,6 +119,7 @@ typedef struct creature{
   struct item *inventory[52];
   unsigned int weight;
   unsigned int nutrition;
+  bool hungry;
   //creatureAggression aggression;
   struct {
     unsigned int speed;
