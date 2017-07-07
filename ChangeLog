@@ -1,4 +1,5 @@
 for version 0.10
+  * code refactoring: alphabetized functions in allocator.c (kmw, 2017-07-07)
   * looking at creatures tells you about their weapon if they're wielding one (kmw, 2017-07-07)
   * creatures will pick up weapons if they're better than current or backup weapon (kmw, 2017-07-07)
   * hungry creatures will now pick up food if they randomly happen to pass by a food source, though

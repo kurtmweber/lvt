@@ -24,6 +24,14 @@
 #include "lvt.h"
 #include "plant.h"
 
+item *allocateItem(){
+  item *newItem;
+  
+  newItem = (item *)calloc(1, sizeof(item));
+  
+  return newItem;
+}
+
 creatureList *allocateCreatureListEntry(){
   creatureList *node;
   
@@ -34,20 +42,20 @@ creatureList *allocateCreatureListEntry(){
   return node;
 }
 
+mapSpaceContents *allocateMapSpaceContentsListEntry(){
+  mapSpaceContents *node;
+  
+  node = (mapSpaceContents *)calloc(1, sizeof(mapSpaceContents));
+  
+  return node;
+}
+
 plantList *allocatePlantListEntry(){
   plantList *node;
   
   node = (plantList *)calloc(1, sizeof(plantList));
   
   node->plant = (plant *)calloc(1, sizeof(plant));
-  
-  return node;
-}
-
-mapSpaceContents *allocateMapSpaceContentsListEntry(){
-  mapSpaceContents *node;
-  
-  node = (mapSpaceContents *)calloc(1, sizeof(mapSpaceContents));
   
   return node;
 }
@@ -80,6 +88,19 @@ void freeCreatureListEntry(creatureList *node){
   return;
 }
 
+void freeItem(item *item){
+  if (!item){
+    return;
+  }
+  
+  if (item->name){
+    free(item->name);
+  }
+  
+  free(item);
+  
+  return;
+}
 
 void freePlantListEntry(plantList *node){  
   free(node->plant);
@@ -91,28 +112,6 @@ void freePlantListEntry(plantList *node){
 void freeSeedListEntry(seedList *node){  
   freeItem(node->seed);
   free(node);
-  
-  return;
-}
-
-item *allocateItem(){
-  item *newItem;
-  
-  newItem = (item *)calloc(1, sizeof(item));
-  
-  return newItem;
-}
-
-void freeItem(item *item){
-  if (!item){
-    return;
-  }
-  
-  if (item->name){
-    free(item->name);
-  }
-  
-  free(item);
   
   return;
 }

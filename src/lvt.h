@@ -39,14 +39,14 @@
 
 #ifndef _ALLOCATOR_C
 creatureList *allocateCreatureListEntry();
-void freeCreatureListEntry(creatureList *node);
 item *allocateItem();
 mapSpaceContents *allocateMapSpaceContentsListEntry();
 plantList *allocatePlantListEntry();
-void freePlantListEntry(plantList *node);
 seedList *allocateSeedListEntry();
-void freeSeedListEntry(seedList *node);
+void freeCreatureListEntry(creatureList *node);
 void freeItem(item *item);
+void freePlantListEntry(plantList *node);
+void freeSeedListEntry(seedList *node);
 #else
 void freeItem(item *item);
 #endif
