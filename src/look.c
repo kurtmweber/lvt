@@ -256,6 +256,20 @@ void lookCreatureOccupant(coord3D mapLoc){
     
   infoMsg = realloc(infoMsg, (strlen(infoMsg) + strlen(speciesNames[infoCreatureSpecies]) + 1) * sizeof(char));
   strcat(infoMsg, speciesNames[infoCreatureSpecies]);
+  
+  
+  if (hasWeapon(infoCreature)){
+    infoMsg = realloc(infoMsg, (strlen(infoMsg) + 13) * sizeof(char));
+    strcat(infoMsg, " wielding a ");
+    infoMsg = realloc(infoMsg, (strlen(infoMsg) + strlen(getItemClassName(infoCreature->weapon))) * sizeof(char));
+    strcat(infoMsg, getItemClassName(infoCreature->weapon));
+    if (getItemName(infoCreature->weapon)){
+      infoMsg = realloc(infoMsg, (strlen(infoMsg) + 8) * sizeof(char));
+      strcat(infoMsg, " named ");
+      infoMsg = realloc(infoMsg, (strlen(infoMsg) + strlen(getItemName(infoCreature->weapon))) * sizeof(char));
+      strcat(infoMsg, getItemName(infoCreature->weapon));
+    }
+  }
     
   addToMsgQueue(infoMsg, true);
   

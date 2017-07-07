@@ -47,6 +47,10 @@ unsigned int getSeedRest(item *seed){
   return seed->itemData.seedUniqueData.rest;
 }
 
+char *getItemClassName(item *item){
+  return item->itemData.itemName;
+}
+
 unsigned int getSeedDormancy(item *seed){
   return seed->itemData.seedUniqueData.dormancy;
 }
@@ -91,6 +95,10 @@ void setItemName(item *item, char *name){
   item->name = name;
   
   return;
+}
+
+char *getItemName(item *item){
+  return item->name;
 }
 
 bool isWeapon(item *item){

@@ -318,6 +318,8 @@ void setItemOwner(item *item, creature *owner);
 creature *getItemOwner(item *item);
 unsigned int getItemNutrition(item *item);
 bool isWeapon(item *item);
+char *getItemClassName(item *item);
+char *getItemName(item *item);
 #else
 itemClassId getItemClass(item *item);
 unsigned int getFruitNutrition(item *fruit);
@@ -397,8 +399,6 @@ void setPlantOccupant(level level, unsigned int x, unsigned int y, plant *plant)
 plant *getPlantOccupant(level level, unsigned x, unsigned int y);
 void clearPlantOccupant(level level, unsigned int x, unsigned int y);
 void removeContent(unsigned int mapLevel, unsigned int x, unsigned int y, item *item);
-void replaceItems(coord3D location, mapSpaceContents *contents);
-void replaceItemsButOne(coord3D location, mapSpaceContents *contents, item *exception);
 #else
 void addContents(unsigned int mapLevel, unsigned int x, unsigned int y, item *item);
 mapSpaceContents *getContents(level level, unsigned int x, unsigned int y);

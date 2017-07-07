@@ -67,6 +67,10 @@ bool creaturePickupWeapon(creature *curCreature){
   }
   
   if (!numWeapons){
+    while (contents){
+      addContents(curLoc.level, curLoc.x, curLoc.y, contents->item);
+      contents = contents->next;
+    }
     return false;
   }
   
@@ -106,10 +110,18 @@ bool creaturePickupWeapon(creature *curCreature){
   }
   
   if (testWeaponValue < secWeaponValue){
-    replaceItems(curLoc, contents);
+    while (contents){
+      addContents(curLoc.level, curLoc.x, curLoc.y, contents->item);
+      contents = contents->next;
+    }
     return false;
   } else {
-    replaceItemsButOne(curLoc, contents, testWeapon);
+    while (contents){
+      if (contents->item != testWeapon){
+	addContents(curLoc.level, curLoc.x, curLoc.y, contents->item);
+      }
+      contents = contents->next;
+    }
     addCreatureInventoryItem(curCreature, testWeapon);
     if (secWeapon){
       removeCreatureInventoryItem(curCreature, secWeapon);
@@ -118,7 +130,7 @@ bool creaturePickupWeapon(creature *curCreature){
   }
   
   if (testWeaponValue > curWeaponValue){
-    if (curWeapon){
+    if (curWeapon && hasWeapon(curCreature)){
       unwieldWeapon(curCreature);
     }
     wieldItem(curCreature, testWeapon);
