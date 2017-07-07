@@ -154,6 +154,26 @@ void addContents(unsigned int mapLevel, unsigned int x, unsigned int y, item *it
   return;
 }
 
+void replaceItems(coord3D location, mapSpaceContents *contents){
+  while (contents){
+    addContents(location.level, location.x, location.y, contents->item);
+    contents = contents->next;
+  }
+  
+  return;
+}
+
+void replaceItemsButOne(coord3D location, mapSpaceContents *contents, item *exception){
+  while (contents){
+    if (contents->item != exception){
+      addContents(location.level, location.x, location.y, contents->item);
+    }
+    contents = contents->next;
+  }
+  
+  return;
+}
+
 void removeContent(unsigned int mapLevel, unsigned int x, unsigned int y, item *item){
   mapSpaceContents *node;
   mapSpaceContents *curNode;

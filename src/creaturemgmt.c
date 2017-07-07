@@ -615,6 +615,18 @@ wieldOutcome wieldItem(creature *creature, item *item){
   return WIELD_SUCCEEDED;
 }
 
+item *findInventoryWeapon(creature *creature){
+  unsigned int i = 0;
+  
+  for (i = 0; i < 52; i++){
+    if (creature->inventory[i]){
+      if (isWeapon(creature->inventory[i])){
+	return creature->inventory[i];
+      }
+    }
+  }
+}
+
 wearOutcome wearItem(creature *creature, item *item){
   switch(item->itemClass){
     case ITEM_TYPE_SHIRT:
@@ -783,6 +795,10 @@ void unsetCreatureHungry(creature *creature){
 
 bool isCreatureHungry(creature *creature){
   return creature->hungry;
+}
+
+int getCreatureCurInt(creature *creature){
+  return creature->curStats[INTELLIGENCE];
 }
 
 void setCreatureNutrition (creature *creature, unsigned int nutrition){

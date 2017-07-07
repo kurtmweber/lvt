@@ -35,6 +35,7 @@ typedef enum armorSlots{
   ARMOR_SHIELD		=	0b100000000,
 } armorSlots;
 
+// if adding a new weapon class, be sure to update isWeapon() in itemmgmt.c so it catches it
 typedef enum itemClassId{
   ITEM_TYPE_LONGSWORD,
   ITEM_TYPE_CORPSE,

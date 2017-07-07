@@ -18,7 +18,7 @@
 #ifndef _LVT_H
 #define _LVT_H
 
-#define _D_DEBUG
+//#define _D_DEBUG
 
 #include <stdbool.h>
 #include <ncurses.h>
@@ -54,6 +54,7 @@ void freeItem(item *item);
 #ifndef _ATTACK_C
 unsigned int meleeAttack(creature *attacker, creature *defender);
 unsigned int throwAttack(creature *attacker, creature *defender, item *weapon, unsigned int distanceLeft);
+unsigned int calcAttackVal(creature *attacker, item *weapon);
 #else
 unsigned int toHit(creature *attacker, item *weapon);
 unsigned int toDefend(creature *defender);
@@ -92,6 +93,12 @@ void placeNewCreature(creature *creature, coord3D location);
 void genOrphanCreatureStats(creature *creature);
 #else
 void getClassModifiers(creatureClass class, statList *list);
+#endif
+
+#ifndef _CREATUREINVENTORY_C
+bool inventoryAction(creature *curCreature);
+#else
+bool creaturePickupWeapon(creature *curCreature);
 #endif
 
 #ifndef _CREATURELIST_C
@@ -171,6 +178,8 @@ void unsetCreatureHungry(creature *creature);
 bool isCreatureHungry(creature *creature);
 bool hasFoodInventory(creature *creature);
 item *selectOptimalFoodInventory(creature *creature);
+int getCreatureCurInt(creature *creature);
+item *findInventoryWeapon(creature *creature);
 #else
 bool updateCreatureLifeCycleNotMatured(creature *creature);
 bool updateCreatureLifeCycleMatured(creature *creature);
@@ -308,6 +317,7 @@ bool isSeed(item *item);
 void setItemOwner(item *item, creature *owner);
 creature *getItemOwner(item *item);
 unsigned int getItemNutrition(item *item);
+bool isWeapon(item *item);
 #else
 itemClassId getItemClass(item *item);
 unsigned int getFruitNutrition(item *fruit);
@@ -387,6 +397,8 @@ void setPlantOccupant(level level, unsigned int x, unsigned int y, plant *plant)
 plant *getPlantOccupant(level level, unsigned x, unsigned int y);
 void clearPlantOccupant(level level, unsigned int x, unsigned int y);
 void removeContent(unsigned int mapLevel, unsigned int x, unsigned int y, item *item);
+void replaceItems(coord3D location, mapSpaceContents *contents);
+void replaceItemsButOne(coord3D location, mapSpaceContents *contents, item *exception);
 #else
 void addContents(unsigned int mapLevel, unsigned int x, unsigned int y, item *item);
 mapSpaceContents *getContents(level level, unsigned int x, unsigned int y);
@@ -608,6 +620,7 @@ int inventoryLetterToIndex(char c);
 void directionToUnitMatrix(moveDirection dir, moveMatrix *matrix);
 item *checkAdjacentFood(coord3D location);
 item *checkAdjacentFruitingBush(coord3D location);
+unsigned int returnIndexMaxValLongDouble(long double *array, unsigned int numElements);
 #else
 #endif
 

@@ -337,3 +337,16 @@ item *checkAdjacentFruitingBush(coord3D location){
   
   return NULL;
 }
+
+unsigned int returnIndexMaxValLongDouble(long double *array, unsigned int numElements){
+  unsigned int indexMax = 0;
+  unsigned int i = 0;
+  
+  for (i = 0; i < (numElements - 1); i++){
+    if (array[i] > array[indexMax]){
+      indexMax = i;
+    }
+  }
+  
+  return indexMax;
+}

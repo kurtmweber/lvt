@@ -93,6 +93,17 @@ void setItemName(item *item, char *name){
   return;
 }
 
+bool isWeapon(item *item){
+  switch (item->itemClass){
+    case ITEM_TYPE_LONGSWORD:
+    case ITEM_TYPE_DAGGER:
+    case ITEM_TYPE_AXE:
+      return true;
+    default:
+      return false;
+  }
+}
+
 void removeItemName(item *item){
   if (item->name){
     free(item->name);
