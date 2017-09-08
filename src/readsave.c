@@ -203,6 +203,8 @@ void readSavedCreatureObject(creature *object){
   
   object->weapon = findInObjectList((uintptr_t)object->weapon);
   
+  object->wieldNextTurn = findInObjectList((uintptr_t)object->wieldNextTurn);
+  
   for (i = 0; i < 52; i++){
     object->inventory[i] = findInObjectList((uintptr_t)object->inventory[i]);
   }

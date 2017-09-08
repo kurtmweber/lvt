@@ -36,6 +36,7 @@ typedef enum armorSlots{
 } armorSlots;
 
 // if adding a new weapon class, be sure to update isWeapon() in itemmgmt.c so it catches it
+// and isArmor() if armor, etc.
 typedef enum itemClassId{
   ITEM_TYPE_LONGSWORD,
   ITEM_TYPE_CORPSE,

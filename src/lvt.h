@@ -99,6 +99,8 @@ void getClassModifiers(creatureClass class, statList *list);
 bool inventoryAction(creature *curCreature);
 #else
 bool creaturePickupWeapon(creature *curCreature);
+bool creaturePickupArmor(creature *curCreature);
+bool creatureWieldWeapon(creature *curCreature);
 #endif
 
 #ifndef _CREATURELIST_C
@@ -180,6 +182,8 @@ bool hasFoodInventory(creature *creature);
 item *selectOptimalFoodInventory(creature *creature);
 int getCreatureCurInt(creature *creature);
 item *findInventoryWeapon(creature *creature);
+void setWieldNextTurn(creature *creature, item *item);
+item *getWieldNextTurn(creature *creature);
 #else
 bool updateCreatureLifeCycleNotMatured(creature *creature);
 bool updateCreatureLifeCycleMatured(creature *creature);

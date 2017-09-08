@@ -81,6 +81,8 @@ creature *spawnOrphanCreature(creatureSpecies species, creatureClass class){
   initCreatureWeapon(newCreature);
   initCreatureInventory(newCreature);
   
+  setWieldNextTurn(newCreature, NULL);
+  
   return newCreature;
 }
 

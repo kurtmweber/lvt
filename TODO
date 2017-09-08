@@ -11,3 +11,5 @@
   (2017-06-26, kmw)
 * Hungry creatures should actively seek out food, rather than simply hoping they randomly pass by
   some (2017-06-26, kmw)
+* Creature weapon-wielding AI should handle the case where attempting to wield a two-handed weapon fails
+  because of wearing a shield (2017-09-08, kmw)

@@ -589,10 +589,10 @@ item *selectOptimalFoodInventory(creature *creature){
   return bestNutDiffItem;
 }
 
-void unwieldWeapon(creature *creature){
-  item *weapon;
-  
-  creature->weapon->wielded = false;
+void unwieldWeapon(creature *creature){  
+  if (creature->weapon){
+    creature->weapon->wielded = false;
+  }
   
   creature->weapon = 0;
   
@@ -625,6 +625,16 @@ item *findInventoryWeapon(creature *creature){
       }
     }
   }
+}
+
+void setWieldNextTurn(creature *creature, item *item){
+	creature->wieldNextTurn = item;
+	
+	return;
+}
+
+item *getWieldNextTurn(creature *creature){
+	return creature->wieldNextTurn;
 }
 
 wearOutcome wearItem(creature *creature, item *item){

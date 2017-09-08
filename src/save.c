@@ -53,6 +53,8 @@ uintptr_t storeCreature(creature *object, encapsulatedTypes type){
   
   tmp.weapon = (item *)storeObject(object->weapon, ENCAP_TYPE_ITEM);
   
+  tmp.wieldNextTurn = (item *)storeObject(object->wieldNextTurn, ENCAP_TYPE_ITEM);
+  
   tmp.armor.shirt = (item *)storeObject(object->armor.shirt, ENCAP_TYPE_ITEM);
   tmp.armor.underarmor = (item *)storeObject(object->armor.underarmor, ENCAP_TYPE_ITEM);
   tmp.armor.armor = (item *)storeObject(object->armor.armor, ENCAP_TYPE_ITEM);

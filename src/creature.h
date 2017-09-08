@@ -117,6 +117,7 @@ typedef struct creature{
   armorSlotList armor;
   struct item *weapon;
   struct item *inventory[52];
+  struct item *wieldNextTurn;
   unsigned int weight;
   unsigned int nutrition;
   bool hungry;

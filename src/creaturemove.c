@@ -43,6 +43,10 @@ void moveCreatures(){
 	continue;
       }
       
+      /*if (wieldAction(curCreature)){
+        continue;
+      }*/
+      
       if (inventoryAction(curCreature)){
 	continue;
       }

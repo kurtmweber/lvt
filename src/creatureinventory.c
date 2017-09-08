@@ -26,8 +26,50 @@
 bool inventoryAction(creature *curCreature){
   if (creaturePickupWeapon(curCreature)){
     return true;
+  } else if (creatureWieldWeapon(curCreature)){
+    return true;
+  } else if (creaturePickupArmor(curCreature)){
+    return true;
   }
   
+  return false;
+}
+
+bool creaturePickupArmor(creature *curCreature){
+  coord3D curLoc;
+  mapSpaceContents *contents, *thisContent;
+  
+  curLoc = getCreatureLocation(curCreature);
+  contents = getContents(dungeon[curLoc.level], curLoc.x, curLoc.y);
+  dungeon[curLoc.level][curLoc.x][curLoc.y].contents = 0;
+  
+  thisContent = contents;
+  
+  /*while (thisContent){
+    if (isArmor(thisContent->item))
+  }*/
+  
+  return false;
+}
+
+bool creatureWieldWeapon(creature *curCreature){
+  item *toWield;
+  
+  toWield = getWieldNextTurn(curCreature);
+  
+  // this does not take any steps to rectify the situation if wielding fails, e.g. because it's a two-handed
+  // weapon and the creature is wearing a shield
+  if (toWield){
+    if (hasWeapon(curCreature)){
+      unwieldWeapon(curCreature);
+    }
+    
+    wieldItem(curCreature, toWield);
+    setWieldNextTurn(curCreature, NULL);
+    
+    return true;
+  }
+
   return false;
 }
 
@@ -130,10 +172,11 @@ bool creaturePickupWeapon(creature *curCreature){
   }
   
   if (testWeaponValue > curWeaponValue){
-    if (curWeapon && hasWeapon(curCreature)){
+    /*if (curWeapon && hasWeapon(curCreature)){
       unwieldWeapon(curCreature);
     }
-    wieldItem(curCreature, testWeapon);
+    wieldItem(curCreature, testWeapon);*/
+    setWieldNextTurn(curCreature, testWeapon);
   }
     
   
