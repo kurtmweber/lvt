@@ -5,6 +5,8 @@ for version 0.10
   * hungry creatures will now pick up food if they randomly happen to pass by a food source, though
     they do not actively seek food out (kmw, 2017-06-26)
   * creatures do not wield picked-up weapons until next turn (kmw, 2017-09-08)
+  * code refactoring: moved function declarations for allocator.c to new header allocator.h
+    (kmw, 2017-09-08)
 
 for version 0.9
   * release (kmw, 2017-05-21)
