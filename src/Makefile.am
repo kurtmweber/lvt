@@ -7,4 +7,4 @@ lvt_SOURCES	=	leveldisp.c levelgen.c main.c pcg_basic.c random.c map.c screen.c 
 			pickfruit.c eat.c seedlist.c seeds.c save.c readsave.c creatureeat.c \
 			creatureinventory.c
 noinst_HEADERS	=	lvt.h level.h pcg_basic.h creature.h messages.h types.h move.h stringlookups.h \
-			colors.h item.h attack.h species.h creaturemgmt.h plant.h save.h
+			colors.h item.h attack.h species.h creaturemgmt.h plant.h save.h allocator.h

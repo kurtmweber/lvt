@@ -24,6 +24,7 @@
 #include "lvt.h"
 #include "creature.h"
 #include "item.h"
+#include "allocator.h"
 
 void setCreatureName(creature *creature, char *name){
   creature->name = name;

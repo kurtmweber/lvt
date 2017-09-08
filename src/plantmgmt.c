@@ -22,6 +22,7 @@
 #include "lvt.h"
 #include "plant.h"
 #include "types.h"
+#include "allocator.h"
 
 void setPlantSpecies(plant *plant, plantSpecies species){
   plant->species = species;

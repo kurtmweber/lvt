@@ -21,6 +21,7 @@
 #include <stdlib.h>
 #include "lvt.h"
 #include "plant.h"
+#include "allocator.h"
 
 unsigned int placePlantChance = 100;	// likelihood (out of 10,000) that a plant will be placed
 					// on a floor

@@ -22,6 +22,7 @@
 #include "item.h"
 #include "lvt.h"
 #include "messages.h"
+#include "allocator.h"
 
 void eatItem(creature *creature, item *foodItem){
   item *newSeedItem;

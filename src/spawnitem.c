@@ -20,6 +20,7 @@
 
 #include "lvt.h"
 #include "item.h"
+#include "allocator.h"
 
 item *spawnItem(itemClassId class, int subClass){
   item *item;

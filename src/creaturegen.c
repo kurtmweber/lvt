@@ -22,6 +22,7 @@
 #include "lvt.h"
 #include "creature.h"
 #include "types.h"
+#include "allocator.h"
 
 unsigned int placeCreatureChance = 100;	// likelihood (out of 10,000) that a creature will be placed
 					// on a floor

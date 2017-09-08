@@ -20,6 +20,7 @@
 #include <stdlib.h>
 #include "lvt.h"
 #include "level.h"
+#include "allocator.h"
 
 const unsigned int exploreRadius = 1;
 

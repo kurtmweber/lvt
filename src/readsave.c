@@ -24,6 +24,7 @@
 
 #include "lvt.h"
 #include "save.h"
+#include "allocator.h"
 
 uintptr_t numObjects;
 readObjectList *objectList;

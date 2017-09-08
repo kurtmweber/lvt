@@ -37,20 +37,6 @@
 #define ISODD(a) ((a) % 2 ? true : false)
 #define ISEVEN(a) ((a) % 2 ? false : true)
 
-#ifndef _ALLOCATOR_C
-creatureList *allocateCreatureListEntry();
-item *allocateItem();
-mapSpaceContents *allocateMapSpaceContentsListEntry();
-plantList *allocatePlantListEntry();
-seedList *allocateSeedListEntry();
-void freeCreatureListEntry(creatureList *node);
-void freeItem(item *item);
-void freePlantListEntry(plantList *node);
-void freeSeedListEntry(seedList *node);
-#else
-void freeItem(item *item);
-#endif
-
 #ifndef _ATTACK_C
 unsigned int meleeAttack(creature *attacker, creature *defender);
 unsigned int throwAttack(creature *attacker, creature *defender, item *weapon, unsigned int distanceLeft);
