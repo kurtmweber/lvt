@@ -26,15 +26,15 @@ typedef enum attackOutcome{
 } attackOutcome;
 
 #ifndef _ATTACK_C
+unsigned int calcAttackVal(creature *attacker, item *weapon);
 unsigned int meleeAttack(creature *attacker, creature *defender);
 unsigned int throwAttack(creature *attacker, creature *defender, item *weapon, unsigned int distanceLeft);
-unsigned int calcAttackVal(creature *attacker, item *weapon);
 #else
-unsigned int toHit(creature *attacker, item *weapon);
-unsigned int toDefend(creature *defender);
+unsigned int attack(creature *attacker, creature *defender, unsigned int toHitVal, unsigned int toDefendVal, unsigned int attackVal, unsigned int defenseVal);
 unsigned int calcAttackVal(creature *attacker, item *weapon);
 unsigned int calcDefenseVal(creature *defender);
-unsigned int attack(creature *attacker, creature *defender, unsigned int toHitVal, unsigned int toDefendVal, unsigned int attackVal, unsigned int defenseVal);
+unsigned int toHit(creature *attacker, item *weapon);
+unsigned int toDefend(creature *defender);
 #endif
 
 #endif

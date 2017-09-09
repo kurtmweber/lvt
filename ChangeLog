@@ -1,4 +1,5 @@
 for version 0.10
+  * creatures will wear armor if it's better than what they have (kmw, 2017-09-09)
   * code refactoring: alphabetized functions in attack.c and moved declarations to attack.h
     (kmw, 2017-09-09)
   * creatures now pick up armor if it's better than what they have for a given slot (kmw, 2017-09-09)

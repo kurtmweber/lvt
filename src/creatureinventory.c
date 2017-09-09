@@ -31,6 +31,132 @@ bool inventoryAction(creature *curCreature){
     return true;
   } else if (creaturePickupArmor(curCreature)){
     return true;
+  } else if (creatureWearArmor(curCreature)){
+    return true;
+  }
+  
+  return false;
+}
+
+bool creatureWearArmor(creature *curCreature){
+  item *inventory[52];
+  unsigned int i = 0;
+  coord3D creaturePos;
+  
+  getCreatureInventory(curCreature, inventory);
+  
+  for (i = 0; i < 52; i++){
+    if (inventory[i]){
+      if (isArmor(inventory[i]) && !isWorn(inventory[i])){
+        if (armorSlotMatch(inventory[i], ARMOR_SHIRT)){   
+          if (getEffectiveArmor(inventory[i]) > getEffectiveArmor(getShirt(curCreature))){
+            removeItem(curCreature, getShirt(curCreature));
+            wearItem(curCreature, inventory[i]);
+          } else {
+            removeCreatureInventoryItem(curCreature, inventory[i]);
+            creaturePos = getCreatureLocation(curCreature);
+            addContents(creaturePos.level, creaturePos.x, creaturePos.y, inventory[i]);
+          }
+          return true;
+        }
+        
+        if (armorSlotMatch(inventory[i], ARMOR_UNDERARMOR)){
+          if (getEffectiveArmor(inventory[i]) > getEffectiveArmor(getUnderarmor(curCreature))){
+            removeItem(curCreature, getUnderarmor(curCreature));
+            wearItem(curCreature, inventory[i]);
+          } else {
+            removeCreatureInventoryItem(curCreature, inventory[i]);
+            creaturePos = getCreatureLocation(curCreature);
+            addContents(creaturePos.level, creaturePos.x, creaturePos.y, inventory[i]);
+          }
+          return true;
+        }
+        
+        if (armorSlotMatch(inventory[i], ARMOR_ARMOR)){
+          if (getEffectiveArmor(inventory[i]) > getEffectiveArmor(getArmor(curCreature))){
+            removeItem(curCreature, getArmor(curCreature));
+            wearItem(curCreature, inventory[i]);
+          } else {
+            removeCreatureInventoryItem(curCreature, inventory[i]);
+            creaturePos = getCreatureLocation(curCreature);
+            addContents(creaturePos.level, creaturePos.x, creaturePos.y, inventory[i]);
+          }
+          return true;
+        }
+        
+        if (armorSlotMatch(inventory[i], ARMOR_HELMET)){
+          if (getEffectiveArmor(inventory[i]) > getEffectiveArmor(getHelmet(curCreature))){
+            removeItem(curCreature, getHelmet(curCreature));
+            wearItem(curCreature, inventory[i]);
+          } else {
+            removeCreatureInventoryItem(curCreature, inventory[i]);
+            creaturePos = getCreatureLocation(curCreature);
+            addContents(creaturePos.level, creaturePos.x, creaturePos.y, inventory[i]);
+          }
+          return true;
+        }
+        
+        if (armorSlotMatch(inventory[i], ARMOR_CLOAK)){
+          if (getEffectiveArmor(inventory[i]) > getEffectiveArmor(getCloak(curCreature))){
+            removeItem(curCreature, getCloak(curCreature));
+            wearItem(curCreature, inventory[i]);
+          } else {
+            removeCreatureInventoryItem(curCreature, inventory[i]);
+            creaturePos = getCreatureLocation(curCreature);
+            addContents(creaturePos.level, creaturePos.x, creaturePos.y, inventory[i]);
+          }
+          return true;
+        }
+        
+        if (armorSlotMatch(inventory[i], ARMOR_GLOVES)){
+          if (getEffectiveArmor(inventory[i]) > getEffectiveArmor(getGloves(curCreature))){
+            removeItem(curCreature, getGloves(curCreature));
+            wearItem(curCreature, inventory[i]);
+          } else {
+            removeCreatureInventoryItem(curCreature, inventory[i]);
+            creaturePos = getCreatureLocation(curCreature);
+            addContents(creaturePos.level, creaturePos.x, creaturePos.y, inventory[i]);
+          }
+          return true;
+        }
+        
+        if (armorSlotMatch(inventory[i], ARMOR_LEGGINGS)){
+          if (getEffectiveArmor(inventory[i]) > getEffectiveArmor(getLeggings(curCreature))){
+            removeItem(curCreature, getLeggings(curCreature));
+            wearItem(curCreature, inventory[i]);
+          } else {
+            removeCreatureInventoryItem(curCreature, inventory[i]);
+            creaturePos = getCreatureLocation(curCreature);
+            addContents(creaturePos.level, creaturePos.x, creaturePos.y, inventory[i]);
+          }
+          return true;
+        }
+        
+        if (armorSlotMatch(inventory[i], ARMOR_SHOES)){
+          if (getEffectiveArmor(inventory[i]) > getEffectiveArmor(getShoes(curCreature))){
+            removeItem(curCreature, getShoes(curCreature));
+            wearItem(curCreature, inventory[i]);
+          } else {
+            removeCreatureInventoryItem(curCreature, inventory[i]);
+            creaturePos = getCreatureLocation(curCreature);
+            addContents(creaturePos.level, creaturePos.x, creaturePos.y, inventory[i]);
+          }
+          return true;
+        }
+        
+        if (armorSlotMatch(inventory[i], ARMOR_SHIELD)){
+          if (getEffectiveArmor(inventory[i]) > getEffectiveArmor(getShield(curCreature))){
+            removeItem(curCreature, getShield(curCreature));
+            wearItem(curCreature, inventory[i]);
+          } else {
+            removeCreatureInventoryItem(curCreature, inventory[i]);
+            creaturePos = getCreatureLocation(curCreature);
+            addContents(creaturePos.level, creaturePos.x, creaturePos.y, inventory[i]);
+          }
+          return true;
+        }
+      }
+    }
   }
   
   return false;
@@ -44,6 +170,10 @@ bool creaturePickupArmor(creature *curCreature){
   unsigned int i = 0;
   unsigned int curVal;
   item *testArmor;
+  
+  if (isInventoryFull(curCreature)){
+    return false;
+  }
   
   curLoc = getCreatureLocation(curCreature);
   contents = getContents(dungeon[curLoc.level], curLoc.x, curLoc.y);
@@ -208,6 +338,7 @@ bool creaturePickupArmor(creature *curCreature){
     addContents(curLoc.level, curLoc.x, curLoc.y, armorList[i]);
   }
   
+  free(armorList);
   return false;
 }
 
@@ -245,6 +376,9 @@ bool creaturePickupWeapon(creature *curCreature){
   item *curWeapon = 0, *secWeapon = 0, *testWeapon = 0;
   long double curWeaponValue = 0, secWeaponValue = 0, testWeaponValue = 0;
   
+  if (isInventoryFull(curCreature)){
+    return false;
+  }
   
   if (!rngInitd){
     initializeRNG(&localRng);

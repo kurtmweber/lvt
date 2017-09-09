@@ -144,6 +144,14 @@ void setItemClass(item *item, itemClassId class){
   return;
 }
 
+bool isWorn(item *item){
+  if (isArmor(item)){
+    return item->worn;
+  }
+  
+  return false;
+}
+
 itemClassId getItemClass(item *item){
   return item->itemClass;
 }
@@ -166,6 +174,10 @@ unsigned int getItemNutrition(item *item){
 
 unsigned int getEffectiveArmor(item *item){
   unsigned int ac;
+  
+  if (!item){
+    return 0;
+  }
   
   ac = item->itemData.baseArmor + item->armorModifier;
   

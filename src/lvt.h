@@ -75,6 +75,7 @@ bool inventoryAction(creature *curCreature);
 bool creaturePickupWeapon(creature *curCreature);
 bool creaturePickupArmor(creature *curCreature);
 bool creatureWieldWeapon(creature *curCreature);
+bool creatureWearArmor(creature *curCreature);
 #endif
 
 #ifndef _CREATURELIST_C
@@ -176,6 +177,7 @@ bool hasShoes(creature *creature);
 item *getShoes(creature *creature);
 bool hasShield(creature *creature);
 item *getShield(creature *creature);
+bool isInventoryFull(creature *creature);
 #else
 bool updateCreatureLifeCycleNotMatured(creature *creature);
 bool updateCreatureLifeCycleMatured(creature *creature);
@@ -318,10 +320,12 @@ char *getItemClassName(item *item);
 char *getItemName(item *item);
 bool isArmor(item *item);
 bool armorSlotMatch(item *item, armorSlots slotMatch);
+bool isWorn(item *item);
 #else
 itemClassId getItemClass(item *item);
 unsigned int getFruitNutrition(item *fruit);
 unsigned int getCorpseNutrition(item *corpse);
+bool isArmor(item *item);
 #endif
 
 #ifndef _LEVELDISP_C

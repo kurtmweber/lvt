@@ -33,7 +33,8 @@ typedef enum wearOutcome{
 
 typedef enum removeOutcome{
   REMOVE_SUCCEEDED,
-  REMOVE_FAILED_NOT_WORN
+  REMOVE_FAILED_NOT_WORN,
+  REMOVE_FAILED_NOT_ITEM
 } removeOutcome;
 
 #endif

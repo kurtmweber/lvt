@@ -563,6 +563,18 @@ bool hasFoodInventory(creature *creature){
   return false;
 }
 
+bool isInventoryFull(creature *creature){
+  unsigned int i = 0;
+  
+  for (i = 0; i < 52; i++){
+    if (!creature->inventory[i]){
+      return false;
+    }
+  }
+  
+  return true;
+}
+
 item *selectOptimalFoodInventory(creature *creature){  
   unsigned int nutDiff;
   item *bestNutDiffItem = 0;
@@ -855,6 +867,10 @@ wearOutcome wearItem(creature *creature, item *item){
 }
 
 removeOutcome removeItem(creature *creature, item *item){
+  if (!item){
+    return REMOVE_FAILED_NOT_ITEM;
+  }
+  
   if (!item->worn){
     return REMOVE_FAILED_NOT_WORN;
   }
@@ -863,31 +879,31 @@ removeOutcome removeItem(creature *creature, item *item){
   
   switch(item->itemClass){
     case ITEM_TYPE_SHIRT:
-      creature->armor.shirt = false;
+      creature->armor.shirt = NULL;
       break;
     case ITEM_TYPE_UNDERARMOR:
-      creature->armor.underarmor = false;
+      creature->armor.underarmor = NULL;
       break;
     case ITEM_TYPE_ARMOR:
-      creature->armor.armor = false;
+      creature->armor.armor = NULL;
       break;
     case ITEM_TYPE_HELMET:
-      creature->armor.helmet = false;
+      creature->armor.helmet = NULL;
       break;
     case ITEM_TYPE_CLOAK:
-      creature->armor.cloak = false;
+      creature->armor.cloak = NULL;
       break;
     case ITEM_TYPE_GLOVES:
-      creature->armor.gloves = false;
+      creature->armor.gloves = NULL;
       break;
     case ITEM_TYPE_LEGGINGS:
-      creature->armor.leggings = false;
+      creature->armor.leggings = NULL;
       break;
     case ITEM_TYPE_SHOES:
-      creature->armor.shoes = false;
+      creature->armor.shoes = NULL;
       break;
     case ITEM_TYPE_SHIELD:
-      creature->armor.shield = false;
+      creature->armor.shield = NULL;
       break;
   }
   
