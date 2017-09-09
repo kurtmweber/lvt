@@ -19,9 +19,98 @@
 
 #include <ncurses.h>
 #include <stdlib.h>
+
 #include "lvt.h"
+
+#include "chargen.h"
 #include "colors.h"
 #include "creature.h"
+
+void initializeCharacter(){
+  char *charName = 0;
+  char c = '\0';
+  unsigned int i = 1;
+  creatureSpecies species;
+  creatureClass class;
+  
+  charName = inputPlayerName();
+  species = inputPlayerSpecies();
+  class = inputPlayerClass();
+  
+  setCreatureName(&player, charName);
+  setCreatureSpecies(&player, species);
+  setCreatureClass(&player, class);
+  setCreatureMatured(&player, false);
+  genOrphanCreatureStats(&player);
+  setIsPlayer(&player);
+  changeDispChar(&player, '@');
+  setCreatureLifePace(&player, getSpeciesLifePace(species));
+  setCreatureColor(&player, BlackGreen);
+  setCreatureAttribute(&player, 0);
+  setCreatureFaction(&player, 1);
+  initCreatureArmor(&player);
+  initCreatureWeapon(&player);
+  initCreatureInventory(&player);
+  
+  return;
+}
+
+creatureClass inputPlayerClass(){
+  char c = '\0';
+  
+  erase();
+  printw("Class?\n");
+  printw("\t(a) Poet\n");
+  printw("\t(b) Peacemaker\n");
+  printw("\t(c) Paladin\n");
+  printw("\t(d) Ranger\n");
+  printw("\t(e) Warrior\n");
+  printw("\t(f) Merchant\n");
+  printw("\t(g) Peasant\n");
+  printw("\t(h) Scholar\n");
+  printw("\t(i) Beggar\n");
+  printw("\t(j) Craftsperson\n");
+  printw("\t(k) Meshchanin\n");
+  printw("\t(l) Noble\n");
+  printw("\t(m) White cleric\n");
+  printw("\t(n) Black cleric\n");
+  refresh();
+  
+  while (c = getch()){
+    switch (c){
+      case 'a':
+        return POET;
+      case 'b':
+        return PEACEMAKER;
+      case 'c':
+        return PALADIN;
+      case 'd':
+        return RANGER;
+      case 'e':
+        return WARRIOR;
+      case 'f':
+        return MERCHANT;
+      case 'g':
+        return PEASANT;
+      case 'h':
+        return SCHOLAR;
+      case 'i':
+        return BEGGAR;
+      case 'j':
+        return CRAFTSPERSON;
+      case 'k':
+        return MESHCHANIN;
+      case 'l':
+        return NOBLE;
+      case 'm':
+        return WHITECLERIC;
+      case 'n':
+        return BLACKCLERIC;
+      default:
+        break;
+    }
+  }
+}
 
 char *inputPlayerName(){
   char c = '\0';
@@ -76,90 +165,4 @@ creatureSpecies inputPlayerSpecies(){
 	break;
     }
   }
-}
-
-creatureClass inputPlayerClass(){
-  char c = '\0';
-  
-  erase();
-  printw("Class?\n");
-  printw("\t(a) Poet\n");
-  printw("\t(b) Peacemaker\n");
-  printw("\t(c) Paladin\n");
-  printw("\t(d) Ranger\n");
-  printw("\t(e) Warrior\n");
-  printw("\t(f) Merchant\n");
-  printw("\t(g) Peasant\n");
-  printw("\t(h) Scholar\n");
-  printw("\t(i) Beggar\n");
-  printw("\t(j) Craftsperson\n");
-  printw("\t(k) Meshchanin\n");
-  printw("\t(l) Noble\n");
-  printw("\t(m) White cleric\n");
-  printw("\t(n) Black cleric\n");
-  refresh();
-  
-  while (c = getch()){
-    switch (c){
-      case 'a':
-	return POET;
-      case 'b':
-	return PEACEMAKER;
-      case 'c':
-	return PALADIN;
-      case 'd':
-	return RANGER;
-      case 'e':
-	return WARRIOR;
-      case 'f':
-	return MERCHANT;
-      case 'g':
-	return PEASANT;
-      case 'h':
-	return SCHOLAR;
-      case 'i':
-	return BEGGAR;
-      case 'j':
-	return CRAFTSPERSON;
-      case 'k':
-	return MESHCHANIN;
-      case 'l':
-	return NOBLE;
-      case 'm':
-	return WHITECLERIC;
-      case 'n':
-	return BLACKCLERIC;
-      default:
-	break;
-    }
-  }
-}
-
-void initializeCharacter(){
-  char *charName = 0;
-  char c = '\0';
-  unsigned int i = 1;
-  creatureSpecies species;
-  creatureClass class;
-  
-  charName = inputPlayerName();
-  species = inputPlayerSpecies();
-  class = inputPlayerClass();
-  
-  setCreatureName(&player, charName);
-  setCreatureSpecies(&player, species);
-  setCreatureClass(&player, class);
-  setCreatureMatured(&player, false);
-  genOrphanCreatureStats(&player);
-  setIsPlayer(&player);
-  changeDispChar(&player, '@');
-  setCreatureLifePace(&player, getSpeciesLifePace(species));
-  setCreatureColor(&player, BlackGreen);
-  setCreatureAttribute(&player, 0);
-  setCreatureFaction(&player, 1);
-  initCreatureArmor(&player);
-  initCreatureWeapon(&player);
-  initCreatureInventory(&player);
-  
-  return;
 }

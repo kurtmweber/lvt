@@ -21,9 +21,12 @@
 #include <ncurses.h>
 #include <config.h>
 #include <stdbool.h>
+
 #include "lvt.h"
-#include "level.h"
+
+#include "chargen.h"
 #include "creature.h"
+#include "level.h"
 #include "types.h"
 
 const double pi = 3.141592;

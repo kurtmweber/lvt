@@ -37,14 +37,6 @@
 #define ISODD(a) ((a) % 2 ? true : false)
 #define ISEVEN(a) ((a) % 2 ? false : true)
 
-#ifndef _CHARGEN_C
-void initializeCharacter();
-#else
-char *inputPlayerName();
-creatureSpecies inputPlayerSpecies();
-creatureClass inputPlayerClass();
-#endif
-
 #ifndef _COLORS_C
 void initializeColors();
 #else
