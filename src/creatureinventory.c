@@ -21,6 +21,7 @@
 #include <stdlib.h>
 
 #include "lvt.h"
+#include "attack.h"
 #include "creature.h"
 
 bool inventoryAction(creature *curCreature){

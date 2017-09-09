@@ -37,18 +37,6 @@
 #define ISODD(a) ((a) % 2 ? true : false)
 #define ISEVEN(a) ((a) % 2 ? false : true)
 
-#ifndef _ATTACK_C
-unsigned int meleeAttack(creature *attacker, creature *defender);
-unsigned int throwAttack(creature *attacker, creature *defender, item *weapon, unsigned int distanceLeft);
-unsigned int calcAttackVal(creature *attacker, item *weapon);
-#else
-unsigned int toHit(creature *attacker, item *weapon);
-unsigned int toDefend(creature *defender);
-unsigned int calcAttackVal(creature *attacker, item *weapon);
-unsigned int calcDefenseVal(creature *defender);
-unsigned int attack(creature *attacker, creature *defender, unsigned int toHitVal, unsigned int toDefendVal, unsigned int attackVal, unsigned int defenseVal);
-#endif
-
 #ifndef _CHARGEN_C
 void initializeCharacter();
 #else

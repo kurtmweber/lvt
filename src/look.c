@@ -21,10 +21,10 @@
 #include <stdbool.h>
 #include <stdlib.h>
 #include <string.h>
-#include "attack.h"
 #include "lvt.h"
-#include "move.h"
+#include "attack.h"
 #include "messages.h"
+#include "move.h"
 #include "plant.h"
 #include "stringlookups.h"
 

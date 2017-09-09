@@ -17,8 +17,9 @@
 
 #define _ATTACK_C
 
-#include "attack.h"
 #include "lvt.h"
+
+#include "attack.h"
 #include "messages.h"
 
 unsigned int attack(creature *attacker, creature *defender, unsigned int toHitVal, unsigned int toDefendVal, unsigned int attackVal, unsigned int defenseVal){
@@ -70,37 +71,6 @@ unsigned int attack(creature *attacker, creature *defender, unsigned int toHitVa
 //#endif
 }
 
-unsigned int throwAttack(creature *attacker, creature *defender, item *weapon, unsigned int distanceLeft){
-  unsigned int toHitVal, toDefendVal;
-  unsigned int attackVal, defenseVal;
-  
-  toHitVal = toHit(attacker, weapon);
-  
-  if (weapon->itemData.throwable){
-    attackVal = calcAttackVal(attacker, weapon);
-  } else {
-    attackVal = distanceLeft * weapon->itemData.weight;
-  }
-  
-  toDefendVal = toDefend(defender);
-  defenseVal = calcDefenseVal(defender);
-  
-  return attack(attacker, defender, toHitVal, toDefendVal, attackVal, defenseVal);
-}
-
-unsigned int meleeAttack(creature *attacker, creature *defender){
-  unsigned int toHitVal, toDefendVal;
-  unsigned int attackVal, defenseVal;
-
-  toHitVal = toHit(attacker, attacker->weapon);
-  toDefendVal = toDefend(defender);
-  
-  attackVal = calcAttackVal(attacker, attacker->weapon);
-  defenseVal = calcDefenseVal(defender);
-  
-  return attack(attacker, defender, toHitVal, toDefendVal, attackVal, defenseVal);
-}
-
 unsigned int calcAttackVal(creature *attacker, item *weapon){
   unsigned int weaponDamage;
   statList stats;
@@ -108,7 +78,7 @@ unsigned int calcAttackVal(creature *attacker, item *weapon){
   if (weapon){
     weaponDamage = weapon->itemData.baseDamage + weapon->damageModifier;
   } else {
-    weaponDamage = 1;	// bare-handed combat
+    weaponDamage = 1;   // bare-handed combat
   }
   
   getCreatureCurStats(attacker, &stats);
@@ -125,6 +95,37 @@ unsigned int calcDefenseVal(creature *defender){
   getCreatureCurStats(defender, &stats);
   
   return armorClass + stats.constitution;
+}
+
+unsigned int meleeAttack(creature *attacker, creature *defender){
+  unsigned int toHitVal, toDefendVal;
+  unsigned int attackVal, defenseVal;
+
+  toHitVal = toHit(attacker, attacker->weapon);
+  toDefendVal = toDefend(defender);
+  
+  attackVal = calcAttackVal(attacker, attacker->weapon);
+  defenseVal = calcDefenseVal(defender);
+  
+  return attack(attacker, defender, toHitVal, toDefendVal, attackVal, defenseVal);
+}
+
+unsigned int throwAttack(creature *attacker, creature *defender, item *weapon, unsigned int distanceLeft){
+  unsigned int toHitVal, toDefendVal;
+  unsigned int attackVal, defenseVal;
+  
+  toHitVal = toHit(attacker, weapon);
+  
+  if (weapon->itemData.throwable){
+    attackVal = calcAttackVal(attacker, weapon);
+  } else {
+    attackVal = distanceLeft * weapon->itemData.weight;
+  }
+  
+  toDefendVal = toDefend(defender);
+  defenseVal = calcDefenseVal(defender);
+  
+  return attack(attacker, defender, toHitVal, toDefendVal, attackVal, defenseVal);
 }
 
 unsigned int toDefend(creature *defender){

@@ -1,13 +1,15 @@
 for version 0.10
+  * code refactoring: alphabetized functions in attack.c and moved declarations to attack.h
+    (kmw, 2017-09-09)
+  * creatures now pick up armor if it's better than what they have for a given slot (kmw, 2017-09-09)
+  * code refactoring: moved function declarations for allocator.c to new header allocator.h
+    (kmw, 2017-09-08)
+  * creatures do not wield picked-up weapons until next turn (kmw, 2017-09-08)
   * code refactoring: alphabetized functions in allocator.c (kmw, 2017-07-07)
   * looking at creatures tells you about their weapon if they're wielding one (kmw, 2017-07-07)
   * creatures will pick up weapons if they're better than current or backup weapon (kmw, 2017-07-07)
   * hungry creatures will now pick up food if they randomly happen to pass by a food source, though
     they do not actively seek food out (kmw, 2017-06-26)
-  * creatures do not wield picked-up weapons until next turn (kmw, 2017-09-08)
-  * code refactoring: moved function declarations for allocator.c to new header allocator.h
-    (kmw, 2017-09-08)
-  * creatures now pick up armor if it's better than what they have for a given slot (kmw, 2017-09-09)
 
 for version 0.9
   * release (kmw, 2017-05-21)

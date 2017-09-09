@@ -18,10 +18,12 @@
 #define _ALLOCATOR_C
 
 #include <stdlib.h>
+
+#include "lvt.h"
+
 #include "creature.h"
 #include "item.h"
 #include "level.h"
-#include "lvt.h"
 #include "plant.h"
 
 item *allocateItem(){
