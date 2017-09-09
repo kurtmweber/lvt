@@ -38,6 +38,11 @@ bool inventoryAction(creature *curCreature){
 bool creaturePickupArmor(creature *curCreature){
   coord3D curLoc;
   mapSpaceContents *contents, *thisContent;
+  unsigned int numArmor = 0;
+  item **armorList = 0;
+  unsigned int i = 0;
+  unsigned int curVal;
+  item *testArmor;
   
   curLoc = getCreatureLocation(curCreature);
   contents = getContents(dungeon[curLoc.level], curLoc.x, curLoc.y);
@@ -45,9 +50,162 @@ bool creaturePickupArmor(creature *curCreature){
   
   thisContent = contents;
   
-  /*while (thisContent){
-    if (isArmor(thisContent->item))
-  }*/
+  while (thisContent){
+    if (isArmor(thisContent->item)){
+      numArmor++;
+      armorList = realloc(armorList, numArmor * sizeof(item *));
+      armorList[numArmor - 1] = thisContent->item;
+    }
+    thisContent = thisContent->next;
+  }
+  
+  if (!numArmor){
+    while (contents){
+      addContents(curLoc.level, curLoc.x, curLoc.y, contents->item);
+      contents = contents->next;
+    }
+    free(armorList);
+    return false;
+  }
+  
+  for (i = 0; i < numArmor; i++){
+    if (armorSlotMatch(armorList[i], ARMOR_SHIRT)){
+      if (hasShirt(curCreature)){
+        testArmor = getShirt(curCreature);
+        if (getEffectiveArmor(testArmor) < getEffectiveArmor(armorList[i])){
+          addCreatureInventoryItem(curCreature, armorList[i]);
+          free(armorList);
+          return true;
+        }
+      } else {
+        addCreatureInventoryItem(curCreature, armorList[i]);
+        free(armorList);
+        return true;
+      }
+    }
+    
+    if (armorSlotMatch(armorList[i], ARMOR_UNDERARMOR)){
+      if (hasUnderarmor(curCreature)){
+        testArmor = getUnderarmor(curCreature);
+        if (getEffectiveArmor(testArmor) < getEffectiveArmor(armorList[i])){
+          addCreatureInventoryItem(curCreature, armorList[i]);
+          free(armorList);
+          return true;
+        }
+      } else {
+        addCreatureInventoryItem(curCreature, armorList[i]);
+        free(armorList);
+        return true;
+      }
+    }
+    
+    if (armorSlotMatch(armorList[i], ARMOR_ARMOR)){
+      if (hasArmor(curCreature)){
+        testArmor = getUnderarmor(curCreature);
+        if (getEffectiveArmor(testArmor) < getEffectiveArmor(armorList[i])){
+          addCreatureInventoryItem(curCreature, armorList[i]);
+          free(armorList);
+          return true;
+        }
+      } else {
+        addCreatureInventoryItem(curCreature, armorList[i]);
+        free(armorList);
+        return true;
+      }
+    }
+    
+    if (armorSlotMatch(armorList[i], ARMOR_HELMET)){
+      if (hasHelmet(curCreature)){
+        testArmor = getHelmet(curCreature);
+        if (getEffectiveArmor(testArmor) < getEffectiveArmor(armorList[i])){
+          addCreatureInventoryItem(curCreature, armorList[i]);
+          free(armorList);
+          return true;
+        }
+      } else {
+        addCreatureInventoryItem(curCreature, armorList[i]);
+        free(armorList);
+        return true;
+      }
+    }
+    
+    if (armorSlotMatch(armorList[i], ARMOR_CLOAK)){
+      if (hasCloak(curCreature)){
+        testArmor = getCloak(curCreature);
+        if (getEffectiveArmor(testArmor) < getEffectiveArmor(armorList[i])){
+          addCreatureInventoryItem(curCreature, armorList[i]);
+          free(armorList);
+          return true;
+        }
+      } else {
+        addCreatureInventoryItem(curCreature, armorList[i]);
+        free(armorList);
+        return true;
+      }
+    }
+    
+    if (armorSlotMatch(armorList[i], ARMOR_GLOVES)){
+      if (hasGloves(curCreature)){
+        testArmor = getGloves(curCreature);
+        if (getEffectiveArmor(testArmor) < getEffectiveArmor(armorList[i])){
+          addCreatureInventoryItem(curCreature, armorList[i]);
+          free(armorList);
+          return true;
+        }
+      } else {
+        addCreatureInventoryItem(curCreature, armorList[i]);
+        free(armorList);
+        return true;
+      }
+    }
+    
+    if (armorSlotMatch(armorList[i], ARMOR_LEGGINGS)){
+      if (hasLeggings(curCreature)){
+        testArmor = getLeggings(curCreature);
+        if (getEffectiveArmor(testArmor) < getEffectiveArmor(armorList[i])){
+          addCreatureInventoryItem(curCreature, armorList[i]);
+          free(armorList);
+          return true;
+        }
+      } else {
+        addCreatureInventoryItem(curCreature, armorList[i]);
+        free(armorList);
+        return true;
+      }
+    }
+    
+    if (armorSlotMatch(armorList[i], ARMOR_SHOES)){
+      if (hasShoes(curCreature)){
+        testArmor = getShoes(curCreature);
+        if (getEffectiveArmor(testArmor) < getEffectiveArmor(armorList[i])){
+          addCreatureInventoryItem(curCreature, armorList[i]);
+          free(armorList);
+          return true;
+        }
+      } else {
+        addCreatureInventoryItem(curCreature, armorList[i]);
+        free(armorList);
+        return true;
+      }
+    }
+    
+    if (armorSlotMatch(armorList[i], ARMOR_SHIELD)){
+      if (hasShield(curCreature)){
+        testArmor = getShield(curCreature);
+        if (getEffectiveArmor(testArmor) < getEffectiveArmor(armorList[i])){
+          addCreatureInventoryItem(curCreature, armorList[i]);
+          free(armorList);
+          return true;
+        }
+      } else {
+        addCreatureInventoryItem(curCreature, armorList[i]);
+        free(armorList);
+        return true;
+      }
+    }
+    
+    addContents(curLoc.level, curLoc.x, curLoc.y, armorList[i]);
+  }
   
   return false;
 }
@@ -113,6 +271,8 @@ bool creaturePickupWeapon(creature *curCreature){
       addContents(curLoc.level, curLoc.x, curLoc.y, contents->item);
       contents = contents->next;
     }
+    
+    free(weaponList);
     return false;
   }
   
@@ -156,6 +316,7 @@ bool creaturePickupWeapon(creature *curCreature){
       addContents(curLoc.level, curLoc.x, curLoc.y, contents->item);
       contents = contents->next;
     }
+    free(weaponList);
     return false;
   } else {
     while (contents){
@@ -179,6 +340,6 @@ bool creaturePickupWeapon(creature *curCreature){
     setWieldNextTurn(curCreature, testWeapon);
   }
     
-  
+  free(weaponList);
   return true;
 }

@@ -112,6 +112,23 @@ bool isWeapon(item *item){
   }
 }
 
+bool isArmor(item *item){
+  switch(item->itemClass){
+    case ITEM_TYPE_SHIRT:
+    case ITEM_TYPE_UNDERARMOR:
+    case ITEM_TYPE_ARMOR:
+    case ITEM_TYPE_HELMET:
+    case ITEM_TYPE_CLOAK:
+    case ITEM_TYPE_GLOVES:
+    case ITEM_TYPE_LEGGINGS:
+    case ITEM_TYPE_SHOES:
+    case ITEM_TYPE_SHIELD:
+      return true;
+    default:
+      return false;
+  }
+}
+
 void removeItemName(item *item){
   if (item->name){
     free(item->name);
@@ -146,8 +163,6 @@ unsigned int getItemNutrition(item *item){
   
   return 0;
 }
-  
-  
 
 unsigned int getEffectiveArmor(item *item){
   unsigned int ac;
@@ -176,6 +191,14 @@ unsigned int getItemWeight(item *item){
 void setItemWeight(item *item, unsigned int weight){
   item->itemData.weight = weight;
   return;
+}
+
+bool armorSlotMatch(item *item, armorSlots slotMatch){
+  if ((item->itemData.possibleSlots & slotMatch) == slotMatch){
+    return true;
+  } else {
+    return false;
+  }
 }
 
 coord3D getItemLocation(item *item){

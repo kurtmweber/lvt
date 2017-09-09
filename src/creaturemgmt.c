@@ -638,6 +638,150 @@ item *getWieldNextTurn(creature *creature){
 	return creature->wieldNextTurn;
 }
 
+bool hasShirt(creature *creature){
+  if (creature->armor.shirt){
+    return true;
+  } else {
+    return false;
+  }
+}
+
+item *getShirt(creature *creature){
+  if (creature->armor.shirt){
+    return creature->armor.shirt;
+  } else {
+    return NULL;
+  }
+}
+
+bool hasUnderarmor(creature *creature){
+  if (creature->armor.underarmor){
+    return true;
+  } else {
+    return false;
+  }
+}
+
+item *getUnderarmor(creature *creature){
+  if (creature->armor.underarmor){
+    return creature->armor.underarmor;
+  } else {
+    return NULL;
+  }
+}
+
+bool hasArmor(creature *creature){
+  if (creature->armor.armor){
+    return true;
+  } else {
+    return false;
+  }
+}
+
+item *getArmor(creature *creature){
+  if (creature->armor.armor){
+    return creature->armor.armor;
+  } else {
+    return NULL;
+  }
+}
+
+bool hasHelmet(creature *creature){
+  if (creature->armor.helmet){
+    return true;
+  } else {
+    return false;
+  }
+}
+
+item *getHelmet(creature *creature){
+  if (creature->armor.helmet){
+    return creature->armor.helmet;
+  } else {
+    return NULL;
+  }
+}
+
+bool hasCloak(creature *creature){
+  if (creature->armor.cloak){
+    return true;
+  } else {
+    return false;
+  }
+}
+
+item *getCloak(creature *creature){
+  if (creature->armor.cloak){
+    return creature->armor.cloak;
+  } else {
+    return NULL;
+  }
+}
+
+bool hasGloves(creature *creature){
+  if (creature->armor.gloves){
+    return true;
+  } else {
+    return false;
+  }
+}
+
+item *getGloves(creature *creature){
+  if (creature->armor.gloves){
+    return creature->armor.gloves;
+  } else {
+    return NULL;
+  }
+}
+
+bool hasLeggings(creature *creature){
+  if (creature->armor.leggings){
+    return true;
+  } else {
+    return false;
+  }
+}
+
+item *getLeggings(creature *creature){
+  if (creature->armor.leggings){
+    return creature->armor.leggings;
+  } else {
+    return NULL;
+  }
+}
+
+bool hasShoes(creature *creature){
+  if (creature->armor.shoes){
+    return true;
+  } else {
+    return false;
+  }
+}
+
+item *getShoes(creature *creature){
+  if (creature->armor.shoes){
+    return creature->armor.shoes;
+  } else {
+    return NULL;
+  }
+}
+
+bool hasShield(creature *creature){
+  if (creature->armor.shield){
+    return true;
+  } else {
+    return false;
+  }
+}
+
+item *getShield(creature *creature){
+  if (creature->armor.shield){
+    return creature->armor.shield;
+  } else {
+    return NULL;
+  }
+}
+
 wearOutcome wearItem(creature *creature, item *item){
   switch(item->itemClass){
     case ITEM_TYPE_SHIRT:

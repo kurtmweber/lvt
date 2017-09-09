@@ -21,24 +21,6 @@
 #include "lvt.h"
 #include "messages.h"
 
-unsigned int throwAttack(creature *attacker, creature *defender, item *weapon, unsigned int distanceLeft){
-  unsigned int toHitVal, toDefendVal;
-  unsigned int attackVal, defenseVal;
-  
-  toHitVal = toHit(attacker, weapon);
-  
-  if (weapon->itemData.throwable){
-    attackVal = calcAttackVal(attacker, weapon);
-  } else {
-    attackVal = distanceLeft * weapon->itemData.weight;
-  }
-  
-  toDefendVal = toDefend(defender);
-  defenseVal = calcDefenseVal(defender);
-  
-  return attack(attacker, defender, toHitVal, toDefendVal, attackVal, defenseVal);
-}
-
 unsigned int attack(creature *attacker, creature *defender, unsigned int toHitVal, unsigned int toDefendVal, unsigned int attackVal, unsigned int defenseVal){
   unsigned int toHitRoll, toDefendRoll;
   unsigned int attackRoll, defenseRoll;
@@ -78,14 +60,32 @@ unsigned int attack(creature *attacker, creature *defender, unsigned int toHitVa
     return ATTACK_SUCCEEDED;
   } else {
 //#endif
-    defenderXp = MAX(getCreatureXp(defender), 1);	// always get at least 1 xp for a kill
+    defenderXp = MAX(getCreatureXp(defender), 1);       // always get at least 1 xp for a kill
     attackerXp = getCreatureXp(attacker);
     setCreatureLevelHpXp(attacker, attackerXp + defenderXp);
-    killCreature(defender);	// can't kill the defender before we get the data we need from them
+    killCreature(defender);     // can't kill the defender before we get the data we need from them
     return ATTACK_KILLED;
 //#ifndef _D_DEBUG
   }
 //#endif
+}
+
+unsigned int throwAttack(creature *attacker, creature *defender, item *weapon, unsigned int distanceLeft){
+  unsigned int toHitVal, toDefendVal;
+  unsigned int attackVal, defenseVal;
+  
+  toHitVal = toHit(attacker, weapon);
+  
+  if (weapon->itemData.throwable){
+    attackVal = calcAttackVal(attacker, weapon);
+  } else {
+    attackVal = distanceLeft * weapon->itemData.weight;
+  }
+  
+  toDefendVal = toDefend(defender);
+  defenseVal = calcDefenseVal(defender);
+  
+  return attack(attacker, defender, toHitVal, toDefendVal, attackVal, defenseVal);
 }
 
 unsigned int meleeAttack(creature *attacker, creature *defender){
