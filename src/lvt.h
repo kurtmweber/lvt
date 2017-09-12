@@ -22,7 +22,6 @@
 
 #include <stdbool.h>
 #include <ncurses.h>
-#include "colors.h"
 #include "types.h"
 #include "level.h"
 #include "creature.h"
@@ -36,11 +35,6 @@
 #define MIN(a, b) ((a) > (b) ? (b) : (a))
 #define ISODD(a) ((a) % 2 ? true : false)
 #define ISEVEN(a) ((a) % 2 ? false : true)
-
-#ifndef _COLORS_C
-void initializeColors();
-#else
-#endif
 
 #ifndef _CREATUREEAT_C
 bool hungerAction(creature *curCreature);

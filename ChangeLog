@@ -1,3 +1,6 @@
+for version 0.11
+  * code refactoring: moved colors.c function declarations to colors.h (kmw, 2017-09-11)
+
 for version 0.10
   * release (kmw, 2017-09-11)
   * code refactoring: alphabetized functions in chargen.c and moved declarations to chargen.h

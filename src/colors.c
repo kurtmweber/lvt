@@ -19,8 +19,10 @@
 
 #include <ncurses.h>
 #include <stdlib.h>
-#include "colors.h"
+
 #include "lvt.h"
+
+#include "colors.h"
 
 void initializeColors(){
   if (!has_colors()){

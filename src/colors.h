@@ -29,4 +29,9 @@ typedef enum colorPairs{
   BrownBlack
 } colorPairs;
 
+#ifndef _COLORS_C
+void initializeColors();
+#else
+#endif
+
 #endif
