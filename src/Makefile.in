@@ -102,11 +102,11 @@ CONFIG_CLEAN_VPATH_FILES =
 am__installdirs = "$(DESTDIR)$(bindir)"
 PROGRAMS = $(bin_PROGRAMS)
 am_lvt_OBJECTS = allocator.$(OBJEXT) attack.$(OBJEXT) \
-	chargen.$(OBJEXT) leveldisp.$(OBJEXT) levelgen.$(OBJEXT) \
-	main.$(OBJEXT) pcg_basic.$(OBJEXT) random.$(OBJEXT) \
-	map.$(OBJEXT) screen.$(OBJEXT) creaturemgmt.$(OBJEXT) \
-	game.$(OBJEXT) move.$(OBJEXT) input.$(OBJEXT) \
-	creatureinit.$(OBJEXT) stringlookups.$(OBJEXT) \
+	chargen.$(OBJEXT) targeting.$(OBJEXT) leveldisp.$(OBJEXT) \
+	levelgen.$(OBJEXT) main.$(OBJEXT) pcg_basic.$(OBJEXT) \
+	random.$(OBJEXT) map.$(OBJEXT) screen.$(OBJEXT) \
+	creaturemgmt.$(OBJEXT) game.$(OBJEXT) move.$(OBJEXT) \
+	input.$(OBJEXT) creatureinit.$(OBJEXT) stringlookups.$(OBJEXT) \
 	speciesinfo.$(OBJEXT) util.$(OBJEXT) messages.$(OBJEXT) \
 	questions.$(OBJEXT) creaturegen.$(OBJEXT) colors.$(OBJEXT) \
 	name.$(OBJEXT) faction.$(OBJEXT) creaturemove.$(OBJEXT) \
@@ -267,6 +267,8 @@ top_srcdir = @top_srcdir@
 lvt_SOURCES = allocator.c \
 			attack.c \
 			chargen.c \
+			colors.h \
+			targeting.c \
 			leveldisp.c levelgen.c main.c pcg_basic.c random.c map.c screen.c \
 			creaturemgmt.c game.c move.c input.c creatureinit.c stringlookups.c speciesinfo.c \
 			util.c messages.c questions.c creaturegen.c colors.c name.c faction.c \
@@ -278,6 +280,9 @@ lvt_SOURCES = allocator.c \
 noinst_HEADERS = allocator.h \
 			attack.h \
 			chargen.h \
+			colors.h \
+			levelgen.h \
+			targeting.h \
 			lvt.h level.h pcg_basic.h creature.h messages.h types.h move.h stringlookups.h \
 			colors.h item.h species.h creaturemgmt.h plant.h save.h
 
@@ -410,6 +415,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/spawnitem.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/speciesinfo.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/stringlookups.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/targeting.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/throw.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/util.Po@am__quote@
 

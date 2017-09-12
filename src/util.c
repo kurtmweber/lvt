@@ -26,6 +26,29 @@
 #include "stringlookups.h"
 #include "types.h"
 
+bool isInRange2D(coord2D reference, coord2D target, unsigned int range){
+  int xDist = 0, yDist = 0;
+  unsigned int rangeSqr = range * range;
+  
+  xDist = target.x - reference.x;
+  yDist = target.y - reference.y;
+  
+  if (((xDist * xDist) + (yDist * yDist)) <= (rangeSqr)){
+    return true;
+  } else {
+    return false;
+  }
+}
+
+unsigned int getDistanceSquared2D(coord2D reference, coord2D target){
+  int xDist = 0, yDist = 0;
+  
+  xDist = target.x - reference.x;
+  yDist = target.y - reference.y;
+  
+  return ((xDist * xDist) + (yDist * yDist));
+}
+
 int clampRangeIntSigned(int value, int min, int max){
   if (value < min){
     return min;

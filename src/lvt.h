@@ -609,6 +609,8 @@ void directionToUnitMatrix(moveDirection dir, moveMatrix *matrix);
 item *checkAdjacentFood(coord3D location);
 item *checkAdjacentFruitingBush(coord3D location);
 unsigned int returnIndexMaxValLongDouble(long double *array, unsigned int numElements);
+bool isInRange2D(coord2D reference, coord2D target, unsigned int range);
+unsigned int getDistanceSquared2D(coord2D reference, coord2D target);
 #else
 #endif
 

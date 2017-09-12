@@ -22,27 +22,7 @@
 #include <stdbool.h>
 #include "lvt.h"
 #include "level.h"
-
-// some tuning constants
-const unsigned int roomCoverageMu = 1000;
-const unsigned int roomCoverageSigma = 500;
-const unsigned int roomCoverageFloor = 500;
-const unsigned int roomCoverageCeiling = 5000;
-const unsigned int straightness = 850;	// likelihood (out of 1000) that the next space dug out for a tunnel
-					// will be towards the target
-
-const unsigned int dimMapX = 100;	// map dimensions
-const unsigned int dimMapY = 100;
-const unsigned int minRoomX = 2;	// max and min sizes of a room
-const unsigned int minRoomY = 2;
-const unsigned int maxRoomX = 10;
-const unsigned int maxRoomY = 10;
-
-const unsigned int doorLikelihood = 500;	// likelihood (out of 1000) that a door-eligible floor will
-						// become a door
-const unsigned int hiddenDoorLikelihood = 100;	// likelihood (out of 1000) that a door will be hidden
-
-const unsigned int numLevels = 100;
+#include "levelgen.h"
 
 rng levelGenRNG;
 

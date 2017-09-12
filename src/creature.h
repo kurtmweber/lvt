@@ -127,6 +127,7 @@ typedef struct creature{
     unsigned int speedCounter;
     unsigned int lastMove;
   } moveInfo;
+  struct creature *currentTarget;
 } creature;
 
 typedef struct creatureList{

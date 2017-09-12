@@ -20,6 +20,8 @@
 #include <stdbool.h>
 #include "lvt.h"
 
+#include "targeting.h"
+
 const unsigned int straightMoveChance = 900;	// Likelihood (out of 1000) that a creature will, if
 						// possible, continue moving in a straight line
 
@@ -28,6 +30,8 @@ void moveCreatures(){
   creature *curCreature;
   unsigned long long i;
   char numCreatures[32];
+  
+  findTargets();
   
   curCreatureNode = creatures;
   

@@ -23,6 +23,7 @@
 #include "creature.h"
 #include "types.h"
 #include "allocator.h"
+#include "targeting.h"
 
 unsigned int placeCreatureChance = 100;	// likelihood (out of 10,000) that a creature will be placed
 					// on a floor
@@ -83,6 +84,8 @@ creature *spawnOrphanCreature(creatureSpecies species, creatureClass class){
   initCreatureInventory(newCreature);
   
   setWieldNextTurn(newCreature, NULL);
+  
+  setCreatureTarget(newCreature, NULL);
   
   return newCreature;
 }
