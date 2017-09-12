@@ -20,7 +20,9 @@
 #include <stdbool.h>
 
 #include "lvt.h"
+
 #include "creature.h"
+#include "creatureeat.h"
 
 bool hungerAction(creature *curCreature){
   item *foodItem = 0;

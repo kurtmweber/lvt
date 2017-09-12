@@ -36,10 +36,6 @@
 #define ISODD(a) ((a) % 2 ? true : false)
 #define ISEVEN(a) ((a) % 2 ? false : true)
 
-#ifndef _CREATUREEAT_C
-bool hungerAction(creature *curCreature);
-#endif
-
 #ifndef _CREATUREGEN_C
 creatureList *generateStartingCreatures();
 #else

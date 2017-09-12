@@ -54,6 +54,9 @@ creature *findClosestEnemyLevel(creature *ref, positionList *positions){
       tgtCoords.x = positions[i].creature->location.x;
       tgtCoords.y = positions[i].creature->location.y;
       distSquared = getDistanceSquared2D(refCoords, tgtCoords);
+      // no need to complete the distance formula with an expensive sqrt() since we only care about
+      // relative distance, and absolute distance only matters to the extent that it's less than 7 (which
+      // we can leave squared by comparing to 7*7=49)
       if ((distSquared < shortestDistSquared) && (distSquared <= 49) && (getCreatureFaction(ref) != getCreatureFaction(positions[i].creature))){
         shortestDistSquared = distSquared;
         curClosest = positions[i].creature;

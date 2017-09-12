@@ -20,6 +20,7 @@
 #include <stdbool.h>
 #include "lvt.h"
 
+#include "creatureeat.h"
 #include "targeting.h"
 
 const unsigned int straightMoveChance = 900;	// Likelihood (out of 1000) that a creature will, if
