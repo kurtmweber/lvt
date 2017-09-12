@@ -1,4 +1,5 @@
 for version 0.10
+  * release (kmw, 2017-09-11)
   * code refactoring: alphabetized functions in chargen.c and moved declarations to chargen.h
     (kmw, 2017-09-09)
   * creatures will wear armor if it's better than what they have (kmw, 2017-09-09)
