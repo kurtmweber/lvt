@@ -4,10 +4,11 @@ lvt_SOURCES	=	allocator.c \
 			chargen.c \
 			colors.c \
 			creatureeat.c \
+			creaturegen.c \
 			targeting.c \
 			leveldisp.c levelgen.c main.c pcg_basic.c random.c map.c screen.c \
 			creaturemgmt.c game.c move.c input.c creatureinit.c stringlookups.c speciesinfo.c \
-			util.c messages.c questions.c creaturegen.c name.c faction.c \
+			util.c messages.c questions.c name.c faction.c \
 			creaturemove.c creaturelist.c item.c look.c itemmgmt.c flooritems.c \
 			inventory.c spawnitem.c throw.c plantgen.c plantlist.c plantmgmt.c plants.c \
 			pickfruit.c eat.c seedlist.c seeds.c save.c readsave.c \
@@ -17,6 +18,7 @@ noinst_HEADERS	=	allocator.h \
 			chargen.h \
 			colors.h \
 			creatureeat.h \
+			creaturegen.h \
 			levelgen.h \
 			targeting.h \
 			lvt.h level.h pcg_basic.h creature.h messages.h types.h move.h stringlookups.h \

@@ -36,15 +36,6 @@
 #define ISODD(a) ((a) % 2 ? true : false)
 #define ISEVEN(a) ((a) % 2 ? false : true)
 
-#ifndef _CREATUREGEN_C
-creatureList *generateStartingCreatures();
-#else
-bool decidePlaceCreature(coord2D floor, unsigned int level);
-creature *newRandomOrphanCreature(coord2D floor, unsigned int level);
-creature *spawnOrphanCreature(creatureSpecies species, creatureClass class);
-void placeNewCreature(creature *creature, coord3D location);
-#endif
-
 #ifndef _CREATUREINIT_C
 void genOrphanCreatureStats(creature *creature);
 #else

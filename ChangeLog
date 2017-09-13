@@ -1,4 +1,6 @@
 for version 0.11
+  * code refactoring: alphabetized functions in creaturegen.c and moved declarations to creaturegen.h
+    (kmw, 2017-09-13)
   * creatures will follow their targets, with a probability based on their aggressiveness (kmw, 2017-09-13)
   * code refactoring: moved creatureeat.c function declarations to creatureeat.h (kmw, 2017-09-12)
   * creatures will now choose an enemy creature to target based on distance (kmw, 2017-09-12)
