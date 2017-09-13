@@ -28,7 +28,10 @@ const unsigned int straightMoveChance = 900;	// Likelihood (out of 1000) that a 
 
 void moveCreatures(){
   creatureList *curCreatureNode;
+  creatureList *contingentJumpNext = NULL;
   creature *curCreature;
+  creature *contingentCreatureComp = NULL;
+  creature *killedCreature = NULL;
   unsigned long long i;
   char numCreatures[32];
   
@@ -42,26 +45,40 @@ void moveCreatures(){
   
   do {
     curCreature = curCreatureNode->creature;
+    // if this creature kills another creature this turn, and it by chance is the next creature in the list,
+    // then its creature struct and node will have been destroyed and so a reference to curCreatureNode->
+    // next would be a Very Bad Idea.  So in case we do, we save the pointer to the creature AFTER the next
+    // one, and if the return value from doMoveCreature equals the address of the current next creature,
+    // we skip over it.
+    // The need to do this is an example of very poor planning and lack of foresight on my part.  The day
+    // will come when I feel embarrassed enough to fix that, but it is not this day.
+    
+    // if curCreatureNode->next is null, then we're the last creature in the list, and so killing the
+    // subsequent creature isn't an issue
+    if (curCreatureNode->next){
+      contingentJumpNext = curCreatureNode->next->next;
+      contingentCreatureComp = curCreatureNode->next->creature;
+    }
     incrementCreatureSpeedCounter(curCreature, getCreatureSpeed(curCreature));
     while (hasAction(curCreature)){
       if (hungerAction(curCreature)){
 	continue;
       }
       
-      /*if (wieldAction(curCreature)){
-        continue;
-      }*/
-      
       if (inventoryAction(curCreature)){
 	continue;
       }
       
-      doMoveCreature(curCreature);
+      killedCreature = doMoveCreature(curCreature);
     }
     
     // we have to do this before we update the life cycle, because if the creature dies as a result of
     // the update, the current node in the creature list is destroyed.
-    curCreatureNode = curCreatureNode->next;      
+    if ((killedCreature == contingentCreatureComp) && (contingentJumpNext)){
+      curCreatureNode = contingentJumpNext;
+    } else {
+      curCreatureNode = curCreatureNode->next;
+    }
 
   } while (curCreatureNode);
   
@@ -126,7 +143,7 @@ void moveCreatureDownStair(creature *creature){
   return;  
 }
 
-void doMoveCreature(creature *creature){
+creature *doMoveCreature(creature *creature){
   coord3D moves[9];
   coord3D curCreatureLoc;
   static rng localRng;
@@ -134,6 +151,10 @@ void doMoveCreature(creature *creature){
   unsigned int location;
   unsigned int lastMove;
   terrain t;
+  struct creature *target;
+  moveDirection attackMove;
+  coord3D cLoc3, tLoc3;
+  coord2D cLoc2, tLoc2;
   
   if (!rngInitd){
     initializeRNG(&localRng);
@@ -148,62 +169,77 @@ void doMoveCreature(creature *creature){
     if (coinFlip(&localRng) == HEADS){
       moveCreatureUpStair(creature);
       setCreatureLastMove(creature, 4);
-      return;
+      return NULL;
     }
   } else if ((t == DOWNSTAIR) && (curCreatureLoc.level != numLevels - 1)){
     if (coinFlip(&localRng) == TAILS){
       moveCreatureDownStair(creature);
       setCreatureLastMove(creature, 4);
-      return;
+      return NULL;
     }
   }
   
-  lastMove = getCreatureLastMove(creature);
-  
   {
-  moves[0].x = MAX(curCreatureLoc.x - 1, 0);
-  moves[0].y = MAX(curCreatureLoc.y - 1, 0);
-  moves[0].level = curCreatureLoc.level;
-  
-  moves[1].x = MAX(curCreatureLoc.x - 1, 0);
-  moves[1].y = curCreatureLoc.y;
-  moves[1].level = curCreatureLoc.level;
-  
-  moves[2].x = MAX(curCreatureLoc.x - 1, 0);
-  moves[2].y = MIN(curCreatureLoc.y + 1, dimMapY - 1);
-  moves[2].level = curCreatureLoc.level;
-  
-  moves[3].x = curCreatureLoc.x;
-  moves[3].y = MAX(curCreatureLoc.y - 1, 0);
-  moves[3].level = curCreatureLoc.level;
-  
-  moves[4].x = curCreatureLoc.x;
-  moves[4].y = curCreatureLoc.y;
-  moves[4].level = curCreatureLoc.level;
-  
-  moves[5].x = curCreatureLoc.x;
-  moves[5].y = MIN(curCreatureLoc.y + 1, dimMapY - 1);
-  moves[5].level = curCreatureLoc.level;
-  
-  moves[6].x = MIN(curCreatureLoc.x + 1, dimMapX - 1);
-  moves[6].y = MAX(curCreatureLoc.y - 1, 0);
-  moves[6].level = curCreatureLoc.level;
-  
-  moves[7].x = MIN(curCreatureLoc.x + 1, dimMapX - 1);
-  moves[7].y = curCreatureLoc.y;
-  moves[7].level = curCreatureLoc.level;
-  
-  moves[8].x = MIN(curCreatureLoc.x + 1, dimMapX - 1);
-  moves[8].y = MIN(curCreatureLoc.y + 1, dimMapY - 1);
-  moves[8].level = curCreatureLoc.level;
+    moves[0].x = MAX(curCreatureLoc.x - 1, 0);
+    moves[0].y = MAX(curCreatureLoc.y - 1, 0);
+    moves[0].level = curCreatureLoc.level;
+    
+    moves[1].x = MAX(curCreatureLoc.x - 1, 0);
+    moves[1].y = curCreatureLoc.y;
+    moves[1].level = curCreatureLoc.level;
+    
+    moves[2].x = MAX(curCreatureLoc.x - 1, 0);
+    moves[2].y = MIN(curCreatureLoc.y + 1, dimMapY - 1);
+    moves[2].level = curCreatureLoc.level;
+    
+    moves[3].x = curCreatureLoc.x;
+    moves[3].y = MAX(curCreatureLoc.y - 1, 0);
+    moves[3].level = curCreatureLoc.level;
+    
+    moves[4].x = curCreatureLoc.x;
+    moves[4].y = curCreatureLoc.y;
+    moves[4].level = curCreatureLoc.level;
+    
+    moves[5].x = curCreatureLoc.x;
+    moves[5].y = MIN(curCreatureLoc.y + 1, dimMapY - 1);
+    moves[5].level = curCreatureLoc.level;
+    
+    moves[6].x = MIN(curCreatureLoc.x + 1, dimMapX - 1);
+    moves[6].y = MAX(curCreatureLoc.y - 1, 0);
+    moves[6].level = curCreatureLoc.level;
+    
+    moves[7].x = MIN(curCreatureLoc.x + 1, dimMapX - 1);
+    moves[7].y = curCreatureLoc.y;
+    moves[7].level = curCreatureLoc.level;
+    
+    moves[8].x = MIN(curCreatureLoc.x + 1, dimMapX - 1);
+    moves[8].y = MIN(curCreatureLoc.y + 1, dimMapY - 1);
+    moves[8].level = curCreatureLoc.level;
   }
   
-  if ((uniformRandomRangeInt(&localRng, 1, 1000) <= straightMoveChance) && (lastMove != 4)){
-    // 4 is the "stay put" move in the array above
-    location = lastMove;
-  } else {
-    location = uniformRandomRangeInt(&localRng, 1, 9) - 1;
+  target = getCreatureTarget(creature);
+  
+  if (target && isAggressive(creature, getCreatureTarget(creature))){
+    cLoc3 = getCreatureLocation(creature);
+    tLoc3 = getCreatureLocation(getCreatureTarget(creature));
+    cLoc2.x = cLoc3.x;
+    cLoc2.y = cLoc3.y;
+    tLoc2.x = tLoc3.x;
+    tLoc2.y = tLoc3.y;
+    
+    location = findDirection(cLoc2, tLoc2);
     setCreatureLastMove(creature, location);
+  } else {
+    
+    lastMove = getCreatureLastMove(creature);
+    
+    if ((uniformRandomRangeInt(&localRng, 1, 1000) <= straightMoveChance) && (lastMove != 4)){
+      // 4 is the "stay put" move in the array above
+      location = lastMove;
+    } else {
+      location = uniformRandomRangeInt(&localRng, 1, 9) - 1;
+      setCreatureLastMove(creature, location);
+    }
   }
   
   switch (getMapSpaceTerrain(dungeon[moves[location].level], moves[location].x, moves[location].y)){
@@ -213,7 +249,7 @@ void doMoveCreature(creature *creature){
     case OPENDOOR:
       if (!hasCreatureOccupant(dungeon[moves[location].level], moves[location].x, moves[location].y)){
 	changeCreatureLocation(creature, moves[location]);
-	return;
+	return NULL;
       } else {
 	setCreatureLastMove(creature, 4);
       }
@@ -229,7 +265,7 @@ void doMoveCreature(creature *creature){
       break;	
   }
   
-  return;
+  return NULL;
 }
 
 bool hasAction(creature *creature){

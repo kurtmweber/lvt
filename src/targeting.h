@@ -27,6 +27,7 @@ typedef struct positionList{
 
 #ifndef _TARGETING_C
 void findTargets();
+creature *getCreatureTarget(creature *creature);
 void setCreatureTarget(struct creature *creature, struct creature *target);
 
 extern const unsigned int targetRangeLimit;

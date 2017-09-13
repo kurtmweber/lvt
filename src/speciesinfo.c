@@ -44,6 +44,10 @@ unsigned int getSpeciesBaseHp(creatureSpecies species){
   return speciesData[species].baseHp;
 }
 
+speciesAggression getSpeciesAggression(creatureSpecies species){
+  return speciesData[species].aggression;
+}
+
 // Stats should sum to +7
 
 void initSpeciesDataBear(){
@@ -59,6 +63,8 @@ void initSpeciesDataBear(){
   speciesData[BEAR].hasHands = false;
   
   speciesData[BEAR].weight = 500;
+  
+  speciesData[BEAR].aggression = SPECIES_TRUMP;
   
   return;
 }
@@ -77,6 +83,8 @@ void initSpeciesDataDwarf(){
   
   speciesData[DWARF].weight = 200;
   
+  speciesData[DWARF].aggression = SPECIES_HYPERAGGRESSIVE;
+  
   return;
 }
 
@@ -93,6 +101,8 @@ void initSpeciesDataElf(){
   speciesData[ELF].hasHands = true;
   
   speciesData[ELF].weight = 300;
+  
+  speciesData[ELF].aggression = SPECIES_CALM;
   
   return;
 }
@@ -111,6 +121,8 @@ void initSpeciesDataHalfling(){
   
   speciesData[HALFLING].weight = 200;
   
+  speciesData[HALFLING].aggression = SPECIES_CHILL;
+  
   return;
 }
 
@@ -127,6 +139,8 @@ void initSpeciesDataHuman(){
   speciesData[HUMAN].hasHands = true;
   
   speciesData[HUMAN].weight = 300;
+  
+  speciesData[HUMAN].aggression = SPECIES_PEEVISH;
   
   return;
 }

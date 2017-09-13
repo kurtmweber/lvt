@@ -160,6 +160,9 @@ item *getShoes(creature *creature);
 bool hasShield(creature *creature);
 item *getShield(creature *creature);
 bool isInventoryFull(creature *creature);
+bool isAggressive (struct creature *creature, struct creature *target);
+creatureAggression getCreatureAggression(creature *creature);
+void setCreatureAggression(creature *creature, creatureAggression aggression);
 #else
 bool updateCreatureLifeCycleNotMatured(creature *creature);
 bool updateCreatureLifeCycleMatured(creature *creature);
@@ -177,13 +180,14 @@ coord3D getCreatureLocation(creature *creature);
 unsigned int getCreatureWeight(creature *creature);
 void setCreatureNutrition (creature *creature, unsigned int nutrition);
 unsigned int getCreatureNutrition(creature *creature);
+creatureAggression getCreatureAggression(creature *creature);
 #endif
 
 #ifndef _CREATUREMOVE_C
 void moveCreatures();
 #else
 bool hasAction(creature *creature);
-void doMoveCreature(creature *creature);
+creature *doMoveCreature(creature *creature);
 void moveCreatureUpStair(creature *creature);
 void moveCreatureDownStair(creature *creature);
 void changeCreatureLocation(creature *creature, coord3D newPos);
@@ -570,6 +574,7 @@ void getSpeciesModifiers(creatureSpecies species, statList *list);
 unsigned int getSpeciesLifePace(creatureSpecies species);
 unsigned int getSpeciesBaseHp(creatureSpecies species);
 void initPlantSpeciesData();
+speciesAggression getSpeciesAggression(creatureSpecies species);
 #else
 void initSpeciesDataHuman();
 void initSpeciesDataHalfling();
@@ -607,6 +612,7 @@ item *checkAdjacentFruitingBush(coord3D location);
 unsigned int returnIndexMaxValLongDouble(long double *array, unsigned int numElements);
 bool isInRange2D(coord2D reference, coord2D target, unsigned int range);
 unsigned int getDistanceSquared2D(coord2D reference, coord2D target);
+moveDirection findDirection(coord2D point1, coord2D point2);
 #else
 #endif
 

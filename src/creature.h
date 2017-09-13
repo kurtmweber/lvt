@@ -38,25 +38,15 @@ typedef enum bioSex{
   MALE
 } bioSex;
 
-/* typedef enum creatureAggression{
-  CHILL = 1,
-  CALM,
-  PEEVISH,
-  AGGRESSIVE,
-  HYPERAGGRESSIVE,
-  HITLER,
-  TRUMP
-}; */
-
-/* typedef enum speciesAggression{
-  TRUMP = 8,
-  HITLER,
-  HYPERAGGRESSIVE,
-  AGGRESSIVE,
-  PEEVISH,
-  CALM,
-  CHILL
-}; */
+typedef enum creatureAggression{
+  CREATURE_CHILL = 1,
+  CREATURE_CALM,
+  CREATURE_PEEVISH,
+  CREATURE_AGGRESSIVE,
+  CREATURE_HYPERAGGRESSIVE,
+  CREATURE_HITLER,
+  CREATURE_TRUMP
+} creatureAggression;
 
 typedef enum creatureClass{
   POET,
@@ -121,7 +111,7 @@ typedef struct creature{
   unsigned int weight;
   unsigned int nutrition;
   bool hungry;
-  //creatureAggression aggression;
+  creatureAggression aggression;
   struct {
     unsigned int speed;
     unsigned int speedCounter;

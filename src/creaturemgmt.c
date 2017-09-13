@@ -988,6 +988,58 @@ unsigned int getCreatureNutrition(creature *creature){
   return creature->nutrition;
 }
 
+bool isAggressive(struct creature *creature, struct creature *target){
+  speciesAggression cSA;
+  creatureAggression cCA;
+  unsigned int cLevel, tLevel;
+  unsigned int lDiff = 0;
+  static rng localRng;
+  static bool rngInitd = false;
+  unsigned int random;
+  
+  if (!rngInitd){
+    initializeRNG(&localRng);
+    rngInitd = true;
+  }
+  
+  
+  cSA = getSpeciesAggression(getCreatureSpecies(creature));
+  
+  cCA = getCreatureAggression(creature);
+  
+  cLevel = getCreatureLevel(creature);
+  tLevel = getCreatureLevel(target);
+  
+  if (cLevel < tLevel){
+    lDiff = tLevel - cLevel;
+  }
+  
+  // scenario: creature level 8, species aggression SPECIES_HITLER, creature aggression CREATURE_PEEVISH
+  // target level 10
+  // creature is weaker than target, so we take level difference into account, in this case 2
+  // SPECIES_HITLER = 9, CREATURE_PEEVISH = 3
+  // so we find a random number between 1 and (9 + 2 =)11
+  // a CREATURE_PEEVISH creature has an (11 - 3 =)8/11 chance of not attacking
+  // so if the number is greater than 8, we are aggressive this time
+  
+  random = uniformRandomRangeInt(&localRng, 1, cSA + lDiff);
+  if (random > ((cSA + lDiff) - cCA)){
+    return true;
+  } else {
+    return false;
+  }
+}
+
+creatureAggression getCreatureAggression(creature *creature){
+  return creature->aggression;
+}
+
+void setCreatureAggression(creature *creature, creatureAggression aggression){
+  creature->aggression = aggression;
+  
+  return;
+}
+
 void killCreature(creature *creature){
   creatureList *cNode;
   coord3D creatureLoc;

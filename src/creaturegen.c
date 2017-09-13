@@ -25,8 +25,8 @@
 #include "allocator.h"
 #include "targeting.h"
 
-unsigned int placeCreatureChance = 100;	// likelihood (out of 10,000) that a creature will be placed
-					// on a floor
+const unsigned int placeCreatureChance = 100;   // likelihood (out of 10,000) that a creature will be
+                                                // placed on a floor
 
 creatureList *generateStartingCreatures(){
   creatureList *node = 0;
@@ -58,6 +58,7 @@ creature *spawnOrphanCreature(creatureSpecies species, creatureClass class){
   static bool rngInitd = false;
   bioSex sex;
   unsigned int faction;
+  creatureAggression aggression;
   
   if (!rngInitd){
     initializeRNG(&localRng);
@@ -86,6 +87,9 @@ creature *spawnOrphanCreature(creatureSpecies species, creatureClass class){
   setWieldNextTurn(newCreature, NULL);
   
   setCreatureTarget(newCreature, NULL);
+  
+  aggression = uniformRandomRangeInt(&localRng, CREATURE_CHILL, CREATURE_TRUMP);
+  setCreatureAggression(newCreature, aggression);
   
   return newCreature;
 }

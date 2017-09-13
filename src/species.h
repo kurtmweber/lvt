@@ -20,6 +20,17 @@
 
 #include <stdbool.h>
 #include "colors.h"
+#include "creature.h"
+
+typedef enum speciesAggression{
+  SPECIES_TRUMP = 8,
+  SPECIES_HITLER,
+  SPECIES_HYPERAGGRESSIVE,
+  SPECIES_AGGRESSIVE,
+  SPECIES_PEEVISH,
+  SPECIES_CALM,
+  SPECIES_CHILL
+} speciesAggression;
 
 typedef enum creatureStats{
   STRENGTH,
@@ -91,7 +102,7 @@ typedef struct speciesInfo{
   unsigned int speed;
   bool hasHands;
   unsigned int weight;
-  //speciesAggression aggression;
+  speciesAggression aggression;
 } speciesInfo;
 
 #endif

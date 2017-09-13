@@ -1,4 +1,5 @@
 for version 0.11
+  * creatures will follow their targets, with a probability based on their aggressiveness (kmw, 2017-09-13)
   * code refactoring: moved creatureeat.c function declarations to creatureeat.h (kmw, 2017-09-12)
   * creatures will now choose an enemy creature to target based on distance (kmw, 2017-09-12)
   * code refactoring: moved colors.c function declarations to colors.h (kmw, 2017-09-11)

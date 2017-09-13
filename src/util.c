@@ -361,6 +361,44 @@ item *checkAdjacentFruitingBush(coord3D location){
   return NULL;
 }
 
+moveDirection findDirection(coord2D point1, coord2D point2){
+  if ((point2.y < point1.y) && (point2.x < point1.x)){
+    return UPLEFT;
+  }
+  
+  if ((point2.y < point1.y) && (point2.x == point1.x)){
+    return UP;
+  }
+  
+  if ((point2.y < point1.y) && (point2.x > point1.x)){
+    return UPRIGHT;
+  }
+  
+  if ((point2.y == point1.y) && (point2.x < point1.x)){
+    return LEFT;
+  }
+  
+  if ((point2.y == point1.y) && (point2.x == point1.x)){
+    return NOMOVE;
+  }
+  
+  if ((point2.y == point1.y) && (point2.x > point1.x)){
+    return RIGHT;
+  }
+  
+  if ((point2.y > point1.y) && (point2.x < point1.x)){
+    return DOWNLEFT;
+  }
+  
+  if ((point2.y > point1.y) && (point2.x == point1.x)){
+    return DOWN;
+  }
+  
+  if ((point2.y > point1.y) && (point2.x > point1.x)){
+    return DOWNRIGHT;
+  }
+}
+
 unsigned int returnIndexMaxValLongDouble(long double *array, unsigned int numElements){
   unsigned int indexMax = 0;
   unsigned int i = 0;

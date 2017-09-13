@@ -131,6 +131,10 @@ positionList **generatePositionList(){
   return posList;
 }
 
+creature *getCreatureTarget(creature *creature){
+  return creature->currentTarget;
+}
+
 void setCreatureTarget(struct creature *creature, struct creature *target){
   creature->currentTarget = target;
   

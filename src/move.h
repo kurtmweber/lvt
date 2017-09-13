@@ -33,13 +33,14 @@ typedef enum moveOutcome{
 } moveOutcome;
 
 typedef enum moveDirection{
-  UP,
-  DOWN,
-  LEFT,
-  RIGHT,
   UPLEFT,
+  UP,
   UPRIGHT,
+  LEFT,
+  NOMOVE,
+  RIGHT,
   DOWNLEFT,
+  DOWN,
   DOWNRIGHT
 } moveDirection;
 
