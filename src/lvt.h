@@ -36,15 +36,6 @@
 #define ISODD(a) ((a) % 2 ? true : false)
 #define ISEVEN(a) ((a) % 2 ? false : true)
 
-#ifndef _CREATUREINVENTORY_C
-bool inventoryAction(creature *curCreature);
-#else
-bool creaturePickupWeapon(creature *curCreature);
-bool creaturePickupArmor(creature *curCreature);
-bool creatureWieldWeapon(creature *curCreature);
-bool creatureWearArmor(creature *curCreature);
-#endif
-
 #ifndef _CREATURELIST_C
 creatureList *insertNewCreatureNode(creatureList *list, creatureList *node);
 creatureList *removeCreatureNode(creatureList *list, creatureList *node);

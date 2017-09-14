@@ -21,146 +21,10 @@
 #include <stdlib.h>
 
 #include "lvt.h"
+
 #include "attack.h"
 #include "creature.h"
-
-bool inventoryAction(creature *curCreature){
-  if (creaturePickupWeapon(curCreature)){
-    return true;
-  } else if (creatureWieldWeapon(curCreature)){
-    return true;
-  } else if (creaturePickupArmor(curCreature)){
-    return true;
-  } else if (creatureWearArmor(curCreature)){
-    return true;
-  }
-  
-  return false;
-}
-
-bool creatureWearArmor(creature *curCreature){
-  item *inventory[52];
-  unsigned int i = 0;
-  coord3D creaturePos;
-  
-  getCreatureInventory(curCreature, inventory);
-  
-  for (i = 0; i < 52; i++){
-    if (inventory[i]){
-      if (isArmor(inventory[i]) && !isWorn(inventory[i])){
-        if (armorSlotMatch(inventory[i], ARMOR_SHIRT)){   
-          if (getEffectiveArmor(inventory[i]) > getEffectiveArmor(getShirt(curCreature))){
-            removeItem(curCreature, getShirt(curCreature));
-            wearItem(curCreature, inventory[i]);
-          } else {
-            removeCreatureInventoryItem(curCreature, inventory[i]);
-            creaturePos = getCreatureLocation(curCreature);
-            addContents(creaturePos.level, creaturePos.x, creaturePos.y, inventory[i]);
-          }
-          return true;
-        }
-        
-        if (armorSlotMatch(inventory[i], ARMOR_UNDERARMOR)){
-          if (getEffectiveArmor(inventory[i]) > getEffectiveArmor(getUnderarmor(curCreature))){
-            removeItem(curCreature, getUnderarmor(curCreature));
-            wearItem(curCreature, inventory[i]);
-          } else {
-            removeCreatureInventoryItem(curCreature, inventory[i]);
-            creaturePos = getCreatureLocation(curCreature);
-            addContents(creaturePos.level, creaturePos.x, creaturePos.y, inventory[i]);
-          }
-          return true;
-        }
-        
-        if (armorSlotMatch(inventory[i], ARMOR_ARMOR)){
-          if (getEffectiveArmor(inventory[i]) > getEffectiveArmor(getArmor(curCreature))){
-            removeItem(curCreature, getArmor(curCreature));
-            wearItem(curCreature, inventory[i]);
-          } else {
-            removeCreatureInventoryItem(curCreature, inventory[i]);
-            creaturePos = getCreatureLocation(curCreature);
-            addContents(creaturePos.level, creaturePos.x, creaturePos.y, inventory[i]);
-          }
-          return true;
-        }
-        
-        if (armorSlotMatch(inventory[i], ARMOR_HELMET)){
-          if (getEffectiveArmor(inventory[i]) > getEffectiveArmor(getHelmet(curCreature))){
-            removeItem(curCreature, getHelmet(curCreature));
-            wearItem(curCreature, inventory[i]);
-          } else {
-            removeCreatureInventoryItem(curCreature, inventory[i]);
-            creaturePos = getCreatureLocation(curCreature);
-            addContents(creaturePos.level, creaturePos.x, creaturePos.y, inventory[i]);
-          }
-          return true;
-        }
-        
-        if (armorSlotMatch(inventory[i], ARMOR_CLOAK)){
-          if (getEffectiveArmor(inventory[i]) > getEffectiveArmor(getCloak(curCreature))){
-            removeItem(curCreature, getCloak(curCreature));
-            wearItem(curCreature, inventory[i]);
-          } else {
-            removeCreatureInventoryItem(curCreature, inventory[i]);
-            creaturePos = getCreatureLocation(curCreature);
-            addContents(creaturePos.level, creaturePos.x, creaturePos.y, inventory[i]);
-          }
-          return true;
-        }
-        
-        if (armorSlotMatch(inventory[i], ARMOR_GLOVES)){
-          if (getEffectiveArmor(inventory[i]) > getEffectiveArmor(getGloves(curCreature))){
-            removeItem(curCreature, getGloves(curCreature));
-            wearItem(curCreature, inventory[i]);
-          } else {
-            removeCreatureInventoryItem(curCreature, inventory[i]);
-            creaturePos = getCreatureLocation(curCreature);
-            addContents(creaturePos.level, creaturePos.x, creaturePos.y, inventory[i]);
-          }
-          return true;
-        }
-        
-        if (armorSlotMatch(inventory[i], ARMOR_LEGGINGS)){
-          if (getEffectiveArmor(inventory[i]) > getEffectiveArmor(getLeggings(curCreature))){
-            removeItem(curCreature, getLeggings(curCreature));
-            wearItem(curCreature, inventory[i]);
-          } else {
-            removeCreatureInventoryItem(curCreature, inventory[i]);
-            creaturePos = getCreatureLocation(curCreature);
-            addContents(creaturePos.level, creaturePos.x, creaturePos.y, inventory[i]);
-          }
-          return true;
-        }
-        
-        if (armorSlotMatch(inventory[i], ARMOR_SHOES)){
-          if (getEffectiveArmor(inventory[i]) > getEffectiveArmor(getShoes(curCreature))){
-            removeItem(curCreature, getShoes(curCreature));
-            wearItem(curCreature, inventory[i]);
-          } else {
-            removeCreatureInventoryItem(curCreature, inventory[i]);
-            creaturePos = getCreatureLocation(curCreature);
-            addContents(creaturePos.level, creaturePos.x, creaturePos.y, inventory[i]);
-          }
-          return true;
-        }
-        
-        if (armorSlotMatch(inventory[i], ARMOR_SHIELD)){
-          if (getEffectiveArmor(inventory[i]) > getEffectiveArmor(getShield(curCreature))){
-            removeItem(curCreature, getShield(curCreature));
-            wearItem(curCreature, inventory[i]);
-          } else {
-            removeCreatureInventoryItem(curCreature, inventory[i]);
-            creaturePos = getCreatureLocation(curCreature);
-            addContents(creaturePos.level, creaturePos.x, creaturePos.y, inventory[i]);
-          }
-          return true;
-        }
-      }
-    }
-  }
-  
-  return false;
-}
+#include "creatureinventory.h"
 
 bool creaturePickupArmor(creature *curCreature){
   coord3D curLoc;
@@ -342,27 +206,6 @@ bool creaturePickupArmor(creature *curCreature){
   return false;
 }
 
-bool creatureWieldWeapon(creature *curCreature){
-  item *toWield;
-  
-  toWield = getWieldNextTurn(curCreature);
-  
-  // this does not take any steps to rectify the situation if wielding fails, e.g. because it's a two-handed
-  // weapon and the creature is wearing a shield
-  if (toWield){
-    if (hasWeapon(curCreature)){
-      unwieldWeapon(curCreature);
-    }
-    
-    wieldItem(curCreature, toWield);
-    setWieldNextTurn(curCreature, NULL);
-    
-    return true;
-  }
-
-  return false;
-}
-
 bool creaturePickupWeapon(creature *curCreature){
   coord3D curLoc;
   mapSpaceContents *contents, *thisContent;
@@ -456,7 +299,7 @@ bool creaturePickupWeapon(creature *curCreature){
   } else {
     while (contents){
       if (contents->item != testWeapon){
-	addContents(curLoc.level, curLoc.x, curLoc.y, contents->item);
+        addContents(curLoc.level, curLoc.x, curLoc.y, contents->item);
       }
       contents = contents->next;
     }
@@ -477,4 +320,163 @@ bool creaturePickupWeapon(creature *curCreature){
     
   free(weaponList);
   return true;
+}
+
+bool creatureWearArmor(creature *curCreature){
+  item *inventory[52];
+  unsigned int i = 0;
+  coord3D creaturePos;
+  
+  getCreatureInventory(curCreature, inventory);
+  
+  for (i = 0; i < 52; i++){
+    if (inventory[i]){
+      if (isArmor(inventory[i]) && !isWorn(inventory[i])){
+        if (armorSlotMatch(inventory[i], ARMOR_SHIRT)){   
+          if (getEffectiveArmor(inventory[i]) > getEffectiveArmor(getShirt(curCreature))){
+            removeItem(curCreature, getShirt(curCreature));
+            wearItem(curCreature, inventory[i]);
+          } else {
+            removeCreatureInventoryItem(curCreature, inventory[i]);
+            creaturePos = getCreatureLocation(curCreature);
+            addContents(creaturePos.level, creaturePos.x, creaturePos.y, inventory[i]);
+          }
+          return true;
+        }
+        
+        if (armorSlotMatch(inventory[i], ARMOR_UNDERARMOR)){
+          if (getEffectiveArmor(inventory[i]) > getEffectiveArmor(getUnderarmor(curCreature))){
+            removeItem(curCreature, getUnderarmor(curCreature));
+            wearItem(curCreature, inventory[i]);
+          } else {
+            removeCreatureInventoryItem(curCreature, inventory[i]);
+            creaturePos = getCreatureLocation(curCreature);
+            addContents(creaturePos.level, creaturePos.x, creaturePos.y, inventory[i]);
+          }
+          return true;
+        }
+        
+        if (armorSlotMatch(inventory[i], ARMOR_ARMOR)){
+          if (getEffectiveArmor(inventory[i]) > getEffectiveArmor(getArmor(curCreature))){
+            removeItem(curCreature, getArmor(curCreature));
+            wearItem(curCreature, inventory[i]);
+          } else {
+            removeCreatureInventoryItem(curCreature, inventory[i]);
+            creaturePos = getCreatureLocation(curCreature);
+            addContents(creaturePos.level, creaturePos.x, creaturePos.y, inventory[i]);
+          }
+          return true;
+        }
+        
+        if (armorSlotMatch(inventory[i], ARMOR_HELMET)){
+          if (getEffectiveArmor(inventory[i]) > getEffectiveArmor(getHelmet(curCreature))){
+            removeItem(curCreature, getHelmet(curCreature));
+            wearItem(curCreature, inventory[i]);
+          } else {
+            removeCreatureInventoryItem(curCreature, inventory[i]);
+            creaturePos = getCreatureLocation(curCreature);
+            addContents(creaturePos.level, creaturePos.x, creaturePos.y, inventory[i]);
+          }
+          return true;
+        }
+        
+        if (armorSlotMatch(inventory[i], ARMOR_CLOAK)){
+          if (getEffectiveArmor(inventory[i]) > getEffectiveArmor(getCloak(curCreature))){
+            removeItem(curCreature, getCloak(curCreature));
+            wearItem(curCreature, inventory[i]);
+          } else {
+            removeCreatureInventoryItem(curCreature, inventory[i]);
+            creaturePos = getCreatureLocation(curCreature);
+            addContents(creaturePos.level, creaturePos.x, creaturePos.y, inventory[i]);
+          }
+          return true;
+        }
+        
+        if (armorSlotMatch(inventory[i], ARMOR_GLOVES)){
+          if (getEffectiveArmor(inventory[i]) > getEffectiveArmor(getGloves(curCreature))){
+            removeItem(curCreature, getGloves(curCreature));
+            wearItem(curCreature, inventory[i]);
+          } else {
+            removeCreatureInventoryItem(curCreature, inventory[i]);
+            creaturePos = getCreatureLocation(curCreature);
+            addContents(creaturePos.level, creaturePos.x, creaturePos.y, inventory[i]);
+          }
+          return true;
+        }
+        
+        if (armorSlotMatch(inventory[i], ARMOR_LEGGINGS)){
+          if (getEffectiveArmor(inventory[i]) > getEffectiveArmor(getLeggings(curCreature))){
+            removeItem(curCreature, getLeggings(curCreature));
+            wearItem(curCreature, inventory[i]);
+          } else {
+            removeCreatureInventoryItem(curCreature, inventory[i]);
+            creaturePos = getCreatureLocation(curCreature);
+            addContents(creaturePos.level, creaturePos.x, creaturePos.y, inventory[i]);
+          }
+          return true;
+        }
+        
+        if (armorSlotMatch(inventory[i], ARMOR_SHOES)){
+          if (getEffectiveArmor(inventory[i]) > getEffectiveArmor(getShoes(curCreature))){
+            removeItem(curCreature, getShoes(curCreature));
+            wearItem(curCreature, inventory[i]);
+          } else {
+            removeCreatureInventoryItem(curCreature, inventory[i]);
+            creaturePos = getCreatureLocation(curCreature);
+            addContents(creaturePos.level, creaturePos.x, creaturePos.y, inventory[i]);
+          }
+          return true;
+        }
+        
+        if (armorSlotMatch(inventory[i], ARMOR_SHIELD)){
+          if (getEffectiveArmor(inventory[i]) > getEffectiveArmor(getShield(curCreature))){
+            removeItem(curCreature, getShield(curCreature));
+            wearItem(curCreature, inventory[i]);
+          } else {
+            removeCreatureInventoryItem(curCreature, inventory[i]);
+            creaturePos = getCreatureLocation(curCreature);
+            addContents(creaturePos.level, creaturePos.x, creaturePos.y, inventory[i]);
+          }
+          return true;
+        }
+      }
+    }
+  }
+  
+  return false;
+}
+
+bool creatureWieldWeapon(creature *curCreature){
+  item *toWield;
+  
+  toWield = getWieldNextTurn(curCreature);
+  
+  // this does not take any steps to rectify the situation if wielding fails, e.g. because it's a two-handed
+  // weapon and the creature is wearing a shield
+  if (toWield){
+    if (hasWeapon(curCreature)){
+      unwieldWeapon(curCreature);
+    }
+    
+    wieldItem(curCreature, toWield);
+    setWieldNextTurn(curCreature, NULL);
+    
+    return true;
+  }
+
+  return false;
+}
+
+bool inventoryAction(creature *curCreature){
+  if (creaturePickupWeapon(curCreature)){
+    return true;
+  } else if (creatureWieldWeapon(curCreature)){
+    return true;
+  } else if (creaturePickupArmor(curCreature)){
+    return true;
+  } else if (creatureWearArmor(curCreature)){
+    return true;
+  }
+  
+  return false;
 }
