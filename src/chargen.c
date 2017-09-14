@@ -25,6 +25,7 @@
 #include "chargen.h"
 #include "colors.h"
 #include "creature.h"
+#include "creatureinit.h"
 
 void initializeCharacter(){
   char *charName = 0;

@@ -25,6 +25,7 @@
 #include "allocator.h"
 #include "creature.h"
 #include "creaturegen.h"
+#include "creatureinit.h"
 #include "targeting.h"
 #include "types.h"
 

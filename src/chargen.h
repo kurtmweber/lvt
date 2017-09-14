@@ -15,8 +15,8 @@
  *  along with Lavender Throne.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef _ATTACK_H
-#define _ATTACK_H
+#ifndef _CHARGEN_H
+#define _CHARGEN_H
 
 #ifndef _CHARGEN_C
 void initializeCharacter();

@@ -15,6 +15,11 @@
  *  along with Lavender Throne.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#ifndef _CREATUREEAT_H
+#define _CREATUREEAT_H
+
 #ifndef _CREATUREEAT_C
 bool hungerAction(creature *curCreature);
+#endif
+
 #endif

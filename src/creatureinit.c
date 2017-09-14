@@ -18,6 +18,7 @@
 #define _CREATUREINIT_C
 
 #include "lvt.h"
+
 #include "creature.h"
 
 void getClassModifiers(creatureClass class, statList *list){

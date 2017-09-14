@@ -36,12 +36,6 @@
 #define ISODD(a) ((a) % 2 ? true : false)
 #define ISEVEN(a) ((a) % 2 ? false : true)
 
-#ifndef _CREATUREINIT_C
-void genOrphanCreatureStats(creature *creature);
-#else
-void getClassModifiers(creatureClass class, statList *list);
-#endif
-
 #ifndef _CREATUREINVENTORY_C
 bool inventoryAction(creature *curCreature);
 #else

@@ -15,16 +15,13 @@
  *  along with Lavender Throne.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef _CREATUREGEN_H
-#define _CREATUREGEN_H
+#ifndef _CREATUREINIT_H
+#define _CREATUREINIT_H
 
-#ifndef _CREATUREGEN_C
-creatureList *generateStartingCreatures();
+#ifndef _CREATUREINIT_C
+void genOrphanCreatureStats(creature *creature);
 #else
-bool decidePlaceCreature(coord2D floor, unsigned int level);
-creature *newRandomOrphanCreature(coord2D floor, unsigned int level);
-void placeNewCreature(creature *creature, coord3D location);
-creature *spawnOrphanCreature(creatureSpecies species, creatureClass class);
+void getClassModifiers(creatureClass class, statList *list);
 #endif
 
 #endif
