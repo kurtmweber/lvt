@@ -1040,6 +1040,16 @@ void setCreatureAggression(creature *creature, creatureAggression aggression){
   return;
 }
 
+void setInCombat(creature *creature, bool status){
+  creature->inCombat = status;
+  
+  return;
+}
+
+bool getInCombat(creature *creature){
+  return creature->inCombat;
+}
+
 void killCreature(creature *creature){
   creatureList *cNode;
   coord3D creatureLoc;
@@ -1136,6 +1146,9 @@ void regenerateHitPoints(creature *creature){
   num = uniformRandomRangeInt(&localRng, 1, strength + constitution + chp);
   if (num > strength + constitution){
     setCreatureCurHp(creature, chp + 1);
+    if (chp == getCreatureMaxHp(creature) - 1){
+      setInCombat(creature, false);
+    }
   }
   
   return;

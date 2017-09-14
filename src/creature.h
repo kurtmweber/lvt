@@ -112,6 +112,7 @@ typedef struct creature{
   unsigned int nutrition;
   bool hungry;
   creatureAggression aggression;
+  bool inCombat;
   struct {
     unsigned int speed;
     unsigned int speedCounter;

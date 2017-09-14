@@ -1,4 +1,5 @@
 for version 0.11
+  * creatures will attack and fight back if attacked (kmw, 2017-09-14)
   * code refactoring: alphabetized functions in creaturegen.c and moved declarations to creaturegen.h
     (kmw, 2017-09-13)
   * creatures will follow their targets, with a probability based on their aggressiveness (kmw, 2017-09-13)

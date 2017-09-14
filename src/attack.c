@@ -31,6 +31,9 @@ unsigned int attack(creature *attacker, creature *defender, unsigned int toHitVa
   static rng localRng;
   static bool rngInitd = false;  
   
+  setInCombat(defender, true);
+  setInCombat(attacker, true);
+  
 //#ifndef _D_DEBUG
   
   if (!rngInitd){

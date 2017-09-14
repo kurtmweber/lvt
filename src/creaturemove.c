@@ -18,9 +18,13 @@
 #define _CREATUREMOVE_C
 
 #include <stdbool.h>
+#include <stdlib.h>
+#include <string.h>
 #include "lvt.h"
 
+#include "attack.h"
 #include "creatureeat.h"
+#include "messages.h"
 #include "targeting.h"
 
 const unsigned int straightMoveChance = 900;	// Likelihood (out of 1000) that a creature will, if
@@ -155,6 +159,8 @@ creature *doMoveCreature(creature *creature){
   moveDirection attackMove;
   coord3D cLoc3, tLoc3;
   coord2D cLoc2, tLoc2;
+  unsigned int attackVal = 0;
+  char *attackMsg = NULL;
   
   if (!rngInitd){
     initializeRNG(&localRng);
@@ -219,7 +225,7 @@ creature *doMoveCreature(creature *creature){
   
   target = getCreatureTarget(creature);
   
-  if (target && isAggressive(creature, getCreatureTarget(creature))){
+  if (target && (isAggressive(creature, getCreatureTarget(creature)) || getInCombat(creature))){
     cLoc3 = getCreatureLocation(creature);
     tLoc3 = getCreatureLocation(getCreatureTarget(creature));
     cLoc2.x = cLoc3.x;
@@ -251,7 +257,36 @@ creature *doMoveCreature(creature *creature){
 	changeCreatureLocation(creature, moves[location]);
 	return NULL;
       } else {
-	setCreatureLastMove(creature, 4);
+        target = getCreatureOccupant(dungeon[moves[location].level], moves[location].x, moves[location].y);
+        if (getCreatureFaction(creature) != getCreatureFaction(target)){
+          attackVal = meleeAttack(creature, target);
+          if (target == &player){
+            switch (attackVal){
+              case ATTACK_MISSED:
+              case ATTACK_NODAMAGE:
+                attackMsg = calloc(MSGLEN(ATTACKED_BY_FAILED_MSG) + strlen(getCreatureName(creature)) + 1, sizeof(char));
+                sprintf(attackMsg, ATTACKED_BY_FAILED_MSG, getCreatureName(creature));
+                break;
+              case ATTACK_SUCCEEDED:
+                attackMsg = calloc(MSGLEN(ATTACKED_BY_MSG) + strlen(getCreatureName(creature)) + 1, sizeof(char));
+                sprintf(attackMsg, ATTACKED_BY_MSG, getCreatureName(creature));
+                break;
+              case ATTACK_KILLED:
+                attackMsg = calloc(MSGLEN(KILLED_BY_MSG) + strlen(getCreatureName(creature)) + 1, sizeof(char));
+                sprintf(attackMsg, KILLED_BY_MSG, getCreatureName(creature));
+                break;
+              default:
+                break;     
+            }
+            addToMsgQueue(attackMsg, true);
+            free(attackMsg);
+          }
+          if (attackVal == ATTACK_KILLED){
+            return target;
+          }
+        } else {
+          setCreatureLastMove(creature, 4);
+        }
       }
       break;
     case DOOR:
@@ -261,7 +296,7 @@ creature *doMoveCreature(creature *creature){
       break;
     default:
       setCreatureLastMove(creature, 4);
-      doMoveCreature(creature);
+      //doMoveCreature(creature);
       break;	
   }
   

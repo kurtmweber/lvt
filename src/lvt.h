@@ -63,7 +63,6 @@ char *getCreatureName(creature *creature);
 void setIsPlayer(creature *creature);
 void changeDispChar(creature *creature, char c);
 char getCreatureDispChar(creature *creature);
-creature *getCreatureOccupant(level level, unsigned int x, unsigned int y);
 void setCreatureLocation(creature *creature, coord3D location);
 coord3D getCreatureLocation(creature *creature);
 unsigned int getCreatureMapLevel(creature *creature);
@@ -154,6 +153,8 @@ bool isInventoryFull(creature *creature);
 bool isAggressive (struct creature *creature, struct creature *target);
 creatureAggression getCreatureAggression(creature *creature);
 void setCreatureAggression(creature *creature, creatureAggression aggression);
+void setInCombat(creature *creature, bool status);
+bool getInCombat(creature *creature);
 #else
 bool updateCreatureLifeCycleNotMatured(creature *creature);
 bool updateCreatureLifeCycleMatured(creature *creature);
@@ -378,6 +379,7 @@ void setPlantOccupant(level level, unsigned int x, unsigned int y, plant *plant)
 plant *getPlantOccupant(level level, unsigned x, unsigned int y);
 void clearPlantOccupant(level level, unsigned int x, unsigned int y);
 void removeContent(unsigned int mapLevel, unsigned int x, unsigned int y, item *item);
+creature *getCreatureOccupant(level level, unsigned int x, unsigned int y);
 #else
 void addContents(unsigned int mapLevel, unsigned int x, unsigned int y, item *item);
 mapSpaceContents *getContents(level level, unsigned int x, unsigned int y);

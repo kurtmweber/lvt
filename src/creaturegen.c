@@ -143,6 +143,7 @@ creature *spawnOrphanCreature(creatureSpecies species, creatureClass class){
   
   aggression = uniformRandomRangeInt(&localRng, CREATURE_CHILL, CREATURE_TRUMP);
   setCreatureAggression(newCreature, aggression);
+  setInCombat(newCreature, false);
   
   return newCreature;
 }

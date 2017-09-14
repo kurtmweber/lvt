@@ -13,3 +13,5 @@
   some (2017-06-26, kmw)
 * Creature weapon-wielding AI should handle the case where attempting to wield a two-handed weapon fails
   because of wearing a shield (2017-09-08, kmw)
+* Creatures should be able to attack with throwing weapons, and carry several of them around (2017-09-14,
+  kmw)
