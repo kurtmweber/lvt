@@ -61,6 +61,8 @@ moveOutcome moveCreature(creature *creature, moveDirection dir){
       newPos.y = curPos.y + 1;
       newPos.x = curPos.x + 1;
       break;
+    case NOMOVE:
+      return MOVE_SUCCESS;
   }
   
   freeAction = true;	// if the move fails, then we don't update the turn counter

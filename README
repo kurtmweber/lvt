@@ -14,7 +14,7 @@ time with "make CFLAGS=-D_D_DEBUG" causes placeDoors to segfault.  No clue why.
 
 HOW TO PLAY
 
-Move with numeric keypad, in cardinal directions and diagonally.
+Move with numeric keypad, in cardinal directions and diagonally.  Numeric keypad '.' uses a move in place.
 
 Map symbols:
 .	open floor

@@ -57,6 +57,9 @@ void doMoveKey(unsigned int c){
     case KEY_DOWNRIGHT:
       dir = DOWNRIGHT;
       break;
+    case KEY_STAY:
+      dir = NOMOVE;
+      break;
   }
   
   switch(moveCreature(&player, dir)){

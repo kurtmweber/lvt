@@ -24,6 +24,7 @@
 #define KEY_UPRIGHT KEY_PPAGE
 #define KEY_DOWNLEFT KEY_END
 #define KEY_DOWNRIGHT KEY_NPAGE
+#define KEY_STAY KEY_DC
 
 typedef enum moveOutcome{
   MOVE_SUCCESS,

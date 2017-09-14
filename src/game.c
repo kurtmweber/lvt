@@ -144,6 +144,7 @@ void processKey(unsigned int c){
     case KEY_UPRIGHT:
     case KEY_DOWNLEFT:
     case KEY_DOWNRIGHT:
+    case KEY_STAY:
       doMoveKey(c);
       break;
     case 'o':
