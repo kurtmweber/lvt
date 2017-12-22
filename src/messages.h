@@ -18,6 +18,7 @@
 #ifndef _MESSAGES_H
 #define _MESSAGES_H
 
+// only use for messages that have a %s that will be substituted for (presumably with sprintf())
 #define MSGLEN(a) (strlen(a) - 2)
 
 #define WELCOME_MSG "Welcome to Lavender Throne, %s!"

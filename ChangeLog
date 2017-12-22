@@ -1,4 +1,5 @@
 for version 0.11
+  * creatures only display if they're within visual range (kmw, 2017-12-22)
   * code refactoring: alphabetized functions in creatureinventory.c and moved declarations to
     creatureinventory.h (kmw, 2017-09-14)
   * it is now possible to use a move staying in place (kmw, 2017-09-14)

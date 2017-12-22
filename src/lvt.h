@@ -591,6 +591,7 @@ unsigned int returnIndexMaxValLongDouble(long double *array, unsigned int numEle
 bool isInRange2D(coord2D reference, coord2D target, unsigned int range);
 unsigned int getDistanceSquared2D(coord2D reference, coord2D target);
 moveDirection findDirection(coord2D point1, coord2D point2);
+coord2D get2DCoordPart(coord3D ref);
 #else
 #endif
 

@@ -40,6 +40,15 @@ bool isInRange2D(coord2D reference, coord2D target, unsigned int range){
   }
 }
 
+coord2D get2DCoordPart(coord3D ref){
+  coord2D tmp;
+  
+  tmp.x = ref.x;
+  tmp.y = ref.y;
+  
+  return tmp;
+}
+
 unsigned int getDistanceSquared2D(coord2D reference, coord2D target){
   int xDist = 0, yDist = 0;
   

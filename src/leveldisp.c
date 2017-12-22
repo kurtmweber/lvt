@@ -44,7 +44,7 @@ screenDisplayCell *generateLevelRepresentation(level level, unsigned int line){
       // a creature occupant will always appear on top of contents, and contents will always appear on
       // top of a plant occupant, so we only need to worry about the highest level that appears and if
       // it's there, then we don't need to worry about the lower levels for display purposes
-      if (hasCreatureOccupant(level, x, line)){
+      if (hasCreatureOccupant(level, x, line) && isInRange2D(get2DCoordPart(getCreatureLocation(&player)), get2DCoordPart(getCreatureLocation(getCreatureOccupant(level, x, line))), 7)){
 	creatureOccupant = getCreatureOccupant(level, x, line);
 	mapLine[x].dispChar = getCreatureDispChar(creatureOccupant);
 	mapLine[x].hasAttrs = true;
