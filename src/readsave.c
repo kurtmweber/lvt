@@ -23,8 +23,10 @@
 #include <stdlib.h>
 
 #include "lvt.h"
-#include "save.h"
+
 #include "allocator.h"
+#include "creaturelist.h"
+#include "save.h"
 
 uintptr_t numObjects;
 readObjectList *objectList;

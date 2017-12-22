@@ -36,12 +36,6 @@
 #define ISODD(a) ((a) % 2 ? true : false)
 #define ISEVEN(a) ((a) % 2 ? false : true)
 
-#ifndef _CREATURELIST_C
-creatureList *insertNewCreatureNode(creatureList *list, creatureList *node);
-creatureList *removeCreatureNode(creatureList *list, creatureList *node);
-creatureList *findCreatureListEntry(creatureList *list, creature *creature);
-#endif
-
 #ifndef _CREATUREMGMT_C
 void setCreatureName(creature *creature, char *name);
 char *getCreatureName(creature *creature);

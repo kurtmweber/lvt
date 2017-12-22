@@ -51,6 +51,7 @@
 #define ATTACKED_BY_MSG "%s attacks you!"
 #define ATTACKED_BY_FAILED_MSG "%s's attack missed!"
 #define KILLED_BY_MSG "You have been killed by %s."
+#define DROP_FAILED_WORN_MSG "You can't drop something you're wearing!"
 
 #define ATTACK_ALLIED_Q "The creature there is allied.  Do you wish to attack?"
 #define PICK_CURRENT_SPACE_Q "Do you want to pick from the current space?"

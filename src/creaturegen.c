@@ -26,6 +26,7 @@
 #include "creature.h"
 #include "creaturegen.h"
 #include "creatureinit.h"
+#include "creaturelist.h"
 #include "targeting.h"
 #include "types.h"
 

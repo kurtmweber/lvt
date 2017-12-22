@@ -17,22 +17,11 @@
 
 #define _CREATURELIST_C
 
+#include "lvt.h"
+
 #include "creature.h"
 
-creatureList *insertNewCreatureNode(creatureList *list, creatureList *node){
-  if (list){
-    list->prev = node;
-    node->next = list;
-    node->prev = 0;
-  } else {
-    node->next = 0;
-    node->prev = 0;
-  }
-  
-  //node->next = list;
-  
-  return node;
-}
+#include"creaturelist.h"
 
 creatureList *findCreatureListEntry(creatureList *list, creature *creature){
   if (!list){
@@ -48,6 +37,21 @@ creatureList *findCreatureListEntry(creatureList *list, creature *creature){
   } while(list);
   
   return 0;
+}
+
+creatureList *insertNewCreatureNode(creatureList *list, creatureList *node){
+  if (list){
+    list->prev = node;
+    node->next = list;
+    node->prev = 0;
+  } else {
+    node->next = 0;
+    node->prev = 0;
+  }
+  
+  //node->next = list;
+  
+  return node;
 }
 
 creatureList *removeCreatureNode(creatureList *list, creatureList *node){

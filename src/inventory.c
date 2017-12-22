@@ -413,6 +413,11 @@ void doDrop(){
 	if (isupper(c) || islower(c)){
 	  if (isInventoryLetter(c)){
 	    chosenItem = inventory[inventoryLetterToIndex(c)];
+            if (isWorn(chosenItem)){     // we know it's worn by the player because there's no way
+                                        // to select an item in another creature's inventory
+              addToMsgQueue(DROP_FAILED_WORN_MSG, false);
+              return;
+            }
 	    removeCreatureInventoryItem(&player, chosenItem);
 	    creaturePos = getCreatureLocation(&player);
 	    addContents(creaturePos.level, creaturePos.x, creaturePos.y, chosenItem);

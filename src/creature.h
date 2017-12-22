@@ -19,6 +19,7 @@
 #define _CREATURE_H
 
 #include <stdbool.h>
+
 #include "colors.h"
 #include "item.h"
 #include "types.h"

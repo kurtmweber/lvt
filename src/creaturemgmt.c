@@ -20,11 +20,15 @@
 #include <math.h>
 #include <stdbool.h>
 #include <stdlib.h>
-#include "creaturemgmt.h"
+
 #include "lvt.h"
-#include "creature.h"
-#include "item.h"
+
+#include "creaturemgmt.h"
+
 #include "allocator.h"
+#include "creature.h"
+#include "creaturelist.h"
+#include "item.h"
 
 void setCreatureName(creature *creature, char *name){
   creature->name = name;
