@@ -35,16 +35,6 @@
 #define ISODD(a) ((a) % 2 ? true : false)
 #define ISEVEN(a) ((a) % 2 ? false : true)
 
-#ifndef _CREATUREMOVE_C
-void moveCreatures();
-#else
-bool hasAction(creature *creature);
-creature *doMoveCreature(creature *creature);
-void moveCreatureUpStair(creature *creature);
-void moveCreatureDownStair(creature *creature);
-void changeCreatureLocation(creature *creature, coord3D newPos);
-#endif
-
 #ifndef _EAT_C
 void doEat();
 void eatItem(creature *creature, item *foodItem);

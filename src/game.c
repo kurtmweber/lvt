@@ -25,6 +25,7 @@
 
 #include "creature.h"
 #include "creaturemgmt.h"
+#include "creaturemove.h"
 #include "messages.h"
 
 bool freeAction = false;

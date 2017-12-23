@@ -20,7 +20,10 @@
 #include <stdbool.h>
 #include <stdlib.h>
 #include <string.h>
+
 #include "lvt.h"
+
+#include "creaturemove.h"
 
 #include "attack.h"
 #include "creatureeat.h"
@@ -31,68 +34,7 @@
 
 const unsigned int straightMoveChance = 900;	// Likelihood (out of 1000) that a creature will, if
 						// possible, continue moving in a straight line
-
-void moveCreatures(){
-  creatureList *curCreatureNode;
-  creatureList *contingentJumpNext = NULL;
-  creature *curCreature;
-  creature *contingentCreatureComp = NULL;
-  creature *killedCreature = NULL;
-  unsigned long long i;
-  char numCreatures[32];
-  
-  findTargets();
-  
-  curCreatureNode = creatures;
-  
-  if (!curCreatureNode){
-    return;
-  }
-  
-  do {
-    curCreature = curCreatureNode->creature;
-    // if this creature kills another creature this turn, and it by chance is the next creature in the list,
-    // then its creature struct and node will have been destroyed and so a reference to curCreatureNode->
-    // next would be a Very Bad Idea.  So in case we do, we save the pointer to the creature AFTER the next
-    // one, and if the return value from doMoveCreature equals the address of the current next creature,
-    // we skip over it.
-    // The need to do this is an example of very poor planning and lack of foresight on my part.  The day
-    // will come when I feel embarrassed enough to fix that, but it is not this day.
-    
-    // if curCreatureNode->next is null, then we're the last creature in the list, and so killing the
-    // subsequent creature isn't an issue
-    if (curCreatureNode->next){
-      contingentJumpNext = curCreatureNode->next->next;
-      contingentCreatureComp = curCreatureNode->next->creature;
-    }
-    incrementCreatureSpeedCounter(curCreature, getCreatureSpeed(curCreature));
-    while (hasAction(curCreature)){
-      if (hungerAction(curCreature)){
-	continue;
-      }
-      
-      if (inventoryAction(curCreature)){
-	continue;
-      }
-      
-      killedCreature = doMoveCreature(curCreature);
-    }
-    
-    // we have to do this before we update the life cycle, because if the creature dies as a result of
-    // the update, the current node in the creature list is destroyed.
-    if ((killedCreature == contingentCreatureComp) && (contingentJumpNext)){
-      curCreatureNode = contingentJumpNext;
-    } else {
-      curCreatureNode = curCreatureNode->next;
-    }
-
-  } while (curCreatureNode);
-  
-  return;
-}
-
-// coord2D findFoe
-
+						
 void changeCreatureLocation(creature *creature, coord3D newPos){
   coord3D curPos;
   
@@ -107,46 +49,6 @@ void changeCreatureLocation(creature *creature, coord3D newPos){
   setCreatureLocation(creature, newPos);
   
   return;
-}
-
-void moveCreatureUpStair(creature *creature){
-  coord3D newPos;
-  coord3D curPos;
-  coord2D stairPos;
-  
-  curPos = getCreatureLocation(creature);
-  
-  newPos.level = curPos.level - 1;
-  
-  stairPos = findLevelDownstair(dungeon[newPos.level]);
-  newPos.x = stairPos.x;
-  newPos.y = stairPos.y;
-  
-  if (!hasCreatureOccupant(dungeon[newPos.level], stairPos.x, stairPos.y)){
-    changeCreatureLocation(creature, newPos);
-  }
-  
-  return;  
-}
-
-void moveCreatureDownStair(creature *creature){
-  coord3D newPos;
-  coord3D curPos;
-  coord2D stairPos;
-  
-  curPos = getCreatureLocation(creature);
-  
-  newPos.level = curPos.level + 1;
-  
-  stairPos = findLevelUpstair(dungeon[newPos.level]);
-  newPos.x = stairPos.x;
-  newPos.y = stairPos.y;
-  
-  if (!hasCreatureOccupant(dungeon[newPos.level], stairPos.x, stairPos.y)){
-    changeCreatureLocation(creature, newPos);
-  }
-  
-  return;  
 }
 
 creature *doMoveCreature(creature *creature){
@@ -256,8 +158,8 @@ creature *doMoveCreature(creature *creature){
     case DOWNSTAIR:
     case OPENDOOR:
       if (!hasCreatureOccupant(dungeon[moves[location].level], moves[location].x, moves[location].y)){
-	changeCreatureLocation(creature, moves[location]);
-	return NULL;
+        changeCreatureLocation(creature, moves[location]);
+        return NULL;
       } else {
         target = getCreatureOccupant(dungeon[moves[location].level], moves[location].x, moves[location].y);
         if (getCreatureFaction(creature) != getCreatureFaction(target)){
@@ -293,13 +195,13 @@ creature *doMoveCreature(creature *creature){
       break;
     case DOOR:
       if (speciesData[getCreatureSpecies(creature)].hasHands){
-	setMapSpaceTerrain(dungeon[moves[location].level], moves[location].x, moves[location].y, OPENDOOR);
+        setMapSpaceTerrain(dungeon[moves[location].level], moves[location].x, moves[location].y, OPENDOOR);
       }
       break;
     default:
       setCreatureLastMove(creature, 4);
       //doMoveCreature(creature);
-      break;	
+      break;    
   }
   
   return NULL;
@@ -316,4 +218,103 @@ bool hasAction(creature *creature){
   } else {
     return false;
   }
+}
+
+void moveCreatureDownStair(creature *creature){
+  coord3D newPos;
+  coord3D curPos;
+  coord2D stairPos;
+  
+  curPos = getCreatureLocation(creature);
+  
+  newPos.level = curPos.level + 1;
+  
+  stairPos = findLevelUpstair(dungeon[newPos.level]);
+  newPos.x = stairPos.x;
+  newPos.y = stairPos.y;
+  
+  if (!hasCreatureOccupant(dungeon[newPos.level], stairPos.x, stairPos.y)){
+    changeCreatureLocation(creature, newPos);
+  }
+  
+  return;  
+}
+						
+void moveCreatures(){
+  creatureList *curCreatureNode;
+  creatureList *contingentJumpNext = NULL;
+  creature *curCreature;
+  creature *contingentCreatureComp = NULL;
+  creature *killedCreature = NULL;
+  unsigned long long i;
+  char numCreatures[32];
+  
+  findTargets();
+  
+  curCreatureNode = creatures;
+  
+  if (!curCreatureNode){
+    return;
+  }
+  
+  do {
+    curCreature = curCreatureNode->creature;
+    // if this creature kills another creature this turn, and it by chance is the next creature in the list,
+    // then its creature struct and node will have been destroyed and so a reference to curCreatureNode->
+    // next would be a Very Bad Idea.  So in case we do, we save the pointer to the creature AFTER the next
+    // one, and if the return value from doMoveCreature equals the address of the current next creature,
+    // we skip over it.
+    // The need to do this is an example of very poor planning and lack of foresight on my part.  The day
+    // will come when I feel embarrassed enough to fix that, but it is not this day.
+    
+    // if curCreatureNode->next is null, then we're the last creature in the list, and so killing the
+    // subsequent creature isn't an issue
+    if (curCreatureNode->next){
+      contingentJumpNext = curCreatureNode->next->next;
+      contingentCreatureComp = curCreatureNode->next->creature;
+    }
+    incrementCreatureSpeedCounter(curCreature, getCreatureSpeed(curCreature));
+    while (hasAction(curCreature)){
+      if (hungerAction(curCreature)){
+	continue;
+      }
+      
+      if (inventoryAction(curCreature)){
+	continue;
+      }
+      
+      killedCreature = doMoveCreature(curCreature);
+    }
+    
+    // we have to do this before we update the life cycle, because if the creature dies as a result of
+    // the update, the current node in the creature list is destroyed.
+    if ((killedCreature == contingentCreatureComp) && (contingentJumpNext)){
+      curCreatureNode = contingentJumpNext;
+    } else {
+      curCreatureNode = curCreatureNode->next;
+    }
+
+  } while (curCreatureNode);
+  
+  return;
+}
+
+void moveCreatureUpStair(creature *creature){
+  coord3D newPos;
+  coord3D curPos;
+  coord2D stairPos;
+  
+  curPos = getCreatureLocation(creature);
+  
+  newPos.level = curPos.level - 1;
+  
+  stairPos = findLevelDownstair(dungeon[newPos.level]);
+  newPos.x = stairPos.x;
+  newPos.y = stairPos.y;
+  
+  if (!hasCreatureOccupant(dungeon[newPos.level], stairPos.x, stairPos.y)){
+    changeCreatureLocation(creature, newPos);
+  }
+  
+  return;  
 }
