@@ -22,9 +22,11 @@
 
 #include "lvt.h"
 
+#include "creatureinventory.h"
+
 #include "attack.h"
 #include "creature.h"
-#include "creatureinventory.h"
+#include "creaturemgmt.h"
 
 bool creaturePickupArmor(creature *curCreature){
   coord3D curLoc;

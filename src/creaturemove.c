@@ -25,6 +25,7 @@
 #include "attack.h"
 #include "creatureeat.h"
 #include "creatureinventory.h"
+#include "creaturemgmt.h"
 #include "messages.h"
 #include "targeting.h"
 

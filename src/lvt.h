@@ -27,7 +27,6 @@
 #include "creature.h"
 #include "move.h"
 #include "item.h"
-#include "creaturemgmt.h"
 #include "plant.h"
 #include "save.h"
 
@@ -35,124 +34,6 @@
 #define MIN(a, b) ((a) > (b) ? (b) : (a))
 #define ISODD(a) ((a) % 2 ? true : false)
 #define ISEVEN(a) ((a) % 2 ? false : true)
-
-#ifndef _CREATUREMGMT_C
-void setCreatureName(creature *creature, char *name);
-char *getCreatureName(creature *creature);
-void setIsPlayer(creature *creature);
-void changeDispChar(creature *creature, char c);
-char getCreatureDispChar(creature *creature);
-void setCreatureLocation(creature *creature, coord3D location);
-coord3D getCreatureLocation(creature *creature);
-unsigned int getCreatureMapLevel(creature *creature);
-void setCreatureSpecies(creature *creature, creatureSpecies species);
-creatureSpecies getCreatureSpecies(creature *creature);
-void setCreatureClass(creature *creature, creatureClass class);
-creatureClass getCreatureClass(creature *creature);
-void setCreatureMatured(creature *creature, bool matured);
-bool getCreatureMatured(creature *creature);
-void getCreatureMaxStats(creature *creature, statList *stats);
-void setCreatureMaxStats(creature *creature, int stats[MAXSTATNAME]);
-void getCreatureCurStats(creature *creature, statList *stats);
-void setCreatureCurStats(creature *creature, int stats[MAXSTATNAME]);
-void setCreatureLifePace(creature *creature, unsigned int lifePace);
-bool updateCreatureLifeCycle(creature *creature);
-bool hasCreatureMatured(creature *creature);
-void setCreatureLevel(creature *creature, unsigned int level);
-void setCreatureMaxHp(creature *creature, unsigned int maxHp);
-void setCreatureCurHp(creature *creature, unsigned int curHp);
-void setCreatureXp(creature *creature, unsigned int Xp);
-unsigned int getCreatureLevel(creature *creature);
-unsigned int getCreatureXp(creature *creature);
-unsigned int getCreatureCurHp(creature *creature);
-unsigned int getCreatureMaxHp(creature *creature);
-void setCreatureBioSex(creature *creature, bioSex sex);
-void setCreatureColor(creature *creature, colorPairs colorPair);
-void setCreatureAttribute(creature *creature, unsigned int attribute);
-colorPairs getCreatureColor(creature *creature);
-unsigned int getCreatureAttribute(creature *creature);
-void setCreatureFaction(creature *creature, unsigned int faction);
-unsigned int getCreatureFaction(creature *creature);
-bioSex getCreatureBioSex(creature *creature);
-void setCreatureSpeed(creature *creature, unsigned int speed);
-unsigned int getCreatureSpeed(creature *creature);
-void incrementCreatureSpeedCounter(creature *creature, unsigned int incrAmount);
-void decrementCreatureSpeedCounter(creature *creature, unsigned int decrAmount);
-unsigned int getCreatureSpeedCounter(creature *creature);
-unsigned int getCreatureLastMove(creature *creature);
-void setCreatureLastMove(creature *creature, unsigned int move);
-void initCreatureArmor(creature *creature);
-void initCreatureWeapon(creature *creature);
-void initCreatureInventory(creature *creature);
-void killCreature(creature *creature);
-void setCreatureLevelHpXp(creature *creature, unsigned int Xp);
-void setCreatureWeight(creature *creature, unsigned int weight);
-unsigned int getCreatureWeight(creature *creature);
-bool hasWeapon(creature *creature);
-char addCreatureInventoryItem(creature *creature, item *item);
-void getCreatureInventory(creature *creature, item *inventory[52]);
-wieldOutcome wieldItem(creature *creature, item *item);
-void unwieldWeapon(creature *creature);
-void removeCreatureInventoryItem(creature *creature, item *item);
-wearOutcome wearItem(creature *creature, item *item);
-unsigned int getCreatureArmorClass(creature *creature);
-removeOutcome removeItem(creature *creature, item *item);
-void regenerateHitPoints(creature *creature);
-void setCreatureNutrition (creature *creature, unsigned int nutrition);
-unsigned int getCreatureNutrition(creature *creature);
-bool updateCreatureNutrition(creature *creature);
-void setCreatureHungry(creature *creature);
-void unsetCreatureHungry(creature *creature);
-bool isCreatureHungry(creature *creature);
-bool hasFoodInventory(creature *creature);
-item *selectOptimalFoodInventory(creature *creature);
-int getCreatureCurInt(creature *creature);
-item *findInventoryWeapon(creature *creature);
-void setWieldNextTurn(creature *creature, item *item);
-item *getWieldNextTurn(creature *creature);
-bool hasShirt(creature *creature);
-item *getShirt(creature *creature);
-bool hasUnderarmor(creature *creature);
-item *getUnderarmor(creature *creature);
-bool hasArmor(creature *creature);
-item *getArmor(creature *creature);
-bool hasHelmet(creature *creature);
-item *getHelmet(creature *creature);
-bool hasCloak(creature *creature);
-item *getCloak(creature *creature);
-bool hasGloves(creature *creature);
-item *getGloves(creature *creature);
-bool hasLeggings(creature *creature);
-item *getLeggings(creature *creature);
-bool hasShoes(creature *creature);
-item *getShoes(creature *creature);
-bool hasShield(creature *creature);
-item *getShield(creature *creature);
-bool isInventoryFull(creature *creature);
-bool isAggressive (struct creature *creature, struct creature *target);
-creatureAggression getCreatureAggression(creature *creature);
-void setCreatureAggression(creature *creature, creatureAggression aggression);
-void setInCombat(creature *creature, bool status);
-bool getInCombat(creature *creature);
-#else
-bool updateCreatureLifeCycleNotMatured(creature *creature);
-bool updateCreatureLifeCycleMatured(creature *creature);
-void getCreatureMaxStats(creature *creature, statList *stats);
-void setCreatureMaxStats(creature *creature, int stats[MAXSTATNAME]);
-void getCreatureCurStats(creature *creature, statList *stats);
-void setCreatureCurStats(creature *creature, int stats[MAXSTATNAME]);
-void setCreatureXp(creature *creature, unsigned int Xp);
-void setCreatureLevel(creature *creature, unsigned int level);
-unsigned int getCreatureCurHp(creature *creature);
-unsigned int getCreatureMaxHp(creature *creature);
-void setCreatureMaxHp(creature *creature, unsigned int maxHp);
-void setCreatureCurHp(creature *creature, unsigned int curHp);
-coord3D getCreatureLocation(creature *creature);
-unsigned int getCreatureWeight(creature *creature);
-void setCreatureNutrition (creature *creature, unsigned int nutrition);
-unsigned int getCreatureNutrition(creature *creature);
-creatureAggression getCreatureAggression(creature *creature);
-#endif
 
 #ifndef _CREATUREMOVE_C
 void moveCreatures();

@@ -26,6 +26,7 @@
 #include "colors.h"
 #include "creature.h"
 #include "creatureinit.h"
+#include "creaturemgmt.h"
 
 void initializeCharacter(){
   char *charName = 0;

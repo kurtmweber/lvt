@@ -22,11 +22,13 @@
 
 #include "lvt.h"
 
+#include "creaturegen.h"
+
 #include "allocator.h"
 #include "creature.h"
-#include "creaturegen.h"
 #include "creatureinit.h"
 #include "creaturelist.h"
+#include "creaturemgmt.h"
 #include "targeting.h"
 #include "types.h"
 

@@ -19,8 +19,11 @@
 
 #include <ctype.h>
 
-#include "item.h"
+
 #include "lvt.h"
+
+#include "creaturemgmt.h"
+#include "item.h"
 #include "messages.h"
 #include "allocator.h"
 

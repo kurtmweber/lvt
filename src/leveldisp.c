@@ -21,9 +21,12 @@
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
+
 #include "lvt.h"
+
+#include "creaturemgmt.h"
 #include "level.h"
-#include "types.h"
+#include"types.h"
 
 //#define _D_DEBUG
 

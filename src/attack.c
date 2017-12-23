@@ -20,6 +20,7 @@
 #include "lvt.h"
 
 #include "attack.h"
+#include "creaturemgmt.h"
 #include "messages.h"
 
 unsigned int attack(creature *attacker, creature *defender, unsigned int toHitVal, unsigned int toDefendVal, unsigned int attackVal, unsigned int defenseVal){

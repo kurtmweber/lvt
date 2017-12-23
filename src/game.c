@@ -20,8 +20,11 @@
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
+
 #include "lvt.h"
+
 #include "creature.h"
+#include "creaturemgmt.h"
 #include "messages.h"
 
 bool freeAction = false;

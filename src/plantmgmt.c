@@ -17,12 +17,18 @@
 
 #define _PLANTMGMT_C
 
+
 #include <math.h>
-#include "creature.h"
+
 #include "lvt.h"
+
+#include "allocator.h"
+#include "creature.h"
+#include "creaturemgmt.h"
+#include "level.h"
 #include "plant.h"
 #include "types.h"
-#include "allocator.h"
+
 
 void setPlantSpecies(plant *plant, plantSpecies species){
   plant->species = species;

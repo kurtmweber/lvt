@@ -19,7 +19,10 @@
 
 #include <math.h>
 #include <ncurses.h>
+
 #include "lvt.h"
+
+#include "creaturemgmt.h"
 #include "move.h"
 
 moveOutcome moveCreature(creature *creature, moveDirection dir){

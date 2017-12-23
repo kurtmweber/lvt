@@ -20,6 +20,7 @@
 #include "lvt.h"
 
 #include "creature.h"
+#include "creaturemgmt.h"
 
 void getClassModifiers(creatureClass class, statList *list){
   // total 13 for each class

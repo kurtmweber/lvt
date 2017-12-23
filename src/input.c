@@ -21,8 +21,11 @@
 #include <stdbool.h>
 #include <stdlib.h>
 #include <string.h>
+
 #include "lvt.h"
+
 #include "attack.h"
+#include "creaturemgmt.h"
 #include "move.h"
 #include "messages.h"
 #include "stringlookups.h"

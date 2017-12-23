@@ -18,7 +18,9 @@
 #define _SEEDS_C
 
 #include "lvt.h"
+
 #include "allocator.h"
+#include "creaturemgmt.h"
 
 const unsigned int seedDormancyLimit = 100;
 const unsigned int seedRestLimit = 100;

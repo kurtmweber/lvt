@@ -20,7 +20,10 @@
 #include <stdbool.h>
 #include <stdlib.h>
 #include <string.h>
+
 #include "lvt.h"
+
+#include "creaturemgmt.h"
 #include "level.h"
 #include "move.h"
 #include "stringlookups.h"

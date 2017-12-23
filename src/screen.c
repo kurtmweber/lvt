@@ -21,7 +21,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
 #include "lvt.h"
+
+#include "creaturemgmt.h"
 #include "stringlookups.h"
 
 WINDOW *msgWin = 0;

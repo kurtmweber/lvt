@@ -27,6 +27,7 @@
 #include "chargen.h"
 #include "creature.h"
 #include "creaturegen.h"
+#include "creaturemgmt.h"
 #include "level.h"
 #include "types.h"
 

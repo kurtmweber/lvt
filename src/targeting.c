@@ -21,9 +21,12 @@
 
 #include "lvt.h"
 
-#include "creature.h"
-#include "levelgen.h"
+
 #include "targeting.h"
+
+#include "creature.h"
+#include "creaturemgmt.h"
+#include "levelgen.h"
 
 void findClosestEnemiesLevel(positionList *positions){
   unsigned int i = 0;

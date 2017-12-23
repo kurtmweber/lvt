@@ -18,7 +18,10 @@
 #define _PICKFRUIT_C
 
 #include <stdbool.h>
+
 #include "lvt.h"
+
+#include "creaturemgmt.h"
 #include "messages.h"
 #include "types.h"
 

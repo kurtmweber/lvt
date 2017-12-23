@@ -21,8 +21,10 @@
 
 #include "lvt.h"
 
-#include "creature.h"
 #include "creatureeat.h"
+
+#include "creature.h"
+#include "creaturemgmt.h"
 
 bool hungerAction(creature *curCreature){
   item *foodItem = 0;
