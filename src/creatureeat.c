@@ -25,6 +25,7 @@
 
 #include "creature.h"
 #include "creaturemgmt.h"
+#include "eat.h"
 
 bool hungerAction(creature *curCreature){
   item *foodItem = 0;

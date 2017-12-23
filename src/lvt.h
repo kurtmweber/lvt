@@ -35,13 +35,6 @@
 #define ISODD(a) ((a) % 2 ? true : false)
 #define ISEVEN(a) ((a) % 2 ? false : true)
 
-#ifndef _EAT_C
-void doEat();
-void eatItem(creature *creature, item *foodItem);
-#else
-void eatItem(creature *creature, item *foodItem);
-#endif
-
 #ifndef _FACTIONS_C
 unsigned int getNumFactions();
 void initializeFactions();

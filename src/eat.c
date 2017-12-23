@@ -19,13 +19,72 @@
 
 #include <ctype.h>
 
-
 #include "lvt.h"
+
+#include "eat.h"
 
 #include "creaturemgmt.h"
 #include "item.h"
 #include "messages.h"
 #include "allocator.h"
+
+void doEat(){
+  unsigned int c = 1;
+  unsigned int i = 0;
+  bool checked[52];
+  unsigned int j = 0;
+  item *inventory[52];
+  item *chosenItem;
+  itemClassId itemClass;
+  
+  for (j = 0; j < 52; j++){
+    checked[j] = false;
+  }
+  
+  getCreatureInventory(&player, inventory);
+  
+  addToMsgQueue("Eat which item? (space to cancel)", false);
+  procMsgQueue();
+  
+  while (c){
+    displayInventoryWindow(i, checked);
+    c = getch();
+    switch (c){
+      case KEY_UP:
+        i == 0 ? : i--;
+        break;
+      case KEY_DOWN:
+        i == 39 ? : i++;
+        break;
+      case ' ':
+        freeAction = true;
+        return;
+      default:
+        if (isupper(c) || islower(c)){
+          if (isInventoryLetter(c)){
+            chosenItem = inventory[inventoryLetterToIndex(c)];
+            itemClass = getItemClass(chosenItem);
+            if ((itemClass != ITEM_TYPE_CORPSE) && (itemClass != ITEM_TYPE_FRUIT)){
+              addToMsgQueue(NOT_FOOD_MSG, false);
+              return;
+            }
+            eatItem(&player, chosenItem);
+            /*removeCreatureInventoryItem(&player, chosenItem);
+            creaturePos = getCreatureLocation(&player);
+            addContents(dungeon[creaturePos.level], creaturePos.x, creaturePos.y, chosenItem);*/
+            return;
+          } else {
+            break;
+          }
+        } else {
+          break;
+        }
+    }
+    
+    delwin(invWin);
+  }
+  return;
+}
 
 void eatItem(creature *creature, item *foodItem){
   item *newSeedItem;
@@ -65,63 +124,5 @@ void eatItem(creature *creature, item *foodItem){
   removeCreatureInventoryItem(creature, foodItem);
   freeItem(foodItem);
   
-  return;
-}
-
-void doEat(){
-  unsigned int c = 1;
-  unsigned int i = 0;
-  bool checked[52];
-  unsigned int j = 0;
-  item *inventory[52];
-  item *chosenItem;
-  itemClassId itemClass;
-  
-  for (j = 0; j < 52; j++){
-    checked[j] = false;
-  }
-  
-  getCreatureInventory(&player, inventory);
-  
-  addToMsgQueue("Eat which item? (space to cancel)", false);
-  procMsgQueue();
-  
-  while (c){
-    displayInventoryWindow(i, checked);
-    c = getch();
-    switch (c){
-      case KEY_UP:
-	i == 0 ? : i--;
-	break;
-      case KEY_DOWN:
-	i == 39 ? : i++;
-	break;
-      case ' ':
-	freeAction = true;
-	return;
-      default:
-	if (isupper(c) || islower(c)){
-	  if (isInventoryLetter(c)){
-	    chosenItem = inventory[inventoryLetterToIndex(c)];
-	    itemClass = getItemClass(chosenItem);
-	    if ((itemClass != ITEM_TYPE_CORPSE) && (itemClass != ITEM_TYPE_FRUIT)){
-	      addToMsgQueue(NOT_FOOD_MSG, false);
-	      return;
-	    }
-	    eatItem(&player, chosenItem);
-	    /*removeCreatureInventoryItem(&player, chosenItem);
-	    creaturePos = getCreatureLocation(&player);
-	    addContents(dungeon[creaturePos.level], creaturePos.x, creaturePos.y, chosenItem);*/
-	    return;
-	  } else {
-	    break;
-	  }
-	} else {
-	  break;
-	}
-    }
-    
-    delwin(invWin);
-  }
   return;
 }
