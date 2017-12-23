@@ -24,7 +24,10 @@
 #include <string.h>
 
 #include "lvt.h"
+
 #include "save.h"
+
+#include "messages.h"
 
 uintptr_t objectId;
 void **objectIdMap;
@@ -292,6 +295,9 @@ void doSave(){
   fclose(saveFile);
   
   free(objectIdMap);
+  
+  addToMsgQueue(SAVE_COMPLETE_MSG, false);
+  procMsgQueue();
 }
 
 void resetObjectReferences(){

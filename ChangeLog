@@ -1,4 +1,5 @@
 for version 0.11
+  * Display confirmation message after save complete (kmw, 2017-12-23)
   * code refactoring: alphabetized functions in creaturemgmt.c and moved declarations to creaturemgmt.h
     (kmw, 2017-12-23)
   * fixed bug that let you drop a worn item (kmw, 2017-12-22)

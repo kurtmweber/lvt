@@ -113,7 +113,6 @@ void gameLoop(){
   unsigned int c = '\0';
   
   while(1){
-    clearMsg();
     procMsgQueue();
     updateStatWin();
     setCursorLoc();
