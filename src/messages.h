@@ -53,6 +53,7 @@
 #define KILLED_BY_MSG "You have been killed by %s."
 #define DROP_FAILED_WORN_MSG "You can't drop something you're wearing!"
 #define SAVE_COMPLETE_MSG "Save complete."
+#define WEAR_FAILED_WIELDED_MSG "You can't wear something you're wielding!"
 
 #define ATTACK_ALLIED_Q "The creature there is allied.  Do you wish to attack?"
 #define PICK_CURRENT_SPACE_Q "Do you want to pick from the current space?"

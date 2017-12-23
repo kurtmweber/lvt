@@ -252,6 +252,10 @@ void getCreatureMaxStats(creature *creature, statList *stats){
   return;
 }
 
+item *getCreatureWeapon(creature *creature){
+  return creature->weapon;
+}
+
 unsigned int getCreatureWeight(creature *creature){
   return creature->weight;
 }
@@ -885,7 +889,7 @@ void unsetCreatureHungry(creature *creature){
 
 void unwieldWeapon(creature *creature){  
   if (creature->weapon){
-    creature->weapon->wielded = false;
+    setItemWielded(creature->weapon, false);
   }
   
   creature->weapon = 0;
@@ -1071,6 +1075,11 @@ bool updateCreatureNutrition(creature *creature){
 }
 
 wearOutcome wearItem(creature *creature, item *item){
+  
+  if (item == getCreatureWeapon(creature)){
+    return WEAR_FAILED_WIELDED;
+  }
+  
   switch(item->itemClass){
     case ITEM_TYPE_SHIRT:
       if (creature->armor.shirt){
@@ -1152,7 +1161,7 @@ wieldOutcome wieldItem(creature *creature, item *item){
     creature->weapon = 0;
   }
   
-  item->wielded = true;
+  setItemWielded(item, true);
   creature->weapon = item;
   
   return WIELD_SUCCEEDED;

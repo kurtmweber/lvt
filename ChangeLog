@@ -1,4 +1,5 @@
 for version 0.11
+  * attempting to wear a wielded item now fails (kmw, 2017-12-23)
   * code refactoring: alphabetized functions in creaturemove.c and moved declarations to creaturemgmt.h
     (kmw, 2017-12-23)
   * Display confirmation message after save complete (kmw, 2017-12-23)

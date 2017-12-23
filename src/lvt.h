@@ -149,6 +149,7 @@ char *getItemName(item *item);
 bool isArmor(item *item);
 bool armorSlotMatch(item *item, armorSlots slotMatch);
 bool isWorn(item *item);
+void setItemWielded(item *item, bool status);
 #else
 itemClassId getItemClass(item *item);
 unsigned int getFruitNutrition(item *fruit);

@@ -237,3 +237,8 @@ void setItemOwner(item *item, creature *owner){
 creature *getItemOwner(item *item){
   return item->owner;
 }
+
+void setItemWielded(item *item, bool status){
+  item->wielded = status;
+  return;
+}

@@ -28,7 +28,8 @@ typedef enum wieldOutcome{
 
 typedef enum wearOutcome{
   WEAR_SUCCEEDED,
-  WEAR_FAILED_NOT_ARMOR
+  WEAR_FAILED_NOT_ARMOR,
+  WEAR_FAILED_WIELDED
 } wearOutcome;
 
 typedef enum removeOutcome{
@@ -68,6 +69,7 @@ unsigned int getCreatureNutrition(creature *creature);
 creatureSpecies getCreatureSpecies(creature *creature);
 unsigned int getCreatureSpeed(creature *creature);
 unsigned int getCreatureSpeedCounter(creature *creature);
+item *getCreatureWeapon(creature *creature);
 unsigned int getCreatureWeight(creature *creature);
 unsigned int getCreatureXp(creature *creature);
 item *getGloves(creature *creature);
@@ -143,6 +145,7 @@ unsigned int getCreatureMaxHp(creature *creature);
 coord3D getCreatureLocation(creature *creature);
 void getCreatureMaxStats(creature *creature, statList *stats);
 unsigned int getCreatureNutrition(creature *creature);
+item *getCreatureWeapon(creature *creature);
 unsigned int getCreatureWeight(creature *creature);
 void setCreatureCurHp(creature *creature, unsigned int curHp);
 void setCreatureCurStats(creature *creature, int stats[MAXSTATNAME]);

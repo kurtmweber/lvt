@@ -147,6 +147,8 @@ void doWear(){
 	      case WEAR_FAILED_NOT_ARMOR:
 		addToMsgQueue(WEAR_FAILED_NOT_ARMOR_MSG, false);
 		break;
+              case WEAR_FAILED_WIELDED:
+                addToMsgQueue(WEAR_FAILED_WIELDED_MSG, false);
 	      default:
 		break;
 	    }
