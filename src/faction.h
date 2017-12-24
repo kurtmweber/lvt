@@ -1,5 +1,5 @@
 /*  This file is part of Lavender Throne.
- *  Copyright 2016-2017 by Kurt Weber
+ *  Copyright 2017 by Kurt Weber
  *
  *  Lavender Throne is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -15,20 +15,13 @@
  *  along with Lavender Throne.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#define _FACTION_C
+#ifndef _FACTION_H
+#define _FACTION_H
 
-#include <stdbool.h>
+#ifndef _FACTION_C
+unsigned int getNumFactions();
+void initializeFactions();
+#else
+#endif
 
-#include "lvt.h"
-
-#include "faction.h"
-
-unsigned int numFactions;
-
-unsigned int getNumFactions(){
-  return numFactions;
-}
-
-void initializeFactions(){
-  numFactions = 2;
-}
+#endif

@@ -1,5 +1,5 @@
 /*  This file is part of Lavender Throne.
- *  Copyright 2016 by Kurt Weber
+ *  Copyright 2016-2017 by Kurt Weber
  *
  *  Lavender Throne is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -28,6 +28,7 @@
 #include "creature.h"
 #include "creaturegen.h"
 #include "creaturemgmt.h"
+#include "faction.h"
 #include "level.h"
 #include "types.h"
 

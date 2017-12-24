@@ -106,17 +106,17 @@ am_lvt_OBJECTS = allocator.$(OBJEXT) attack.$(OBJEXT) \
 	creaturegen.$(OBJEXT) creatureinit.$(OBJEXT) \
 	creatureinventory.$(OBJEXT) creaturelist.$(OBJEXT) \
 	creaturemgmt.$(OBJEXT) creaturemove.$(OBJEXT) eat.$(OBJEXT) \
-	targeting.$(OBJEXT) leveldisp.$(OBJEXT) levelgen.$(OBJEXT) \
-	main.$(OBJEXT) pcg_basic.$(OBJEXT) random.$(OBJEXT) \
-	map.$(OBJEXT) screen.$(OBJEXT) game.$(OBJEXT) move.$(OBJEXT) \
-	input.$(OBJEXT) stringlookups.$(OBJEXT) speciesinfo.$(OBJEXT) \
-	util.$(OBJEXT) messages.$(OBJEXT) questions.$(OBJEXT) \
-	name.$(OBJEXT) faction.$(OBJEXT) item.$(OBJEXT) look.$(OBJEXT) \
-	itemmgmt.$(OBJEXT) flooritems.$(OBJEXT) inventory.$(OBJEXT) \
-	spawnitem.$(OBJEXT) throw.$(OBJEXT) plantgen.$(OBJEXT) \
-	plantlist.$(OBJEXT) plantmgmt.$(OBJEXT) plants.$(OBJEXT) \
-	pickfruit.$(OBJEXT) seedlist.$(OBJEXT) seeds.$(OBJEXT) \
-	save.$(OBJEXT) readsave.$(OBJEXT)
+	faction.$(OBJEXT) targeting.$(OBJEXT) leveldisp.$(OBJEXT) \
+	levelgen.$(OBJEXT) main.$(OBJEXT) pcg_basic.$(OBJEXT) \
+	random.$(OBJEXT) map.$(OBJEXT) screen.$(OBJEXT) game.$(OBJEXT) \
+	move.$(OBJEXT) input.$(OBJEXT) stringlookups.$(OBJEXT) \
+	speciesinfo.$(OBJEXT) util.$(OBJEXT) messages.$(OBJEXT) \
+	questions.$(OBJEXT) name.$(OBJEXT) item.$(OBJEXT) \
+	look.$(OBJEXT) itemmgmt.$(OBJEXT) flooritems.$(OBJEXT) \
+	inventory.$(OBJEXT) spawnitem.$(OBJEXT) throw.$(OBJEXT) \
+	plantgen.$(OBJEXT) plantlist.$(OBJEXT) plantmgmt.$(OBJEXT) \
+	plants.$(OBJEXT) pickfruit.$(OBJEXT) seedlist.$(OBJEXT) \
+	seeds.$(OBJEXT) save.$(OBJEXT) readsave.$(OBJEXT)
 lvt_OBJECTS = $(am_lvt_OBJECTS)
 lvt_LDADD = $(LDADD)
 AM_V_P = $(am__v_P_@AM_V@)
@@ -276,10 +276,11 @@ lvt_SOURCES = allocator.c \
 			creaturemgmt.c \
 			creaturemove.c \
 			eat.c \
+			faction.c \
 			targeting.c \
 			leveldisp.c levelgen.c main.c pcg_basic.c random.c map.c screen.c \
 			game.c move.c input.c stringlookups.c speciesinfo.c \
-			util.c messages.c questions.c name.c faction.c \
+			util.c messages.c questions.c name.c \
 			item.c look.c itemmgmt.c flooritems.c \
 			inventory.c spawnitem.c throw.c plantgen.c plantlist.c plantmgmt.c plants.c \
 			pickfruit.c seedlist.c seeds.c save.c readsave.c
@@ -296,6 +297,7 @@ noinst_HEADERS = allocator.h \
 			creaturemgmt.h \
 			creaturemove.h \
 			eat.h \
+			faction.h \
 			levelgen.h \
 			targeting.h \
 			lvt.h level.h pcg_basic.h creature.h messages.h types.h move.h stringlookups.h \

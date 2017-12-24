@@ -1,5 +1,5 @@
 /*  This file is part of Lavender Throne.
- *  Copyright 2016 by Kurt Weber
+ *  Copyright 2016-2017 by Kurt Weber
  *
  *  Lavender Throne is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -35,12 +35,6 @@
 #define MIN(a, b) ((a) > (b) ? (b) : (a))
 #define ISODD(a) ((a) % 2 ? true : false)
 #define ISEVEN(a) ((a) % 2 ? false : true)
-
-#ifndef _FACTIONS_C
-unsigned int getNumFactions();
-void initializeFactions();
-#else
-#endif
 
 #ifndef _FLOORITEMS_C
 void generateFloorItems();
