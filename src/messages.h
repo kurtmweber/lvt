@@ -54,6 +54,7 @@
 #define DROP_FAILED_WORN_MSG "You can't drop something you're wearing!"
 #define SAVE_COMPLETE_MSG "Save complete."
 #define WEAR_FAILED_WIELDED_MSG "You can't wear something you're wielding!"
+#define WIELD_FAILED_WORN_MSG "You can't wield something you're wearing!"
 
 #define ATTACK_ALLIED_Q "The creature there is allied.  Do you wish to attack?"
 #define PICK_CURRENT_SPACE_Q "Do you want to pick from the current space?"

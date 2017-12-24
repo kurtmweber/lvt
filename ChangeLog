@@ -1,4 +1,5 @@
 for version 0.11
+  * attempting to wield a worn item now fails (kmw, 2017-12-23)
   * code refactoring: alphabetized functions in eat.c and moved declarations to eat.h (kmw, 2017-12-23)
   * attempting to wear a wielded item now fails (kmw, 2017-12-23)
   * code refactoring: alphabetized functions in creaturemove.c and moved declarations to creaturemgmt.h

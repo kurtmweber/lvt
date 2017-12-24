@@ -22,6 +22,7 @@
 
 #include <stdbool.h>
 #include <ncurses.h>
+
 #include "types.h"
 #include "level.h"
 #include "creature.h"
@@ -97,6 +98,7 @@ void displayInventoryWindow(unsigned int i, bool checked[52]);
 extern itemType *itemTypes[ITEM_TYPE_MAX];
 void initItems();
 void removeItemName(item *item);
+void setItemWorn(item *item, bool status);
 #else
 void initCorpses();
 void initLongswords();

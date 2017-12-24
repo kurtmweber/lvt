@@ -203,6 +203,9 @@ void doWield(){
 	      case WIELD_FAILED_TWOHANDED:
 		addToMsgQueue(WIELD_FAILED_TWOHANDED_SHIELD_MSG, false);
 		break;
+              case WIELD_FAILED_WORN:
+                addToMsgQueue(WIELD_FAILED_WORN_MSG, false);
+                break;
 	      default:
 		break;
 	    }

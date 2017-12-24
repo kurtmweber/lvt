@@ -1080,69 +1080,72 @@ wearOutcome wearItem(creature *creature, item *item){
     return WEAR_FAILED_WIELDED;
   }
   
+  /* If there's already something being worn in the given slot, we don't give an error,
+   * we just replace it.  Might want to change this in the future?
+   */
   switch(item->itemClass){
     case ITEM_TYPE_SHIRT:
       if (creature->armor.shirt){
-        creature->armor.shirt->worn = false;
+        setItemWorn(creature->armor.shirt, false);
       }
       creature->armor.shirt = item;
-      creature->armor.shirt->worn = true;
+      setItemWorn(item, true);
       break;
     case ITEM_TYPE_UNDERARMOR:
       if (creature->armor.underarmor){
-        creature->armor.underarmor->worn = false;
+        setItemWorn(creature->armor.underarmor, false);
       }
       creature->armor.underarmor = item;
-      creature->armor.underarmor->worn = true;
+      setItemWorn(item, true);
       break;
     case ITEM_TYPE_ARMOR:
       if (creature->armor.armor){
-        creature->armor.armor->worn = false;
+        setItemWorn(creature->armor.armor, false);
       }
       creature->armor.armor = item;
-      creature->armor.armor->worn = true;
+      setItemWorn(item, true);
       break;
     case ITEM_TYPE_HELMET:
       if  (creature->armor.helmet){
-        creature->armor.helmet->worn = false;
+        setItemWorn(creature->armor.helmet, false);
       }
       creature->armor.helmet = item;
-      creature->armor.helmet->worn = true;
+      setItemWorn(item, true);
       break;
     case ITEM_TYPE_CLOAK:
       if (creature->armor.cloak){
-        creature->armor.cloak->worn = false;
+        setItemWorn(creature->armor.cloak, false);
       }
       creature->armor.cloak = item;
-      creature->armor.cloak->worn = true;
+      setItemWorn(item, true);
       break;
     case ITEM_TYPE_GLOVES:
       if (creature->armor.gloves){
-        creature->armor.gloves->worn = false;
+        setItemWorn(creature->armor.gloves, false);
       }
       creature->armor.gloves = item;
-      creature->armor.gloves->worn = true;
+      setItemWorn(item, true);
       break;
     case ITEM_TYPE_LEGGINGS:
       if (creature->armor.leggings){
-        creature->armor.leggings->worn = false;
+        setItemWorn(creature->armor.leggings, false);
       }
       creature->armor.leggings = item;
-      creature->armor.leggings->worn = true;
+      setItemWorn(item, true);
       break;
     case ITEM_TYPE_SHOES:
       if (creature->armor.shoes){
-        creature->armor.shoes->worn = false;
+        setItemWorn(creature->armor.shoes, false);
       }
       creature->armor.shoes = item;
-      creature->armor.shoes->worn = true;
+      setItemWorn(item, true);
       break;
     case ITEM_TYPE_SHIELD:
       if (creature->armor.shield){
-        creature->armor.shield->worn = false;
+        setItemWorn(creature->armor.shield, false);
       }
       creature->armor.shield = item;
-      creature->armor.shield->worn = true;
+      setItemWorn(item, true);
       break;
     default:
       return WEAR_FAILED_NOT_ARMOR;

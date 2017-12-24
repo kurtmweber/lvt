@@ -23,7 +23,8 @@ typedef enum wieldOutcome{
   WIELD_FAILED_TWOHANDED,	// could not wield because it is a two-handed object and creature is
 				// equipped with a shield
   WIELD_FAILED_WEIGHT,
-  WIELD_FAILED
+  WIELD_FAILED,
+  WIELD_FAILED_WORN
 } wieldOutcome;
 
 typedef enum wearOutcome{

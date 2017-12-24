@@ -242,3 +242,9 @@ void setItemWielded(item *item, bool status){
   item->wielded = status;
   return;
 }
+
+void setItemWorn(item *item, bool status){
+  item->worn = status;
+  
+  return;
+}
