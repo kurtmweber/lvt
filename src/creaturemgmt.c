@@ -1159,6 +1159,10 @@ wieldOutcome wieldItem(creature *creature, item *item){
     return WIELD_FAILED_TWOHANDED;
   }
   
+  if (isWorn(item)){
+    return WIELD_FAILED_WORN;
+  }
+  
   if (creature->weapon){
     creature->weapon->wielded = false;
     creature->weapon = 0;

@@ -1,5 +1,5 @@
 /*  This file is part of Lavender Throne.
- *  Copyright 2016 by Kurt Weber
+ *  Copyright 2016-2017 by Kurt Weber
  *
  *  Lavender Throne is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -58,10 +58,10 @@ void doInventory(){
       default:
 	break;
     }
-    
     delwin(invWin);
   }
   
+  clearMsg();
   return;
 }
 
@@ -139,6 +139,8 @@ void doWear(){
 	i == 39 ? : i++;
 	break;
       case ' ':
+        delwin(invWin);
+        clearMsg();
 	return;
       default:
 	if (isupper(c) || islower(c)){
@@ -160,10 +162,8 @@ void doWear(){
 	  break;
 	}
     }
-    
     delwin(invWin);
   }
-  
   return;
 }
 
@@ -195,6 +195,8 @@ void doWield(){
 	i == 39 ? : i++;
 	break;
       case ' ':
+        delwin(invWin);
+        clearMsg();
 	return;
       default:
 	if (isupper(c) || islower(c)){
@@ -217,10 +219,8 @@ void doWield(){
 	  break;
 	}
     }
-    
     delwin(invWin);
   }
-  
   return;
 }
 
@@ -252,6 +252,8 @@ void doRemove(){
 	i == 39 ? : i++;
 	break;
       case ' ':
+        delwin(invWin);
+        clearMsg();
 	return;
       default:
 	if (isupper(c) || islower(c)){
@@ -271,10 +273,10 @@ void doRemove(){
 	  break;
 	}
     }
-    
     delwin(invWin);
   }
   
+  clearMsg();
   return;
 }
 
@@ -316,6 +318,8 @@ void doNameItem(){
 	i == 39 ? : i++;
 	break;
       case ' ':
+        delwin(invWin);
+        clearMsg();
 	return;
       default:
 	if (isupper(c) || islower(c)){
@@ -330,10 +334,8 @@ void doNameItem(){
 	  break;
 	}
     }
-    
     delwin(invWin);
   }
-  
   return;
 }
 
@@ -367,6 +369,8 @@ void doUnNameItem(){
 	i == 51 ? : i++;
 	break;
       case ' ':
+        delwin(invWin);
+        clearMsg();
 	return;
       default:
 	if (isupper(c) || islower(c)){
@@ -380,10 +384,8 @@ void doUnNameItem(){
 	  break;
 	}
     }
-    
     delwin(invWin);
   }
-  
   return;
 }
 
@@ -416,6 +418,8 @@ void doDrop(){
 	i == 39 ? : i++;
 	break;
       case ' ':
+        delwin(invWin);
+        clearMsg();
 	return;
       default:
 	if (isupper(c) || islower(c)){
@@ -437,10 +441,8 @@ void doDrop(){
 	  break;
 	}
     }
-    
     delwin(invWin);
   }
-  
   return;
 }
 
