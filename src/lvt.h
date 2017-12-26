@@ -18,7 +18,7 @@
 #ifndef _LVT_H
 #define _LVT_H
 
-#define _D_DEBUG
+//#define _D_DEBUG
 
 #include <stdbool.h>
 #include <ncurses.h>
