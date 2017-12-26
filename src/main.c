@@ -29,6 +29,7 @@
 #include "creaturegen.h"
 #include "creaturemgmt.h"
 #include "faction.h"
+#include "flooritems.h"
 #include "level.h"
 #include "types.h"
 

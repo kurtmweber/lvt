@@ -1,5 +1,5 @@
 /*  This file is part of Lavender Throne.
- *  Copyright 2016 by Kurt Weber
+ *  Copyright 2016-2017 by Kurt Weber
  *
  *  Lavender Throne is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -44,6 +44,7 @@ void procMsgQueue(){
   for (i = 0; i < numMsgQueueEntries; i++){
     if ((i < (numMsgQueueEntries - 1)) || msgQueue[i].confirm == true){
       displayMsg(msgQueue[i].msg, i);
+      clearMsg();
     } else {
       displayMsgNoWait(msgQueue[i].msg, i);
     }

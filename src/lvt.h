@@ -36,21 +36,6 @@
 #define ISODD(a) ((a) % 2 ? true : false)
 #define ISEVEN(a) ((a) % 2 ? false : true)
 
-#ifndef _FLOORITEMS_C
-void generateFloorItems();
-#else
-bool decidePlaceItem(coord2D floor, unsigned int level);
-void randomFloorItem(coord2D floor, unsigned int level);
-item *randomWeapon();
-item *randomLongsword();
-item *randomAxe();
-item *randomDagger();
-item *randomArmor();
-item *randomShirt();
-item *randomUnderarmor();
-item *randomShield();
-#endif
-
 #ifndef _GAME_C
 void startGame();
 void playerDead();

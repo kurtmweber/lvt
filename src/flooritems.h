@@ -15,14 +15,22 @@
  *  along with Lavender Throne.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef _EAT_H
-#define _EAT_H
+#ifndef _FLOORITEMS_H
+#define _FLOORITEMS_H
 
-#ifndef _EAT_C
-void doEat();
-void eatItem(creature *creature, item *foodItem);
+#ifndef _FLOORITEMS_C
+void generateFloorItems();
 #else
-void eatItem(creature *creature, item *foodItem);
+bool decidePlaceItem(coord2D floor, unsigned int level);
+item *randomArmor();
+item *randomAxe();
+item *randomDagger();
+void randomFloorItem(coord2D floor, unsigned int level);
+item *randomLongsword();
+item *randomShield();
+item *randomShirt();
+item *randomUnderarmor();
+item *randomWeapon();
 #endif
 
 #endif

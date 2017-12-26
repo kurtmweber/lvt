@@ -154,6 +154,8 @@ void doWear(){
 	      default:
 		break;
 	    }
+	    delwin(invWin);
+            clearMsg();
 	    return;
 	  } else {
 	    break;
@@ -211,6 +213,8 @@ void doWield(){
 	      default:
 		break;
 	    }
+	    delwin(invWin);
+            clearMsg();
 	    return;
 	  } else {
 	    break;
@@ -265,6 +269,8 @@ void doRemove(){
 	      default:
 		break;
 	    }
+	    delwin(invWin);
+            clearMsg();
 	    return;
 	  } else {
 	    break;
@@ -326,6 +332,8 @@ void doNameItem(){
 	  if (isInventoryLetter(c)){
 	    itemName = getLineInput("What do you wish to name this item?");
 	    setItemName(inventory[inventoryLetterToIndex(c)], itemName);
+            delwin(invWin);
+            clearMsg();
 	    return;
 	  } else {
 	    break;
@@ -376,6 +384,8 @@ void doUnNameItem(){
 	if (isupper(c) || islower(c)){
 	  if (isInventoryLetter(c)){
 	    removeItemName(inventory[inventoryLetterToIndex(c)]);
+            delwin(invWin);
+            clearMsg();
 	    return;
 	  } else {
 	    break;
@@ -433,6 +443,8 @@ void doDrop(){
 	    removeCreatureInventoryItem(&player, chosenItem);
 	    creaturePos = getCreatureLocation(&player);
 	    addContents(creaturePos.level, creaturePos.x, creaturePos.y, chosenItem);
+            delwin(invWin);
+            clearMsg();
 	    return;
 	  } else {
 	    break;
