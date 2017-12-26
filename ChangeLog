@@ -1,6 +1,9 @@
+for version 0.12
+  * code refactoring: alphabetized functions in game.c and moved declarations to game.h (kmw, 2017-12-26)
+
 for version 0.11
   * release (kmw, 2017-12-26)
-  * code refactoring: alphabetized functions in flooritems.c and moved declarationsto flooritems.h
+  * code refactoring: alphabetized functions in flooritems.c and moved declarations to flooritems.h
     (kmw, 2017-12-26)
   * clear "...(space to cancel)" message when canceling actions that use inventory window (kmw, 2017-12-24)
   * code refactoring: alphabetized functions in faction.c and moved declarations to faction.h

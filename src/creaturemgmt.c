@@ -28,6 +28,7 @@
 #include "allocator.h"
 #include "creature.h"
 #include "creaturelist.h"
+#include "game.h"
 #include "item.h"
 
 /* ALWAYS check the return value of addCreatureInventoryItem().  If the list is full, then the item

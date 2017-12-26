@@ -25,6 +25,7 @@
 
 #include "creaturemgmt.h"
 #include "item.h"
+#include "game.h"
 #include "messages.h"
 #include "allocator.h"
 

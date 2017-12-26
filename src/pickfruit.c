@@ -22,6 +22,7 @@
 #include "lvt.h"
 
 #include "creaturemgmt.h"
+#include "game.h"
 #include "messages.h"
 #include "types.h"
 

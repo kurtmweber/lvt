@@ -30,6 +30,7 @@
 #include "creaturemgmt.h"
 #include "faction.h"
 #include "flooritems.h"
+#include "game.h"
 #include "level.h"
 #include "types.h"
 

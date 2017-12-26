@@ -36,18 +36,6 @@
 #define ISODD(a) ((a) % 2 ? true : false)
 #define ISEVEN(a) ((a) % 2 ? false : true)
 
-#ifndef _GAME_C
-void startGame();
-void playerDead();
-extern bool freeAction;
-void initializeGameStatus();
-#else
-void gameLoop();
-bool doQuit();
-void processKey(unsigned int c);
-void updateTurnCounter();
-#endif
-
 #ifndef _INPUT_C
 void doMoveKey(unsigned int c);
 void doOpenDoor(unsigned int c);

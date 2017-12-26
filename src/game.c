@@ -23,6 +23,8 @@
 
 #include "lvt.h"
 
+#include "game.h"
+
 #include "creature.h"
 #include "creaturemgmt.h"
 #include "creaturemove.h"
@@ -31,84 +33,11 @@
 
 bool freeAction = false;
 
-void startGame(){
-  char *welcomeMsg = 0;
-  
-  displayLevel(dungeon[0]);
-  
-  welcomeMsg = calloc(MSGLEN(WELCOME_MSG) + strlen(getCreatureName(&player)) + 1 , sizeof(char));
-  sprintf(welcomeMsg, WELCOME_MSG, getCreatureName(&player));
-  addToMsgQueue(welcomeMsg, true);
-  
-  free(welcomeMsg);
-  
-  gameLoop();
-  
-  return;
-}
-
-void initializeGameStatus(){
-  status.turnNum = 0;
-  status.playerSpeed = 5;
-  status.speedCounter = 5;
-}
-
 bool doQuit(){
   procMsgQueue();
   destroyNcurses();
   exit(EXIT_SUCCESS);
   return true;
-}
-
-void playerDead(){
-  addToMsgQueue("You are dead.  Game over.", true);
-  procMsgQueue();
-  
-  doQuit();
-  return;
-}
-
-void updateTurnCounter(){
-  creatureList *curCreatureNode;
-  creature *curCreature;
-  
-  status.speedCounter--;
-  
-  if (status.speedCounter == 0){
-    status.speedCounter = status.playerSpeed;
-    status.turnNum++;
-    if (!updateCreatureLifeCycle(&player)){
-      addToMsgQueue(DIED_OLD_AGE_MSG, true);
-      doQuit();
-    }
-    if (!updateCreatureNutrition(&player)){
-      addToMsgQueue(DIED_HUNGER_MSG, true);
-      doQuit();
-    }
-    if (getCreatureCurHp(&player) < getCreatureMaxHp(&player)){
-      regenerateHitPoints(&player);
-    }
-    
-    updatePlants();
-    updateSeeds();
-    
-    curCreatureNode = creatures;
-    if (curCreatureNode){
-      do {
-	curCreature = curCreatureNode->creature;
-	
-	curCreatureNode = curCreatureNode->next;
-	
-	if (!updateCreatureLifeCycle(curCreature)){
-	  killCreature(curCreature);
-	} else if (!updateCreatureNutrition(curCreature)){
-	  killCreature(curCreature);
-	}
-      } while (curCreatureNode);
-    }
-  }
-  
-  return;
 }
 
 void gameLoop(){
@@ -122,7 +51,7 @@ void gameLoop(){
     clearMsg();
     if (c == 'Q'){
       if (doQuit()){
-	break;
+        break;
       }
     }
     processKey(c);
@@ -135,6 +64,20 @@ void gameLoop(){
     displayLevel(dungeon[getCreatureMapLevel(&player)]);
   }
   
+  return;
+}
+
+void initializeGameStatus(){
+  status.turnNum = 0;
+  status.playerSpeed = 5;
+  status.speedCounter = 5;
+}
+
+void playerDead(){
+  addToMsgQueue("You are dead.  Game over.", true);
+  procMsgQueue();
+  
+  doQuit();
   return;
 }
 
@@ -207,5 +150,64 @@ void processKey(unsigned int c){
       freeAction = true;
       break;
   }
+  return;
+}
+
+void startGame(){
+  char *welcomeMsg = 0;
+  
+  displayLevel(dungeon[0]);
+  
+  welcomeMsg = calloc(MSGLEN(WELCOME_MSG) + strlen(getCreatureName(&player)) + 1 , sizeof(char));
+  sprintf(welcomeMsg, WELCOME_MSG, getCreatureName(&player));
+  addToMsgQueue(welcomeMsg, true);
+  
+  free(welcomeMsg);
+  
+  gameLoop();
+  
+  return;
+}
+
+void updateTurnCounter(){
+  creatureList *curCreatureNode;
+  creature *curCreature;
+  
+  status.speedCounter--;
+  
+  if (status.speedCounter == 0){
+    status.speedCounter = status.playerSpeed;
+    status.turnNum++;
+    if (!updateCreatureLifeCycle(&player)){
+      addToMsgQueue(DIED_OLD_AGE_MSG, true);
+      doQuit();
+    }
+    if (!updateCreatureNutrition(&player)){
+      addToMsgQueue(DIED_HUNGER_MSG, true);
+      doQuit();
+    }
+    if (getCreatureCurHp(&player) < getCreatureMaxHp(&player)){
+      regenerateHitPoints(&player);
+    }
+    
+    updatePlants();
+    updateSeeds();
+    
+    curCreatureNode = creatures;
+    if (curCreatureNode){
+      do {
+        curCreature = curCreatureNode->creature;
+        
+        curCreatureNode = curCreatureNode->next;
+        
+        if (!updateCreatureLifeCycle(curCreature)){
+          killCreature(curCreature);
+        } else if (!updateCreatureNutrition(curCreature)){
+          killCreature(curCreature);
+        }
+      } while (curCreatureNode);
+    }
+  }
+  
   return;
 }
