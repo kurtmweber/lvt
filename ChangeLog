@@ -1,4 +1,6 @@
 for version 0.12
+  * when a non-player creature kills another creature, that creature is properly killed in-game (i.e. via killCreature()) rather than just
+    ignored (kmw, 2018-04-28)
   * code refactoring: alphabetized functions in game.c and moved declarations to game.h (kmw, 2017-12-26)
 
 for version 0.11

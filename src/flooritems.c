@@ -24,8 +24,8 @@
 #include "flooritems.h"
 
 const unsigned int placeItemChance = 100;	// likelihood (out of 10,000) that an item will be placed
-						// on a floor
-						
+// on a floor
+
 const unsigned int weaponLikelihood = 50;	// % chance of a generated item being a weapon
 const unsigned int armorLikelihood = 100;
 
@@ -56,217 +56,217 @@ const unsigned int stilettoDaggerLikelihood = 50;
 const unsigned int baselardDaggerLikelihood = 100;
 
 bool decidePlaceItem(coord2D floor, unsigned int level){
-  static rng localRng;
-  static bool rngInitd = false;
-  
-  if (!rngInitd){
-    initializeRNG(&localRng);
-    rngInitd = true;
-  }
-  
-  if (uniformRandomRangeInt(&localRng, 1, 10000) <= placeItemChance){
-    return true;
-  } else {
-    return false;
-  }
+	static rng localRng;
+	static bool rngInitd = false;
+	
+	if (!rngInitd){
+		initializeRNG(&localRng);
+		rngInitd = true;
+	}
+	
+	if (uniformRandomRangeInt(&localRng, 1, 10000) <= placeItemChance){
+		return true;
+	} else {
+		return false;
+	}
 }
 
 void generateFloorItems(){
-  coord2D *floors;
-  unsigned int i = 0, j = 0;
-  
-  for (i = 0; i < numLevels; i++){
-    floors = enumerateFloors(dungeon[i]);
-    j = 0;
-    while (floors[j].x){
-      if (decidePlaceItem(floors[j], i)){
-	randomFloorItem(floors[j], i);
-      }
-      
-      j++;
-    }
-  }
-  
-  return;  
+	coord2D *floors;
+	unsigned int i = 0, j = 0;
+	
+	for (i = 0; i < numLevels; i++){
+		floors = enumerateFloors(dungeon[i]);
+		j = 0;
+		while (floors[j].x){
+			if (decidePlaceItem(floors[j], i)){
+				randomFloorItem(floors[j], i);
+			}
+			
+			j++;
+		}
+	}
+	
+	return;  
 }
 
 item *randomArmor(){
-  static rng localRng;
-  static bool rngInitd = false;
-  unsigned int choice;
-
-  if (!rngInitd){
-    initializeRNG(&localRng);
-    rngInitd = true;
-  }
-  
-  choice = uniformRandomRangeInt(&localRng, 1, 100);
-  
-  if (choice <= shirtLikelihood){
-    return randomShirt();
-  } else if (choice <= underarmorLikelihood){
-    return randomUnderarmor();
-  } else if (choice <= shieldLikelihood){
-    return randomShield();
-  }
+	static rng localRng;
+	static bool rngInitd = false;
+	unsigned int choice;
+	
+	if (!rngInitd){
+		initializeRNG(&localRng);
+		rngInitd = true;
+	}
+	
+	choice = uniformRandomRangeInt(&localRng, 1, 100);
+	
+	if (choice <= shirtLikelihood){
+		return randomShirt();
+	} else if (choice <= underarmorLikelihood){
+		return randomUnderarmor();
+	} else if (choice <= shieldLikelihood){
+		return randomShield();
+	}
 }
 
 item *randomAxe(){
-  static rng localRng;
-  static bool rngInitd = false;
-  unsigned int choice;
-  
-  if (!rngInitd){
-    initializeRNG(&localRng);
-    rngInitd = true;
-  }
-  
-  choice = uniformRandomRangeInt(&localRng, 1, 100);
-  
-  if (choice <= throwingAxeLikelihood){
-    return spawnItem(ITEM_TYPE_AXE, ITEM_AXE_THROWING);
-  } else if (choice <= battleAxeLikelihood){
-    return spawnItem(ITEM_TYPE_AXE, ITEM_AXE_BATTLE);
-  }
+	static rng localRng;
+	static bool rngInitd = false;
+	unsigned int choice;
+	
+	if (!rngInitd){
+		initializeRNG(&localRng);
+		rngInitd = true;
+	}
+	
+	choice = uniformRandomRangeInt(&localRng, 1, 100);
+	
+	if (choice <= throwingAxeLikelihood){
+		return spawnItem(ITEM_TYPE_AXE, ITEM_AXE_THROWING);
+	} else if (choice <= battleAxeLikelihood){
+		return spawnItem(ITEM_TYPE_AXE, ITEM_AXE_BATTLE);
+	}
 }
 
 item *randomDagger(){
-  static rng localRng;
-  static bool rngInitd = false;
-  unsigned int choice;
-  
-  if (!rngInitd){
-    initializeRNG(&localRng);
-    rngInitd = true;
-  }
-  
-  choice = uniformRandomRangeInt(&localRng, 1, 100);
-  
-  if (choice <= stilettoDaggerLikelihood){
-    return spawnItem(ITEM_TYPE_DAGGER, ITEM_DAGGER_STILETTO);
-  } else if (choice <= baselardDaggerLikelihood){
-    return spawnItem(ITEM_TYPE_DAGGER, ITEM_DAGGER_BASELARD);
-  }
+	static rng localRng;
+	static bool rngInitd = false;
+	unsigned int choice;
+	
+	if (!rngInitd){
+		initializeRNG(&localRng);
+		rngInitd = true;
+	}
+	
+	choice = uniformRandomRangeInt(&localRng, 1, 100);
+	
+	if (choice <= stilettoDaggerLikelihood){
+		return spawnItem(ITEM_TYPE_DAGGER, ITEM_DAGGER_STILETTO);
+	} else if (choice <= baselardDaggerLikelihood){
+		return spawnItem(ITEM_TYPE_DAGGER, ITEM_DAGGER_BASELARD);
+	}
 }
 
 void randomFloorItem(coord2D floor, unsigned int level){
-  static rng localRng;
-  static bool rngInitd = false;
-  item *newItem;
-  unsigned int choice;
-  
-  if (!rngInitd){
-    initializeRNG(&localRng);
-    rngInitd = true;
-  }
-  
-  choice = uniformRandomRangeInt(&localRng, 1, 100);
-  
-  if (choice <= weaponLikelihood){
-    newItem = randomWeapon();
-  } else if (choice <= armorLikelihood){
-    newItem = randomArmor();
-  }
-  
-  addContents(level, floor.x, floor.y, newItem);
-
-  
-  return;
+	static rng localRng;
+	static bool rngInitd = false;
+	item *newItem;
+	unsigned int choice;
+	
+	if (!rngInitd){
+		initializeRNG(&localRng);
+		rngInitd = true;
+	}
+	
+	choice = uniformRandomRangeInt(&localRng, 1, 100);
+	
+	if (choice <= weaponLikelihood){
+		newItem = randomWeapon();
+	} else if (choice <= armorLikelihood){
+		newItem = randomArmor();
+	}
+	
+	addContents(level, floor.x, floor.y, newItem);
+	
+	
+	return;
 }
 
 item *randomLongsword(){
-  static rng localRng;
-  static bool rngInitd = false;
-  unsigned int choice;
-  
-  if (!rngInitd){
-    initializeRNG(&localRng);
-    rngInitd = true;
-  }
-  
-  choice = uniformRandomRangeInt(&localRng, 1, 100);
-  
-  if (choice <= steelLongswordLikelihood){
-    return spawnItem(ITEM_TYPE_LONGSWORD, ITEM_LONGSWORD_STEEL);
-  } else if (choice <= silverLongswordLikelihood){
-    return spawnItem(ITEM_TYPE_LONGSWORD, ITEM_LONGSWORD_SILVER);
-  }
+	static rng localRng;
+	static bool rngInitd = false;
+	unsigned int choice;
+	
+	if (!rngInitd){
+		initializeRNG(&localRng);
+		rngInitd = true;
+	}
+	
+	choice = uniformRandomRangeInt(&localRng, 1, 100);
+	
+	if (choice <= steelLongswordLikelihood){
+		return spawnItem(ITEM_TYPE_LONGSWORD, ITEM_LONGSWORD_STEEL);
+	} else if (choice <= silverLongswordLikelihood){
+		return spawnItem(ITEM_TYPE_LONGSWORD, ITEM_LONGSWORD_SILVER);
+	}
 }
 
 item *randomShield(){
-  static rng localRng;
-  static bool rngInitd = false;
-  unsigned int choice;
-
-  if (!rngInitd){
-    initializeRNG(&localRng);
-    rngInitd = true;
-  }
-  
-  choice = uniformRandomRangeInt(&localRng, 1, 100);
-  
-  if (choice <= woodenShieldLikelihood){
-    return spawnItem(ITEM_TYPE_SHIELD, ITEM_SHIELD_WOOD);
-  } else if (choice <= steelShieldLikelihood){
-    return spawnItem(ITEM_TYPE_SHIELD, ITEM_SHIELD_STEEL);
-  } else if (choice <= silverShieldLikelihood){
-    return spawnItem(ITEM_TYPE_SHIELD, ITEM_SHIELD_SILVER);
-  }
+	static rng localRng;
+	static bool rngInitd = false;
+	unsigned int choice;
+	
+	if (!rngInitd){
+		initializeRNG(&localRng);
+		rngInitd = true;
+	}
+	
+	choice = uniformRandomRangeInt(&localRng, 1, 100);
+	
+	if (choice <= woodenShieldLikelihood){
+		return spawnItem(ITEM_TYPE_SHIELD, ITEM_SHIELD_WOOD);
+	} else if (choice <= steelShieldLikelihood){
+		return spawnItem(ITEM_TYPE_SHIELD, ITEM_SHIELD_STEEL);
+	} else if (choice <= silverShieldLikelihood){
+		return spawnItem(ITEM_TYPE_SHIELD, ITEM_SHIELD_SILVER);
+	}
 }
 
 item *randomShirt(){
-  static rng localRng;
-  static bool rngInitd = false;
-  unsigned int choice;
-  
-  if (!rngInitd){
-    initializeRNG(&localRng);
-    rngInitd = true;
-  }
-  
-  choice = uniformRandomRangeInt(&localRng, 1, 100);
-  
-  if (choice <= tShirtLikelihood){
-    return spawnItem(ITEM_TYPE_SHIRT, ITEM_SHIRT_TSHIRT);
-  } else if (choice <= hawaiianShirtLikelihood){
-    return spawnItem(ITEM_TYPE_SHIRT, ITEM_SHIRT_HAWAIIAN);
-  }
+	static rng localRng;
+	static bool rngInitd = false;
+	unsigned int choice;
+	
+	if (!rngInitd){
+		initializeRNG(&localRng);
+		rngInitd = true;
+	}
+	
+	choice = uniformRandomRangeInt(&localRng, 1, 100);
+	
+	if (choice <= tShirtLikelihood){
+		return spawnItem(ITEM_TYPE_SHIRT, ITEM_SHIRT_TSHIRT);
+	} else if (choice <= hawaiianShirtLikelihood){
+		return spawnItem(ITEM_TYPE_SHIRT, ITEM_SHIRT_HAWAIIAN);
+	}
 }
 
 item *randomUnderarmor(){
-  static rng localRng;
-  static bool rngInitd = false;
-  unsigned int choice;
-  
-  if (!rngInitd){
-    initializeRNG(&localRng);
-    rngInitd = true;
-  }
-  
-  choice = uniformRandomRangeInt(&localRng, 1, 100);
- 
-  if (choice <= chainmailLikelihood){
-    return spawnItem(ITEM_TYPE_UNDERARMOR, ITEM_UNDERARMOR_CHAINMAIL);
-  }
+	static rng localRng;
+	static bool rngInitd = false;
+	unsigned int choice;
+	
+	if (!rngInitd){
+		initializeRNG(&localRng);
+		rngInitd = true;
+	}
+	
+	choice = uniformRandomRangeInt(&localRng, 1, 100);
+	
+	if (choice <= chainmailLikelihood){
+		return spawnItem(ITEM_TYPE_UNDERARMOR, ITEM_UNDERARMOR_CHAINMAIL);
+	}
 }
 
 item *randomWeapon(){
-  static rng localRng;
-  static bool rngInitd = false;
-  unsigned int choice;
-
-  if (!rngInitd){
-    initializeRNG(&localRng);
-    rngInitd = true;
-  }
-  
-  choice = uniformRandomRangeInt(&localRng, 1, 100);
-  
-  if (choice <= longswordLikelihood){
-    return randomLongsword();
-  } else if (choice <= axeLikelihood){
-    return randomAxe();
-  } else if (choice <= daggerLikelihood){
-    return randomDagger();
-  }
+	static rng localRng;
+	static bool rngInitd = false;
+	unsigned int choice;
+	
+	if (!rngInitd){
+		initializeRNG(&localRng);
+		rngInitd = true;
+	}
+	
+	choice = uniformRandomRangeInt(&localRng, 1, 100);
+	
+	if (choice <= longswordLikelihood){
+		return randomLongsword();
+	} else if (choice <= axeLikelihood){
+		return randomAxe();
+	} else if (choice <= daggerLikelihood){
+		return randomDagger();
+	}
 }

@@ -22,19 +22,19 @@
 #include "lvt.h"
 
 bool askQuestionYesNo(char *question){
-  char c;
-  
-  displayQuestionYesNo(question);
-  
-  c = getch();
-  while ((c != 'y') && (c != 'n')){
-    beep();
-    c= getch();
-  }
-  
-  if (c == 'y'){
-    return true;
-  } else {
-    return false;
-  }
+	char c;
+	
+	displayQuestionYesNo(question);
+	
+	c = getch();
+	while ((c != 'y') && (c != 'n')){
+		beep();
+		c= getch();
+	}
+	
+	if (c == 'y'){
+		return true;
+	} else {
+		return false;
+	}
 }

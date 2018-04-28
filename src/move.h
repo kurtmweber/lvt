@@ -27,22 +27,22 @@
 #define KEY_STAY KEY_DC
 
 typedef enum moveOutcome{
-  MOVE_SUCCESS,
-  MOVE_FAILED_WALL,
-  MOVE_FAILED_CREATURE,
-  MOVE_FAILED_DOOR
+	MOVE_SUCCESS,
+	MOVE_FAILED_WALL,
+	MOVE_FAILED_CREATURE,
+	MOVE_FAILED_DOOR
 } moveOutcome;
 
 typedef enum moveDirection{
-  UPLEFT,
-  UP,
-  UPRIGHT,
-  LEFT,
-  NOMOVE,
-  RIGHT,
-  DOWNLEFT,
-  DOWN,
-  DOWNRIGHT
+	UPLEFT,
+	UP,
+	UPRIGHT,
+	LEFT,
+	NOMOVE,
+	RIGHT,
+	DOWNLEFT,
+	DOWN,
+	DOWNRIGHT
 } moveDirection;
 
 #endif

@@ -21,46 +21,46 @@
 #include "plant.h"
 
 plantList *insertNewPlantNode(plantList *list, plantList *node){
-  if (list){
-    list->prev = node;
-    node->next = list;
-    node->prev = 0;
-  } else {
-    node->next = 0;
-  }
-  
-  //node->next = list;
-  
-  return node;
+	if (list){
+		list->prev = node;
+		node->next = list;
+		node->prev = 0;
+	} else {
+		node->next = 0;
+	}
+	
+	//node->next = list;
+	
+	return node;
 }
 
 plantList *findPlantListEntry(plantList *list, plant *plant){
-  do {
-    if (list->plant == plant){
-      return list;
-    }
-    
-    list = list->next;
-  } while(list);
+	do {
+		if (list->plant == plant){
+			return list;
+		}
+		
+		list = list->next;
+	} while(list);
 }
 
 plantList *removePlantNode(plantList *list, plantList *node){
-  plantList *prev;
-  plantList *next;  
-
-  if (list == node){
-    list = node->next;
-    list->prev = 0;
-  } else {
-    prev = node->prev;
-    next = node->next;
-    if (prev){
-      prev->next = next;
-    }
-    if (next){
-      next->prev = prev;
-    }
-  }
-  
-  return list;
+	plantList *prev;
+	plantList *next;  
+	
+	if (list == node){
+		list = node->next;
+		list->prev = 0;
+	} else {
+		prev = node->prev;
+		next = node->next;
+		if (prev){
+			prev->next = next;
+		}
+		if (next){
+			next->prev = prev;
+		}
+	}
+	
+	return list;
 }

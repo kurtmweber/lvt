@@ -23,42 +23,42 @@
 #include "plant.h"
 
 typedef enum terrain{
-  WALL,
-  PERMANENTROCK,
-  FLOOR,
-  DOOR,
-  HIDDENDOOR,
-  OPENDOOR,
-  UPSTAIR,
-  DOWNSTAIR,
-  DOWNTON,
-  ABBEY,
-  THRONE
+	WALL,
+	PERMANENTROCK,
+	FLOOR,
+	DOOR,
+	HIDDENDOOR,
+	OPENDOOR,
+	UPSTAIR,
+	DOWNSTAIR,
+	DOWNTON,
+	ABBEY,
+	THRONE
 } terrain;
 
 /*typedef enum objectClasses{
-  WEAPON
-} objectClasses; */
+ W EAP*ON
+ } objectClasses; */
 
 typedef struct mapSpaceContents mapSpaceContents;
 
 struct mapSpaceContents{
-  mapSpaceContents *prev;
-  item *item;
-  mapSpaceContents *next;
+	mapSpaceContents *prev;
+	item *item;
+	mapSpaceContents *next;
 };
-  
+
 
 typedef struct mapSpace{
-  terrain terrain;
-  union {
-    unsigned int searchCountdown;
-  } terrainData;
-  bool explored;
-  mapSpaceContents *contents;
-  creature *creatureOccupant;
-  plant *plantOccupant;
-  //void *plantOccupant;
+	terrain terrain;
+	union {
+		unsigned int searchCountdown;
+	} terrainData;
+	bool explored;
+	mapSpaceContents *contents;
+	creature *creatureOccupant;
+	plant *plantOccupant;
+	//void *plantOccupant;
 } mapSpace;
 
 #ifndef _MAP_TYPE

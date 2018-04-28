@@ -43,66 +43,66 @@ map dungeon;
 gameStatus status;
 
 int main(int argc, char *argv[]){
-  coord2D initUpstair;
-  coord3D initLocation;
-  bool readingSaved = false;
-  
-  readingSaved = readSaveFile();
-  
-  initializeLevelGen();
-  initSpeciesData();
-  initPlantSpeciesData();
-  initItems();
-  initializeFactions();
-  
-  if (!readingSaved){
-    dungeon = generateMap();
-  }
-  
-  if (!readingSaved){
-    creatures = generateStartingCreatures();
-  }
-  
-  if (!readingSaved){
-    plants = generateStartingPlants();
-  }
-  
-  if (!readingSaved){
-    generateFloorItems();
-  }
-  
-  initializeNcurses();
-  initializeColors();
-  
-  printw("Lavender Throne version "PACKAGE_VERSION".  Copyright 2016-2017 Kurt Weber");
-  refresh();
-  getch();
-  clear();
-  
-  if (!readingSaved){
-    initializeCharacter();
-  }
-  clear();
-  
-  if (!readingSaved){
-    initUpstair = findLevelUpstair(dungeon[0]);
-    initLocation.x = initUpstair.x;
-    initLocation.y = initUpstair.y;
-    initLocation.level = 0;
-    setCreatureLocation(&player, initLocation);
-    setCreatureOccupant(dungeon[initLocation.level], initLocation.x, initLocation.y, &player);
-    updateRegionExploredState(dungeon[initLocation.level], initLocation.x, initLocation.y, true);
-  }
-  
-  initializeGameScreen();
-  
-  if (!readingSaved){
-    initializeGameStatus();
-  }
-  
-  startGame();
-  
-  destroyNcurses();
-
-  return 0;
-  }
+	coord2D initUpstair;
+	coord3D initLocation;
+	bool readingSaved = false;
+	
+	readingSaved = readSaveFile();
+	
+	initializeLevelGen();
+	initSpeciesData();
+	initPlantSpeciesData();
+	initItems();
+	initializeFactions();
+	
+	if (!readingSaved){
+		dungeon = generateMap();
+	}
+	
+	if (!readingSaved){
+		creatures = generateStartingCreatures();
+	}
+	
+	if (!readingSaved){
+		plants = generateStartingPlants();
+	}
+	
+	if (!readingSaved){
+		generateFloorItems();
+	}
+	
+	initializeNcurses();
+	initializeColors();
+	
+	printw("Lavender Throne version "PACKAGE_VERSION".  Copyright 2016-2017 Kurt Weber");
+	refresh();
+	getch();
+	clear();
+	
+	if (!readingSaved){
+		initializeCharacter();
+	}
+	clear();
+	
+	if (!readingSaved){
+		initUpstair = findLevelUpstair(dungeon[0]);
+		initLocation.x = initUpstair.x;
+		initLocation.y = initUpstair.y;
+		initLocation.level = 0;
+		setCreatureLocation(&player, initLocation);
+		setCreatureOccupant(dungeon[initLocation.level], initLocation.x, initLocation.y, &player);
+		updateRegionExploredState(dungeon[initLocation.level], initLocation.x, initLocation.y, true);
+	}
+	
+	initializeGameScreen();
+	
+	if (!readingSaved){
+		initializeGameStatus();
+	}
+	
+	startGame();
+	
+	destroyNcurses();
+	
+	return 0;
+}

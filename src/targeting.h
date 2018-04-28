@@ -21,8 +21,8 @@
 #include "creature.h"
 
 typedef struct positionList{
-  creature *creature;
-  coord3D location;
+	creature *creature;
+	coord3D location;
 } positionList;
 
 #ifndef _TARGETING_C

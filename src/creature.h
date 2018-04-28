@@ -26,106 +26,106 @@
 #include "species.h"
 
 typedef struct statList{
-  int strength;
-  int wisdom;
-  int intelligence;
-  int constitution;
-  int charisma;
-  int dexterity;
+	int strength;
+	int wisdom;
+	int intelligence;
+	int constitution;
+	int charisma;
+	int dexterity;
 } statList;
 
 typedef enum bioSex{
-  FEMALE,
-  MALE
+	FEMALE,
+	MALE
 } bioSex;
 
 typedef enum creatureAggression{
-  CREATURE_CHILL = 1,
-  CREATURE_CALM,
-  CREATURE_PEEVISH,
-  CREATURE_AGGRESSIVE,
-  CREATURE_HYPERAGGRESSIVE,
-  CREATURE_HITLER,
-  CREATURE_TRUMP
+	CREATURE_CHILL = 1,
+	CREATURE_CALM,
+	CREATURE_PEEVISH,
+	CREATURE_AGGRESSIVE,
+	CREATURE_HYPERAGGRESSIVE,
+	CREATURE_HITLER,
+	CREATURE_TRUMP
 } creatureAggression;
 
 typedef enum creatureClass{
-  POET,
-  PEACEMAKER,
-  PALADIN,
-  RANGER,
-  WARRIOR,
-  MERCHANT,
-  PEASANT,
-  SCHOLAR,
-  BEGGAR,
-  CRAFTSPERSON,
-  MESHCHANIN,
-  NOBLE,
-  WHITECLERIC,
-  BLACKCLERIC,
-  MAXCREATURECLASS
+	POET,
+	PEACEMAKER,
+	PALADIN,
+	RANGER,
+	WARRIOR,
+	MERCHANT,
+	PEASANT,
+	SCHOLAR,
+	BEGGAR,
+	CRAFTSPERSON,
+	MESHCHANIN,
+	NOBLE,
+	WHITECLERIC,
+	BLACKCLERIC,
+	MAXCREATURECLASS
 } creatureClass;
 
 typedef struct armorSlotList{
-  struct item *shirt;
-  struct item *underarmor;
-  struct item *armor;
-  struct item *helmet;
-  struct item *cloak;
-  struct item *gloves;
-  struct item *leggings;
-  struct item *shoes;
-  struct item *shield;
+	struct item *shirt;
+	struct item *underarmor;
+	struct item *armor;
+	struct item *helmet;
+	struct item *cloak;
+	struct item *gloves;
+	struct item *leggings;
+	struct item *shoes;
+	struct item *shield;
 } armorSlotList;
 
 /* typedef struct inventoryEntry{
-  item **contents;
-  unsigned int quantity;
-} inventoryEntry; */
+ i tem* **contents;
+ unsigned int quantity;
+ } inventoryEntry; */
 
 typedef struct creature{
-  unsigned int creatureId;
-  char *name;
-  bool isPlayer;
-  unsigned int lifePace;
-  bool hasMatured;
-  coord3D location;
-  creatureSpecies species;
-  creatureClass class;
-  char dispChar;
-  unsigned int curHitPoints;
-  unsigned int maxHitPoints;
-  unsigned int level;
-  unsigned int experience;
-  unsigned int effStats[6];
-  unsigned int curStats[6];
-  unsigned int maxStats[6];
-  bioSex sex;
-  colorPairs color;
-  unsigned int attrs;
-  unsigned int faction;
-  armorSlotList armor;
-  struct item *weapon;
-  struct item *inventory[52];
-  struct item *wieldNextTurn;
-  unsigned int weight;
-  unsigned int nutrition;
-  bool hungry;
-  creatureAggression aggression;
-  bool inCombat;
-  struct {
-    unsigned int speed;
-    unsigned int speedCounter;
-    unsigned int lastMove;
-  } moveInfo;
-  struct creature *currentTarget;
+	unsigned int creatureId;
+	char *name;
+	bool isPlayer;
+	unsigned int lifePace;
+	bool hasMatured;
+	coord3D location;
+	creatureSpecies species;
+	creatureClass class;
+	char dispChar;
+	unsigned int curHitPoints;
+	unsigned int maxHitPoints;
+	unsigned int level;
+	unsigned int experience;
+	unsigned int effStats[6];
+	unsigned int curStats[6];
+	unsigned int maxStats[6];
+	bioSex sex;
+	colorPairs color;
+	unsigned int attrs;
+	unsigned int faction;
+	armorSlotList armor;
+	struct item *weapon;
+	struct item *inventory[52];
+	struct item *wieldNextTurn;
+	unsigned int weight;
+	unsigned int nutrition;
+	bool hungry;
+	creatureAggression aggression;
+	bool inCombat;
+	struct {
+		unsigned int speed;
+		unsigned int speedCounter;
+		unsigned int lastMove;
+	} moveInfo;
+	struct creature *currentTarget;
 } creature;
 
 typedef struct creatureList{
-  struct creatureList *prev;
-  struct creatureList *next;
-  creature *creature;
+	struct creatureList *prev;
+	struct creatureList *next;
+	creature *creature;
 } creatureList;
 
 #endif

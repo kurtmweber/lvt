@@ -31,173 +31,173 @@
 
 
 void setPlantSpecies(plant *plant, plantSpecies species){
-  plant->species = species;
-  
-  return;
+	plant->species = species;
+	
+	return;
 }
 
 plantSpecies getPlantSpecies(plant *plant){
-  return plant->species;
+	return plant->species;
 }
 
 void setPlantClass(plant *plant, plantClass plantClass){
-  plant->plantClass = plantClass;
-  
-  return;
+	plant->plantClass = plantClass;
+	
+	return;
 }
 
 void setPlantCurToughness(plant *plant, unsigned int toughness){
-  plant->curToughness = toughness;
-  
-  return;
+	plant->curToughness = toughness;
+	
+	return;
 }
 
 unsigned int getPlantCurToughness(plant *plant){
-  return plant->curToughness;
+	return plant->curToughness;
 }
 
 unsigned int getPlantMaxToughness(plant *plant){
-  return plant->maxToughness;
+	return plant->maxToughness;
 }
 
 void setPlantMaxToughness(plant *plant, unsigned int toughness){
-  plant->maxToughness = toughness;
-  
-  return;
+	plant->maxToughness = toughness;
+	
+	return;
 }
 
 void setPlantCurGrowth(plant *plant, unsigned int growth){
-  plant->curGrowth = growth;
-  
-  return;
+	plant->curGrowth = growth;
+	
+	return;
 }
 
 unsigned int getPlantCurGrowth(plant *plant){
-  return plant->curGrowth;
+	return plant->curGrowth;
 }
 
 void setPlantMaxGrowth(plant *plant, unsigned int growth){
-  plant->maxGrowth = growth;
-  
-  return;
+	plant->maxGrowth = growth;
+	
+	return;
 }
 
 unsigned int getPlantMaxGrowth(plant *plant, unsigned int growth){
-  return plant->maxGrowth;
+	return plant->maxGrowth;
 }
 
 void setPlantCurProduction(plant *plant, unsigned int production){
-  plant->curProduction = production;
-  
-  return;
+	plant->curProduction = production;
+	
+	return;
 }
 
 unsigned int getPlantCurProduction(plant *plant){
-  return plant->curProduction;
+	return plant->curProduction;
 }
 
 void setPlantMaxProduction(plant *plant, unsigned int production){
-  plant->maxProduction = production;
-  
-  return;
+	plant->maxProduction = production;
+	
+	return;
 }
 
 unsigned int getPlantMaxProduction(plant *plant){
-  return plant->maxProduction;
+	return plant->maxProduction;
 }
 
 void setPlantGrowthRate(plant *plant, unsigned int growthRate){
-  plant->growthRate = growthRate;
-  
-  return;
+	plant->growthRate = growthRate;
+	
+	return;
 }
 
 unsigned int getPlantGrowthRate(plant *plant){
-  return plant->growthRate;
+	return plant->growthRate;
 }
 
 void setPlantProductionTime(plant *plant, unsigned int productionTime){
-  plant->productionTime = productionTime;
-  
-  return;
+	plant->productionTime = productionTime;
+	
+	return;
 }
 
 unsigned int getPlantProductionTime(plant *plant){
-  return plant->productionTime;
+	return plant->productionTime;
 }
 
 void setPlantProductionProgress(plant *plant, unsigned int progress){
-  plant->productionProgress = progress;
-  
-  return;
+	plant->productionProgress = progress;
+	
+	return;
 }
 
 unsigned int getPlantProductionProgress(plant *plant){
-  return plant->productionProgress;
+	return plant->productionProgress;
 }
 
 void setPlantDispChar(plant *plant, char dispChar){
-  plant->dispChar = dispChar;
-  
-  return;
+	plant->dispChar = dispChar;
+	
+	return;
 }
 
 void setPlantDispColor(plant *plant, colorPairs color){
-  plant->dispColor = color;
-  
-  return;
+	plant->dispColor = color;
+	
+	return;
 }
 
 void setPlantAttrs(plant *plant, unsigned int attrs){
-  plant->attrs = attrs;
-  
-  return;
+	plant->attrs = attrs;
+	
+	return;
 }
 
 void setPlantLocation(plant *plant, coord3D location){
-  plant->location = location;
-  
-  return;
+	plant->location = location;
+	
+	return;
 }
 
 char getPlantDispChar(plant *plant){
-  return plant->dispChar;
+	return plant->dispChar;
 }
 
 colorPairs getPlantColor(plant *plant){
-  return plant->dispColor;
+	return plant->dispColor;
 }
 
 coord3D getPlantLocation(plant *plant){
-  return plant->location;
+	return plant->location;
 }
 
 void killPlant(plant *plant){
-  plantList *pNode;
-  coord3D plantLoc;
-  
-  plantLoc = getPlantLocation(plant);
-  
-  clearPlantOccupant(dungeon[plantLoc.level], plantLoc.x, plantLoc.y);
-  
-  pNode = findPlantListEntry(plants, plant);
-  removePlantNode(plants, pNode);
-  freePlantListEntry(pNode);
-  return;
+	plantList *pNode;
+	coord3D plantLoc;
+	
+	plantLoc = getPlantLocation(plant);
+	
+	clearPlantOccupant(dungeon[plantLoc.level], plantLoc.x, plantLoc.y);
+	
+	pNode = findPlantListEntry(plants, plant);
+	removePlantNode(plants, pNode);
+	freePlantListEntry(pNode);
+	return;
 }
 
 void tramplePlant(plant *plant, creature *creature){
-  unsigned int curPlantToughness;
-  unsigned int damageAmount;
-
-  curPlantToughness = getPlantCurToughness(plant);
-    
-  damageAmount = (unsigned int)floor((double)getCreatureWeight(creature) / 100.0);
-    
-  if (damageAmount >= curPlantToughness){
-    setPlantCurToughness(plant, 0);
-    killPlant(plant);
-  } else {
-    setPlantCurToughness(plant, curPlantToughness - damageAmount);
-  }
+	unsigned int curPlantToughness;
+	unsigned int damageAmount;
+	
+	curPlantToughness = getPlantCurToughness(plant);
+	
+	damageAmount = (unsigned int)floor((double)getCreatureWeight(creature) / 100.0);
+	
+	if (damageAmount >= curPlantToughness){
+		setPlantCurToughness(plant, 0);
+		killPlant(plant);
+	} else {
+		setPlantCurToughness(plant, curPlantToughness - damageAmount);
+	}
 }

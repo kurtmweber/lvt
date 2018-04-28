@@ -32,514 +32,514 @@
 WINDOW *invWin;
 
 void doInventory(){
-  unsigned int i = 0;
-  unsigned int j = 0;
-  bool checked[52];
-  unsigned int c = 0;
-  
-  freeAction = true;
-  
-  for (j = 0; j < 52; j++){
-    checked[j] = false;
-  }
-  
-  addToMsgQueue("(press space to continue)", false);
-  procMsgQueue();
-  
-  while (c != ' '){
-    displayInventoryWindow(i, checked);
-    c = getch();
-    switch (c){
-      case KEY_UP:
-	i == 0 ? : i--;
-	break;
-      case KEY_DOWN:
-	i == 39 ? : i++;
-	break;
-      default:
-	break;
-    }
-    delwin(invWin);
-  }
-  
-  clearMsg();
-  return;
+	unsigned int i = 0;
+	unsigned int j = 0;
+	bool checked[52];
+	unsigned int c = 0;
+	
+	freeAction = true;
+	
+	for (j = 0; j < 52; j++){
+		checked[j] = false;
+	}
+	
+	addToMsgQueue("(press space to continue)", false);
+	procMsgQueue();
+	
+	while (c != ' '){
+		displayInventoryWindow(i, checked);
+		c = getch();
+		switch (c){
+			case KEY_UP:
+				i == 0 ? : i--;
+				break;
+			case KEY_DOWN:
+				i == 39 ? : i++;
+				break;
+			default:
+				break;
+		}
+		delwin(invWin);
+	}
+	
+	clearMsg();
+	return;
 }
 
 void displayInventoryWindow(unsigned int i, bool checked[52]){
-  item *inventory[52];
-  unsigned int j;
-  char invLetter;
-  unsigned int k;
-  bool hasInventory = false;
-  
-  for (k = 0; k < 52; k++){
-    inventory[k] = 0;
-  }
-  
-  getCreatureInventory(&player, inventory);
-  
-  invWin = newwin(13, 84, 1, 0);
-  
-  for (j = i; j < (i + 13); j++){
-    if (inventory[j]){
-      hasInventory = true;
-      invLetter = inventoryIndexToLetter(j);
-      waddch(invWin, '(');
-      waddch(invWin, invLetter);
-      waddch(invWin, ')');
-      waddch(invWin, ' ');
-      waddstr(invWin, inventory[j]->itemData.itemName);
-      if (inventory[j]->name){
-	waddstr(invWin, " named ");
-	waddstr(invWin, inventory[j]->name);
-      }
-      if (inventory[j]->wielded){
-	waddstr(invWin, " (wielded)");
-      }
-      if (inventory[j]->worn){
-	waddstr(invWin, " (worn)");
-      }
-      waddch(invWin, '\n');
-    }
-  }
-  
-  if (!hasInventory){
-    waddstr(invWin, "You have no inventory to display");
-  }
-  
-  wrefresh(invWin);
-  return;
+	item *inventory[52];
+	unsigned int j;
+	char invLetter;
+	unsigned int k;
+	bool hasInventory = false;
+	
+	for (k = 0; k < 52; k++){
+		inventory[k] = 0;
+	}
+	
+	getCreatureInventory(&player, inventory);
+	
+	invWin = newwin(13, 84, 1, 0);
+	
+	for (j = i; j < (i + 13); j++){
+		if (inventory[j]){
+			hasInventory = true;
+			invLetter = inventoryIndexToLetter(j);
+			waddch(invWin, '(');
+			waddch(invWin, invLetter);
+			waddch(invWin, ')');
+			waddch(invWin, ' ');
+			waddstr(invWin, inventory[j]->itemData.itemName);
+			if (inventory[j]->name){
+				waddstr(invWin, " named ");
+				waddstr(invWin, inventory[j]->name);
+			}
+			if (inventory[j]->wielded){
+				waddstr(invWin, " (wielded)");
+			}
+			if (inventory[j]->worn){
+				waddstr(invWin, " (worn)");
+			}
+			waddch(invWin, '\n');
+		}
+	}
+	
+	if (!hasInventory){
+		waddstr(invWin, "You have no inventory to display");
+	}
+	
+	wrefresh(invWin);
+	return;
 }
 
 void doWear(){
-  unsigned int c = 1;
-  unsigned int i = 0;
-  bool checked[52];
-  unsigned int j = 0;
-  char *itemName = 0;
-  item *inventory[52];
-  
-  for (j = 0; j < 52; j++){
-    checked[j] = false;
-  }
-  
-  getCreatureInventory(&player, inventory);
-  
-  addToMsgQueue("Wear which item? (space to cancel)", false);
-  procMsgQueue();
-  
-  while (c){
-    displayInventoryWindow(i, checked);
-    c = getch();
-    switch (c){
-      case KEY_UP:
-	i == 0 ? : i--;
-	break;
-      case KEY_DOWN:
-	i == 39 ? : i++;
-	break;
-      case ' ':
-        delwin(invWin);
-        clearMsg();
-	return;
-      default:
-	if (isupper(c) || islower(c)){
-	  if (isInventoryLetter(c)){
-	    switch (wearItem(&player, inventory[inventoryLetterToIndex(c)])){
-	      case WEAR_FAILED_NOT_ARMOR:
-		addToMsgQueue(WEAR_FAILED_NOT_ARMOR_MSG, false);
-		break;
-              case WEAR_FAILED_WIELDED:
-                addToMsgQueue(WEAR_FAILED_WIELDED_MSG, false);
-	      default:
-		break;
-	    }
-	    delwin(invWin);
-            clearMsg();
-	    return;
-	  } else {
-	    break;
-	  }
-	} else {
-	  break;
+	unsigned int c = 1;
+	unsigned int i = 0;
+	bool checked[52];
+	unsigned int j = 0;
+	char *itemName = 0;
+	item *inventory[52];
+	
+	for (j = 0; j < 52; j++){
+		checked[j] = false;
 	}
-    }
-    delwin(invWin);
-  }
-  return;
+	
+	getCreatureInventory(&player, inventory);
+	
+	addToMsgQueue("Wear which item? (space to cancel)", false);
+	procMsgQueue();
+	
+	while (c){
+		displayInventoryWindow(i, checked);
+		c = getch();
+		switch (c){
+			case KEY_UP:
+				i == 0 ? : i--;
+				break;
+			case KEY_DOWN:
+				i == 39 ? : i++;
+				break;
+			case ' ':
+				delwin(invWin);
+				clearMsg();
+				return;
+			default:
+				if (isupper(c) || islower(c)){
+					if (isInventoryLetter(c)){
+						switch (wearItem(&player, inventory[inventoryLetterToIndex(c)])){
+							case WEAR_FAILED_NOT_ARMOR:
+								addToMsgQueue(WEAR_FAILED_NOT_ARMOR_MSG, false);
+								break;
+							case WEAR_FAILED_WIELDED:
+								addToMsgQueue(WEAR_FAILED_WIELDED_MSG, false);
+							default:
+								break;
+						}
+						delwin(invWin);
+						clearMsg();
+						return;
+					} else {
+						break;
+					}
+				} else {
+					break;
+				}
+		}
+		delwin(invWin);
+	}
+	return;
 }
 
 void doWield(){
-  unsigned int c = 1;
-  unsigned int i = 0;
-  bool checked[52];
-  unsigned int j = 0;
-  char *itemName = 0;
-  item *inventory[52];
-  
-  for (j = 0; j < 52; j++){
-    checked[j] = false;
-  }
-  
-  getCreatureInventory(&player, inventory);
-  
-  addToMsgQueue("Wield which item? (space to cancel)", false);
-  procMsgQueue();
-  
-  while (c){
-    displayInventoryWindow(i, checked);
-    c = getch();
-    switch (c){
-      case KEY_UP:
-	i == 0 ? : i--;
-	break;
-      case KEY_DOWN:
-	i == 39 ? : i++;
-	break;
-      case ' ':
-        delwin(invWin);
-        clearMsg();
-	return;
-      default:
-	if (isupper(c) || islower(c)){
-	  if (isInventoryLetter(c)){
-	    switch (wieldItem(&player, inventory[inventoryLetterToIndex(c)])){
-	      case WIELD_FAILED_TWOHANDED:
-		addToMsgQueue(WIELD_FAILED_TWOHANDED_SHIELD_MSG, false);
-		break;
-              case WIELD_FAILED_WORN:
-                addToMsgQueue(WIELD_FAILED_WORN_MSG, false);
-                break;
-	      default:
-		break;
-	    }
-	    delwin(invWin);
-            clearMsg();
-	    return;
-	  } else {
-	    break;
-	  }
-	} else {
-	  break;
+	unsigned int c = 1;
+	unsigned int i = 0;
+	bool checked[52];
+	unsigned int j = 0;
+	char *itemName = 0;
+	item *inventory[52];
+	
+	for (j = 0; j < 52; j++){
+		checked[j] = false;
 	}
-    }
-    delwin(invWin);
-  }
-  return;
+	
+	getCreatureInventory(&player, inventory);
+	
+	addToMsgQueue("Wield which item? (space to cancel)", false);
+	procMsgQueue();
+	
+	while (c){
+		displayInventoryWindow(i, checked);
+		c = getch();
+		switch (c){
+			case KEY_UP:
+				i == 0 ? : i--;
+				break;
+			case KEY_DOWN:
+				i == 39 ? : i++;
+				break;
+			case ' ':
+				delwin(invWin);
+				clearMsg();
+				return;
+			default:
+				if (isupper(c) || islower(c)){
+					if (isInventoryLetter(c)){
+						switch (wieldItem(&player, inventory[inventoryLetterToIndex(c)])){
+							case WIELD_FAILED_TWOHANDED:
+								addToMsgQueue(WIELD_FAILED_TWOHANDED_SHIELD_MSG, false);
+								break;
+							case WIELD_FAILED_WORN:
+								addToMsgQueue(WIELD_FAILED_WORN_MSG, false);
+								break;
+							default:
+								break;
+						}
+						delwin(invWin);
+						clearMsg();
+						return;
+					} else {
+						break;
+					}
+				} else {
+					break;
+				}
+		}
+		delwin(invWin);
+	}
+	return;
 }
 
 void doRemove(){
-  unsigned int c = 1;
-  unsigned int i = 0;
-  bool checked[52];
-  unsigned int j = 0;
-  char *itemName = 0;
-  item *inventory[52];
-  
-  for (j = 0; j < 52; j++){
-    checked[j] = false;
-  }
-  
-  getCreatureInventory(&player, inventory);
-  
-  addToMsgQueue("Remove which item? (space to cancel)", false);
-  procMsgQueue();
-  
-  while (c){
-    displayInventoryWindow(i, checked);
-    c = getch();
-    switch (c){
-      case KEY_UP:
-	i == 0 ? : i--;
-	break;
-      case KEY_DOWN:
-	i == 39 ? : i++;
-	break;
-      case ' ':
-        delwin(invWin);
-        clearMsg();
-	return;
-      default:
-	if (isupper(c) || islower(c)){
-	  if (isInventoryLetter(c)){
-	    switch (removeItem(&player, inventory[inventoryLetterToIndex(c)])){
-	      case REMOVE_FAILED_NOT_WORN:
-		addToMsgQueue(REMOVE_FAILED_NOT_WORN_MSG, false);
-		break;
-	      default:
-		break;
-	    }
-	    delwin(invWin);
-            clearMsg();
-	    return;
-	  } else {
-	    break;
-	  }
-	} else {
-	  break;
+	unsigned int c = 1;
+	unsigned int i = 0;
+	bool checked[52];
+	unsigned int j = 0;
+	char *itemName = 0;
+	item *inventory[52];
+	
+	for (j = 0; j < 52; j++){
+		checked[j] = false;
 	}
-    }
-    delwin(invWin);
-  }
-  
-  clearMsg();
-  return;
+	
+	getCreatureInventory(&player, inventory);
+	
+	addToMsgQueue("Remove which item? (space to cancel)", false);
+	procMsgQueue();
+	
+	while (c){
+		displayInventoryWindow(i, checked);
+		c = getch();
+		switch (c){
+			case KEY_UP:
+				i == 0 ? : i--;
+				break;
+			case KEY_DOWN:
+				i == 39 ? : i++;
+				break;
+			case ' ':
+				delwin(invWin);
+				clearMsg();
+				return;
+			default:
+				if (isupper(c) || islower(c)){
+					if (isInventoryLetter(c)){
+						switch (removeItem(&player, inventory[inventoryLetterToIndex(c)])){
+							case REMOVE_FAILED_NOT_WORN:
+								addToMsgQueue(REMOVE_FAILED_NOT_WORN_MSG, false);
+								break;
+							default:
+								break;
+						}
+						delwin(invWin);
+						clearMsg();
+						return;
+					} else {
+						break;
+					}
+				} else {
+					break;
+				}
+		}
+		delwin(invWin);
+	}
+	
+	clearMsg();
+	return;
 }
 
 void doUnwield(){
-  unwieldWeapon(&player);
-  
-  addToMsgQueue("You are no longer wielding a weapon", false);
-  
-  return;
+	unwieldWeapon(&player);
+	
+	addToMsgQueue("You are no longer wielding a weapon", false);
+	
+	return;
 }
 
 void doNameItem(){
-  unsigned int c = 1;
-  unsigned int i = 0;
-  bool checked[52];
-  unsigned int j = 0;
-  char *itemName = 0;
-  item *inventory[52];
-  
-  freeAction = true;
-  
-  for (j = 0; j < 52; j++){
-    checked[j] = false;
-  }
-  
-  getCreatureInventory(&player, inventory);
-  
-  addToMsgQueue("Name or rename which item? (space to cancel)", false);
-  procMsgQueue();
-  
-  while (c){
-    displayInventoryWindow(i, checked);
-    c = getch();
-    switch (c){
-      case KEY_UP:
-	i == 0 ? : i--;
-	break;
-      case KEY_DOWN:
-	i == 39 ? : i++;
-	break;
-      case ' ':
-        delwin(invWin);
-        clearMsg();
-	return;
-      default:
-	if (isupper(c) || islower(c)){
-	  if (isInventoryLetter(c)){
-	    itemName = getLineInput("What do you wish to name this item?");
-	    setItemName(inventory[inventoryLetterToIndex(c)], itemName);
-            delwin(invWin);
-            clearMsg();
-	    return;
-	  } else {
-	    break;
-	  }
-	} else {
-	  break;
+	unsigned int c = 1;
+	unsigned int i = 0;
+	bool checked[52];
+	unsigned int j = 0;
+	char *itemName = 0;
+	item *inventory[52];
+	
+	freeAction = true;
+	
+	for (j = 0; j < 52; j++){
+		checked[j] = false;
 	}
-    }
-    delwin(invWin);
-  }
-  return;
+	
+	getCreatureInventory(&player, inventory);
+	
+	addToMsgQueue("Name or rename which item? (space to cancel)", false);
+	procMsgQueue();
+	
+	while (c){
+		displayInventoryWindow(i, checked);
+		c = getch();
+		switch (c){
+			case KEY_UP:
+				i == 0 ? : i--;
+				break;
+			case KEY_DOWN:
+				i == 39 ? : i++;
+				break;
+			case ' ':
+				delwin(invWin);
+				clearMsg();
+				return;
+			default:
+				if (isupper(c) || islower(c)){
+					if (isInventoryLetter(c)){
+						itemName = getLineInput("What do you wish to name this item?");
+						setItemName(inventory[inventoryLetterToIndex(c)], itemName);
+						delwin(invWin);
+						clearMsg();
+						return;
+					} else {
+						break;
+					}
+				} else {
+					break;
+				}
+		}
+		delwin(invWin);
+	}
+	return;
 }
 
 void doUnNameItem(){
-  unsigned int c = 1;
-  unsigned int i = 0;
-  bool checked[52];
-  unsigned int j = 0;
-  char *itemName = 0;
-  item *inventory[52];
-  
-  freeAction = true;
-  
-  for (j = 0; j < 52; j++){
-    checked[j] = false;
-  }
-  
-  getCreatureInventory(&player, inventory);
-  
-  addToMsgQueue("Unname which item? (space to cancel)", false);
-  procMsgQueue();
-  
-  while (c){
-    displayInventoryWindow(i, checked);
-    c = getch();
-    switch (c){
-      case KEY_UP:
-	i == 0 ? : i--;
-	break;
-      case KEY_DOWN:
-	i == 51 ? : i++;
-	break;
-      case ' ':
-        delwin(invWin);
-        clearMsg();
-	return;
-      default:
-	if (isupper(c) || islower(c)){
-	  if (isInventoryLetter(c)){
-	    removeItemName(inventory[inventoryLetterToIndex(c)]);
-            delwin(invWin);
-            clearMsg();
-	    return;
-	  } else {
-	    break;
-	  }
-	} else {
-	  break;
+	unsigned int c = 1;
+	unsigned int i = 0;
+	bool checked[52];
+	unsigned int j = 0;
+	char *itemName = 0;
+	item *inventory[52];
+	
+	freeAction = true;
+	
+	for (j = 0; j < 52; j++){
+		checked[j] = false;
 	}
-    }
-    delwin(invWin);
-  }
-  return;
+	
+	getCreatureInventory(&player, inventory);
+	
+	addToMsgQueue("Unname which item? (space to cancel)", false);
+	procMsgQueue();
+	
+	while (c){
+		displayInventoryWindow(i, checked);
+		c = getch();
+		switch (c){
+			case KEY_UP:
+				i == 0 ? : i--;
+				break;
+			case KEY_DOWN:
+				i == 51 ? : i++;
+				break;
+			case ' ':
+				delwin(invWin);
+				clearMsg();
+				return;
+			default:
+				if (isupper(c) || islower(c)){
+					if (isInventoryLetter(c)){
+						removeItemName(inventory[inventoryLetterToIndex(c)]);
+						delwin(invWin);
+						clearMsg();
+						return;
+					} else {
+						break;
+					}
+				} else {
+					break;
+				}
+		}
+		delwin(invWin);
+	}
+	return;
 }
 
 void doDrop(){
-  unsigned int c = 1;
-  unsigned int i = 0;
-  bool checked[52];
-  unsigned int j = 0;
-  item *inventory[52];
-  coord3D creaturePos;
-  item *chosenItem;
-  
-  for (j = 0; j < 52; j++){
-    checked[j] = false;
-  }
-  
-  getCreatureInventory(&player, inventory);
-  
-  addToMsgQueue("Drop which item? (space to cancel)", false);
-  procMsgQueue();
-  
-  while (c){
-    displayInventoryWindow(i, checked);
-    c = getch();
-    switch (c){
-      case KEY_UP:
-	i == 0 ? : i--;
-	break;
-      case KEY_DOWN:
-	i == 39 ? : i++;
-	break;
-      case ' ':
-        delwin(invWin);
-        clearMsg();
-	return;
-      default:
-	if (isupper(c) || islower(c)){
-	  if (isInventoryLetter(c)){
-	    chosenItem = inventory[inventoryLetterToIndex(c)];
-            if (isWorn(chosenItem)){     // we know it's worn by the player because there's no way
-                                        // to select an item in another creature's inventory
-              addToMsgQueue(DROP_FAILED_WORN_MSG, false);
-              return;
-            }
-	    removeCreatureInventoryItem(&player, chosenItem);
-	    creaturePos = getCreatureLocation(&player);
-	    addContents(creaturePos.level, creaturePos.x, creaturePos.y, chosenItem);
-            delwin(invWin);
-            clearMsg();
-	    return;
-	  } else {
-	    break;
-	  }
-	} else {
-	  break;
+	unsigned int c = 1;
+	unsigned int i = 0;
+	bool checked[52];
+	unsigned int j = 0;
+	item *inventory[52];
+	coord3D creaturePos;
+	item *chosenItem;
+	
+	for (j = 0; j < 52; j++){
+		checked[j] = false;
 	}
-    }
-    delwin(invWin);
-  }
-  return;
+	
+	getCreatureInventory(&player, inventory);
+	
+	addToMsgQueue("Drop which item? (space to cancel)", false);
+	procMsgQueue();
+	
+	while (c){
+		displayInventoryWindow(i, checked);
+		c = getch();
+		switch (c){
+			case KEY_UP:
+				i == 0 ? : i--;
+				break;
+			case KEY_DOWN:
+				i == 39 ? : i++;
+				break;
+			case ' ':
+				delwin(invWin);
+				clearMsg();
+				return;
+			default:
+				if (isupper(c) || islower(c)){
+					if (isInventoryLetter(c)){
+						chosenItem = inventory[inventoryLetterToIndex(c)];
+						if (isWorn(chosenItem)){     // we know it's worn by the player because there's no way
+							// to select an item in another creature's inventory
+							addToMsgQueue(DROP_FAILED_WORN_MSG, false);
+							return;
+						}
+						removeCreatureInventoryItem(&player, chosenItem);
+						creaturePos = getCreatureLocation(&player);
+						addContents(creaturePos.level, creaturePos.x, creaturePos.y, chosenItem);
+						delwin(invWin);
+						clearMsg();
+						return;
+					} else {
+						break;
+					}
+				} else {
+					break;
+				}
+		}
+		delwin(invWin);
+	}
+	return;
 }
 
 void doPickup(){
-  coord3D curLoc;
-  mapSpaceContents *contents;
-  mapSpaceContents *thisContent;
-  item *thisItem;
-  char *pickupMsg = 0;
-  char c = 0;
-  char label = 0;
-  
-  curLoc = getCreatureLocation(&player);
-  
-  contents = getContents(dungeon[curLoc.level], curLoc.x, curLoc.y);
-  
-  // the easiest way to deal with the problem of some items being picked up and some being left behind
-  // seems to be to clear out the list and then replace those that are left behind.  We don't free()
-  // the list because we still need to process the contents, but we set the pointer to 0 so we can
-  // start from scratch when we re-add them.
-  dungeon[curLoc.level][curLoc.x][curLoc.y].contents = 0;
-  
-  if (!contents){
-    addToMsgQueue(NOTHING_THERE_MSG, false);
-    
-    return;
-  }
-  
-  do {
-    thisContent = contents;
-    
-    thisItem = thisContent->item;
-    if (thisItem->name){
-      pickupMsg = calloc(10 + strlen(thisItem->itemData.itemName) + 7 + strlen(thisItem->name) + 2, sizeof(char));
-      strcat(pickupMsg, "Pick up a ");
-      strcat(pickupMsg, thisItem->itemData.itemName);
-      strcat(pickupMsg, " named ");
-      strcat(pickupMsg, thisItem->name);
-      strcat(pickupMsg, "?");
-    } else {
-      pickupMsg = calloc(10 + strlen(thisItem->itemData.itemName) + 2, sizeof(char));
-      strcat(pickupMsg, "Pick up a ");
-      strcat(pickupMsg, thisItem->itemData.itemName);
-      strcat(pickupMsg, "?");
-    }
-    
-    displayQuestionYesNo(pickupMsg);
-    
-    while ((c != 'y') && (c != 'n')){
-      c = getch();
-    }
-    
-    contents = thisContent->next;
-    
-    if (c == 'y'){
-      label = addCreatureInventoryItem(&player, thisItem);
-      
-      if (!label){	// inventory table is full
-	addToMsgQueue(INVENTORY_FULL_MSG, false);
-	addContents(curLoc.level, curLoc.x, curLoc.y, thisItem);
-	free(thisContent);
+	coord3D curLoc;
+	mapSpaceContents *contents;
+	mapSpaceContents *thisContent;
+	item *thisItem;
+	char *pickupMsg = 0;
+	char c = 0;
+	char label = 0;
+	
+	curLoc = getCreatureLocation(&player);
+	
+	contents = getContents(dungeon[curLoc.level], curLoc.x, curLoc.y);
+	
+	// the easiest way to deal with the problem of some items being picked up and some being left behind
+	// seems to be to clear out the list and then replace those that are left behind.  We don't free()
+	// the list because we still need to process the contents, but we set the pointer to 0 so we can
+	// start from scratch when we re-add them.
+	dungeon[curLoc.level][curLoc.x][curLoc.y].contents = 0;
+	
+	if (!contents){
+		addToMsgQueue(NOTHING_THERE_MSG, false);
+		
+		return;
+	}
+	
+	do {
+		thisContent = contents;
+		
+		thisItem = thisContent->item;
+		if (thisItem->name){
+			pickupMsg = calloc(10 + strlen(thisItem->itemData.itemName) + 7 + strlen(thisItem->name) + 2, sizeof(char));
+			strcat(pickupMsg, "Pick up a ");
+			strcat(pickupMsg, thisItem->itemData.itemName);
+			strcat(pickupMsg, " named ");
+			strcat(pickupMsg, thisItem->name);
+			strcat(pickupMsg, "?");
+		} else {
+			pickupMsg = calloc(10 + strlen(thisItem->itemData.itemName) + 2, sizeof(char));
+			strcat(pickupMsg, "Pick up a ");
+			strcat(pickupMsg, thisItem->itemData.itemName);
+			strcat(pickupMsg, "?");
+		}
+		
+		displayQuestionYesNo(pickupMsg);
+		
+		while ((c != 'y') && (c != 'n')){
+			c = getch();
+		}
+		
+		contents = thisContent->next;
+		
+		if (c == 'y'){
+			label = addCreatureInventoryItem(&player, thisItem);
+			
+			if (!label){	// inventory table is full
+				addToMsgQueue(INVENTORY_FULL_MSG, false);
+				addContents(curLoc.level, curLoc.x, curLoc.y, thisItem);
+				free(thisContent);
+				return;
+			}
+			
+			free(pickupMsg);
+			pickupMsg = 0;
+			pickupMsg = calloc(4 + strlen(thisItem->itemData.itemName) + 1, sizeof(char));
+			sprintf(pickupMsg, "(%c) %s", label, thisItem->itemData.itemName);
+			if (thisItem->name){
+				pickupMsg = realloc(pickupMsg, (strlen(pickupMsg) + 7 + strlen(thisItem->name) + 1) * sizeof(char));
+				strcat(pickupMsg, " named ");
+				strcat(pickupMsg, thisItem->name);
+			} 
+			addToMsgQueue(pickupMsg, true);
+		} else {
+			addContents(curLoc.level, curLoc.x, curLoc.y, thisItem);
+		}
+		
+		contents = thisContent->next;
+		
+		free(thisContent);
+		
+		c = 0;
+	} while (contents);
+	
 	return;
-      }
-      
-      free(pickupMsg);
-      pickupMsg = 0;
-      pickupMsg = calloc(4 + strlen(thisItem->itemData.itemName) + 1, sizeof(char));
-      sprintf(pickupMsg, "(%c) %s", label, thisItem->itemData.itemName);
-      if (thisItem->name){
-	pickupMsg = realloc(pickupMsg, (strlen(pickupMsg) + 7 + strlen(thisItem->name) + 1) * sizeof(char));
-	strcat(pickupMsg, " named ");
-	strcat(pickupMsg, thisItem->name);
-      } 
-      addToMsgQueue(pickupMsg, true);
-    } else {
-      addContents(curLoc.level, curLoc.x, curLoc.y, thisItem);
-    }
-    
-    contents = thisContent->next;
-    
-    free(thisContent);
-    
-    c = 0;
-  } while (contents);
-  
-  return;
 }

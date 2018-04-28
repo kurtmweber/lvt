@@ -24,63 +24,63 @@
 #include"creaturelist.h"
 
 creatureList *findCreatureListEntry(creatureList *list, creature *creature){
-  if (!list){
-    return 0;
-  }
-  
-  do {
-    if (list->creature == creature){
-      return list;
-    }
-    
-    list = list->next;
-  } while(list);
-  
-  return 0;
+	if (!list){
+		return 0;
+	}
+	
+	do {
+		if (list->creature == creature){
+			return list;
+		}
+		
+		list = list->next;
+	} while(list);
+	
+	return 0;
 }
 
 creatureList *insertNewCreatureNode(creatureList *list, creatureList *node){
-  if (list){
-    list->prev = node;
-    node->next = list;
-    node->prev = 0;
-  } else {
-    node->next = 0;
-    node->prev = 0;
-  }
-  
-  //node->next = list;
-  
-  return node;
+	if (list){
+		list->prev = node;
+		node->next = list;
+		node->prev = 0;
+	} else {
+		node->next = 0;
+		node->prev = 0;
+	}
+	
+	//node->next = list;
+	
+	return node;
 }
 
 creatureList *removeCreatureNode(creatureList *list, creatureList *node){
-  creatureList *prev;
-  creatureList *next;
-  
-  if (!node){
-    return 0;
-  }
-  
-  if (!list){
-    return 0;
-  }
-  
-  if (list == node){
-    list = node->next;
-    if (list){
-      list->prev = 0;
-    }
-  } else {
-    prev = node->prev;
-    next = node->next;
-    if (prev){
-      prev->next = next;
-    }
-    if (next){
-      next->prev = prev;
-    }
-  }
-  
-  return list;
+	creatureList *prev;
+	creatureList *next;
+	
+	if (!node){
+		return 0;
+	}
+	
+	if (!list){
+		return 0;
+	}
+	
+	if (list == node){
+		list = node->next;
+		if (list){
+			list->prev = 0;
+		}
+	} else {
+		prev = node->prev;
+		next = node->next;
+		if (prev){
+			prev->next = next;
+		}
+		if (next){
+			next->prev = prev;
+		}
+	}
+	
+	return list;
 }

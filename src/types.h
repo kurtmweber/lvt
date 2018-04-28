@@ -25,47 +25,47 @@
 typedef pcg32_random_t rng;
 
 typedef enum coin{
-  HEADS,
-  TAILS
+	HEADS,
+	TAILS
 } coin;
 
 typedef struct coord2D{
-  unsigned int x;
-  unsigned int y;
+	unsigned int x;
+	unsigned int y;
 } coord2D;
 
 typedef struct coord3D{
-  unsigned int x;
-  unsigned int y;
-  unsigned int level;
+	unsigned int x;
+	unsigned int y;
+	unsigned int level;
 } coord3D;
 
 typedef struct moveMatrix{
-  int x;
-  int y;
+	int x;
+	int y;
 } moveMatrix;
 
 typedef enum color{
-  RED,
-  WHITE,
-  BRIGHTWHITE
+	RED,
+	WHITE,
+	BRIGHTWHITE
 } color;
 
 typedef struct gameStatus{
-  unsigned int turnNum;
-  unsigned int speedCounter;
-  unsigned int playerSpeed;
+	unsigned int turnNum;
+	unsigned int speedCounter;
+	unsigned int playerSpeed;
 } gameStatus;
 
 typedef struct msgQueueEntry{
-  bool confirm;
-  char *msg;
+	bool confirm;
+	char *msg;
 } msgQueueEntry;
 
 typedef struct screenDisplayCell{
-  char dispChar;
-  bool hasAttrs;
-  unsigned int attrs;
+	char dispChar;
+	bool hasAttrs;
+	unsigned int attrs;
 } screenDisplayCell;
 
 #endif

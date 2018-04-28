@@ -26,9 +26,9 @@
 unsigned int numFactions;
 
 unsigned int getNumFactions(){
-  return numFactions;
+	return numFactions;
 }
 
 void initializeFactions(){
-  numFactions = 2;
+	numFactions = 2;
 }

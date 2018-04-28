@@ -22,229 +22,229 @@
 #include "item.h"
 
 void setCorpseNutrition(item *corpse, unsigned int nutrition){
-  corpse->itemData.corpseUniqueData.nutrition = nutrition;
-  
-  return;
+	corpse->itemData.corpseUniqueData.nutrition = nutrition;
+	
+	return;
 }
 
 unsigned int getCorpseNutrition(item *corpse){
-  return corpse->itemData.corpseUniqueData.nutrition;
+	return corpse->itemData.corpseUniqueData.nutrition;
 }
 
 void setSeedRest(item *seed, unsigned int rest){
-  seed->itemData.seedUniqueData.rest = rest;
-  
-  return;
+	seed->itemData.seedUniqueData.rest = rest;
+	
+	return;
 }
 
 void setSeedDormancy(item *seed, unsigned int dormancy){
-  seed->itemData.seedUniqueData.dormancy = dormancy;
-  
-  return;
+	seed->itemData.seedUniqueData.dormancy = dormancy;
+	
+	return;
 }
 
 unsigned int getSeedRest(item *seed){
-  return seed->itemData.seedUniqueData.rest;
+	return seed->itemData.seedUniqueData.rest;
 }
 
 char *getItemClassName(item *item){
-  return item->itemData.itemName;
+	return item->itemData.itemName;
 }
 
 unsigned int getSeedDormancy(item *seed){
-  return seed->itemData.seedUniqueData.dormancy;
+	return seed->itemData.seedUniqueData.dormancy;
 }
 
 bool isSeed(item *item){
-  if (item->itemClass == ITEM_TYPE_SEED){
-    return true;
-  } else {
-    return false;
-  }
+	if (item->itemClass == ITEM_TYPE_SEED){
+		return true;
+	} else {
+		return false;
+	}
 }
 
 void setFruitNutrition(item *fruit, unsigned int nutrition){
-  fruit->itemData.fruitUniqueData.nutrition = nutrition;
-  
-  return;
+	fruit->itemData.fruitUniqueData.nutrition = nutrition;
+	
+	return;
 }
 
 unsigned int getFruitNutrition(item *fruit){
-  return fruit->itemData.fruitUniqueData.nutrition;
+	return fruit->itemData.fruitUniqueData.nutrition;
 }
 
 void setItemLocation(item *item, coord3D location){
-  item->location = location;
-  
-  return;
+	item->location = location;
+	
+	return;
 }
 
 char getItemDispChar(item *item){
-  return item->itemData.dispChar;
+	return item->itemData.dispChar;
 }
 
 colorPairs getItemColor(item *item){
-  return item->itemData.color;
+	return item->itemData.color;
 }
 
 void setItemName(item *item, char *name){
-  if (item->name){
-    free(item->name);
-  }
-  
-  item->name = name;
-  
-  return;
+	if (item->name){
+		free(item->name);
+	}
+	
+	item->name = name;
+	
+	return;
 }
 
 char *getItemName(item *item){
-  return item->name;
+	return item->name;
 }
 
 bool isWeapon(item *item){
-  switch (item->itemClass){
-    case ITEM_TYPE_LONGSWORD:
-    case ITEM_TYPE_DAGGER:
-    case ITEM_TYPE_AXE:
-      return true;
-    default:
-      return false;
-  }
+	switch (item->itemClass){
+		case ITEM_TYPE_LONGSWORD:
+		case ITEM_TYPE_DAGGER:
+		case ITEM_TYPE_AXE:
+			return true;
+		default:
+			return false;
+	}
 }
 
 bool isArmor(item *item){
-  switch(item->itemClass){
-    case ITEM_TYPE_SHIRT:
-    case ITEM_TYPE_UNDERARMOR:
-    case ITEM_TYPE_ARMOR:
-    case ITEM_TYPE_HELMET:
-    case ITEM_TYPE_CLOAK:
-    case ITEM_TYPE_GLOVES:
-    case ITEM_TYPE_LEGGINGS:
-    case ITEM_TYPE_SHOES:
-    case ITEM_TYPE_SHIELD:
-      return true;
-    default:
-      return false;
-  }
+	switch(item->itemClass){
+		case ITEM_TYPE_SHIRT:
+		case ITEM_TYPE_UNDERARMOR:
+		case ITEM_TYPE_ARMOR:
+		case ITEM_TYPE_HELMET:
+		case ITEM_TYPE_CLOAK:
+		case ITEM_TYPE_GLOVES:
+		case ITEM_TYPE_LEGGINGS:
+		case ITEM_TYPE_SHOES:
+		case ITEM_TYPE_SHIELD:
+			return true;
+		default:
+			return false;
+	}
 }
 
 void removeItemName(item *item){
-  if (item->name){
-    free(item->name);
-  }
-  
-  item->name = 0;
-  return;
+	if (item->name){
+		free(item->name);
+	}
+	
+	item->name = 0;
+	return;
 }
 
 void setItemClass(item *item, itemClassId class){
-  item->itemClass = class;
-  
-  return;
+	item->itemClass = class;
+	
+	return;
 }
 
 bool isWorn(item *item){
-  if (isArmor(item)){
-    return item->worn;
-  }
-  
-  return false;
+	if (isArmor(item)){
+		return item->worn;
+	}
+	
+	return false;
 }
 
 itemClassId getItemClass(item *item){
-  return item->itemClass;
+	return item->itemClass;
 }
 
 unsigned int getItemNutrition(item *item){
-  itemClassId cId;
-  
-  cId = getItemClass(item);
-  
-  if (cId == ITEM_TYPE_FRUIT){
-    return getFruitNutrition(item);
-  }
-  
-  if (cId == ITEM_TYPE_CORPSE){
-    return getCorpseNutrition(item);
-  }
-  
-  return 0;
+	itemClassId cId;
+	
+	cId = getItemClass(item);
+	
+	if (cId == ITEM_TYPE_FRUIT){
+		return getFruitNutrition(item);
+	}
+	
+	if (cId == ITEM_TYPE_CORPSE){
+		return getCorpseNutrition(item);
+	}
+	
+	return 0;
 }
 
 unsigned int getEffectiveArmor(item *item){
-  unsigned int ac;
-  
-  if (!item){
-    return 0;
-  }
-  
-  ac = item->itemData.baseArmor + item->armorModifier;
-  
-  return ac;
+	unsigned int ac;
+	
+	if (!item){
+		return 0;
+	}
+	
+	ac = item->itemData.baseArmor + item->armorModifier;
+	
+	return ac;
 }
 
 unsigned int getItemAttrs(item *item){
-  return item->itemData.attrs;
+	return item->itemData.attrs;
 }
 
 unsigned int getItemWeight(item *item){
-  int retval;
-  
-  retval = ((int)(item->itemData.weight) + item->weightModifier);
-  
-  if (retval < 0){
-    return 0;
-  } else {
-    return (unsigned int)retval;
-  }
+	int retval;
+	
+	retval = ((int)(item->itemData.weight) + item->weightModifier);
+	
+	if (retval < 0){
+		return 0;
+	} else {
+		return (unsigned int)retval;
+	}
 }
 
 void setItemWeight(item *item, unsigned int weight){
-  item->itemData.weight = weight;
-  return;
+	item->itemData.weight = weight;
+	return;
 }
 
 bool armorSlotMatch(item *item, armorSlots slotMatch){
-  if ((item->itemData.possibleSlots & slotMatch) == slotMatch){
-    return true;
-  } else {
-    return false;
-  }
+	if ((item->itemData.possibleSlots & slotMatch) == slotMatch){
+		return true;
+	} else {
+		return false;
+	}
 }
 
 coord3D getItemLocation(item *item){
-  // only trust this if item is unowned
-  return item->location;
+	// only trust this if item is unowned
+	return item->location;
 }
 
 void setItemOwned(item *item, bool status){
-  item->owned = status;
-  
-  return;
+	item->owned = status;
+	
+	return;
 }
 
 bool getItemOwned(item *item){
-  return item->owned;
+	return item->owned;
 }
 
 void setItemOwner(item *item, creature *owner){
-  item->owner = owner;
-  
-  return;
+	item->owner = owner;
+	
+	return;
 }
 
 creature *getItemOwner(item *item){
-  return item->owner;
+	return item->owner;
 }
 
 void setItemWielded(item *item, bool status){
-  item->wielded = status;
-  return;
+	item->wielded = status;
+	return;
 }
 
 void setItemWorn(item *item, bool status){
-  item->worn = status;
-  
-  return;
+	item->worn = status;
+	
+	return;
 }

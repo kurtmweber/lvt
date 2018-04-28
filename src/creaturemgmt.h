@@ -19,24 +19,24 @@
 #define _CREATUREMGMT_H
 
 typedef enum wieldOutcome{
-  WIELD_SUCCEEDED,
-  WIELD_FAILED_TWOHANDED,	// could not wield because it is a two-handed object and creature is
-				// equipped with a shield
-  WIELD_FAILED_WEIGHT,
-  WIELD_FAILED,
-  WIELD_FAILED_WORN
+	WIELD_SUCCEEDED,
+	WIELD_FAILED_TWOHANDED,	// could not wield because it is a two-handed object and creature is
+	// equipped with a shield
+	WIELD_FAILED_WEIGHT,
+	WIELD_FAILED,
+	WIELD_FAILED_WORN
 } wieldOutcome;
 
 typedef enum wearOutcome{
-  WEAR_SUCCEEDED,
-  WEAR_FAILED_NOT_ARMOR,
-  WEAR_FAILED_WIELDED
+	WEAR_SUCCEEDED,
+	WEAR_FAILED_NOT_ARMOR,
+	WEAR_FAILED_WIELDED
 } wearOutcome;
 
 typedef enum removeOutcome{
-  REMOVE_SUCCEEDED,
-  REMOVE_FAILED_NOT_WORN,
-  REMOVE_FAILED_NOT_ITEM
+	REMOVE_SUCCEEDED,
+	REMOVE_FAILED_NOT_WORN,
+	REMOVE_FAILED_NOT_ITEM
 } removeOutcome;
 
 #ifndef _CREATUREMGMT_C

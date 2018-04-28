@@ -34,180 +34,180 @@
 bool freeAction = false;
 
 bool doQuit(){
-  procMsgQueue();
-  destroyNcurses();
-  exit(EXIT_SUCCESS);
-  return true;
+	procMsgQueue();
+	destroyNcurses();
+	exit(EXIT_SUCCESS);
+	return true;
 }
 
 void gameLoop(){
-  unsigned int c = '\0';
-  
-  while(1){
-    procMsgQueue();
-    updateStatWin();
-    setCursorLoc();
-    c = getch();
-    clearMsg();
-    if (c == 'Q'){
-      if (doQuit()){
-        break;
-      }
-    }
-    processKey(c);
-    if (!freeAction){
-      updateTurnCounter();
-      moveCreatures();
-    } else {
-      freeAction = false;
-    }
-    displayLevel(dungeon[getCreatureMapLevel(&player)]);
-  }
-  
-  return;
+	unsigned int c = '\0';
+	
+	while(1){
+		procMsgQueue();
+		updateStatWin();
+		setCursorLoc();
+		c = getch();
+		clearMsg();
+		if (c == 'Q'){
+			if (doQuit()){
+				break;
+			}
+		}
+		processKey(c);
+		if (!freeAction){
+			updateTurnCounter();
+			moveCreatures();
+		} else {
+			freeAction = false;
+		}
+		displayLevel(dungeon[getCreatureMapLevel(&player)]);
+	}
+	
+	return;
 }
 
 void initializeGameStatus(){
-  status.turnNum = 0;
-  status.playerSpeed = 5;
-  status.speedCounter = 5;
+	status.turnNum = 0;
+	status.playerSpeed = 5;
+	status.speedCounter = 5;
 }
 
 void playerDead(){
-  addToMsgQueue("You are dead.  Game over.", true);
-  procMsgQueue();
-  
-  doQuit();
-  return;
+	addToMsgQueue("You are dead.  Game over.", true);
+	procMsgQueue();
+	
+	doQuit();
+	return;
 }
 
 void processKey(unsigned int c){
-  switch (c){
-    case KEY_UP:
-    case KEY_DOWN:
-    case KEY_LEFT:
-    case KEY_RIGHT:
-    case KEY_UPLEFT:
-    case KEY_UPRIGHT:
-    case KEY_DOWNLEFT:
-    case KEY_DOWNRIGHT:
-    case KEY_STAY:
-      doMoveKey(c);
-      break;
-    case 'o':
-    case 'c':
-      doOpenDoor(c);
-      break;
-    case 's':
-      doSearchDoors(c);
-      break;
-    case '<':
-    case '>':
-      doStairs(c);
-      break;
-    case ';':
-      doLook(c);
-      break;
-    case ',':
-      doPickup();
-      break;
-    case 'i':
-      doInventory();
-      break;
-    case 'n':
-      doNameItem();
-      break;
-    case '#':
-      doUnNameItem();
-      break;
-    case 'w':
-      doWield();
-      break;
-    case 'u':
-      doUnwield();
-      break;
-    case 'd':
-      doDrop();
-      break;
-    case 'W':
-      doWear();
-      break;
-    case 'r':
-      doRemove();
-      break;
-    case 't':
-      doThrow();
-      break;
-    case 'p':
-      doPickFruit();
-      break;
-    case 'e':
-      doEat();
-      break;
-    case 'S':
-      doSave();
-    default:
-      freeAction = true;
-      break;
-  }
-  return;
+	switch (c){
+		case KEY_UP:
+		case KEY_DOWN:
+		case KEY_LEFT:
+		case KEY_RIGHT:
+		case KEY_UPLEFT:
+		case KEY_UPRIGHT:
+		case KEY_DOWNLEFT:
+		case KEY_DOWNRIGHT:
+		case KEY_STAY:
+			doMoveKey(c);
+			break;
+		case 'o':
+		case 'c':
+			doOpenDoor(c);
+			break;
+		case 's':
+			doSearchDoors(c);
+			break;
+		case '<':
+		case '>':
+			doStairs(c);
+			break;
+		case ';':
+			doLook(c);
+			break;
+		case ',':
+			doPickup();
+			break;
+		case 'i':
+			doInventory();
+			break;
+		case 'n':
+			doNameItem();
+			break;
+		case '#':
+			doUnNameItem();
+			break;
+		case 'w':
+			doWield();
+			break;
+		case 'u':
+			doUnwield();
+			break;
+		case 'd':
+			doDrop();
+			break;
+		case 'W':
+			doWear();
+			break;
+		case 'r':
+			doRemove();
+			break;
+		case 't':
+			doThrow();
+			break;
+		case 'p':
+			doPickFruit();
+			break;
+		case 'e':
+			doEat();
+			break;
+		case 'S':
+			doSave();
+		default:
+			freeAction = true;
+			break;
+	}
+	return;
 }
 
 void startGame(){
-  char *welcomeMsg = 0;
-  
-  displayLevel(dungeon[0]);
-  
-  welcomeMsg = calloc(MSGLEN(WELCOME_MSG) + strlen(getCreatureName(&player)) + 1 , sizeof(char));
-  sprintf(welcomeMsg, WELCOME_MSG, getCreatureName(&player));
-  addToMsgQueue(welcomeMsg, true);
-  
-  free(welcomeMsg);
-  
-  gameLoop();
-  
-  return;
+	char *welcomeMsg = 0;
+	
+	displayLevel(dungeon[0]);
+	
+	welcomeMsg = calloc(MSGLEN(WELCOME_MSG) + strlen(getCreatureName(&player)) + 1 , sizeof(char));
+	sprintf(welcomeMsg, WELCOME_MSG, getCreatureName(&player));
+	addToMsgQueue(welcomeMsg, true);
+	
+	free(welcomeMsg);
+	
+	gameLoop();
+	
+	return;
 }
 
 void updateTurnCounter(){
-  creatureList *curCreatureNode;
-  creature *curCreature;
-  
-  status.speedCounter--;
-  
-  if (status.speedCounter == 0){
-    status.speedCounter = status.playerSpeed;
-    status.turnNum++;
-    if (!updateCreatureLifeCycle(&player)){
-      addToMsgQueue(DIED_OLD_AGE_MSG, true);
-      doQuit();
-    }
-    if (!updateCreatureNutrition(&player)){
-      addToMsgQueue(DIED_HUNGER_MSG, true);
-      doQuit();
-    }
-    if (getCreatureCurHp(&player) < getCreatureMaxHp(&player)){
-      regenerateHitPoints(&player);
-    }
-    
-    updatePlants();
-    updateSeeds();
-    
-    curCreatureNode = creatures;
-    if (curCreatureNode){
-      do {
-        curCreature = curCreatureNode->creature;
-        
-        curCreatureNode = curCreatureNode->next;
-        
-        if (!updateCreatureLifeCycle(curCreature)){
-          killCreature(curCreature);
-        } else if (!updateCreatureNutrition(curCreature)){
-          killCreature(curCreature);
-        }
-      } while (curCreatureNode);
-    }
-  }
-  
-  return;
+	creatureList *curCreatureNode;
+	creature *curCreature;
+	
+	status.speedCounter--;
+	
+	if (status.speedCounter == 0){
+		status.speedCounter = status.playerSpeed;
+		status.turnNum++;
+		if (!updateCreatureLifeCycle(&player)){
+			addToMsgQueue(DIED_OLD_AGE_MSG, true);
+			doQuit();
+		}
+		if (!updateCreatureNutrition(&player)){
+			addToMsgQueue(DIED_HUNGER_MSG, true);
+			doQuit();
+		}
+		if (getCreatureCurHp(&player) < getCreatureMaxHp(&player)){
+			regenerateHitPoints(&player);
+		}
+		
+		updatePlants();
+		updateSeeds();
+		
+		curCreatureNode = creatures;
+		if (curCreatureNode){
+			do {
+				curCreature = curCreatureNode->creature;
+				
+				curCreatureNode = curCreatureNode->next;
+				
+				if (!updateCreatureLifeCycle(curCreature)){
+					killCreature(curCreature);
+				} else if (!updateCreatureNutrition(curCreature)){
+					killCreature(curCreature);
+				}
+			} while (curCreatureNode);
+		}
+	}
+	
+	return;
 }

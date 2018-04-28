@@ -27,32 +27,32 @@ msgQueueEntry *msgQueue = 0;
 unsigned int numMsgQueueEntries = 0;
 
 void addToMsgQueue(char *msg, bool confirm){
-  msgQueue = realloc(msgQueue, sizeof(msgQueueEntry) * (numMsgQueueEntries + 2));
-  
-  msgQueue[numMsgQueueEntries].msg = calloc(sizeof(char), strlen(msg) + 1);
-  strcpy(msgQueue[numMsgQueueEntries].msg, msg);
-  msgQueue[numMsgQueueEntries].confirm = confirm;
-  
-  numMsgQueueEntries++;
-  
-  return;
+	msgQueue = realloc(msgQueue, sizeof(msgQueueEntry) * (numMsgQueueEntries + 2));
+	
+	msgQueue[numMsgQueueEntries].msg = calloc(sizeof(char), strlen(msg) + 1);
+	strcpy(msgQueue[numMsgQueueEntries].msg, msg);
+	msgQueue[numMsgQueueEntries].confirm = confirm;
+	
+	numMsgQueueEntries++;
+	
+	return;
 }
 
 void procMsgQueue(){
-  unsigned int i;
-  
-  for (i = 0; i < numMsgQueueEntries; i++){
-    if ((i < (numMsgQueueEntries - 1)) || msgQueue[i].confirm == true){
-      displayMsg(msgQueue[i].msg, i);
-      clearMsg();
-    } else {
-      displayMsgNoWait(msgQueue[i].msg, i);
-    }
-    free(msgQueue[i].msg);
-  }
-  
-  free(msgQueue);
-  numMsgQueueEntries = 0;
-  msgQueue = 0;
-  return;
+	unsigned int i;
+	
+	for (i = 0; i < numMsgQueueEntries; i++){
+		if ((i < (numMsgQueueEntries - 1)) || msgQueue[i].confirm == true){
+			displayMsg(msgQueue[i].msg, i);
+			clearMsg();
+		} else {
+			displayMsgNoWait(msgQueue[i].msg, i);
+		}
+		free(msgQueue[i].msg);
+	}
+	
+	free(msgQueue);
+	numMsgQueueEntries = 0;
+	msgQueue = 0;
+	return;
 }

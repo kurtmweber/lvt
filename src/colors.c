@@ -25,22 +25,22 @@
 #include "colors.h"
 
 void initializeColors(){
-  if (!has_colors()){
-    destroyNcurses();
-    exit(0);
-  }
-  
-  start_color();
-  
-  init_pair(BlackGreen, COLOR_BLACK, COLOR_GREEN);
-  init_pair(WhiteBlack, COLOR_WHITE, COLOR_BLACK);
-  init_pair(BlueBlack, COLOR_BLUE, COLOR_BLACK);
-  init_pair(GreenBlack, COLOR_GREEN, COLOR_BLACK);
-  init_pair(RedBlack, COLOR_RED, COLOR_BLACK);
-  init_pair(MagentaBlack, COLOR_MAGENTA, COLOR_BLACK);
-  init_pair(CyanBlack, COLOR_CYAN, COLOR_BLACK);
-  init_pair(BrownBlack, COLOR_YELLOW, COLOR_BLACK);	// COLOR_YELLOW is actually brown.  Actual yellow
-							// is COLOR_YELLOW + A_BOLD
-  
-  return;
+	if (!has_colors()){
+		destroyNcurses();
+		exit(0);
+	}
+	
+	start_color();
+	
+	init_pair(BlackGreen, COLOR_BLACK, COLOR_GREEN);
+	init_pair(WhiteBlack, COLOR_WHITE, COLOR_BLACK);
+	init_pair(BlueBlack, COLOR_BLUE, COLOR_BLACK);
+	init_pair(GreenBlack, COLOR_GREEN, COLOR_BLACK);
+	init_pair(RedBlack, COLOR_RED, COLOR_BLACK);
+	init_pair(MagentaBlack, COLOR_MAGENTA, COLOR_BLACK);
+	init_pair(CyanBlack, COLOR_CYAN, COLOR_BLACK);
+	init_pair(BrownBlack, COLOR_YELLOW, COLOR_BLACK);	// COLOR_YELLOW is actually brown.  Actual yellow
+	// is COLOR_YELLOW + A_BOLD
+	
+	return;
 }

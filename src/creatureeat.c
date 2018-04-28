@@ -28,38 +28,38 @@
 #include "eat.h"
 
 bool hungerAction(creature *curCreature){
-  item *foodItem = 0;
-  coord3D itemLoc;
-  
-  if (getCreatureNutrition(curCreature) <= (getCreatureWeight(curCreature) / 2)){
-    setCreatureHungry(curCreature);
-  }
-  
-  if (isCreatureHungry(curCreature)){
-    if (hasFoodInventory(curCreature)){
-      foodItem = selectOptimalFoodInventory(curCreature);
-      if (foodItem){
-	eatItem(curCreature, foodItem);
-	return true;
-      }
-    }
-    
-    foodItem = checkAdjacentFood(getCreatureLocation(curCreature));
-    if (foodItem){
-      itemLoc = getItemLocation(foodItem);
-      if (addCreatureInventoryItem(curCreature, foodItem)){
-	removeContent(itemLoc.level, itemLoc.x, itemLoc.y, foodItem);
-	return true;
-      }
-    }
-    
-    foodItem = checkAdjacentFruitingBush(getCreatureLocation(curCreature));
-    if (foodItem){
-      if (addCreatureInventoryItem(curCreature, foodItem)){
-	return true;
-      }
-    }      
-  }
-  
-  return false;
+	item *foodItem = 0;
+	coord3D itemLoc;
+	
+	if (getCreatureNutrition(curCreature) <= (getCreatureWeight(curCreature) / 2)){
+		setCreatureHungry(curCreature);
+	}
+	
+	if (isCreatureHungry(curCreature)){
+		if (hasFoodInventory(curCreature)){
+			foodItem = selectOptimalFoodInventory(curCreature);
+			if (foodItem){
+				eatItem(curCreature, foodItem);
+				return true;
+			}
+		}
+		
+		foodItem = checkAdjacentFood(getCreatureLocation(curCreature));
+		if (foodItem){
+			itemLoc = getItemLocation(foodItem);
+			if (addCreatureInventoryItem(curCreature, foodItem)){
+				removeContent(itemLoc.level, itemLoc.x, itemLoc.y, foodItem);
+				return true;
+			}
+		}
+		
+		foodItem = checkAdjacentFruitingBush(getCreatureLocation(curCreature));
+		if (foodItem){
+			if (addCreatureInventoryItem(curCreature, foodItem)){
+				return true;
+			}
+		}      
+	}
+	
+	return false;
 }

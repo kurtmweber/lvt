@@ -27,81 +27,81 @@
 #include "move.h"
 
 moveOutcome moveCreature(creature *creature, moveDirection dir){
-  coord3D curPos;
-  coord3D newPos;
-  
-  curPos = getCreatureLocation(creature);
-  
-  switch (dir){
-    case UP:
-      newPos.x = curPos.x;
-      newPos.y = curPos.y - 1;
-      break;
-    case DOWN:
-      newPos.x = curPos.x;
-      newPos.y = curPos.y + 1;
-      break;
-    case LEFT:
-      newPos.x = curPos.x - 1;
-      newPos.y = curPos.y;
-      break;
-    case RIGHT:
-      newPos.x = curPos.x + 1;
-      newPos.y = curPos.y;
-      break;
-    case UPLEFT:
-      newPos.y = curPos.y - 1;
-      newPos.x = curPos.x - 1;
-      break;
-    case UPRIGHT:
-      newPos.y = curPos.y - 1;
-      newPos.x = curPos.x + 1;
-      break;
-    case DOWNLEFT:
-      newPos.y = curPos.y + 1;
-      newPos.x = curPos.x - 1;
-      break;
-    case DOWNRIGHT:
-      newPos.y = curPos.y + 1;
-      newPos.x = curPos.x + 1;
-      break;
-    case NOMOVE:
-      return MOVE_SUCCESS;
-  }
-  
-  freeAction = true;	// if the move fails, then we don't update the turn counter
-			// there are multiple possibilities and multiple returns from this function
-			// in the event of a failed move, so we'll set it true here and then set it
-			// false later on, at a point where if we've gotten that far without returning
-			// then we know the move has succeeded
-  
-  switch (getMapSpaceTerrain(dungeon[curPos.level], newPos.x, newPos.y)){
-    case WALL:
-    case PERMANENTROCK:
-    case HIDDENDOOR:
-      return MOVE_FAILED_WALL;
-    case DOOR:
-      return MOVE_FAILED_DOOR;
-    default:
-      break;
-  }
-  
-  if (hasCreatureOccupant(dungeon[curPos.level], newPos.x, newPos.y)){
-    return MOVE_FAILED_CREATURE;
-  }
-  
-  if (hasPlantOccupant(dungeon[curPos.level], newPos.x, newPos.y)){
-    tramplePlant(getPlantOccupant(dungeon[curPos.level], newPos.x, newPos.y), creature);
-  }
-  
-  freeAction = false;	// if we've gotten here, we know the move succeeded
-  
-  newPos.level = curPos.level;
-  
-  clearCreatureOccupant(dungeon[curPos.level], curPos.x, curPos.y);
-  setCreatureOccupant(dungeon[curPos.level], newPos.x, newPos.y, creature);
-  setCreatureLocation(creature, newPos);
-  updateRegionExploredState(dungeon[curPos.level], newPos.x, newPos.y, true);
-  
-  return MOVE_SUCCESS;
+	coord3D curPos;
+	coord3D newPos;
+	
+	curPos = getCreatureLocation(creature);
+	
+	switch (dir){
+		case UP:
+			newPos.x = curPos.x;
+			newPos.y = curPos.y - 1;
+			break;
+		case DOWN:
+			newPos.x = curPos.x;
+			newPos.y = curPos.y + 1;
+			break;
+		case LEFT:
+			newPos.x = curPos.x - 1;
+			newPos.y = curPos.y;
+			break;
+		case RIGHT:
+			newPos.x = curPos.x + 1;
+			newPos.y = curPos.y;
+			break;
+		case UPLEFT:
+			newPos.y = curPos.y - 1;
+			newPos.x = curPos.x - 1;
+			break;
+		case UPRIGHT:
+			newPos.y = curPos.y - 1;
+			newPos.x = curPos.x + 1;
+			break;
+		case DOWNLEFT:
+			newPos.y = curPos.y + 1;
+			newPos.x = curPos.x - 1;
+			break;
+		case DOWNRIGHT:
+			newPos.y = curPos.y + 1;
+			newPos.x = curPos.x + 1;
+			break;
+		case NOMOVE:
+			return MOVE_SUCCESS;
+	}
+	
+	freeAction = true;	// if the move fails, then we don't update the turn counter
+	// there are multiple possibilities and multiple returns from this function
+	// in the event of a failed move, so we'll set it true here and then set it
+	// false later on, at a point where if we've gotten that far without returning
+	// then we know the move has succeeded
+	
+	switch (getMapSpaceTerrain(dungeon[curPos.level], newPos.x, newPos.y)){
+		case WALL:
+		case PERMANENTROCK:
+		case HIDDENDOOR:
+			return MOVE_FAILED_WALL;
+		case DOOR:
+			return MOVE_FAILED_DOOR;
+		default:
+			break;
+	}
+	
+	if (hasCreatureOccupant(dungeon[curPos.level], newPos.x, newPos.y)){
+		return MOVE_FAILED_CREATURE;
+	}
+	
+	if (hasPlantOccupant(dungeon[curPos.level], newPos.x, newPos.y)){
+		tramplePlant(getPlantOccupant(dungeon[curPos.level], newPos.x, newPos.y), creature);
+	}
+	
+	freeAction = false;	// if we've gotten here, we know the move succeeded
+	
+	newPos.level = curPos.level;
+	
+	clearCreatureOccupant(dungeon[curPos.level], curPos.x, curPos.y);
+	setCreatureOccupant(dungeon[curPos.level], newPos.x, newPos.y, creature);
+	setCreatureLocation(creature, newPos);
+	updateRegionExploredState(dungeon[curPos.level], newPos.x, newPos.y, true);
+	
+	return MOVE_SUCCESS;
 }

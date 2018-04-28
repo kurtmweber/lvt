@@ -133,9 +133,9 @@ extern const unsigned int numLevels;
 coord2D *enumerateFloors(level level);
 #else
 typedef struct centerPoint{
-  unsigned int x;
-  unsigned int y;
-  bool complete;
+	unsigned int x;
+	unsigned int y;
+	bool complete;
 } centerPoint;
 
 level initLevel();

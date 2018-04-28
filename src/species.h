@@ -23,86 +23,86 @@
 #include "creature.h"
 
 typedef enum speciesAggression{
-  SPECIES_TRUMP = 8,
-  SPECIES_HITLER,
-  SPECIES_HYPERAGGRESSIVE,
-  SPECIES_AGGRESSIVE,
-  SPECIES_PEEVISH,
-  SPECIES_CALM,
-  SPECIES_CHILL
+	SPECIES_TRUMP = 8,
+	SPECIES_HITLER,
+	SPECIES_HYPERAGGRESSIVE,
+	SPECIES_AGGRESSIVE,
+	SPECIES_PEEVISH,
+	SPECIES_CALM,
+	SPECIES_CHILL
 } speciesAggression;
 
 typedef enum creatureStats{
-  STRENGTH,
-  WISDOM,
-  INTELLIGENCE,
-  CONSTITUTION,
-  CHARISMA,
-  DEXTERITY,
-  MAXSTATNAME
+	STRENGTH,
+	WISDOM,
+	INTELLIGENCE,
+	CONSTITUTION,
+	CHARISMA,
+	DEXTERITY,
+	MAXSTATNAME
 } creatureStats;
 
 
 // remember to add a corpseSubClassId in item.h for each new species type!
 
 typedef enum creatureSpecies{
-  HUMAN,
-  HALFLING,
-  ELF,
-  DWARF,
-  BEAR,
-  //BOAR,
-  //DEER,
-  //ORC,
-  //GOBLIN,
-  MAXCREATURESPECIES
+	HUMAN,
+	HALFLING,
+	ELF,
+	DWARF,
+	BEAR,
+	//BOAR,
+	//DEER,
+	//ORC,
+	//GOBLIN,
+	MAXCREATURESPECIES
 } creatureSpecies;
 
 typedef enum plantSpecies{
-  BLUEBERRY,
-  BLACKBERRY,
-  STRAWBERRY,
-  RASPBERRY,
-  /*FENNEL,
-  HIBISCUS,
-  LINDEN,
-  ZOYSIA,*/
-  MAXPLANTSPECIES
+	BLUEBERRY,
+	BLACKBERRY,
+	STRAWBERRY,
+	RASPBERRY,
+	/*FENNEL,
+	 H IBI*SCUS,
+	 LINDEN,
+	 ZOYSIA,*/
+	MAXPLANTSPECIES
 } plantSpecies;
 
 typedef enum plantClass{
-  BERRYBUSH,
-  LEAFYBUSH,
-  GRASS,
-  MAXPLANTCLASS
+	BERRYBUSH,
+	LEAFYBUSH,
+	GRASS,
+	MAXPLANTCLASS
 } plantClass;
 
 typedef struct plantSpeciesInfo{
-  unsigned int toughness;
-  unsigned int growthRate;
-  unsigned int productionTime;
-  unsigned int maturityLevel;
-  unsigned int maxProduction;
-  plantClass plantClass;
-  char dispChar;
-  colorPairs color;
+	unsigned int toughness;
+	unsigned int growthRate;
+	unsigned int productionTime;
+	unsigned int maturityLevel;
+	unsigned int maxProduction;
+	plantClass plantClass;
+	char dispChar;
+	colorPairs color;
 } plantSpeciesInfo;
-  
+
 
 typedef struct speciesActions{
 } speciesActions;
 
 typedef struct speciesInfo{
-  int statModifiers[MAXSTATNAME];
-  unsigned int lifePace;
-  speciesActions actions;
-  unsigned int baseHp;
-  char dispChar;
-  colorPairs color;
-  unsigned int speed;
-  bool hasHands;
-  unsigned int weight;
-  speciesAggression aggression;
+	int statModifiers[MAXSTATNAME];
+	unsigned int lifePace;
+	speciesActions actions;
+	unsigned int baseHp;
+	char dispChar;
+	colorPairs color;
+	unsigned int speed;
+	bool hasHands;
+	unsigned int weight;
+	speciesAggression aggression;
 } speciesInfo;
 
 #endif

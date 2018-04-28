@@ -31,111 +31,110 @@
 //#define _D_DEBUG
 
 screenDisplayCell *generateLevelRepresentation(level level, unsigned int line){
-  screenDisplayCell *mapLine = 0;
-  unsigned int x = 0;
-  char c = 0;
-  creature *creatureOccupant;
-  mapSpaceContents *contents;
-  plant *plantOccupant;
-  
-  mapLine = calloc(dimMapX + 1, sizeof(screenDisplayCell));
-  
-  for (x = 0; x < dimMapX; x++){
-#ifndef _D_DEBUG
-    if (getMapSpaceExploredState(level, x, line)){
-#endif
-      // a creature occupant will always appear on top of contents, and contents will always appear on
-      // top of a plant occupant, so we only need to worry about the highest level that appears and if
-      // it's there, then we don't need to worry about the lower levels for display purposes
-      if (hasCreatureOccupant(level, x, line) && isInRange2D(get2DCoordPart(getCreatureLocation(&player)), get2DCoordPart(getCreatureLocation(getCreatureOccupant(level, x, line))), 7)){
-	creatureOccupant = getCreatureOccupant(level, x, line);
-	mapLine[x].dispChar = getCreatureDispChar(creatureOccupant);
-	mapLine[x].hasAttrs = true;
-	mapLine[x].attrs = COLOR_PAIR(getCreatureColor(creatureOccupant));
-	if (sameFactions(&player, creatureOccupant)){
-	  mapLine[x].attrs = mapLine[x].attrs | A_BOLD;
+	screenDisplayCell *mapLine = 0;
+	unsigned int x = 0;
+	char c = 0;
+	creature *creatureOccupant;
+	mapSpaceContents *contents;
+	plant *plantOccupant;
+	
+	mapLine = calloc(dimMapX + 1, sizeof(screenDisplayCell));
+	
+	for (x = 0; x < dimMapX; x++){
+		#ifndef _D_DEBUG
+		if (getMapSpaceExploredState(level, x, line)){
+			#endif
+			// a creature occupant will always appear on top of contents, and contents will always appear on
+			// top of a plant occupant, so we only need to worry about the highest level that appears and if
+			// it's there, then we don't need to worry about the lower levels for display purposes
+			if (hasCreatureOccupant(level, x, line) && isInRange2D(get2DCoordPart(getCreatureLocation(&player)), get2DCoordPart(getCreatureLocation(getCreatureOccupant(level, x, line))), 7)){
+				creatureOccupant = getCreatureOccupant(level, x, line);
+				mapLine[x].dispChar = getCreatureDispChar(creatureOccupant);
+				mapLine[x].hasAttrs = true;
+				mapLine[x].attrs = COLOR_PAIR(getCreatureColor(creatureOccupant));
+				if (sameFactions(&player, creatureOccupant)){
+					mapLine[x].attrs = mapLine[x].attrs | A_BOLD;
+				}
+			} else if (hasContents(level, x, line)){
+				contents = getContents(level, x, line);
+				mapLine[x].dispChar = getItemDispChar(contents->item);
+				mapLine[x].hasAttrs = true;
+				mapLine[x].attrs = COLOR_PAIR(getItemColor(contents->item)) | getItemAttrs(contents->item);
+			} else if (hasPlantOccupant(level, x, line)){
+				plantOccupant = getPlantOccupant(level, x, line);
+				mapLine[x].dispChar = getPlantDispChar(plantOccupant);
+				mapLine[x].hasAttrs = true;
+				mapLine[x].attrs = COLOR_PAIR(getPlantColor(plantOccupant));
+				if (getPlantCurProduction(plantOccupant) > 0){	// bold if plant is bearing fruit
+					mapLine[x].attrs = mapLine[x].attrs | A_BOLD;
+				}
+			} else {
+				switch (getMapSpaceTerrain(level, x, line)){
+					case WALL:
+					case PERMANENTROCK:
+						mapLine[x].dispChar = '#';
+						mapLine[x].hasAttrs = false;
+						break;
+					case FLOOR:
+						mapLine[x].dispChar = '.';
+						mapLine[x].hasAttrs = false;
+						break;
+					case DOOR:
+						mapLine[x].dispChar = '+';
+						mapLine[x].hasAttrs = false;
+						break;
+					case HIDDENDOOR:
+						#ifndef _D_DEBUG
+						mapLine[x].dispChar = '#';
+						#else
+						mapLine[x].dispChar = '?';
+						#endif
+						mapLine[x].hasAttrs = false;
+						break;
+					case OPENDOOR:
+						mapLine[x].dispChar = '\'';
+						mapLine[x].hasAttrs = false;
+						break;
+					case UPSTAIR:
+						mapLine[x].dispChar = '<';
+						mapLine[x].hasAttrs = true;
+						mapLine[x].attrs = A_BOLD;
+						break;
+					case DOWNSTAIR:
+						mapLine[x].dispChar = '>';
+						mapLine[x].hasAttrs = true;
+						mapLine[x].attrs = A_BOLD;
+						break;
+					default:
+						mapLine[x].dispChar = '?';
+						mapLine[x].hasAttrs = false;
+						break;
+				}
+			}
+			#ifndef _D_DEBUG
+		} else {
+			mapLine[x].dispChar = ' ';
+			mapLine[x].hasAttrs = false;
+		}
+		#endif
 	}
-      } else if (hasContents(level, x, line)){
-	contents = getContents(level, x, line);
-	mapLine[x].dispChar = getItemDispChar(contents->item);
-	mapLine[x].hasAttrs = true;
-	mapLine[x].attrs = COLOR_PAIR(getItemColor(contents->item)) | getItemAttrs(contents->item);
-      } else if (hasPlantOccupant(level, x, line)){
-	plantOccupant = getPlantOccupant(level, x, line);
-	mapLine[x].dispChar = getPlantDispChar(plantOccupant);
-	mapLine[x].hasAttrs = true;
-	mapLine[x].attrs = COLOR_PAIR(getPlantColor(plantOccupant));
-	if (getPlantCurProduction(plantOccupant) > 0){	// bold if plant is bearing fruit
-	  mapLine[x].attrs = mapLine[x].attrs | A_BOLD;
-	}
-      } else {
-	  switch (getMapSpaceTerrain(level, x, line)){
-	    case WALL:
-	    case PERMANENTROCK:
-	      mapLine[x].dispChar = '#';
-	      mapLine[x].hasAttrs = false;
-	      break;
-	    case FLOOR:
-	      mapLine[x].dispChar = '.';
-	      mapLine[x].hasAttrs = false;
-	      break;
-	    case DOOR:
-	      mapLine[x].dispChar = '+';
-	      mapLine[x].hasAttrs = false;
-	      break;
-	    case HIDDENDOOR:
-#ifndef _D_DEBUG
-	      mapLine[x].dispChar = '#';
-#else
-	      mapLine[x].dispChar = '?';
-#endif
-	      mapLine[x].hasAttrs = false;
-	      break;
-	    case OPENDOOR:
-	      mapLine[x].dispChar = '\'';
-	      mapLine[x].hasAttrs = false;
-	      break;
-	    case UPSTAIR:
-	      mapLine[x].dispChar = '<';
-	      mapLine[x].hasAttrs = true;
-	      mapLine[x].attrs = A_BOLD;
-	      break;
-	    case DOWNSTAIR:
-	      mapLine[x].dispChar = '>';
-	      mapLine[x].hasAttrs = true;
-	      mapLine[x].attrs = A_BOLD;
-	      break;
-	    default:
-	      mapLine[x].dispChar = '?';
-	      mapLine[x].hasAttrs = false;
-	      break;
-	  }
-      }
-#ifndef _D_DEBUG
-    } else {
-      mapLine[x].dispChar = ' ';
-      mapLine[x].hasAttrs = false;
-    }
-#endif
-  }
-  
-  mapLine[dimMapX].dispChar = '\0';
-  
-  return mapLine;
+	
+	mapLine[dimMapX].dispChar = '\0';
+	
+	return mapLine;
 }
 
 void displayLevel(level level){
-  unsigned int y = 0;
-  screenDisplayCell *mapLine = 0;
-  
-  for (y = 0; y < dimMapY; y++){
-    mapLine = generateLevelRepresentation(level, y);
-    writeLinePlayArea(mapLine, y);
-    free(mapLine);
-  }
-  
-  refreshPlayArea();
-  
-  return;
+	unsigned int y = 0;
+	screenDisplayCell *mapLine = 0;
+	
+	for (y = 0; y < dimMapY; y++){
+		mapLine = generateLevelRepresentation(level, y);
+		writeLinePlayArea(mapLine, y);
+		free(mapLine);
+	}
+	
+	refreshPlayArea();
+	
+	return;
 }
-  

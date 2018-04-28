@@ -25,222 +25,222 @@
 const unsigned int exploreRadius = 1;
 
 void setMapSpaceTerrain(level level, unsigned int x, unsigned int y, terrain terrain){
-  level[x][y].terrain = terrain;
-  
-  return;
+	level[x][y].terrain = terrain;
+	
+	return;
 }
 
 terrain getMapSpaceTerrain(level level, unsigned int x, unsigned int y){
-  return level[x][y].terrain;
+	return level[x][y].terrain;
 }
 
 void setMapSpaceExploredState(level level, unsigned int i, unsigned int j, bool state){
-  level[i][j].explored = state;
-  
-  return;
+	level[i][j].explored = state;
+	
+	return;
 }
 
 void setTerrainData(level level, unsigned int x, unsigned int y, terrain terrain, void *data){
-  unsigned int *searchCountdown;
-  
-  switch (terrain){
-    case HIDDENDOOR:
-      searchCountdown = (unsigned int *)data;
-      level[x][y].terrainData.searchCountdown = *searchCountdown;
-      break;
-    default:
-      break;
-  }
-  return;
+	unsigned int *searchCountdown;
+	
+	switch (terrain){
+		case HIDDENDOOR:
+			searchCountdown = (unsigned int *)data;
+			level[x][y].terrainData.searchCountdown = *searchCountdown;
+			break;
+		default:
+			break;
+	}
+	return;
 }
 
 void *getTerrainData(level level, unsigned int x, unsigned int y, terrain terrain){
-  unsigned int *searchCountdown;
-  
-  switch (terrain){
-    case HIDDENDOOR:
-      searchCountdown = calloc(1, sizeof(level[x][y].terrainData.searchCountdown));
-      *searchCountdown = level[x][y].terrainData.searchCountdown;
-      return (void *)searchCountdown;
-    default:
-      break;
-  }
-  
-  return 0;
+	unsigned int *searchCountdown;
+	
+	switch (terrain){
+		case HIDDENDOOR:
+			searchCountdown = calloc(1, sizeof(level[x][y].terrainData.searchCountdown));
+			*searchCountdown = level[x][y].terrainData.searchCountdown;
+			return (void *)searchCountdown;
+		default:
+			break;
+	}
+	
+	return 0;
 }
 
 bool getMapSpaceExploredState(level level, unsigned int i, unsigned int j){
-  return level[i][j].explored;
+	return level[i][j].explored;
 }
 
 coord2D findLevelUpstair(level level){
-  unsigned int x = 0, y = 0;
-  coord2D coords;
-  
-  for (x = 0; x < dimMapX; x++){
-    for (y = 0; y < dimMapY; y++){
-      if (getMapSpaceTerrain(level, x, y) == UPSTAIR){
-	coords.x = x;
-	coords.y = y;
+	unsigned int x = 0, y = 0;
+	coord2D coords;
+	
+	for (x = 0; x < dimMapX; x++){
+		for (y = 0; y < dimMapY; y++){
+			if (getMapSpaceTerrain(level, x, y) == UPSTAIR){
+				coords.x = x;
+				coords.y = y;
+				return coords;
+			}
+		}
+	}
+	
+	coords.x = 0;
+	coords.y = 0;
 	return coords;
-      }
-    }
-  }
-  
-  coords.x = 0;
-  coords.y = 0;
-  return coords;
 }
 
 coord2D findLevelDownstair(level level){
-  unsigned int x = 0, y = 0;
-  coord2D coords;
-  
-  for (x = 0; x < dimMapX; x++){
-    for (y = 0; y < dimMapY; y++){
-      if (getMapSpaceTerrain(level, x, y) == DOWNSTAIR){
-	coords.x = x;
-	coords.y = y;
+	unsigned int x = 0, y = 0;
+	coord2D coords;
+	
+	for (x = 0; x < dimMapX; x++){
+		for (y = 0; y < dimMapY; y++){
+			if (getMapSpaceTerrain(level, x, y) == DOWNSTAIR){
+				coords.x = x;
+				coords.y = y;
+				return coords;
+			}
+		}
+	}
+	
+	coords.x = 0;
+	coords.y = 0;
 	return coords;
-      }
-    }
-  }
-  
-  coords.x = 0;
-  coords.y = 0;
-  return coords;
 }
 
 void initializeMapSpaceContents(level level, unsigned int x, unsigned int y){
-  level[x][y].contents = NULL;
-  level[x][y].plantOccupant = NULL;
-  level[x][y].creatureOccupant = NULL;
-  return;
+	level[x][y].contents = NULL;
+	level[x][y].plantOccupant = NULL;
+	level[x][y].creatureOccupant = NULL;
+	return;
 }
 
 bool hasContents(level level, unsigned int x, unsigned int y){
-  if (level[x][y].contents){
-    return true;
-  } else {
-    return false;
-  }
+	if (level[x][y].contents){
+		return true;
+	} else {
+		return false;
+	}
 }
 
 void addContents(unsigned int mapLevel, unsigned int x, unsigned int y, item *item){
-  mapSpaceContents *node;
-  coord3D curLoc;
-  level level;
-  
-  level = dungeon[mapLevel];
-  
-  node = allocateMapSpaceContentsListEntry();
-  
-  if (level[x][y].contents){
-    node->next = level[x][y].contents;
-    level[x][y].contents->prev = node;
-  }
-  
-  node->prev = 0;
-  level[x][y].contents = node;
-  node->item = item;
-  
-  curLoc.x = x;
-  curLoc.y = y;
-  curLoc.level = mapLevel;
-  
-  setItemLocation(item, curLoc);
-  setItemOwned(item, false);
-  setItemOwner(item, NULL);
-  
-  return;
+	mapSpaceContents *node;
+	coord3D curLoc;
+	level level;
+	
+	level = dungeon[mapLevel];
+	
+	node = allocateMapSpaceContentsListEntry();
+	
+	if (level[x][y].contents){
+		node->next = level[x][y].contents;
+		level[x][y].contents->prev = node;
+	}
+	
+	node->prev = 0;
+	level[x][y].contents = node;
+	node->item = item;
+	
+	curLoc.x = x;
+	curLoc.y = y;
+	curLoc.level = mapLevel;
+	
+	setItemLocation(item, curLoc);
+	setItemOwned(item, false);
+	setItemOwner(item, NULL);
+	
+	return;
 }
 
 void removeContent(unsigned int mapLevel, unsigned int x, unsigned int y, item *item){
-  mapSpaceContents *node;
-  mapSpaceContents *curNode;
-  
-  node = getContents(dungeon[mapLevel], x, y);
-  
-  dungeon[mapLevel][x][y].contents = 0;
-  
-  if (!node){
-    return;
-  }
-  
-  do {
-    curNode = node;
-    if (curNode->item != item){
-      addContents(mapLevel, x, y, curNode->item);
-    }
-    
-    node = node->next;
-  } while(node);
-  
-  return;
+	mapSpaceContents *node;
+	mapSpaceContents *curNode;
+	
+	node = getContents(dungeon[mapLevel], x, y);
+	
+	dungeon[mapLevel][x][y].contents = 0;
+	
+	if (!node){
+		return;
+	}
+	
+	do {
+		curNode = node;
+		if (curNode->item != item){
+			addContents(mapLevel, x, y, curNode->item);
+		}
+		
+		node = node->next;
+	} while(node);
+	
+	return;
 }
 
 mapSpaceContents *getContents(level level, unsigned int x, unsigned int y){
-  return level[x][y].contents;
+	return level[x][y].contents;
 }
 
 bool hasPlantOccupant(level level, unsigned int x, unsigned int y){
-  if (level[x][y].plantOccupant){
-    return true;
-  } else {
-    return false;
-  }
+	if (level[x][y].plantOccupant){
+		return true;
+	} else {
+		return false;
+	}
 }
 
 void setPlantOccupant(level level, unsigned int x, unsigned int y, plant *plant){
-  level[x][y].plantOccupant = plant;
-  
-  return;
+	level[x][y].plantOccupant = plant;
+	
+	return;
 }
 
 bool hasCreatureOccupant(level level, unsigned int x, unsigned int y){
-  if (level[x][y].creatureOccupant){
-    return true;
-  } else {
-    return false;
-  }
+	if (level[x][y].creatureOccupant){
+		return true;
+	} else {
+		return false;
+	}
 }
 
 void setCreatureOccupant(level level, unsigned int x, unsigned int y, creature *creature){
-  level[x][y].creatureOccupant = creature;
-  
-  return;
+	level[x][y].creatureOccupant = creature;
+	
+	return;
 }
 
 void clearCreatureOccupant(level level, unsigned int x, unsigned int y){
-  level[x][y].creatureOccupant = 0;
-  
-  return;
+	level[x][y].creatureOccupant = 0;
+	
+	return;
 }
 
 void clearPlantOccupant(level level, unsigned int x, unsigned int y){
-  level[x][y].plantOccupant = 0;
-  
-  return;
+	level[x][y].plantOccupant = 0;
+	
+	return;
 }
 
 creature *getCreatureOccupant(level level, unsigned int x, unsigned int y){
-  return level[x][y].creatureOccupant;
+	return level[x][y].creatureOccupant;
 }
 
 plant *getPlantOccupant(level level, unsigned x, unsigned int y){
-  return level[x][y].plantOccupant;
+	return level[x][y].plantOccupant;
 }
 
 void updateRegionExploredState(level level, unsigned int x, unsigned int y, bool state){
-  setMapSpaceExploredState(level, x, y - 1, state);
-  setMapSpaceExploredState(level, x, y, state);
-  setMapSpaceExploredState(level, x, y + 1, state);
-  setMapSpaceExploredState(level, x - 1, y - 1, state);
-  setMapSpaceExploredState(level, x - 1, y, state);
-  setMapSpaceExploredState(level, x - 1, y + 1, state);
-  setMapSpaceExploredState(level, x + 1, y - 1, state);
-  setMapSpaceExploredState(level, x + 1, y, state);
-  setMapSpaceExploredState(level, x + 1, y + 1, state);
-  
-  return;
+	setMapSpaceExploredState(level, x, y - 1, state);
+	setMapSpaceExploredState(level, x, y, state);
+	setMapSpaceExploredState(level, x, y + 1, state);
+	setMapSpaceExploredState(level, x - 1, y - 1, state);
+	setMapSpaceExploredState(level, x - 1, y, state);
+	setMapSpaceExploredState(level, x - 1, y + 1, state);
+	setMapSpaceExploredState(level, x + 1, y - 1, state);
+	setMapSpaceExploredState(level, x + 1, y, state);
+	setMapSpaceExploredState(level, x + 1, y + 1, state);
+	
+	return;
 }

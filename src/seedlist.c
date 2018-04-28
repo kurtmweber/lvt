@@ -21,48 +21,48 @@
 #include "plant.h"
 
 seedList *insertNewSeedNode(seedList *list, seedList *node){
-  if (list){
-    list->prev = node;
-    node->next = list;
-    node->prev = 0;
-  } else {
-    node->next = 0;
-  }
-  
-  //node->next = list;
-  
-  return node;
+	if (list){
+		list->prev = node;
+		node->next = list;
+		node->prev = 0;
+	} else {
+		node->next = 0;
+	}
+	
+	//node->next = list;
+	
+	return node;
 }
 
 seedList *findSeedListEntry(seedList *list, item *seed){
-  do {
-    if (list->seed == seed){
-      return list;
-    }
-    
-    list = list->next;
-  } while(list);
+	do {
+		if (list->seed == seed){
+			return list;
+		}
+		
+		list = list->next;
+	} while(list);
 }
 
 seedList *removeSeedNode(seedList *list, seedList *node){
-  seedList *prev;
-  seedList *next;  
-
-  if (list == node){
-    list = node->next;
-    if (list){
-      list->prev = 0;
-    }
-  } else {
-    prev = node->prev;
-    next = node->next;
-    if (prev){
-      prev->next = next;
-    }
-    if (next){
-      next->prev = prev;
-    }
-  }
-  
-  return list;
+	seedList *prev;
+	seedList *next;  
+	
+	if (list == node){
+		list = node->next;
+		if (list){
+			list->prev = 0;
+		}
+	} else {
+		prev = node->prev;
+		next = node->next;
+		if (prev){
+			prev->next = next;
+		}
+		if (next){
+			next->prev = prev;
+		}
+	}
+	
+	return list;
 }

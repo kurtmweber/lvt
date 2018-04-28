@@ -23,43 +23,43 @@
 #ifdef _STRINGLOOKUPS_C
 
 const char *speciesNames[] = {
-  "human",
-  "halfling",
-  "elf",
-  "dwarf",
-  "bear",
-  "boar",
-  "deer",
-  "orc",
-  "goblin"
+	"human",
+	"halfling",
+	"elf",
+	"dwarf",
+	"bear",
+	"boar",
+	"deer",
+	"orc",
+	"goblin"
 };
 
 const char *plantSpeciesNames[] = {
-  "blueberry",
-  "blackberry",
-  "strawberry",
-  "raspberry",
-  "fennel",
-  "hibiscus",
-  "linden",
-  "zoysia"
+	"blueberry",
+	"blackberry",
+	"strawberry",
+	"raspberry",
+	"fennel",
+	"hibiscus",
+	"linden",
+	"zoysia"
 };
 
 const char *classNames[] = {
-  "poet",
-  "peacemaker",
-  "paladin",
-  "ranger",
-  "warrior",
-  "merchant",
-  "peasant",
-  "scholar",
-  "beggar",
-  "craftsperson",
-  "meshchanin",
-  "noble",
-  "white cleric",
-  "black cleric"
+	"poet",
+	"peacemaker",
+	"paladin",
+	"ranger",
+	"warrior",
+	"merchant",
+	"peasant",
+	"scholar",
+	"beggar",
+	"craftsperson",
+	"meshchanin",
+	"noble",
+	"white cleric",
+	"black cleric"
 };
 
 #else

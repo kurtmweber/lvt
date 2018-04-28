@@ -19,14 +19,14 @@
 #define _COLORS_H
 
 typedef enum colorPairs{
-  BlackGreen,
-  WhiteBlack,
-  BlueBlack,
-  GreenBlack,
-  RedBlack,
-  MagentaBlack,
-  CyanBlack,
-  BrownBlack
+	BlackGreen,
+	WhiteBlack,
+	BlueBlack,
+	GreenBlack,
+	RedBlack,
+	MagentaBlack,
+	CyanBlack,
+	BrownBlack
 } colorPairs;
 
 #ifndef _COLORS_C

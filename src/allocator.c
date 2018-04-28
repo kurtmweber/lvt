@@ -27,93 +27,93 @@
 #include "plant.h"
 
 item *allocateItem(){
-  item *newItem;
-  
-  newItem = (item *)calloc(1, sizeof(item));
-  
-  return newItem;
+	item *newItem;
+	
+	newItem = (item *)calloc(1, sizeof(item));
+	
+	return newItem;
 }
 
 creatureList *allocateCreatureListEntry(){
-  creatureList *node;
-  
-  node = (creatureList *)calloc(1, sizeof(creatureList));
-  
-  node->creature = (creature *)calloc(1, sizeof(creature));
-  
-  return node;
+	creatureList *node;
+	
+	node = (creatureList *)calloc(1, sizeof(creatureList));
+	
+	node->creature = (creature *)calloc(1, sizeof(creature));
+	
+	return node;
 }
 
 mapSpaceContents *allocateMapSpaceContentsListEntry(){
-  mapSpaceContents *node;
-  
-  node = (mapSpaceContents *)calloc(1, sizeof(mapSpaceContents));
-  
-  return node;
+	mapSpaceContents *node;
+	
+	node = (mapSpaceContents *)calloc(1, sizeof(mapSpaceContents));
+	
+	return node;
 }
 
 plantList *allocatePlantListEntry(){
-  plantList *node;
-  
-  node = (plantList *)calloc(1, sizeof(plantList));
-  
-  node->plant = (plant *)calloc(1, sizeof(plant));
-  
-  return node;
+	plantList *node;
+	
+	node = (plantList *)calloc(1, sizeof(plantList));
+	
+	node->plant = (plant *)calloc(1, sizeof(plant));
+	
+	return node;
 }
 
 seedList *allocateSeedListEntry(){
-  seedList *node;
-  
-  node = (seedList *)calloc(1, sizeof(seedList));
-  
-  node->seed = (item *)calloc(1, sizeof(item));
-  
-  return node;
+	seedList *node;
+	
+	node = (seedList *)calloc(1, sizeof(seedList));
+	
+	node->seed = (item *)calloc(1, sizeof(item));
+	
+	return node;
 }
 
 void freeCreatureListEntry(creatureList *node){
-  if (!node){
-    return;
-  }
-  
-  if (node->creature->name){
-    free(node->creature->name);
-    node->creature->name = 0;
-  }
-  
-  free(node->creature);
-  node->creature = 0;
-  free(node);
-  node = 0;
-  
-  return;
+	if (!node){
+		return;
+	}
+	
+	if (node->creature->name){
+		free(node->creature->name);
+		node->creature->name = 0;
+	}
+	
+	free(node->creature);
+	node->creature = 0;
+	free(node);
+	node = 0;
+	
+	return;
 }
 
 void freeItem(item *item){
-  if (!item){
-    return;
-  }
-  
-  if (item->name){
-    free(item->name);
-  }
-  
-  free(item);
-  
-  return;
+	if (!item){
+		return;
+	}
+	
+	if (item->name){
+		free(item->name);
+	}
+	
+	free(item);
+	
+	return;
 }
 
 void freePlantListEntry(plantList *node){  
-  free(node->plant);
-  free(node);
-  
-  return;
+	free(node->plant);
+	free(node);
+	
+	return;
 }
 
 void freeSeedListEntry(seedList *node){  
-  freeItem(node->seed);
-  free(node);
-  
-  return;
+	freeItem(node->seed);
+	free(node);
+	
+	return;
 }
