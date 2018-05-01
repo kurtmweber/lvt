@@ -14,9 +14,10 @@ lvt_SOURCES	=	allocator.c \
 			faction.c \
 			flooritems.c \
 			game.c \
+			input.c \
 			targeting.c \
 			leveldisp.c levelgen.c main.c pcg_basic.c random.c map.c screen.c \
-			move.c input.c stringlookups.c speciesinfo.c \
+			move.c stringlookups.c speciesinfo.c \
 			util.c messages.c questions.c name.c \
 			item.c look.c itemmgmt.c \
 			inventory.c spawnitem.c throw.c plantgen.c plantlist.c plantmgmt.c plants.c \
@@ -36,6 +37,7 @@ noinst_HEADERS	=	allocator.h \
 			faction.h \
 			flooritems.h \
 			game.h \
+			input.h \
 			levelgen.h \
 			targeting.h \
 			lvt.h level.h pcg_basic.h creature.h messages.h types.h move.h stringlookups.h \

@@ -36,15 +36,6 @@
 #define ISODD(a) ((a) % 2 ? true : false)
 #define ISEVEN(a) ((a) % 2 ? false : true)
 
-#ifndef _INPUT_C
-void doMoveKey(unsigned int c);
-void doOpenDoor(unsigned int c);
-void doSearchDoors(unsigned int c);
-void doStairs(unsigned int c);
-void doLook(unsigned int c);
-#else
-#endif
-
 #ifndef _INVENTORY_C
 void doInventory();
 void doPickup();

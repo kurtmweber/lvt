@@ -4,6 +4,7 @@
 src/*.o
 src/.deps
 src/.deps/*
+src/.*
 .gitignore
 *core*
 src/*core*

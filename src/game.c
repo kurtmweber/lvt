@@ -29,6 +29,7 @@
 #include "creaturemgmt.h"
 #include "creaturemove.h"
 #include "eat.h"
+#include "input.h"
 #include "messages.h"
 
 bool freeAction = false;
